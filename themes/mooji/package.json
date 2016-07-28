@@ -1,0 +1,7 @@
+{
+  "name": "hexo-theme-mooji",
+  "alias": "mooji",
+  "version": "0.0.1",
+  "description": "A theme for Hexo blog framework",
+  "license": "MIT"
+}

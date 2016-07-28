@@ -1,0 +1,22 @@
+<div class="post">
+    <div class="post__inner">
+        <article class="post__mainland">
+            <div class="post__header">
+                <h1 class="post__title"><%= page.title %></h1>
+                <%- partial('_partial/meta', {writeAt: page.date, categories: page.categories}) %>
+            </div>
+            <div class="post__body">
+                <%- partial('_partial/contents', {contents: page.content}) %>
+            </div>
+            <div class="post__footer">
+                <%- partial('_partial/tags', {tags: page.tags}) %>
+            </div>
+        </article>
+        <div class="post__attachment">
+            <% if (page.comments && theme.disqus_shortname) { %>
+                <div id="disqus_thread"></div>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <% } %>
+        </div>
+    </div>
+</div>

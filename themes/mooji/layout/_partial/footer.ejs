@@ -1,0 +1,52 @@
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__sns">
+            <ul class="footer__sns-list">
+                <% if (theme.email) { %>
+                <li class="footer__sns-item">
+                    <a class="footer__sns-link" href="mailto:<%= theme.email %>">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        <span class="blind">Email</span>
+                    </a>
+                </li>
+                <% } %>
+                <% if (theme.twitter) { %>
+                <li class="footer__sns-item">
+                    <a class="footer__sns-link" href="//twitter.com/<%= theme.twitter %>" target="_blank">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                        <span class="blind">Twitter</span>
+                    </a>
+                </li>
+                <% } %>
+                <% if (theme.facebook) { %>
+                <li class="footer__sns-item">
+                    <a class="footer__sns-link" href="//facebook.com/<%= theme.facebook %>" target="_blank">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        <span class="blind">Facebook</span>
+                    </a>
+                </li>
+                <% } %>
+                <% if (theme.github) { %>
+                <li class="footer__sns-item">
+                    <a class="footer__sns-link" href="//github.com/<%= theme.github %>" target="_blank">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        <span class="blind">Github</span>
+                    </a>
+                </li>
+                <% } %>
+                <li class="footer__sns-item">
+                    <a class="footer__sns-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-rss" aria-hidden="true"></i>
+                        <span class="blind">RSS</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer__copyright">
+            <span>
+                Copyright by <a href="mailto:<%= theme.email %>"><%= theme.author %></a>.
+                All rights reserved.
+            </span>
+        </div>
+    </div>
+</footer>

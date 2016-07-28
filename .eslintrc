@@ -1,0 +1,20 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {},
+  "plugins": [],
+  "rules": {
+    "strict": 0,
+    "no-var": 2,
+    "quotes": [2, "single"],
+    "no-unused-vars": [1, { "vars": "all", "args": "after-used"}],
+    "no-underscore-dangle": 0,
+    "no-alert": 0,
+    "dot-notation": [2, {"allowPattern": "^[a-z]+(_[a-z]+)+$"}],
+    "prefer-const": 2,
+    "no-const-assign": 2
+  }
+}

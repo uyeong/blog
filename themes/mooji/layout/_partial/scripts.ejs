@@ -1,0 +1,14 @@
+<% if (post.comments && theme.disqus_shortname) { %>
+    <script>
+        var disqus_config = function () {
+            this.page.url = '<%= post.permalink %>';
+            this.page.identifier = '<%= post.path %>';
+        };
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//<%= theme.disqus_shortname %>.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+<% } %>

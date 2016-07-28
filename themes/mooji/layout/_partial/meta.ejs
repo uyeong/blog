@@ -1,0 +1,20 @@
+<div class="meta">
+    <div class="meta__inner">
+        <div class="meta__datetime">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            <time datetime="<%= writeAt.format() %>">
+                <%= writeAt.format('YYYY.MM.DD') %>
+            </time>
+        </div>
+        <div class="meta__categories">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <% if(categories && categories.length > 0) { %>
+                <%- list_tags(categories, {
+                    show_count: 0,
+                    style: 'list',
+                    class: 'tags__category'
+                }) %>
+            <% } %>
+        </div>
+    </div>
+</div>

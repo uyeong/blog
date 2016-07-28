@@ -1,0 +1,32 @@
+// ------------------------------------- //
+// Style of Post
+// ------------------------------------- //
+
+$module: 'post';
+
+.#{$module} {
+    background: $white;
+    max-width: 806px;
+    margin: 60px auto;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(#151514, .1);
+    overflow: hidden;
+
+    &__inner {
+        position: relative;
+    }
+
+    &__mainland {
+        padding: 140px 160px 120px;
+    }
+
+    &__title {
+        margin-top: 0;
+    }
+
+    &__attachment {
+        background: #f7f7f7;
+        border-top: 1px solid #e7e7e7;
+        padding: 60px 160px 140px;
+    }
+}
