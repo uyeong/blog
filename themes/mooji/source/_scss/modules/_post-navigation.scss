@@ -1,0 +1,31 @@
+// ------------------------------------- //
+// Style of PostNavigation
+// ------------------------------------- //
+
+$module: 'post-navigation';
+
+.#{$module} {
+    &__inner {
+        position: relative;
+    }
+
+    &__prev {
+        float: left;
+    }
+
+    &__next {
+        float: right;
+    }
+
+    &__prev-link,
+    &__next-link {
+        &:hover {
+            text-decoration: none;
+        }
+
+        &.disabled {
+            color: $font-color-disable;
+            cursor: default;
+        }
+    }
+}

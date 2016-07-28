@@ -5,15 +5,19 @@
 $module: 'post';
 
 .#{$module} {
-    background: $white;
-    max-width: 806px;
-    margin: 60px auto;
-    border-radius: 3px;
-    box-shadow: 0 1px 1px rgba(#151514, .1);
-    overflow: hidden;
+    max-width: 940px;
+    margin: 60px auto 18px;
 
     &__inner {
         position: relative;
+    }
+
+    &__body {
+        background: $white;
+        margin-top: $space-square;
+        border-radius: 3px;
+        box-shadow: 0 1px 1px rgba(#151514, .1);
+        overflow: hidden;
     }
 
     &__mainland {
@@ -21,12 +25,50 @@ $module: 'post';
     }
 
     &__title {
-        margin-top: 0;
+        font-size: 2.4rem;
+        margin: 0 0 32px;
+    }
+
+    &__meta {
+        font-size: .875rem;
+        margin: 0 0 46px;
+    }
+
+    &__tags {
+        font-size: .875rem;
+        padding: 10px 0;
+        border-bottom: 1px solid $border-color;
+    }
+
+    &__navigation {
+        padding-top: 14px;
     }
 
     &__attachment {
-        background: #f7f7f7;
-        border-top: 1px solid #e7e7e7;
+        background: #fafafa;
+        border-top: 1px solid $border-color;
         padding: 60px 160px 140px;
+    }
+
+    @include tablet {
+        &__mainland {
+            padding: 90px 100px 80px;
+        }
+
+        &__attachment {
+            padding: 80px 100px 90px;
+        }
+    }
+
+    @include mobile {
+        margin-top: 40px;
+
+        &__mainland {
+            padding: 48px 44px 40px;
+        }
+
+        &__attachment {
+            padding: 40px 44px 48px;
+        }
     }
 }

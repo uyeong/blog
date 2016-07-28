@@ -1,0 +1,34 @@
+<div class="articles">
+    <div class="articles__inner">
+        <% if(page.category || page.tag) { %>
+        <div class="articles__classify">
+            <p>
+                <% if(page.category) { %>
+                <strong>「<%= page.category %>」</strong>로 분류되는 글
+                <% } else { %>
+                <strong>「<%= page.tag %>」</strong>가 태그 돼 있는 글
+                <% } %>
+            </p>
+        </div>
+        <% } %>
+        <ul class="articles__list clear">
+            <% page.posts.each((post) => { %>
+            <li class="articles__item">
+                <article class="articles__contents">
+                    <div class="articles__header">
+                        <h1 class="articles__title">
+                            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+                        </h1>
+                        <div class="articles__meta">
+                            <%- partial('_partial/meta', {writeAt: post.date, categories: post.categories}) %>
+                        </div>
+                    </div>
+                    <div class="articles__body">
+                        <%- partial('_partial/contents', {contents: post.content}) %>
+                    </div>
+                </article>
+            </li>
+            <% }) %>
+        </ul>
+    </div>
+</div>

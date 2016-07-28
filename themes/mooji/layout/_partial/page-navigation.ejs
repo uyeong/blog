@@ -1,0 +1,31 @@
+<nav class="page-navigation">
+    <div class="page-navigation__inner">
+        <div class="page-navigation__prev">
+            <a class="page-navigation__pick" href="#" data-page="prev">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                <span class="blind">이전</span>
+            </a>
+        </div>
+        <% if (total > 0) { %>
+        <ul class="page-navigation__list">
+            <% for (var i = 1, n = total; i <= n; i++) { %>
+            <li class="page-navigation__item">
+                <a class="page-navigation__pick <%= i === current? 'on' : '' %>" href="#" data-page="<%= i %>">
+                    <% if(i === current) { %>
+                    <%= i %><span class="blind">번째 페이지(현재)</span>
+                    <% } else { %>
+                    <%= i %><span class="blind">번째 페이지</span>
+                    <% } %>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+        <% } %>
+        <div class="page-navigation__next">
+            <a class="page-navigation__pick" href="#" data-page="next">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                <span class="blind">다음</span>
+            </a>
+        </div>
+    </div>
+</nav>

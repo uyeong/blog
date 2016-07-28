@@ -1,0 +1,51 @@
+// ------------------------------------- //
+// Style of Meta
+// ------------------------------------- //
+
+$module: 'meta';
+
+.#{$module} {
+    color: $font-color-light;
+
+    &__inner {
+        position: relative;
+    }
+
+    &__datetime,
+    &__categories,
+    &__category-list,
+    &__category-list-item {
+        display: inline-block;
+    }
+
+    &__categories {
+        margin-left: 8px;
+    }
+
+    &__category-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline-block;
+    }
+
+    &__category-list-item {
+        position: relative;
+        margin-right: .5rem;
+
+        &::after {
+            position: absolute;
+            right: -.25rem;
+            bottom: 0;
+            content: ',';
+        }
+
+        &:last-child::after {
+            content: '';
+        }
+    }
+
+    &__category-list-link {
+        color: $font-color-light;
+    }
+}

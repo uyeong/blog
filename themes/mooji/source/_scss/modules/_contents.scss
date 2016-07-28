@@ -1,0 +1,144 @@
+// ------------------------------------- //
+// Style of Contents
+// ------------------------------------- //
+
+$module: 'contents';
+
+.#{$module} {
+    font-weight: normal;
+    line-height: 1.625rem;
+
+    &__inner {
+        position: relative;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    figure,
+    blockquote,
+    ul,
+    ol,
+    [class*=language] {
+        margin: 0 0 1.5rem;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 600;
+        padding: 1rem 0 0;
+    }
+
+    h2 {
+        font-size: 1.625rem;
+    }
+
+    h3 {
+        font-size: 1.375rem;
+    }
+
+    h4 {
+        font-size: 1.125rem;
+    }
+
+    h5 {
+        font-size: 1rem;
+    }
+
+    h6 {
+        font-size: .875rem;
+    }
+
+    p {
+        padding: 0;
+    }
+
+    figure {
+        line-height: 0;
+        font-size: 0;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        color: $gray-light;
+
+        img {
+            max-width: 100%;
+            border-radius: 3px;
+        }
+
+        figcaption {
+            text-align: center;
+            line-height: 1.875rem;
+            font-size: .875rem;
+        }
+    }
+
+    blockquote {
+        border-left: 4px solid $gray-lighter;
+        padding-left: 20px;
+        color: lighten($gray, 32%);
+    }
+
+    ul,
+    ol {
+        border-radius: 3px;
+        border: 1px solid $border-color;
+        list-style: none;
+        padding: 0 20px;
+        color: lighten($gray, 32%);
+        box-sizing: border-box;
+
+        li {
+            font-size: .875rem;
+            padding: 10px 0 10px 24px;
+            border-bottom: 1px solid $border-color;
+            box-sizing: inherit;
+        }
+
+        li:last-child {
+            border-bottom: 0;
+        }
+
+        li::before {
+            float: left;
+            vertical-align: middle;
+            font-size: .875rem;
+            margin-left: -24px;
+            content: '\f00c';
+            font-family: FontAwesome;
+        }
+    }
+
+    ol {
+        counter-reset: ol-counter;
+
+        li::before {
+            content: counter(ol-counter) '.';
+            counter-increment: ol-counter;
+        }
+    }
+
+    code {
+        padding: .0625rem .25rem;
+        background: $gray-lighter;
+        border: 1px solid darken($gray-lighter, 6%);
+        border-radius: 3px;
+    }
+
+    [class*=language] {
+        font-size: .9375rem;
+        margin: 0 0 1.5rem;
+
+        code {
+            background: transparent;
+            border: 0;
+            padding: 0;
+            border-radius: 0;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+// ------------------------------------- //
+// Style of Home
+// ------------------------------------- //
+
+$module: 'home';
+
+.#{$module} {
+    max-width: 940px;
+    margin: 60px auto 18px;
+
+    &__inner {
+        position: relative;
+    }
+
+    &__navigation {
+        margin-top: $space-default;
+    }
+
+    @include mobile {
+        margin-top: 40px;
+    }
+}

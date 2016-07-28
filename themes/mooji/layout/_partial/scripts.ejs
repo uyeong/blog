@@ -12,3 +12,35 @@
         })();
     </script>
 <% } %>
+<% if (theme.google_analytics) { %>
+<script>
+    var _gaq = _gaq || [];
+
+    _gaq.push(['_setAccount', '<%= theme.google_analytics%>']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+<% } %>
+<%- js('//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js') %>
+<%- js('//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.slim.min.js') %>
+<%- js('//cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js') %>
+<%- js('//cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-css.min.js') %>
+<%- js('//cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-javascript.min.js') %>
+<%- js('//cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-jsx.min.js') %>
+<%- js('//cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"') %>
+<script>
+    Prism.plugins.NormalizeWhitespace.setDefaults({
+        'remove-trailing': true,
+        'remove-indent': true,
+        'left-trim': true,
+        'right-trim': true,
+        'remove-initial-line-feed': true
+    });
+</script>
+<%- source_path('js') %>

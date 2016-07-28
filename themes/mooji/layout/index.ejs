@@ -1,0 +1,13 @@
+<div class="home">
+    <div class="home__inner">
+        <div class="home__header">
+            <%- partial('_partial/header') %>
+        </div>
+        <section class="home__articles">
+            <%- partial('_partial/articles') %>
+        </section>
+        <div class="home__navigation">
+            <%- partial('_partial/page-navigation', {total: page.total, current: page.current}) %>
+        </div>
+    </div>
+</div>

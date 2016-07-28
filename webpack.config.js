@@ -6,7 +6,7 @@ const themePkg = require('./themes/mooji/package.json');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const filename = `${themePkg.alias}-${themePkg.version}${!isDevelopment ? '.min' : ''}`;
 const plugins = [];
-const entryList = ['index', 'post', 'archive'];
+const entryList = ['index', 'post', 'tag', 'category', 'archive'];
 const entryConfig = entryList.reduce((n, e) => (n[e] = `./themes/mooji/source/_js/${e}`) && n, {});
 
 if (!isDevelopment) {

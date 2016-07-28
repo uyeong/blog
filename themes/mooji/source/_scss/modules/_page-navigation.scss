@@ -1,0 +1,56 @@
+// ------------------------------------- //
+// Style of PageNavigation
+// ------------------------------------- //
+
+$module: 'page-navigation';
+
+.#{$module} {
+    font-size: 0;
+    font-weight: 100;
+    text-align: center;
+
+    &__inner {
+        position: relative;
+    }
+
+    &__list {
+        display: inline-block;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__prev,
+    &__next,
+    &__item {
+        display: inline-block;
+        font-size: 1.125rem;
+        margin-left: 4px;
+
+        a {
+            display: inline-block;
+            width: 1.625rem;
+            line-height: 1.625rem;
+        }
+    }
+
+    &__prev.disabled a ,
+    &__next.disabled a {
+        color: $font-color-disable;
+        cursor: default;
+    }
+
+    &__item &__pick {
+        border-radius: 50%;
+
+        &:hover {
+            background: lighten($gray-light, 34%);
+            text-decoration: none;
+        }
+
+        &.on {
+            background: $mint-light;
+            color: $white;
+        }
+    }
+}

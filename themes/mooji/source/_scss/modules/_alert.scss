@@ -1,0 +1,55 @@
+// ------------------------------------- //
+// Style of Alert
+// ------------------------------------- //
+
+$module: 'alert';
+
+.#{$module} {
+    border-radius: 3px;
+    margin: 0 0 1.25rem;
+    line-height: 1.5rem;
+
+    &--info {
+        background: lighten($aqua-light, 25%);
+        border: 1px solid lighten($aqua-light, 20%);
+        color: darken($aqua, 17%);
+    }
+
+    &--success {
+        background: lighten($mint-light, 25%);
+        border: 1px solid lighten($mint-light, 20%);
+        color: darken($mint, 17%);
+    }
+
+    &--warning {
+        background: lighten($grapefruit-light, 25%);
+        border: 1px solid lighten($grapefruit-light, 20%);
+        color: $grapefruit;
+    }
+
+    &__inner {
+        position: relative;
+    }
+
+    &__title {
+        padding: 10px 10px 8px;
+    }
+
+    &__body {
+        padding: 0 10px;
+    }
+
+    p {
+        padding: 0 !important;
+        margin-bottom: 10px !important;
+    }
+
+    pre {
+        margin: 0 0 10px !important;
+        padding: 10px;
+    }
+
+    [class*=language] {
+        font-size: .875rem;
+    }
+}

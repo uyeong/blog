@@ -1,0 +1,47 @@
+// ------------------------------------- //
+// Style of Header
+// ------------------------------------- //
+
+$module: 'header';
+
+.#{$module} {
+    width: 100%;
+
+    &__inner {
+        position: relative;
+    }
+
+    &__brand {
+        display: table;
+        position: relative;
+        float: left;
+    }
+
+    &__profile,
+    &__titles {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    &__profile {
+        font-size: 0;
+        padding-right: 14px;
+    }
+
+    &__picture {
+        width: 42px;
+        height: 42px;
+        border-radius: 42px;
+    }
+
+    &__title {
+        font-size: .875rem;
+        margin: 0;
+    }
+
+    &__subtitle {
+        font-size: .75rem;
+        margin: 0;
+        padding-top: .375rem;
+    }
+}

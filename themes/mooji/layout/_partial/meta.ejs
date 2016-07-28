@@ -1,5 +1,5 @@
 <div class="meta">
-    <div class="meta__inner">
+    <div class="meta__inner ellipsis">
         <div class="meta__datetime">
             <i class="fa fa-clock-o" aria-hidden="true"></i>
             <time datetime="<%= writeAt.format() %>">
@@ -12,7 +12,7 @@
                 <%- list_tags(categories, {
                     show_count: 0,
                     style: 'list',
-                    class: 'tags__category'
+                    class: 'meta__category'
                 }) %>
             <% } %>
         </div>

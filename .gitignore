@@ -165,7 +165,9 @@ fabric.properties
 ### Project files.
 source/assets
 db.json
+public/atom.xml
 public/index.html
+public/2015/*
 public/2016/*
 public/archives/*
 public/categories/*
