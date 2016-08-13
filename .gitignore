@@ -164,6 +164,7 @@ fabric.properties
 
 ### Project files.
 source/assets
+.deplay_git
 db.json
 public/atom.xml
 public/index.html
