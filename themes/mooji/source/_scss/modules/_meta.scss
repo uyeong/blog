@@ -15,7 +15,7 @@ $module: 'meta';
     &__categories,
     &__category-list,
     &__category-list-item {
-        display: inline-block;
+        display: inline;
     }
 
     &__categories {
@@ -26,7 +26,6 @@ $module: 'meta';
         margin: 0;
         padding: 0;
         list-style: none;
-        display: inline-block;
     }
 
     &__category-list-item {
