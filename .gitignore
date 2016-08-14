@@ -166,13 +166,6 @@ fabric.properties
 source/assets
 .deplay_git
 db.json
-public/atom.xml
-public/index.html
-public/2015/*
-public/2016/*
-public/archives/*
-public/categories/*
-public/tags/*
-public/assets/*
-!public/assets/img
-themes/mooji/source/assets
+public
+themes/mooji/source/assets/*
+!themes/mooji/source/assets/img

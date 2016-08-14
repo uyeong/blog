@@ -10,7 +10,7 @@
     "lint": "scss-lint -c .scss-lint.yml && eslint ./themes/mooji/source/_js/**",
     "watch": "npm run lint && webpack --watch",
     "build:source": "npm run lint && webpack",
-    "build:public": "hexo generate",
+    "build:public": "hexo clean && hexo generate",
     "build": "npm run build:source && npm run build:public",
     "deploy": "NODE_ENV=production && npm run build && hexo deploy",
     "server": "hexo server"
