@@ -5,11 +5,19 @@
 $module: 'contents';
 
 .#{$module} {
-    font-weight: normal;
     line-height: 1.625rem;
 
     &__inner {
         position: relative;
+    }
+
+    a {
+        color: lighten($bluejeans-light, 5%);
+    }
+
+    a:hover,
+    a:active {
+        color: $bluejeans;
     }
 
     h2,
@@ -81,7 +89,11 @@ $module: 'contents';
     blockquote {
         border-left: 4px solid $gray-lighter;
         padding-left: 20px;
-        color: lighten($gray, 32%);
+        color: lighten($gray, 28%);
+
+        a {
+            color: lighten($bluejeans-light, 9%);
+        }
     }
 
     ul,
