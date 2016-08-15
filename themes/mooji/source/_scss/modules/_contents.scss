@@ -12,12 +12,12 @@ $module: 'contents';
     }
 
     a {
-        color: lighten($bluejeans-light, 5%);
+        color: $mint-light;
     }
 
     a:hover,
     a:active {
-        color: $bluejeans;
+        color: $mint;
     }
 
     h2,
@@ -93,7 +93,7 @@ $module: 'contents';
         color: lighten($gray, 28%);
 
         a {
-            color: lighten($bluejeans-light, 9%);
+            color: lighten($mint-light, 5%);
         }
     }
 
