@@ -12,7 +12,7 @@
     "build:source": "npm run lint && webpack",
     "build:public": "hexo clean && hexo generate",
     "build": "npm run build:source && npm run build:public",
-    "deploy": "NODE_ENV=production && npm run build && hexo deploy",
+    "deploy": "rm -rf ./public/assets ./themes/mooji/source/assets/{css,fonts,js} && NODE_ENV=production && npm run build && hexo deploy",
     "server": "hexo server"
   },
   "devDependencies": {
