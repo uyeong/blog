@@ -103,14 +103,16 @@ $module: 'contents';
         border: 1px solid $border-color;
         list-style: none;
         padding: 0 20px;
-        color: lighten($gray, 32%);
+        color: lighten($gray, 40%);
         box-sizing: border-box;
+        font-size: .875rem;
+        line-height: 1.5rem;
 
         li {
-            font-size: .875rem;
             padding: 10px 0 10px 24px;
             border-bottom: 1px solid $border-color;
             box-sizing: inherit;
+            word-wrap: break-word;
         }
 
         li:last-child {
