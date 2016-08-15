@@ -13,15 +13,15 @@ tags:
 
 나이트왓치를 소개하기 전에 E2E 테스트의 정의부터 셀레니움 웹드라이버 등 기본 개념부터 간단히 소개하겠다.
 
-# E2E 테스트
+## E2E 테스트
 
-## 정의
+### 정의
 
-소프트웨어 테스트는 [테스트의 규모(레벨)](https://en.wikipedia.org/wiki/Software_testing#Testing_levels)에 따라 유닛 테스트, 통합 테스트, 시스템 테스트, 인수 테스트 이렇게 4가지로 분류한다. 여기에서 E2E 테스트는 시스템 테스트에 속한다. 
+소프트웨어 테스트는 [테스트의 규모(레벨)](https://en.wikipedia.org/wiki/Software_testing##Testing_levels)에 따라 유닛 테스트, 통합 테스트, 시스템 테스트, 인수 테스트 이렇게 4가지로 분류한다. 여기에서 E2E 테스트는 시스템 테스트에 속한다. 
 
 E2E(End-to-End) 테스트는 전체 시스템이 제대로 작동하는지 확인 하기 위한 테스트로 시나리오 테스트, 기능 테스트, 통합 테스트, GUI 테스트를 하는데 사용한다. API와의 연동도 테스트 항목에 포함되기 때문에 일반적으로 목(Mock)이나 스텁(Stub)과 같은 테스트 더블을 사용하지 않으며 최대한 실제 시스템을 사용하는 사용자 관점에서 시뮬레이션 한다. 그래서 테스트 속도가 서비스 규모에 따라 상당히 느릴 수 있기 때문에 유닛 테스트나 기능 테스트를 위한 일반적인 테스트 자동화와 시스템 테스트를 위한 E2E 테스트 자동화를 함께 구성한다.
 
-## E2E 테스트 프레임워크
+### E2E 테스트 프레임워크
 
 E2E 테스트 프레임워크는 다양한 종류가 있는데, 크게 헤드리스 브라우저를 의존하는 것과 셀레니움 웹드라이버를 의존하는 것으로 나눌 수 있다. 셀레니움 웹드라이버는 다음 절에서 자세히 설명한다.
 
@@ -29,7 +29,7 @@ E2E 테스트 프레임워크는 다양한 종류가 있는데, 크게 헤드리
 
 셀레니움 웹드라이버를 의존하는 프레임워크로는 [webdriver.io](http://webdriver.io/), [큐컴버(Cucumber.js)](https://github.com/cucumber/cucumber-js), [프로트랙터](https://github.com/angular/protractor), [나이트왓치](nightwatchjs.org) 등이 있다. 이들은 크로스 브라우징 테스트가 가능하고 어썰트도 내장하고 있다. 단, 각 프레임워크 마다 내장하고 있는 어썰트 라이브러리는 다르다.
 
-## 셀레니움 웹드라이버
+### 셀레니움 웹드라이버
 
 나이트왓치는 셀레니움 웹드라이버(Selenium WebDriver) API를 사용해 개발된 E2E 테스트 프레임워크이기 때문에 본격적으로 사용해보기 전에 셀레니움과 웹드라이버를 먼저 이해할 필요가 있다.
 
@@ -53,19 +53,19 @@ E2E 테스트 프레임워크는 다양한 종류가 있는데, 크게 헤드리
 
 그림 2를 보면 알 수 있듯이 웹드라이버는 다양한 브라우저와 환경을 대응해야하는데, 브라우저마다 이를 위한 API가 다를 경우 또 다른 문제가 발생할 수 있기 때문에 현재 표준화를 제정([W3C WebDriver](https://www.w3.org/TR/webdriver/)) 중이다.
 
-현재 셀레니움 웹드라이버는 파이썬, 루비, 자바, C# 그리고 Node.js를 이용해 웹브라우저는 조작할 수 있도록 다양한 API를 제공하고 있다. 하지만 셀레니움 서버와 자바스크립트의 궁합이 좋지 않고, 돔을 조작 하거나 셀렉팅하는데 한계가 있어 셀레니움 웹드라이버와 노드를 바인딩하여 다양한 기능을 제공하는 여러가지 형태의 프로젝트가 생겨났다. 그 중 유명한 프로젝트가 바로 webdriver.io와 나이트왓치 그리고 앵귤러 프로젝트를 위한 프로트랙터다.
+현재 셀레니움 웹드라이버는 파이썬, 루비, 자바, C## 그리고 Node.js를 이용해 웹브라우저는 조작할 수 있도록 다양한 API를 제공하고 있다. 하지만 셀레니움 서버와 자바스크립트의 궁합이 좋지 않고, 돔을 조작 하거나 셀렉팅하는데 한계가 있어 셀레니움 웹드라이버와 노드를 바인딩하여 다양한 기능을 제공하는 여러가지 형태의 프로젝트가 생겨났다. 그 중 유명한 프로젝트가 바로 webdriver.io와 나이트왓치 그리고 앵귤러 프로젝트를 위한 프로트랙터다.
 
 이들 도구는 웹드라이버 API를 사용할 때 생기는 다양한 패턴을 추상화한 API와 신택스 슈가 등을 제공해 셀레니움 2.0 보더 더 편리하고 다양한 경험을 제공한다.
 
-# 나이트왓치
+## 나이트왓치
 
 나이트왓치는 노드 기반의 E2E 테스트 프레임워크다. 셀레니움 웹드라이버를 중개하여 각종 브라우저를 조작하고 동작이 기대한 것과 일치하는지 테스트하는데 사용한다. CSS 셀렉터로 엘리먼트를 셀렉팅하여 테스트를 작성할 수 있도록 하는 기능과 신텍스 슈가 그리고 단순하고 간결한 문법을 제공한다. 또한 테스트 러너를 포함하고 있으므로 독자적으로 그룹화한 테스트를 한번에 실행할 수 있으며 지속적인 통합의 파이프 라인과 합칠 수 있다는 특징을 가지고 있다.
 
 나이트왓치를 알게 된건 나보다 먼저 E2E 테스트를 리서치하고 관련 도구를 찾고있던 훈민이형(개발왕 김코딩, [블로그](http://huns.me/)) 덕분이었다. 미리 삽질을 하고 계셨기 때문에 다른 도구를 선택하기 보다 같이 삽질하는 편이 고민할 시간도 적어서 큰 고민 없이 사용했다.
 
-## 설치하기
+### 설치하기
 
-나이트왓치 설치는 개발자 가이드 [Getting Started](http://nightwatchjs.org/guide#installation) 절에 잘 설명돼 있다. 이 문서에는 간단하게 요약해 설치 과정을 설명한다. 우선 NPM을 이용해 설치한다.
+나이트왓치 설치는 개발자 가이드 [Getting Started](http://nightwatchjs.org/guide##installation) 절에 잘 설명돼 있다. 이 문서에는 간단하게 요약해 설치 과정을 설명한다. 우선 NPM을 이용해 설치한다.
 
 {% prism base "
 $ npm install --save-dev nightwatch
@@ -73,7 +73,7 @@ $ npm install --save-dev nightwatch
 
 웹드라이버로 브라우저와 통신하기 위해서는 셀레니움 서버를 실행시켜야한다. [셀레니움 서버 다운로드 사이트](http://selenium-release.storage.googleapis.com/index.html)에서 파일을 다운 받고 아래와 같이 서버를 실행한다. 이 글을 작성하는 현재 기준 가장 최신 버전은 2.53.0 이다.
 
-프로젝트 디렉터리에서 nightwatch.json을 생성하고 다음과 같이 작성한다. 옵션의 자세한 설명은 개발자 가이드 [Configuration](http://nightwatchjs.org/guide#settings-file) 절을 참고한다.
+프로젝트 디렉터리에서 nightwatch.json을 생성하고 다음과 같이 작성한다. 옵션의 자세한 설명은 개발자 가이드 [Configuration](http://nightwatchjs.org/guide##settings-file) 절을 참고한다.
 
 {% prism js '
 {
@@ -126,7 +126,7 @@ module.exports = {
             .waitForElementVisible('body', 1000)
             .setValue('input[type=text]', 'nightwatch')
             .pause(1000)
-            .assert.containsText('#sbtc', 'nightwatch')
+            .assert.containsText('##sbtc', 'nightwatch')
             .end();
     }
 };
@@ -138,7 +138,7 @@ module.exports = {
 $ ./node_modules/nightwatch/bin/nightwatch
 " %}
 
-하지만 현재 파이어폭스 버전 47에 문제가 있어 테스트가 실행되지 않을것이다. 파이어폭스에서 테스트 하고 싶다면 예전 버전([Install an older version of Firefox](https://support.mozilla.org/en-US/kb/install-older-version-of-firefox))으로 다운그레이드 하거나 GeckoDriver를 사용해야한다([Setting up the Marionette executable](https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver#Setting_up_the_Marionette_executable)). 여기에서는 GeckoDriver를 이용하는 방법을 소개(OSX 기준)하겠다.
+하지만 현재 파이어폭스 버전 47에 문제가 있어 테스트가 실행되지 않을것이다. 파이어폭스에서 테스트 하고 싶다면 예전 버전([Install an older version of Firefox](https://support.mozilla.org/en-US/kb/install-older-version-of-firefox))으로 다운그레이드 하거나 GeckoDriver를 사용해야한다([Setting up the Marionette executable](https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver##Setting_up_the_Marionette_executable)). 여기에서는 GeckoDriver를 이용하는 방법을 소개(OSX 기준)하겠다.
 
 먼저 [mozilla/geckodriver](https://github.com/mozilla/geckodriver/releases)에서  GeckoDriver를 다운로드한다.
 
@@ -163,7 +163,7 @@ $ vim ~/.zshrc
 	GECKO_DRIVER=$HOME/Downloads/executable
 	export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$GECKO_DRIVER:$PATH
 
-# rc파일을 다시 불러온다.
+## rc파일을 다시 불러온다.
 $ source ~/.zshrc
 " %}
 
@@ -182,7 +182,7 @@ $ source ~/.zshrc
 
 {% figure e2e_and_nightwatch.03.png '데모 테스트 실행 결과' '그림 3. 데모 테스트 실행 결과' %}
 
-## 여러 브라우저에서 동시에 테스트하기 
+### 여러 브라우저에서 동시에 테스트하기 
 
 현재 작성한 설정 파일로 나이트왓치를 실행하면 파이어폭스에서만 테스트가 진행된다. 이번엔 크롬 브라우저에서도 테스트가 진행되도록 설정을 변경하겠다. 크롬 브라우저는 셀레니움과 통신할 웹드라이버를 별도로 설치해야하는데 웹드라이버 매니저를 사용하면 쉽게 설치할 수 있다. 아래 명령어로 웹드라이버 매니저를 설치한다.
 
@@ -259,11 +259,11 @@ $ ./node_modules/nightwatch/bin/nightwatch --env firefox,chrome
 
 {% figure e2e_and_nightwatch.04.png '사파리의 웹드라이버 확장프로그램' '그림 4. 사파리의 웹드라이버 확장프로그램' %}
 
-## 모카 사용하기
+### 모카 사용하기
 
-이번엔 테스트 코드를 모카 기반으로 작성할 수 있는 환경을 만들어보겠다. 나이트왓치는 어썰트로 챠이(chai)를 내장하고 있지만 모카는 별도로 설정해 사용해야한다. 모카를 설정하는 자세한 내용은 개발자 가이드 [Using Mocha](http://nightwatchjs.org/guide#using-mocha) 절을 참고한다. 모카를 굳이 사용하려는 이유는 JUnit XML로 리포팅 하는 기본 러너와는 달리 다양하고 보기 쉬운 리포팅을 지원하기 때문이다.
+이번엔 테스트 코드를 모카 기반으로 작성할 수 있는 환경을 만들어보겠다. 나이트왓치는 어썰트로 챠이(chai)를 내장하고 있지만 모카는 별도로 설정해 사용해야한다. 모카를 설정하는 자세한 내용은 개발자 가이드 [Using Mocha](http://nightwatchjs.org/guide##using-mocha) 절을 참고한다. 모카를 굳이 사용하려는 이유는 JUnit XML로 리포팅 하는 기본 러너와는 달리 다양하고 보기 쉬운 리포팅을 지원하기 때문이다.
 
-먼저 nightwatch.json 파일에 다음과 같이 test_runner 속성을 추가한다. 옵션에 관한 자세한 설명은 모카 위키의 [Set options](https://github.com/mochajs/mocha/wiki/Using-mocha-programmatically#set-options) 절을 참고한다.
+먼저 nightwatch.json 파일에 다음과 같이 test_runner 속성을 추가한다. 옵션에 관한 자세한 설명은 모카 위키의 [Set options](https://github.com/mochajs/mocha/wiki/Using-mocha-programmatically##set-options) 절을 참고한다.
 
 {% prism js '
 {
@@ -291,14 +291,14 @@ describe('구글 메인 페이지', function() {
         done();
     });
  
-    describe('#사용자는 검색할 수 있다.', function() {
+    describe('##사용자는 검색할 수 있다.', function() {
         it('사용자는 검색어를 입력 후 자동 완성된 리스트를 볼 수 있다.', function(client, done) {
             client
                 .url('http://www.google.com')
                 .waitForElementVisible('body', 1000)
                 .setValue('input[type=text]', 'nightwatch')
                 .pause(1000)
-                .assert.containsText('#sbtc', 'nightwatch')
+                .assert.containsText('##sbtc', 'nightwatch')
                 .end(done);
         });
     });
@@ -309,7 +309,7 @@ describe('구글 메인 페이지', function() {
 
 {% figure e2e_and_nightwatch.05.png '모카 테스트 실행 결과' '그림 5. 모카 테스트 실행 결과' %}
 
-## 브라우저 스택 
+### 브라우저 스택 
 
 크로스 브라우징 테스트를 할 수 있도록 해주는 웹 서비스인 브라우저 스택은 다양한 플랫폼과 웹 브라우저를 지원한다. 또한, 셀레니움 서버도 제공하고 있는데 이를 이용하면 나이트왓치와 연동해 테스트를 자동화할 수 있다.
 
@@ -356,17 +356,17 @@ $ ./node_modules/nightwatch/bin/nightwatch --config browserstack.json
 
 다양한 플랫폼과 브라우저에서 E2E 테스트를 할 수 있다는 점은 큰 장점이지만 통신이나 테스트를 구동하는 속도가 아주 느리다. 따라서 테스트 배치 혹은 정기 배포 전에만 사용하기 적합해 보인다.
 
-## 웹스톰 디버깅
+### 웹스톰 디버깅
 
 웹스톰에서 노드 디버깅 도구를 사용해 나이트왓치를 디버깅할 수 있다. 자세한 내용은 Debugging [Nightwatch tests in WebStorm](https://github.com/nightwatchjs/nightwatch/wiki/Debugging-Nightwatch-tests-in-WebStorm)을 참고한다. 다만, 파이프라인 방식이다 보니 브레이크 포인트를 활용한 디버깅이 다소 무의미한 느낌은 있다.
 
-# 끝으로
+## 끝으로
 
-여기까지 다양한 사전 지식을 설명하고 나이트왓치에 관해서 이해해봤다. E2E 테스트 특성 상 프로젝트 저장소에 테스트를 작성하고 유지하기 보단 별도의 E2E 테스트 저장소를 만들어 테스트를 작성하고 유지하는게 더 효율적이지 않을까 생각한다. 또, 나이트왓치에는 [페이지 오브젝트](http://nightwatchjs.org/guide#page-objects), [커스텀 커맨드](http://nightwatchjs.org/guide#extending) 등 테스트를 작성할 때 유용한 개념을 제공한다. 이 두 개념을 적절히 잘 사용하면 생각보다 더 관리하기 쉬운 테스트 코드를 작성할 수 있다. 
+여기까지 다양한 사전 지식을 설명하고 나이트왓치에 관해서 이해해봤다. E2E 테스트 특성 상 프로젝트 저장소에 테스트를 작성하고 유지하기 보단 별도의 E2E 테스트 저장소를 만들어 테스트를 작성하고 유지하는게 더 효율적이지 않을까 생각한다. 또, 나이트왓치에는 [페이지 오브젝트](http://nightwatchjs.org/guide##page-objects), [커스텀 커맨드](http://nightwatchjs.org/guide##extending) 등 테스트를 작성할 때 유용한 개념을 제공한다. 이 두 개념을 적절히 잘 사용하면 생각보다 더 관리하기 쉬운 테스트 코드를 작성할 수 있다. 
 
 위에서 진행한 설치 및 설정 과정은 [UYEONG/hello-nightwatch](https://github.com/UYEONG/hello-nightwatch)에 올려놓았으니 참고하길 바란다.
 
-# 참고
+## 참고
 
  * http://docs.seleniumhq.org/about/history.jsp
  * http://google-opensource.blogspot.kr/2009/05/introducing-webdriver.html
