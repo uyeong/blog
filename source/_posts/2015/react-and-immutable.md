@@ -102,8 +102,8 @@ todos 모델 객체에서 관리하는 todo 객체와 prop 속성으로 전달�
 // todoItem.js
 shouldComponentUpdate(nextProps, nextState) {
   return (
-    nextProps.todo.label() !== this.props.label() ||
-    nextProps.todo.completed() !== this.props.completed() ||
+    nextProps.todo.label() !== this.props.todo.label() ||
+    nextProps.todo.completed() !== this.props.todo.completed() ||
     nextState.label !== this.state.label
   );
 }
