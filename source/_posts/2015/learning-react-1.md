@@ -1,7 +1,7 @@
 ---
 title: React.js를 이해하다(1)
 description: 일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 첫 편입니다.
-date : 2015-08-16
+date : 2015-06-23
 category: JavaScript
 tags:
     - JavaScript
@@ -9,13 +9,13 @@ tags:
 
 ---
 
-## React.js 란?
-
 {% alert info '읽기전에...' '
 이 문서는 [koba04](http://qiita.com/koba04)님이 작성한 [React.js Advent Calendar](http://qiita.com/advent-calendar/2014/reactjs)를 번역한 것입니다. 본래 원문서는 캘린더 형식으로 소개하지만 여기에서는 회를 나눠 작성할 생각입니다. 또한, React 버전 0.12.1 때 작성된 문서이기 때문에 현 버전과 다른 점이 있을 수 있습니다. 최대한 다른 부분을 노트로 작성할 생각이지만, 만약 생략된 부분이 있다면 댓글로 알려주시면 감사하겠습니다.
 ' %}
 
 올해(2014년) 들어 갑자기 대세가 된 듯한 React.js 지만, "조금 전까지만 해도 Angular.js가 대세라고 하더니!"라며 혼란스러워하는 사람도 많을 거라 생각해서 Advent Calendar 형식으로 간단히 소개하고자 합니다. React.js에서 중요한 개념인 VIRTUAL DOM(가상돔) 별도의 [Adevent Calendar](http://qiita.com/advent-calendar/2014/virtual-dom)에 작성돼 있으니 꼭 봐주시길 바랍니다.
+
+## React.js 란?
 
 왜 이 라이브러리가 뜨거운 감자가 됐는지는 솔직히 잘 모르겠지만, 필자는 개인적으로는 Github의 atom에서 성능 향상의 이유로 React.js를 사용하기로 했다는 기사([Moving Atom To React](http://blog.atom.io/2014/07/02/moving-atom-to-react.html))를 보고 흥미를 갖게 됐습니다. React.js는 Facebook이 만들고 있는 이른바 MVC 프레임워크에서의 뷰 부분을 컴포넌트로 만들기 위한 라이브러리입니다. Handlebars 같은 템플릿 엔진이 아닙니다. Facebook은 물론 instagram, AirBnb, Yahoo, Atlassian 등 여러 곳에서 사용하고 있습니다.
 
@@ -78,12 +78,12 @@ var React = require('react');
 var Hello = React.createClass({
   render: function() {
     return (
-      &lt;div className=\"container\">Hello {this.props.name}&lt;/div>
+      <div className=\"container\">Hello {this.props.name}</div>
     );
   }
 });
 
-React.render(&lt;Hello name=\"React\" />, document.getElementById(\"app\"));
+React.render(<Hello name=\"React\" />, document.getElementById(\"app\"));
 " %} 
 
 위 코드를 브라우저에서 실행하면 당연히 에러가 발생합니다. 따라서 [react-tools](https://www.npmjs.com/package/react-tools)를 사용하여 사전에 컴파일하거나 [JSXTransformer](http://dragon.ak.fbcdn.net/hphotos-ak-xfp1/t39.3284-6/10734305_1719965068228170_722481775_n.js)를 불러와야 합니다. 또한, browserify와 reactify를 조합해 사용하는 변환 방법도 있습니다. 참고로 말씀드리면 div(division)은 흔히 우리가 생각하는 HTML 태그가 아니라 React의 컴포넌트입니다.
@@ -97,7 +97,7 @@ JSX의 transform에는 harmoney 옵션이 있습니다. 이 옵션을 켜면 ES6
 
 {% prism jsx "
 var items = this.props.items.map((item) => {
-  return &lt;div>{item.name}&lt;/div>;
+  return <div>{item.name}</div>;
 });
 " %} 
 
@@ -119,7 +119,7 @@ var Hello = React.createClass({
 })
 
 React.render(
-  React.createFactory(Hello)({name: 'React'}), document.getElementById("app")
+  React.createFactory(Hello)({name: 'React'}), document.getElementById(\"app\")
 );
 " %} 
 
@@ -135,7 +135,7 @@ React.render(
 var Hello = React.createClass({
   render: function() {
     return (
-      &lt;div>Hello {this.props.name}&lt;/div>
+      <div>Hello {this.props.name}</div>
     );
   }
 });
@@ -204,10 +204,10 @@ var Items = React.createClass({
     return `${item.name}:${item.count}`;
   },
   render() {
-    var items = this.props.items.map(item => &lt;span>{this.itemName(item)}&lt;/span>);
+    var items = this.props.items.map(item => <span>{this.itemName(item)}</span>);
 
     return (
-      &lt;div>{items}&lt;/div>
+      <div>{items}</div>
     );
   }
 });
@@ -232,45 +232,45 @@ React.js를 처음 접하면 JSX라는 불가사의한 언어를 사용할 필�
 
 ### render
 
-컴포넌트는 `React.createClass()`에 render 메서드를 가진 리터럴 객체를 전달해 작성할 수 있습니다.
+컴포넌트는 React.createClass()에 render 메서드를 가진 리터럴 객체를 전달해 작성할 수 있습니다.
 
 {% prism jsx "
 var Hello = React.createClass({
   render() {
     return (
-      &lt;div>&lt;span>hello&lt;/span>&lt;/div>
+      <div><span>hello</span></div>
     )
   }
 });
 " %}
 
-그러면서 `render()`는 컴포넌트를 하나만 반환해야 합니다. 아래 처럼 복수의 컴포넌트를 반환할 수 없습니다.
+그러면서 render()는 컴포넌트를 하나만 반환해야 합니다. 아래 처럼 복수의 컴포넌트를 반환할 수 없습니다.
 
 {% prism jsx "
 // NO
 render() {
    return (
-     &lt;div>title&lt;/div>
-     &lt;div>contents&lt;/div>
+     <div>title</div>
+     <div>contents</div>
    );
 }
  
 // OK
 render() {
   return (
-    &lt;div>
-      &lt;div>title&lt;/div>
-      &lt;div>contents&lt;/div>
-    &lt;/div>
+    <div>
+      <div>title</div>
+      <div>contents</div>
+    </div>
   );
 }
 " %}
 
-또, `render()`는 어떤 타이밍에 몇번 호출될지 모르기 때문에 반드시 [멱등성](https://ko.wikipedia.org/wiki/%EB%A9%B1%EB%93%B1%EB%B2%95%EC%B9%99)을 지키는 방법으로 구현해야합니다.
+또, render()는 어떤 타이밍에 몇번 호출될지 모르기 때문에 반드시 [멱등성](https://ko.wikipedia.org/wiki/%EB%A9%B1%EB%93%B1%EB%B2%95%EC%B9%99)을 지키는 방법으로 구현해야합니다.
 
 ### Separation of concerns?
 
-React.js는 컴포넌트로써 마크업과 뷰의 로직을 `createClass()`의 안에 작성합니다. 하지만 마크업은 HTML이나 mustache로 작성하고 뷰의 로직은 자바스크립트로 나눠서 작성하는 기존의 방식을 취하지 않아 마음에 들지 않는 사람도 있을 것 같습니다. 이 사안에 대해 React.js의 개발자인 Pete Hunt는 "그것은 관심사의 분리(Separation of concerns)가 아니라 기술의 분리(Speparation of technologies)”라며 마크업과 뷰의 로직은 긴밀해야 한다고 언급했습니다. 거기에 템플릿의 문법으로 불필요하게 코드를 작성하는 것보다 자바스크립트로 작성하는 것이 더 좋다고 말하고 있습니다.
+React.js는 컴포넌트로써 마크업과 뷰의 로직을 createClass()의 안에 작성합니다. 하지만 마크업은 HTML이나 mustache로 작성하고 뷰의 로직은 자바스크립트로 나눠서 작성하는 기존의 방식을 취하지 않아 마음에 들지 않는 사람도 있을 것 같습니다. 이 사안에 대해 React.js의 개발자인 Pete Hunt는 "그것은 관심사의 분리(Separation of concerns)가 아니라 기술의 분리(Speparation of technologies)”라며 마크업과 뷰의 로직은 긴밀해야 한다고 언급했습니다. 거기에 템플릿의 문법으로 불필요하게 코드를 작성하는 것보다 자바스크립트로 작성하는 것이 더 좋다고 말하고 있습니다.
 
 {% alert info '역자노트' '
 HTML, CSS, 자바스크립트를 분리하는 건 관심사의 분리가 아니라 단순한 기술의 분리일 뿐, 그래서 React.js는 관심사를 컴포넌트 단위로 해석했다고 이해할 수 있습니다.
@@ -284,13 +284,13 @@ Prop을 I/F로써 외부와 주고 받을 수 있습니다. `<Hello name="foo"/>
 var Hello = React.createClass({
   render() {
     return (
-      &lt;div>Hello {this.props.name}&lt;/div>
+      <div>Hello {this.props.name}</div>
     )
   }
 });
 
-// &lt;Hello name=\"React\"/>
-// &lt;div>Hello React&lt;/div>
+// <Hello name=\"React\"/>
+// <div>Hello React</div>
 " %}
 
 Prop에 관해서는 다음 편에서 소개할 예정입니다.
@@ -311,10 +311,10 @@ var Counter = React.createClass({
   },
   render() {
     return (
-      &lt;div>
-        &lt;div>count:{this.state.count}&lt;/div>
-        &lt;button onClick={this.onClick}>click!&lt;/button>
-      &lt;/div>
+      <div>
+        <div>count:{this.state.count}</div>
+        <button onClick={this.onClick}>click!</button>
+      </div>
     );
   }
 });
@@ -324,12 +324,12 @@ State에 관한 내용은 다음 편에서 소개할 예정입니다.
 
 ### React.createClass
 
-`React.createClass()`는 컴포넌트를 작성할 때 사용하는 함수입니다. 이 함수는 버전 0.12에서 동작 방식이 바뀌었습니다. 0.11에서는 컴포넌트의 정의하고 컴포넌트의 엘리먼트를 반환하는 두 가지의 일을 담당했지만 0.12부터 컴포넌트를 정의하는 작업만 담당하도록 분리됐습니다. 즉, 엘리먼트가 아니므로 사용할 때는 `React.createElement(Component, {name: 'xxx'})` 처럼 React Element로 변환할 필요가 있습니다. 이 작업은 `React.createFactory(Component)`로 해도 같습니다. 다만, JSX를 사용하고 있는 경우는 이전과 똑같이 React.createClass의 반환 값을 `<Component />`로 직접 전달해도 괜찮습니다.
+React.createClass()는 컴포넌트를 작성할 때 사용하는 함수입니다. 이 함수는 버전 0.12에서 동작 방식이 바뀌었습니다. 0.11에서는 컴포넌트의 정의하고 컴포넌트의 엘리먼트를 반환하는 두 가지의 일을 담당했지만 0.12부터 컴포넌트를 정의하는 작업만 담당하도록 분리됐습니다. 즉, 엘리먼트가 아니므로 사용할 때는 `React.createElement(Component, {name: 'xxx'})` 처럼 React Element로 변환할 필요가 있습니다. 이 작업은 `React.createFactory(Component)`로 해도 같습니다. 다만, JSX를 사용하고 있는 경우는 이전과 똑같이 React.createClass의 반환 값을 `<Component />`로 직접 전달해도 괜찮습니다.
 
 {% prism jsx "
 var Hello = React.createClass({
   render() {
-    return &lt;div>{this.props.name}&lt;/div>;
+    return <div>{this.props.name}</div>;
   }
 });
  
@@ -338,10 +338,10 @@ React.render(React.createElement(Hello, {name: \"foo\"}), document.body);
 React.render(React.createFactory(Hello)({name: \"foo\"}), document.body);
 
 // JSX는 이전과 같은 방식
-React.render(&lt;Hello name=\"foo\" />, document.body);
+React.render(<Hello name=\"foo\" />, document.body);
 " %}
 
-이 변경은 `createClass()`라는 이름 외에 또 다른 일을 담당하고 있었다는 문제를 해결하기도 하지만, createElement를 통해 컴포넌트를 만들도록 함으로써 최적화할 수 있도록 하고 장기적으로 React.createClass로 작성한 문법을 ES6의 class로 대체 할 수 있도록 하려는 뜻도 있습니다.
+이 변경은 createClass()라는 이름 외에 또 다른 일을 담당하고 있었다는 문제를 해결하기도 하지만, createElement를 통해 컴포넌트를 만들도록 함으로써 최적화할 수 있도록 하고 장기적으로 React.createClass로 작성한 문법을 ES6의 class로 대체 할 수 있도록 하려는 뜻도 있습니다.
 
 {% alert info '역자노트' '
 최근에 릴리즈된 버전 0.13에는 ES6의 class 문법을 사용해 컴포넌트를 정의할 수 있게 됐습니다. ([참고](http://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html#es6-classes)) ES6 Classes 문법을 이용해 컴포넌트를 작성할 때 몇 가지 주의점이 필요합니다. 이런 사항은 천천히 소개해 드리겠습니다.
