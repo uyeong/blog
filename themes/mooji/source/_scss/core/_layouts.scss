@@ -39,5 +39,9 @@ a {
 }
 
 .wrapper {
-    padding: 0 $bg-space;
+    padding: 0 $space-gutter;
+
+    @include mobile {
+        padding: 0;
+    }
 }

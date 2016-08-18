@@ -68,6 +68,10 @@ $module: 'post';
     @include mobile {
         padding-top: 40px;
 
+        &__body {
+            border-radius: 0;
+        }
+
         &__mainland {
             padding: 48px 40px 28px;
         }

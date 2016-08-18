@@ -9,6 +9,7 @@ $module: 'header';
 
     &__inner {
         position: relative;
+        padding: 0;
     }
 
     &__brand {
@@ -43,5 +44,11 @@ $module: 'header';
         font-size: .875rem;
         margin: 0;
         padding-top: .25rem;
+    }
+
+    @include mobile {
+        &__inner {
+            padding: 0 $space-gutter;
+        }
     }
 }
