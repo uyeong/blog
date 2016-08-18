@@ -81,6 +81,10 @@ feed:
   limit: 20
   hub:
 
+# Sitemap
+sitemap:
+    path: sitemap.xml
+
 # Alias
 alias:
   /post/146051268979/e2e-테스트와-나이트왓치.html: /2016/06/17/e2e-test-and-nightwatch/
