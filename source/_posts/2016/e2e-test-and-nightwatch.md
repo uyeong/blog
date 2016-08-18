@@ -27,7 +27,7 @@ E2E 테스트 프레임워크는 다양한 종류가 있는데, 크게 헤드리
 
 헤드리스 브라우저는 커맨드 라인 명령어로 조작할 수 있는 화면이 없는 브라우저로 Jsdom 기반의 좀비(Zombie.js), 웹킷 엔진 기반의 팬텀(Pantom.js), 겟코 엔진 기반의 슬리머(Slimer.js) 등이 있다. 잘 알려진 캐스퍼(Casper.js)는 팬텀과 슬리머를 조금 더 사용하기 쉽게 만들어 놓은 유틸리티 도구다. 헤드리스 브라우저는 기본적으로 크로스 브라우징 테스트가 불가능하며 어썰트(Assert)도 내장하고 있지 않기 때문에 필요하다면 추가를 해야한다.
 
-셀레니움 웹드라이버를 의존하는 프레임워크로는 [webdriver.io](http://webdriver.io/), [큐컴버(Cucumber.js)](https://github.com/cucumber/cucumber-js), [프로트랙터](https://github.com/angular/protractor), [나이트왓치](nightwatchjs.org) 등이 있다. 이들은 크로스 브라우징 테스트가 가능하고 어썰트도 내장하고 있다. 단, 각 프레임워크 마다 내장하고 있는 어썰트 라이브러리는 다르다.
+셀레니움 웹드라이버를 의존하는 프레임워크로는 [webdriver.io](http://webdriver.io/), [큐컴버(Cucumber.js)](https://github.com/cucumber/cucumber-js), [프로트랙터](https://github.com/angular/protractor), [나이트왓치](http://nightwatchjs.org) 등이 있다. 이들은 크로스 브라우징 테스트가 가능하고 어썰트도 내장하고 있다. 단, 각 프레임워크 마다 내장하고 있는 어썰트 라이브러리는 다르다.
 
 ### 셀레니움 웹드라이버
 
@@ -374,9 +374,9 @@ $ ./node_modules/nightwatch/bin/nightwatch --config browserstack.json
  * https://seleniumhq.wordpress.com/2011/07/08/selenium-2-0/
  * http://www.slideshare.net/sethmcl/join-the-darkside-nightwatchjs
  * https://github.com/SeleniumHQ/selenium/issues/2110
- * http://blog.trident-qa.com/2013/05/so-many-seleniums(일본어)
- * https://app.codegrid.net/entry/selenium-1(일본어)
- * http://pydiary.bitbucket.org/blog/html/2015/08/28/test.html(일본어)
- * http://blog.mmmcorp.co.jp/blog/2015/09/24/use-nightwatch/(일본어)
- * http://www.infoq.com/jp/news/2014/03/nightwatch(일본어)
- * http://qiita.com/yssg/items/a054d67bc7c7fc39b276(일본어)
+ * http://blog.trident-qa.com/2013/05/so-many-seleniums (일본어)
+ * https://app.codegrid.net/entry/selenium-1 (일본어)
+ * http://pydiary.bitbucket.org/blog/html/2015/08/28/test.html (일본어)
+ * http://blog.mmmcorp.co.jp/blog/2015/09/24/use-nightwatch/ (일본어)
+ * http://www.infoq.com/jp/news/2014/03/nightwatch (일본어)
+ * http://qiita.com/yssg/items/a054d67bc7c7fc39b276 (일본어)

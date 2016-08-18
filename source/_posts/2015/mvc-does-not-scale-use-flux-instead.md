@@ -14,7 +14,7 @@ tags:
 ---
 
 {% alert info '읽기전에...' '
-이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead([일본어](<a href="http://www.infoq.com/jp/news/2014/05/facebook-mvc-flux), [영어](http://www.infoq.com/news/2014/05/facebook-mvc-flux))」를 번역한 글입니다. 주로 일본어 문서를 번역했으며 영어 문서는 참고 자료로써 사용했습니다.
+이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead([일본어](http://www.infoq.com/jp/news/2014/05/facebook-mvc-flux), [영어](http://www.infoq.com/news/2014/05/facebook-mvc-flux))」를 번역한 글입니다. 주로 일본어 문서를 번역했으며 영어 문서는 참고 자료로써 사용했습니다.
 ' %}
 
 이 문서는 개발자 커뮤니티와 [Jing Chen](https://www.linkedin.com/pub/jing-chen/5/425/353)(페이스북)의 반응을 바탕으로 업데이트하고 있다.(아래 Update 절 참고)

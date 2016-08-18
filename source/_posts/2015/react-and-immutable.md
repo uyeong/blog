@@ -183,5 +183,5 @@ shouldComponentUpdate(nextProps, nextState) {
 
 * [위키피디아:불변객체(한글)](https://ko.wikipedia.org/wiki/%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4)
 * [위키피디아:인턴(영어)](https://en.wikipedia.org/wiki/String_interning)
-* [7 Patterns to Refactor JavaScript Applications(한글)](http://wit.nts-corp.com/2015/03/04/311)
+* [7 Patterns to Refactor JavaScript Applications(한글)](http://wit.nts-corp.com/2015/03/04/3118)
 * [켄트 벡의 구현 패턴](http://www.yes24.com/24/Goods/2824034?Acode=101)

@@ -154,7 +154,7 @@ Spread Attributes는 JSX 없이도 _.extend(), Object.assign() 등을 사용하�
 이번에는 컴포넌트의 믹스-인 기능을 소개하겠습니다. 보통 믹스-인은 이름 그대로 기능을 수집하는 수단을 말하고 React.js에서 믹스-인은 컴포넌트의 공통 로직을 Object로 분리하여 공통적으로 사용할 수 있도록 하는 기능 뜻합니다. React.js 자체도 LinkedStateMixin이나 PureRenderMxin 등의 믹스-인을 제공하고 있습니다. 덧붙여 Marionette.js에서는 Behavior로, Vue.js에서는 믹스-인이라는 이름으로 같은 기능이 존재합니다.
 
 {% alert info '역자노트' '
-아쉽지만 ES6 문법에서는 Mixin을 사용할 수 없습니다.([참고](http://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html#mixinshttp://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html#mixins)), [react-mixin](https://github.com/brigand/react-mixinhttps://github.com/brigand/react-mixin)으로 사용할 수 있지만, 개인적으로 깔끔하진 않은 거 같습니다.
+아쉽지만 ES6 문법에서는 Mixin을 사용할 수 없습니다.([참고](http://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html#mixinshttp://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html#mixins)), [react-mixin](https://github.com/brigand/react-mixin)으로 사용할 수 있지만, 개인적으로 깔끔하진 않은 거 같습니다.
 ' %}
 
 ### 사용 방법
