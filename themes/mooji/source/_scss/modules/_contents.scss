@@ -32,16 +32,25 @@ $module: 'contents';
     ol,
     iframe,
     [class*=language] {
-        margin: 0 0 1.5rem;
+        margin: 0 0 1.75rem;
     }
 
     h2,
     h3,
     h4,
     h5,
+    h6,
+    h4,
+    h5,
     h6 {
         font-weight: 600;
         padding: 1rem 0 0;
+    }
+
+    h4,
+    h5,
+    h6 {
+        padding-top: .625rem;
     }
 
     h2 {
@@ -147,7 +156,6 @@ $module: 'contents';
 
     [class*=language] {
         font-size: .9375rem;
-        margin: 0 0 1.5rem;
 
         code {
             background: transparent;
