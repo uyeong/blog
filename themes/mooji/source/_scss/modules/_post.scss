@@ -28,6 +28,7 @@ $module: 'post';
     &__title {
         font-size: 2.375rem;
         margin: 0 0 32px;
+        line-height: 2.75rem;
     }
 
     &__meta {
@@ -78,6 +79,7 @@ $module: 'post';
 
         &__title {
             font-size: 2.125rem;
+            line-height: 2.5rem;
         }
 
         &__attachment {
