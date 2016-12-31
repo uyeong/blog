@@ -2,7 +2,9 @@
 title: 파일 끝에 개행을 추가해야 하는 이유
 description: POSIX 명세를 근거로 파일 끝에 개행을 추가해야하는 이유를 알아보고 WebStorm IDE에서 자동으로 개행을 추가하는 방법을 소개합니다.
 date : 2015-04-04
-category: WebStorm
+category:
+    - IDE
+    - WebStorm
 tags:
     - FileSystem
     - POSIX

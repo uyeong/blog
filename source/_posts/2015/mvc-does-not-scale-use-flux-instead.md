@@ -4,7 +4,7 @@ description: "이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux I
 date : 2015-06-19
 category:
     - JavaScript
-    - Architecture
+    - Flux
 tags:
     - JavaScript
     - Architecture

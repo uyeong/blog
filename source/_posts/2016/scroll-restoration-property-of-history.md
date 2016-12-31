@@ -4,6 +4,7 @@ description: "onload 타임에 특정 위치에 자동 스크롤링 되는 기�
 date : 2016-11-28
 category:
     - JavaScript
+    - Etc
 tags:
     - JavaScript
     - history

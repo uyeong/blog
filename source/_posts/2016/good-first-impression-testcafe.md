@@ -3,6 +3,7 @@ title: 첫 인상이 좋은 E2E 테스트 프레임워크, TestCafe
 description: E2E 테스트 프레임워크의 한 종류인 TestCafe를 소개하고 사용 방법과 또 다른 E2E 테스트 프레임워크인 나이트왓치와의 차이점을 간략하게 살펴본다 
 date : 2016-10-31
 category:
+    - JavaScript
     - Test
 tags:
     - Test

@@ -3,6 +3,7 @@ title: E2E 테스트와 나이트왓치
 description: E2E의 정의와 E2E 테스트 프레임워크의 역사 그리고 나이트왓치를 소개하며 설치하는 방법과 사용하는 방법까지 폭 넓게 설명합니다.
 date : 2016-06-17
 category:
+    - JavaScript
     - Test
 tags:
     - Test

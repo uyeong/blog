@@ -4,6 +4,7 @@ description: "Youngrok Pak님의 「React에 대한 여러 가지 생각」을 �
 date : 2016-04-26
 category:
     - JavaScript
+    - React
 tags:
     - JavaScript
     - React

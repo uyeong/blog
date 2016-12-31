@@ -2,7 +2,9 @@
 title: React.js를 이해하다(5)
 description: 일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 다섯번째 편입니다.
 date : 2015-07-09
-category: JavaScript
+category:
+    - JavaScript
+    - React
 tags:
     - JavaScript
     - React

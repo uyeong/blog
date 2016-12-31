@@ -4,7 +4,7 @@ description: "requestAnimationFrame을 사용해 작성한 코드를 어떻게 �
 date : 2016-12-02
 category:
     - JavaScript
-    - Animation
+    - Test
 tags:
     - JavaScript
     - Animation

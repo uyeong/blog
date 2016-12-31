@@ -2,7 +2,9 @@
 title: 자바스크립트와 비동기 오류 처리
 description: 자바스크립트 환경에서 비동기 오류를 처리할 때 어려움을 겪는 부분을 설명하고 Generator를 사용한 비동기 에러 핸들링 방법에 관해 소개합니다.
 date : 2014-11-15
-category: JavaScript
+category:
+    - JavaScript
+    - Etc
 tags:
     - JavaScript
     - ECMAScript 6
