@@ -30,18 +30,6 @@ $module: 'meta';
 
     &__category-list-item {
         position: relative;
-        margin-right: .5rem;
-
-        &::after {
-            position: absolute;
-            right: -.25rem;
-            bottom: 0;
-            content: ',';
-        }
-
-        &:last-child::after {
-            content: '';
-        }
     }
 
     &__category-list-link {

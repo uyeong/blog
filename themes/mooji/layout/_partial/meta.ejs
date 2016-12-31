@@ -9,11 +9,16 @@
         <div class="meta__categories">
             <i class="fa fa-map-marker" aria-hidden="true"></i>
             <% if(categories && categories.length > 0) { %>
-                <%- list_tags(categories, {
-                    show_count: 0,
-                    style: 'list',
-                    class: 'meta__category'
-                }) %>
+                <div class="meta__category-list">
+                    <% categories.map((category, index) => { %>
+                        <a href="<%= url_for(category.path) %>" class="meta__category-list-item">
+                            <%= category.name %>
+                        </a>
+                        <% if (categories.length - 1 !== index) { %>
+                        <span>&nbsp;› </span>
+                        <% } %>
+                    <% }); %>
+                </div>
             <% } %>
         </div>
     </div>
