@@ -12,6 +12,7 @@ $module: 'contents';
     }
 
     a {
+        word-break: break-word;
         color: darken($mint-light, 10%);
     }
 
