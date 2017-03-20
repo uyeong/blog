@@ -43,7 +43,7 @@ P = (s * A) + (t * B)
 {% prism text '
 E = (s * A) + (t * B)
 F = (s * B) + (t * C)
-P = (s * E) + (s * F)
+P = (s * E) + (t * F)
 ' %}
 
 이 공식을 자바스크립트 코드로 옮겨보자. 여기에서는 구현에 있어 몇 가지 중요한 함수만 소개한다. 전체 코드는 코드펜(CodePen)에 작성해 놓은 [예제](http://codepen.io/uyeong/pen/qrpYwj)를 참고한다.
@@ -100,7 +100,7 @@ interpolateBtn.addEventListener(\'click\', function() {
 {% prism text '
 E = (s * A) + (t * B)
 F = (s * B) + (t * C)
-P = (s * E) + (s * F)
+P = (s * E) + (t * F)
 ' %}
 
 하지만 이 수식은 조금 장황하며 자바스크립트 코드상에서도 함수 호출이 빈번한 상태다. 이 수식을 방정식으로  좀더 간결하고 효율적으로 표현할 수 있다. 일단 연산식에 있는 괄호를 없애고 좀더 간략하게 수식을 표현한다.
