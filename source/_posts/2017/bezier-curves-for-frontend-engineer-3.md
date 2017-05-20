@@ -52,15 +52,15 @@ P = (s * E) + (t * F)
 
 {% prism js '
 function blender(A, B, t) {
-    if (t === 0) {
-        return A;
-    }
+  if (t === 0) {
+    return A;
+  }
 
-    if (t === 1) {
-        return B;
-    }
+  if (t === 1) {
+    return B;
+  }
 
-    return ((1 - t) * A) + (t * B); // or A + t * (B - A)
+  return ((1 - t) * A) + (t * B); // or A + t * (B - A)
 }
 ' %}
 
@@ -153,6 +153,7 @@ function quadBezier(A, B, C, t) {
   
   const s = 1 - t;
   
+  // (s²)A + 2(st)B + (t²)C
   return Math.pow(s, 2) * A + 2 * (s * t) * B + Math.pow(t, 2) * C;
 }
 ' %}
@@ -172,13 +173,13 @@ interpolateBtn.addEventListener(\'click\', function() {
 
 ## 3차 베지에 곡선
 
-이제 3차 베지에 곡선(Cubic Bézier Curves)을 그려보자. 2차 베지에 곡선은 3개의 조절점을 이용해 그린 곡선을 말하듯 3차 베지에 곡선은 4개의 조절점을 이용해 그린 곡선을 말한다. 더 정확히는 2차 베지에 곡선 두 개를 이용해 그려낸 곡선을 말한다.
+이제 3차 베지에 곡선(Cubic Bézier Curves)을 그려보자. 2차 베지에 곡선은 3개의 조절점을 이용해 그린 곡선을 말하듯 3차 베지에 곡선은 4개의 조절점을 이용해 그린 곡선을 말한다. 더 정확히는 두 개의 2차 베지에 곡선을 이용해 그린 곡선을 말한다.
 
 {% figure bezier-for-frontend.03.png '3차 베지에 곡선' '그림 3. 3차 베지에 곡선' '340px' %}
 
 조절점 A, B, C를 이용해 그린 2차 베지에 곡선과 조절점 B, C, D를 이용해 그린 2차 베지에 곡선이 있다. 그리고 각 2차 베지에 곡선에서 보간되는 점 Q와 R이 있다. 이때 점 Q와 R를 이용해 또 다른 직선을 그릴 수 있고 이 직선에서 보간되는 점 P도 추가할 수 있다. 이제 점 Q와 R 그리고 P를 보간하면 P의 행적이 곡선을 만들어 낸다.
 
-이제 3차 베지에 곡선을 직접 그려보도록 하자. 3차 베지에 곡선을 그리기 위해서는 보간되는 점 Q와 R 그리고 P를 구해야한다. 점 Q는 다음과 같이 구할 수 있다.
+이제 3차 베지에 곡선을 직접 그려보자. 3차 베지에 곡선을 그리기 위해서는 보간되는 점 Q와 R 그리고 P를 구해야 한다. 점 Q는 다음과 같이 구할 수 있다.
 
 {% prism text '
 E = (s * A) + (t * B)
@@ -200,7 +201,7 @@ R = (s * F) + (t * G)
 P = (s * Q) + (t * R)
 ' %}
 
-이제 2차 베지에 곡선을 그릴 때 작성한 blend, blender 함수를 활용해 3차 베지에 곡선을 그려보자. 간단하게 새로운 점을 추가한 후 위에서 설명한 것 처럼 점 Q, R, P를 구해 보간하면 된다.
+이제 2차 베지에 곡선을 그릴 때 작성한 blend, blender 함수를 활용해 3차 베지에 곡선을 그려보자. 간단하게 새로운 점을 추가한 후 위에서 설명한 것처럼 점 Q, R, P를 구해 보간하면 된다.
 
 아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 3차 베지에 곡선이라고 한다.
 
@@ -208,7 +209,74 @@ P = (s * Q) + (t * R)
 
 ### 수식정리
 
+점 Q와 P는 각각 2차 베지에 곡선에서 구해지는 점이므로 2차 베지에 곡선의 수식으로 표현할 수 있다.
 
+{% prism text '
+Q(t) = (s²)A + 2(st)B + (t²)C
+R(t) = (s²)B + 2(st)C + (t²)D
+P(t) = sQ(t) + tR(t)
+' %}
+
+위 수식을 조금 더 풀어서 다음과 같이 정리할 수 있다.
+
+{% prism text '
+P(t) = s((s²)A + 2(st)B + (t²)C) + t((s²)B + 2(st)C + (t²)D)
+P(t) = s³A + 2(s²t)B + st²C + s²tB + 2(st²)C + t³D
+P(t) = s³A + 3(s²t)B + 3(st²)C + t³D
+' %}
+
+이제 정리한 수식을 자바스크립트로 작성해보자. 함수명은 `cubicBezier`로 짓고 3차 베지에 곡선임을 나타낸다.
+
+{% prism js '
+function cubicBezier(A, B, C, D, t) {
+  if (t === 0) {
+    return A;
+  }
+  
+  if( t === 1) {
+    return D;
+  }
+  
+  const s = 1 - t;
+  
+  // P = s³A + 3(s²t)B + 3(st²)C + t³D  
+  return (
+    Math.pow(s, 3) * A + 
+    3 * (Math.pow(s, 2) * t) * B + 
+    3 * (s * Math.pow(t, 2)) * C + 
+    Math.pow(t, 3) * D
+  );
+}
+' %}
+
+이렇게 작성한 함수는 다음과 같이 사용할 수 있다.
+
+{% prism js '
+interpolateBtn.addEventListener(\'click\', function() {
+  // Start the interpolation.
+  raf(function(t) {
+    const x = cubicBezier(posA.x, posB.x, posC.x, posD.x, t);
+    const y = cubicBezier(posA.y, posB.y, posC.y, posD.y, t);
+    ...
+  }, 1000);
+});
+' %}
+
+### 애니메이션
+
+실제 동작하는 데모에서 `requestAnimationFrame()`을 사용해 일정한 시간마다 점을 찍는 것으로 3차 베지에 곡선을 그리고 있다. 그런데 곡선의 각 점이 찍히는 구간 즉, 보폭이 일정하지 않다.
+
+{% figure bezier-for-frontend.04.png '3차 베지에 곡선의 보폭' '그림 4. 3차 베지에 곡선의 보폭' '340px' %}
+
+이러한 특징을 애니메이션 처리에 활용할 수 있다. 보폭이 크면 시간이 빠르게 흐르고 보폭이 작으면 시간이 천천히 흐르도록 표현하여 객체의 움직임에 역동성을 부여할 수 있다.
+
+{% figure bezier-for-frontend.05.png 'Easing Functions 치트시트' '그림 5. Easing Functions 치트시트' '340px' %}
+
+이제 CSS의 `transition-timing-function`의 `cubic-bezier(Bx, By, Cx, Cy)`가 의미하는 바가 무엇인지 또 어떻게 객체의 움직임에 활력을 불어넣을 수 있게 되는지도 이해할 수 있을 것이다.
+
+## 끝으로
+
+여기까지 베지에 곡선에 대한 연재 글을 모두 마친다. 처음엔 필자 역시 단순 호기심으로 시작했지만, 점점 원리를 알아가는 과정에서 상당한 재미를 느꼈다. 연재 글을 읽는 독자분들 역시 재미있는 경험이었길 바란다.
 
 ## 참고
 
