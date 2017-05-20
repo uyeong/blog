@@ -24,45 +24,45 @@ module.exports = {
     entry: entryConfig,
     output: {
         path: path.resolve(__filename, '../themes/mooji/source'),
-        filename: `/assets/js/${filename.replace('-', `.[name]-`)}.js`
+        filename: `./assets/js/${filename.replace('-', `.[name]-`)}.js`
     },
-    plugins: plugins.concat([
-        new ExtractTextPlugin(`/assets/css/${filename}.css`)
-    ]),
     module: {
-        loaders: [{
-            test: /.js?$/,
+        rules: [{
+            test: /(\.js)$/,
             loader: 'babel-loader',
             exclude: /node_modules/,
             query: {
-                presets: ['es2015'],
+                presets: [['es2015', { modules: false }]],
                 plugins: ['transform-class-properties'],
                 cacheDirectory: true
             }
         }, {
             test: /\.(scss|css)/,
-            loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
+            loader: ExtractTextPlugin.extract({
+                fallback: "style-loader",
+                use: "css-loader!postcss-loader!sass-loader",
+            })
         }, {
             test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-            loader: "url?limit=10000&name=/assets/fonts/[name].[ext]&mimetype=application/font-woff"
+            use: "url-loader?limit=10000&name=/assets/fonts/[name].[ext]&mimetype=application/font-woff"
         }, {
             test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-            loader: "url?limit=10000&name=/assets/fonts/[name].[ext]&mimetype=application/font-woff"
+            use: "url-loader?limit=10000&name=/assets/fonts/[name].[ext]&mimetype=application/font-woff"
         }, {
             test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-            loader: "url?limit=10000&name=/assets/fonts/[name].[ext]&mimetype=application/octet-stream"
+            use: "url-loader?limit=10000&name=/assets/fonts/[name].[ext]&mimetype=application/octet-stream"
         }, {
             test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
-            loader: "file?name=/assets/fonts/[name].[ext]"
+            use: "file-loader?name=/assets/fonts/[name].[ext]"
         }, {
             test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-            loader: "file?name=/assets/fonts/[name].[ext]"
+            use: "file-loader?name=/assets/fonts/[name].[ext]"
         }, {
             test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-            loader: "url?limit=10000&name=/assets/fonts/[name].[ext]&mimetype=image/svg+xml"
+            use: "url-loader?limit=10000&name=/assets/fonts/[name].[ext]&mimetype=image/svg+xml"
         }]
     },
-    postcss: [
-        autoprefixer
-    ]
+    plugins: plugins.concat([
+        new ExtractTextPlugin(`/assets/css/${filename}.css`)
+    ])
 };

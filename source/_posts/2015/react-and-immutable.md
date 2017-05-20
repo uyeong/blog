@@ -22,7 +22,7 @@ var greeting = new String('Hello World!!');
 
 greeting.replace('World', 'Gil-dong');
 greeting.valueOf(); // Hello World!!
-" %} 
+" %}
 
 위 예에서 `greeting` 변수에 문자열 객체를 생성해 대입했습니다. 그리고 문자열 객체의 `replace` 메서드를 이용해 'World'라는 문자열을 'Gil-dong'으로 변경했습니다. 하지만 여전히 `greeting`의 값은 'Hello World' 입니다.
 
@@ -35,7 +35,7 @@ var greeting = new String('Hello World!!');
 
 greeting = greeting.replace('World', 'Gil-dong');
 greeting.valueOf(); // Hello Gil-dong!!
-" %} 
+" %}
 
 ### 값 객체
 
@@ -43,10 +43,13 @@ greeting.valueOf(); // Hello Gil-dong!!
 
 {% alert info "자바스크립트에서 비교 연산" "
 여기에서는 이해를 돕기 위해 생성자를 이용해 문자열이나 정수를 생성하고 있지만, 자바스크립트에서 생성자를 이용해 원시 타입 객체를 생성하면 비교 연산 시 참조를 이용해 비교합니다. 따라서 항상 리터럴 표기법으로 값을 다루기 바랍니다.
-<pre style='display:block'><code class='language-javascript'>
+<pre style='display:block'>
+<code class='language-javascript'>
     new String('Hello') === new String('Hello'); // false
     new Number(5) === new Number(5); // false
-</code></pre>" %}
+</code>
+</pre>
+" %}
 
 값 객체는 값을 이용해 새로운 값을 만들어 낼 수 있지만 값 자체를 변경할 수 없습니다. 즉, 불변입니다.
 
