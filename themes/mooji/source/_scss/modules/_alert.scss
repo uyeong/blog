@@ -8,6 +8,7 @@ $module: 'alert';
     border-radius: 3px;
     margin: 0 0 1.75rem;
     line-height: 1.5rem;
+    padding-top: 10px;
 
     &--info {
         background: lighten($aqua-light, 25%);
@@ -33,7 +34,7 @@ $module: 'alert';
 
     &__title {
         font-weight: 400;
-        padding: 10px 10px 8px;
+        padding: 0 10px 8px;
     }
 
     &__body {
