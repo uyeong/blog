@@ -36,7 +36,9 @@ Tabnabbing이란 HTML 문서 내에서 링크(target이 _blank인 Anchor 태그)
 
 {% figure tab-nabbing.02.gif 'NAVER 메일을 이용한 Tabnabbing 데모' '그림 2. NAVER 메일을 이용한 Tabnabbing 데모' '420px' %}
 
-하지만 Gmail은 이 공격이 통하지 않는다. Gmail은 이러한 공격을 막기 위해 Anchor 태그에 data-saferedirecturl 속성을 부여해 안전하게 리다이렉트 한다.
+국내에서 가장 유명한 포털 회사인 NAVER가 이러한 공격에 다소 미흡한 점은 못내 아쉽다. NAVER 뿐만 아니라 DAUM도 마찬가지이며 아마 카페 서비스도 동일하게 재현할 수 있지 않을까 생각한다.
+
+하지만 Gmail은 이 공격이 통하지 않는다. Gmail은 이러한 공격을 막기 위해 Anchor 태그에 data-saferedirecturl 속성을 부여해 안전하게 리다이렉트 한다. Twitter도 동일한 방법으로 대응하고 있다.
 
 {% figure tab-nabbing.03.png 'Gmail의 소스 코드' '그림 3. Gmail의 소스 코드' '420px' %}
 
@@ -52,9 +54,9 @@ rel=noopener 속성이 부여된 링크를 통해 열린 페이지는 location �
 
 크롬은 버전 49, 파이어폭스 52부터 지원한다. 파이어폭스 52가 2017년 3월에 릴리즈 된 것을 감안하면 이 속성 만으로 안심하긴 힘들 것 같다. 자세한 지원 여부는 [Link types](https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types)를 참고한다.
 
-따라서 이러한 공격이 우려스러운 서비스라면 [blankshield](https://danielstjules.github.io/blankshield/)와 같은 라이브러리를 사용하자.
+따라서 이러한 공격이 우려스러운 서비스(메일, 커뮤니티, 댓글 시스템 등)라면 [blankshield](https://danielstjules.github.io/blankshield/)와 같은 라이브러리를 사용하자.
 
-noopener 속성은 이 외에도 성능 상의 이점도 취할 수 있다.
+noopener 속성은 보안적 측면 외에도 성능 상의 이점도 취할 수 있다.
 
 _blank 속성으로 열린 탭(페이지)는 언제든지 opener를 참조할 수 있다. 그래서 부모 탭과 같은 스레드에서 페이지가 동작한다. 이때 새탭의 페이지가 리소스를 많이 사용한다면 덩달아 부모 탭도 함께 느려진다.
 
