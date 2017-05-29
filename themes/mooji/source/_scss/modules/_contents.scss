@@ -29,8 +29,8 @@ $module: 'contents';
     p,
     figure,
     blockquote,
-    ul,
-    ol,
+    & > ul,
+    & > ol,
     iframe,
     [class*=language] {
         margin: 0 0 1.75rem;
@@ -121,6 +121,11 @@ $module: 'contents';
         font-size: .875rem;
         line-height: 1.5rem;
 
+        ul,
+        ol {
+            margin-top: 10px;
+        }
+
         li {
             padding: 10px 0 10px 24px;
             border-bottom: 1px solid $border-color;
@@ -145,7 +150,7 @@ $module: 'contents';
     ol {
         counter-reset: ol-counter;
 
-        li::before {
+        > li::before {
             content: counter(ol-counter) '.';
             counter-increment: ol-counter;
         }
