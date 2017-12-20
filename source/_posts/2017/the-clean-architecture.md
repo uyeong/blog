@@ -21,7 +21,7 @@ tags:
 
 지난 몇 년 동안 우리는 시스템 아키텍처에 대한 실로 다양한 아이디어를 봐왔다. 예를들어 다음과 같은 것이 포함된다.
 
- * 알리스테어 콕번(Alistair Cockburn)의 [헥사고날 아키텍처(Hexagonal Architecture, a.k.a Ports and Adapters)](http://alistair.cockburn.us/Hexagonal+architecture). 스티브 프리먼(Steve Freeman)과 냇 프라이스(Nat Pryce)의 훌륭한 책 [테스트 주도 개발로 배우는 객체 지향 설계와 실천(Growing Object-Oriented Software)](http://www.yes24.com/24/goods/9008455?scode=032&OzSrank=1)에서 차용.
+ * 알리스테어 코번(Alistair Cockburn)의 [헥사고날 아키텍처(Hexagonal Architecture, a.k.a Ports and Adapters)](http://alistair.cockburn.us/Hexagonal+architecture). 스티브 프리먼(Steve Freeman)과 냇 프라이스(Nat Pryce)의 훌륭한 책 [테스트 주도 개발로 배우는 객체 지향 설계와 실천(Growing Object-Oriented Software)](http://www.yes24.com/24/goods/9008455?scode=032&OzSrank=1)에서 차용.
  * 제프리 팔레모르(Jeffrey Palermo)의 [어니언 아키텍쳐(Onion Architecture)](http://jeffreypalermo.com/blog/the-onion-architecture-part-1/)
  * 작년, 블로그에 포스팅한 [스크리밍 아키텍쳐(Screaming Architecture)](https://8thlight.com/blog/uncle-bob/2011/09/30/Screaming-Architecture.html)
  * 트리그베 린스카그(Trygve Reenskaug)와 제임스 코플리엔(James Coplien)의 [DCI](https://www.amazon.com/Lean-Architecture-Agile-Software-Development/dp/0470684208/)
