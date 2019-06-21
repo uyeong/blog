@@ -1,6 +1,7 @@
 ---
 title: The Clean Architecture
 description: 이 문서는 로버트 C. 마틴의 The Clean Architecture를 한국어로 번역한 문서입니다. 그의 좋은 의도와 생각이 널리 전파되길 바랍니다
+permalink: the-clean-architecture
 date : 2017-12-18
 category:
     - Architecture
@@ -9,9 +10,9 @@ tags:
     - MVC
 ---
 
-{% alert info '읽기전에...' '
+{% alert info 읽기전에... %}
 이 문서는 일본어 「[クリーンアーキテクチャ(The Clean Architecture翻訳)](https://blog.tai2.net/the_clean_architecture.html)」을 중역한 글입니다. 원글은 「[The Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)」로 번역 시 참고했습니다. 오역 감수는 프런트엔드 개발자 [이두용](https://github.com/DuYongLee)님께서 수고해주셨습니다.
-' %}
+{% endalert %}
 
 [로버트 C. 마틴(Robert Martin, a.k.a 엉클 아저씨)](https://twitter.com/unclebobmartin)이 공개한 「[The Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)」를 번역한 글입니다. 관점이 비슷한 「[Hexagonal Architecture](https://blog.tai2.net/hexagonal_architexture.html)(일본어)」도 번역했으니 참고해주세요.
 

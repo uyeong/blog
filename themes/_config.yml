@@ -1,0 +1,23 @@
+# Header Menu
+menu:
+  Home: /
+  # Archives: /archives
+rss: /atom.xml
+
+# Integrations
+email: uyeong21c@gmail.com
+twitter: coderifleman
+facebook: coderifleman
+github: uyeong
+
+# Miscellaneous
+favicon: /favicon.png
+google_analytics: UA-55659240-1
+disqus_shortname: coderifleman
+# gauges_analytics:
+# google_plus:
+# fb_admins:
+# fb_app_id:
+
+# Environments
+version: 0.0.1

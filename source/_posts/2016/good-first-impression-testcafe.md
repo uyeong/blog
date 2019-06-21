@@ -1,6 +1,7 @@
 ---
 title: 첫 인상이 좋은 E2E 테스트 프레임워크, TestCafe
-description: E2E 테스트 프레임워크의 한 종류인 TestCafe를 소개하고 사용 방법과 또 다른 E2E 테스트 프레임워크인 나이트왓치와의 차이점을 간략하게 살펴본다 
+description: E2E 테스트 프레임워크의 한 종류인 TestCafe를 소개하고 사용 방법과 또 다른 E2E 테스트 프레임워크인 나이트왓치와의 차이점을 간략하게 살펴본다.
+permalink: good-first-impression-testcafe
 date : 2016-10-31
 category:
     - JavaScript
@@ -18,8 +19,7 @@ tags:
 
 ## TestCafe 소개
 
-TestCafe는 [DevExpress](https://www.devexpress.com/)가 개발한 E2E 테스트 프레임워크다. InfoQ에 TestCafe와 관련된 인터뷰 글([
-TestCafe with Smart Script Injection, Traffic and Markup Analysis Tools](https://www.infoq.com/news/2013/08/testcafe))이 있으니 관심 있는 사람은 참고하길 바란다. 같은 이름의 [웹 서비스 및 클라이언트 앱](https://testcafe.devexpress.com/)도 서비스 중인데 이 서비스는 셀레니움 IDE 처럼 GUI로 조작하고 행위를 기록하여 재생할 수 있다.
+TestCafe는 [DevExpress](https://www.devexpress.com/)가 개발한 E2E 테스트 프레임워크다. InfoQ에 TestCafe와 관련된 인터뷰 글([TestCafe with Smart Script Injection, Traffic and Markup Analysis Tools](https://www.infoq.com/news/2013/08/testcafe))이 있으니 관심 있는 사람은 참고하길 바란다. 같은 이름의 [웹 서비스 및 클라이언트 앱](https://testcafe.devexpress.com/)도 서비스 중인데 이 서비스는 셀레니움 IDE 처럼 GUI로 조작하고 행위를 기록하여 재생할 수 있다.
 
 TestCafe는 [webdriber.io](http://webdriver.io/)나 [나이트왓치](http://nightwatchjs.org/)와는 다르게 테스트 관련 스크립트를 주입해 동작하는 셀레니움 RC(Selenium RC)와 흡사한 방식으로 개발됐다. 사실 셀레니움 RC가 가진 한계를 극복하고자 셀레니움 웹드라이버(Selenium WebDriver)를 개발했는데 다시 셀레니움 RC와 비슷한 구조로 테스트 프레임워크를 만들었다고 해서 "그렇다면 과거에 경험했던 한계를 그대로 답습하는 게 아닌가?"하고 조금 의아했다. 
 
@@ -31,7 +31,7 @@ TestCafe의 개발자 [이반 니쿨린(Ivan Nikulin)](https://github.com/inikul
 
 필자는 유료 웹툰을 서비스하고 있는 [레진(Lezhin)](http://www.lezhin.com)을 이용해 로그인 테스트를 작성해 봤다. 예제 코드는 저장소 [UYEONG/demo-testcafe](https://github.com/UYEONG/demo-testcafe)를 참고한다. 이번 절에서는 이 예제를 이용해 필자가 받은 몇 가지 좋은 인상을 소개하겠다.
 
-{% prism js "
+{% prism js %}
 test('사용자는 GNB 메뉴에서 로그인할 수 있다.', async (t) => {
     // Given
     const popupAttendanceLogin = new PopupAttendanceLogin(t);
@@ -58,7 +58,7 @@ test('사용자는 GNB 메뉴에서 로그인할 수 있다.', async (t) => {
     assert(email.visible);
     assert(email.innerText === ACCOUNT.USER_NAME);
 });
-" %}
+{% endprism %}
 
 위는 레진에서 GNB 메뉴를 이용해 로그인이 정상적으로 이뤄지는지 테스트하는 코드다. 그리고 이 코드는 `await/async`를 이용해 비동기적 절차를 동기적으로 표현하고 있다. TestCafe는 바벨(Babel)을 내장하고 있어 별도의 설정 없이 최신 사양을 이용할 수 있다. 최신 사양으로 코드를 작성하고자 할 때 복잡한 세팅을 해줘야 하는 기존의 테스트 프레임워크와는 다른 부분이다. 
 
@@ -68,17 +68,17 @@ test('사용자는 GNB 메뉴에서 로그인할 수 있다.', async (t) => {
 
 그럼 이제 실행을 해보자. 해당 저장소를 클론하고 다음 명령어를 입력하면 바로 테스트할 수 있다.
 
-{% prism bash "
+{% prism bash %}
 $ git clone git@github.com:UYEONG/demo-testcafe.git
 $ npm install
 $ npm run test
-"%}
+{% endprism %}
 
 `npm scripts`에 등록한 `test` 명령은 다음과 같다. 
 
-{% prism bash "
+{% prism bash %}
 $ testcafe chrome tests/
-"%}
+{% endprism %}
 
 뭔가 추가적인 설정이 없으니 오히려 불안하다. 하지만 그 안락함에 금방 익숙해진다. 이것저것 세팅해줘야 했던 셀레니움 기반 프레임워크([참고](http://blog.coderifleman.com/2016/06/17/e2e-test-and-nightwatch/#%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0))와는 사뭇 다른 경험이다.
 
@@ -95,7 +95,7 @@ $ testcafe chrome tests/
  
 특정 절차에서 다음 절차로 넘어가기 위해선 지연 시간(Delay time)이 필요하다. 예를 들어 최초 페이지에 접근할 때는 콘텐츠가 모두 출력되는 시점을 기다려야 하고 팝업을 닫을 때는 애니메이션(FadeOut)이 종료되는 시간을 기다려야 한다. 나이트왓치에서는 이런 지연 시간을 직접 명시해줘야 한다.
 
-{% prism js "
+{% prism js %}
 // 페이지에 최초 접근 시 body 엘리먼트가 보일 때까지 5000ms 기다린다.
 this._header
     .navigate()
@@ -104,15 +104,15 @@ this._header
 // 팝업을 닫을때 애니메이션 시간을 고려해 500ms 기다린다.
 this.click('@close');
 this.api.pause(500);
-" %}
+{% endprism %}
 
 하지만 TestCafe를 이용할 땐 지연 시간을 직접 입력할 일이 상대적으로 적다. TestCafe는 지연 시간을 직접 계산하고 관리한다. 실제로 위 로그인 테스트 코드를 보면 지연 시간을 명시한 지점은 로그인 버튼을 클릭한 시점 즉, 폼을 서브밋하고 갱신되기를 기다리는 딱 한 곳뿐이다.
 
-{% prism js "
+{% prism js %}
 await t
     .click('form.login-form button[type=submit]')
     .wait(1000);
-" %}
+{% endprism %}
 
 지연 시간이라고 해도 거의 대충 시간을 짐작해 입력하는 일에 불과하다. 물론 비기능적 요구사항도 테스트에 포함돼야 하지만 애니메이션 종료 시점까지 일일이 명시해야 한다는 것은 분명 귀찮은 일이다. 
 
@@ -140,7 +140,7 @@ await t
  
 또, E2E 테스트를 할 때 좋은 패턴들이 있는데 그중 하나가 `PageObject`다. 테스트에 필요한 반복적인 행위나 엘리먼트 셀렉터 등을 밖으로 노출 시키지 않고 페이지 단위(혹은 컴포넌트 단위)로 추상화해 제공할 수 있다([참고](http://nightwatchjs.org/guide#page-objects)). `PageObject`는 테스트 코드의 가독성이나 유지 보수 측면에서 훌륭한 패턴이지만 TestCafe에서는 제공하지 않는다. 
 
-{% prism js "
+{% prism js %}
 // page-objects/popup-attendance-login.js
 import {Selector} from 'testcafe';
  
@@ -180,7 +180,7 @@ test('사용자는 GNB 메뉴에서 로그인할 수 있다.', async (t) => {
         await popupAttendanceLogin.close();
     }
     // ... 생략 ...
-"%}
+{% endprism %}
 
 그래서 필자는 위 코드처럼 직접 `PageObject`와 비슷한 객체를 직접 만들고 테스트 코드를 작성했다. 만약 프레임워크 자체에서 이 개념을 제공한다면 조금 더 편리하게 코드를 작성할 수 있을 것 같다.
 

@@ -1,0 +1,30 @@
+<section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title"><%= page.title %></h1>
+        <div class="post__meta">
+          <%- partial('_partial/meta', {writeAt: page.date, categories: page.categories}) %>
+        </div>
+        <div class="post__tags">
+          <%- partial('_partial/tags', {tags: page.tags}) %>
+        </div>
+      </div>
+      <div class="post__contents">
+        <%- page.content %>
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <%- partial('_partial/navigation') %>
+      </div>
+      <% if (page.comments && theme.disqus_shortname) { %>
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>

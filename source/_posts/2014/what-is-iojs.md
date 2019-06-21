@@ -1,6 +1,7 @@
 ---
 title: io.js란 무엇인가?
 description: 2014년 12월 경 Node Forward가 Node.js를 fork하고 자신들의 운영 규칙을 작성하기 시작했고, io.js라는 프로젝트를 시작했습니다. 이 문서에서는 io.js가 무엇인지 그리고 왜 새로운 프로젝트를 시작할 수 밖에 없었는지 살펴봅니다.
+permalink: what-is-iojs
 date : 2014-12-05
 category:
     - Node.js
@@ -16,10 +17,10 @@ io.js를 설명하기 위해 Node Forward 부터 소개하겠습니다. [Node Fo
 
 Node Forward는 개방적인 협력을 통해 Node.js와 자바스크립트 등의 생태계를 개선하기 위한 커뮤니티입니다. 컨트리뷰터는 소규모 프로젝트에 분산되어 리더쉽과 자율성을 보장받고 있었습니다. 이 컨트리뷰터가 분산된 문제와 자율성 문제를 해결한 협업을 위한 장소라고 볼 수 있습니다. 현재 아래와 같이 활동하고 있습니다.
 
-*   **[welcome](https://github.com/node-forward/welcome)** : Node.js와 자바스크립트를 배우기 위한 좋은 시작점을 만드는 것을 목적으로 하고 있습니다.
-*   **[help](https://github.com/node-forward/help)** : 자바스크립트와 Node.js에 관한 Q&amp;A를 할 수 있는 장소입니다.
-*   **[build](https://github.com/node-forward/build)** : 애플리케이션이나 테스트 도구, 인프라를 만들기 위한 장소입니다.
-*   **[roadmap](https://github.com/node-forward/roadmap)** : Node.js 개발 및 커뮤니티에 필요한 표준화를 알리고 Node.js와 자바스크립트의 진로 등, 더 큰 커뮤니티로부터 피드백을 얻을 방법을 찾고 있습니다.
+ * **[welcome](https://github.com/node-forward/welcome)** : Node.js와 자바스크립트를 배우기 위한 좋은 시작점을 만드는 것을 목적으로 하고 있습니다.
+ * **[help](https://github.com/node-forward/help)** : 자바스크립트와 Node.js에 관한 Q&amp;A를 할 수 있는 장소입니다.
+ * **[build](https://github.com/node-forward/build)** : 애플리케이션이나 테스트 도구, 인프라를 만들기 위한 장소입니다.
+ * **[roadmap](https://github.com/node-forward/roadmap)** : Node.js 개발 및 커뮤니티에 필요한 표준화를 알리고 Node.js와 자바스크립트의 진로 등, 더 큰 커뮤니티로부터 피드백을 얻을 방법을 찾고 있습니다.
 
 모든 논의, 새로운 활동을 포함한 제안은 [discussions](https://github.com/node-forward/discussions/)에서 진행하고 있습니다. Node Forward의 주역은 누구일까? 바로 우리라고 합니다. 누군가와 함께 활동할 의지가 있고, 행동 규범을 따른다면 언제든지 환영한다고 하네요. 만약 저장소를 중재(moderate)하여 스탭-업하는 것에 관심이 있다면 부담 없이 기존 issue에 의견을 작성하거나&nbsp;새로운 issue를 추가하시길 바랍니다.
 
@@ -27,12 +28,12 @@ Node Forward는 개방적인 협력을 통해 Node.js와 자바스크립트 등�
 
 최근 Node Forward가 Node.js를 fork하고 자신들의 운영 규칙을 작성하기 시작했습니다. 그 프로젝트에는 다음과 같은 구성원이 [적극적인 컨트리뷰터](https://github.com/iojs/io.js/blob/master/CONTRIBUTING.md#governance)로 등록돼 있습니다.
 
-*   [Fedor Indutny](https://twitter.com/indutny)
-*   [Trevor Norris ](https://twitter.com/trevnorris)
-*   [Ben Noordhuis ](https://github.com/bnoordhuis)
-*   [Isaac Z. Schlueter](https://twitter.com/izs)
-*   [Nathan Rajlich](https://twitter.com/tootallnate)
-*   [Bert Belder](https://twitter.com/piscisaureus)
+ * [Fedor Indutny](https://twitter.com/indutny)
+ * [Trevor Norris ](https://twitter.com/trevnorris)
+ * [Ben Noordhuis ](https://github.com/bnoordhuis)
+ * [Isaac Z. Schlueter](https://twitter.com/izs)
+ * [Nathan Rajlich](https://twitter.com/tootallnate)
+ * [Bert Belder](https://twitter.com/piscisaureus)
 
 지금까지 Node.js를 만들어온 핵심 구성원들입니다. 하지만 현 리더인 [TJ Fontaine](https://twitter.com/tjfontaine)가 등록돼 있지 않습니다. Node Forward가 invitation을 보냈지만 TJ Fontaine가 받아들이지 않았다고 합니다. 하지만 승낙 여부와 관계없이 참여시킨 상태라고 합니다. 
 

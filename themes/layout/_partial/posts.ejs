@@ -1,0 +1,38 @@
+<div class="posts">
+  <% if(page.category || page.tag) { %>
+    <div class="posts__classify">
+      <p>
+        <% if(page.category) { %>
+          <strong>"<%= page.category %>"</strong>로 분류되는 글
+        <% } else { %>
+          <strong>"<%= page.tag %>"</strong>가 태그된 글
+        <% } %>
+      </p>
+    </div>
+  <% } %>
+  <ul class="posts__list">
+    <% page.posts.each((post) => { %>
+      <% const picture = post.content.split(/<figure.+>\n\s+<a.+>\n\s+<img\ssrc="([\/\w\-_\.]+)"/g)[1] %>
+      <li class="posts__item<%= picture ? ' has-picture' : '' %>">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            <% if (picture) { %>
+              <div class="posts__picture" style="background-image:url('<%= picture %>')"></div>
+            <% } %>
+            <div class="posts__desc">
+              <%= post.description %>
+            </div>
+            <div class="posts__meta">
+              <%- partial('_partial/meta', {writeAt: post.date, categories: post.categories}) %>
+            </div>
+          </div>
+        </article>
+      </li>
+    <% }) %>
+  </ul>
+</div>

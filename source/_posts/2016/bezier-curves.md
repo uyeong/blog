@@ -1,6 +1,7 @@
 ---
-title: 중학생도 알 수 있는 베지에 곡선(Bézier Curves)
-description: 이 문서는 일본어 문서 「中学生でもわかるベジェ曲線」을 번역한 것으로 곡선을 그리거나 애니메이션 처리에 근간이 되는 베지에 곡선(Bézier Curves)의 원리에 관해서 쉽고 간단하게 소개합니다.
+title: 중학생도 알 수 있는 베지에 곡선(Bezier Curves)
+description: 이 문서는 일본어 문서 「中学生でもわかるベジェ曲線」을 번역한 것으로 곡선을 그리거나 애니메이션 처리에 근간이 되는 베지에 곡선(Bezier Curves)의 원리에 관해서 쉽고 간단하게 소개합니다.
+permalink: bezier-curves
 date : 2016-12-30
 category:
     - Algorithm
@@ -12,9 +13,9 @@ tags:
     - Math
 ---
 
-{% alert info '읽기전에...' '
+{% alert info 읽기전에... %}
 이 문서는 일본어  「[中学生でもわかるベジェ曲線](http://blog.sigbus.info/2011/10/bezier.html)」를 번역한 글입니다.
-' %}
+{% endalert %}
 
 "베지에 곡선"을 이용해 렌더링하게 되면 꽤 재미있고 편안하게 그림을 그릴 수 있다. 오늘은 이를 사용하는 누구라도 그 원리를 이해할 수 있도록 설명하고자 한다.
 

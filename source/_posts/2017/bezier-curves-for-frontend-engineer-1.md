@@ -1,6 +1,7 @@
 ---
-title: 프런트엔드 엔지니어를 위한 베지에 곡선(Bézier Curves) - 1편
-description: 이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bézier Curves)의 원리를 수학적으로 자세히 소개하는 글의 첫 번째 편입니다.
+title: 프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 1편
+description: 이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 첫 번째 편입니다.
+permalink: bezier-curves-for-frontend-engineer-1
 date : 2017-01-02
 category:
     - Algorithm
@@ -22,7 +23,7 @@ SVG Loaders에 디자인된 아이콘은 12개밖에 안되지만 게으른 나�
 
 Spinning 아이콘은 손쉽게 옮겼지만, Puff 아이콘은 좀 달랐다. 이전에 옮긴 아이콘 모두 애니메이션이 선형적(linear) 이기 때문에 신경 쓸 게 없었다. 하지만 Puff 아이콘의 SVG는 조금 다른 방식으로 만들어져 있다.
 
-{% prism html '
+{% prism html %}
 <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
     <g fill="none" fill-rule="evenodd" stroke-width="2">
         <circle cx="22" cy="22" r="1">
@@ -37,7 +38,7 @@ Spinning 아이콘은 손쉽게 옮겼지만, Puff 아이콘은 좀 달랐다. �
         </circle>
     </g>
 </svg>
-' %}
+{% endprism %}
 
 위 코드에서 `animate` 엘리먼트를 살펴보자. 이 엘리먼트는 `calcMode`, `values`, `keyTimes`, `keySplines` 속성을 갖고 있다. 일단 이 속성에 관한 지식이 전혀 없기 때문에 우선 [SMIL](https://www.w3.org/TR/2001/REC-smil-animation-20010904/) 스펙 문서를 살펴봤다.
 

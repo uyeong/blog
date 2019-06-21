@@ -5,8 +5,8 @@
 # Site
 title: Coderifleman's blog
 subtitle: frontend development stories.
-keywords: Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX
 description: Coderifleman(코드소총수)의 기술 블로그입니다. 주로 프론트엔드 관련한 기술 글을 자주 포스팅하며 가끔 접근법, 방법론, 아키텍처, 서버사이드 등 프론트엔드 개발 뿐만 아니라 개발과 관련한 전반적인 지식도 함께 포스팅합니다.
+keywords: Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX
 author: Coderifleman
 language: ko
 timezone: Asia/Seoul
@@ -39,11 +39,20 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
-  line_number: true
-  auto_detect: false
-  tab_replace:
-
+  enable: false
+  # line_number: true
+  # auto_detect: false
+  # tab_replace:
+  
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+  
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -64,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: mooji
+theme: ./
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -83,23 +92,4 @@ feed:
 
 # Sitemap
 sitemap:
-    path: sitemap.xml
-
-# Alias
-alias:
-  /post/146051268979/e2e-테스트와-나이트왓치.html: /2016/06/17/e2e-test-and-nightwatch/
-  /post/143414887929/thinking-in-react.html: /2016/04/26/read-the-thinking-about-react/
-  /post/126818127074/reactjs와-불변객체.html: /2015/08/16/react-and-immutable/
-  /post/122232296024/reactjs를-이해하다1.html: /2015/06/23/learning-react-1/
-  /post/122310311704/reactjs를-이해하다2.html: /2015/06/24/learning-react-2/
-  /post/122593166904/reactjs를-이해하다3.html: /2015/06/27/learning-react-3/
-  /post/122771353444/reactjs를-이해하다4.html: /2015/06/29/learning-react-4/
-  /post/123690802269/reactjs를-이해하다5.html: /2015/07/09/learning-react-5/
-  /post/123792037004/reactjs를-이해하다6.html: /2015/07/11/learning-react-6/
-  /post/123886912084/reactjs를-이해하다7.html: /2015/07/11/learning-react-7/
-  /post/122232296024/react-js-1.html: /2015/06/23/learning-react-1/
-  /post/121910103804/페이스북의-결정-mvc는-확장에-용이하지-않다-그렇다면-flux다.html: /2015/06/19/mvc-does-not-scale-use-flux-instead/
-  /post/115464362564/파일-끝에-개행을-추가해야-하는-이유.html: /2015/04/04/text-files-end-with-a-newline/
-  /post/104457240139/iojs란-무엇인가.html: /2014/12/05/what-is-iojs/
-  /post/104457240139/io-js.html: /2014/12/05/what-is-iojs/
-  /post/102749244059/자바스크립트와-비동기-오류-처리.html: /2014/11/15/javascript-and-async-error/
+  path: sitemap.xml

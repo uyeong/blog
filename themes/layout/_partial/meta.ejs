@@ -1,0 +1,23 @@
+<div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="<%= writeAt.format() %>">
+      <%= writeAt.format('YYYY.MM.DD') %>
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    <% if(categories && categories.length > 0) { %>
+      <div class="meta__category-list">
+        <% categories.map((category, index) => { %>
+          <a href="<%= url_for(category.path) %>" class="meta__category-list-item">
+            <span><%= category.name %></span>
+          </a>
+          <% if (categories.length - 1 !== index) { %>
+            <span>&nbsp/ </span>
+          <% } %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</div>

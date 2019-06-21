@@ -1,0 +1,32 @@
+<nav class="navigation">
+  <% const next = page.next || {} %>
+  <% const prev = page.prev || {} %>
+  <div class="navigation__prev">
+    <% if (page.prev) { %>
+      <span class="navigation__guide">Next Post</span>
+      <a href="<%= url_for(prev.path) %>" class="navigation__link">
+        <p class="navigation__title ellipsis"><%= prev.title %></p>
+      </a>
+      <div class="navigation__meta">
+        <%- partial('_partial/meta', {writeAt: prev.date, categories: prev.categories}) %>
+      </div>
+      <p class="navigation__desc">
+        <%= prev.description %>
+      </p>
+    <% } %>
+  </div>
+  <div class="navigation__next">
+    <% if (page.next) { %>
+      <span class="navigation__guide">Previous Post</span>
+      <a href="<%= url_for(next.path) %>" class="navigation__link">
+        <p class="navigation__title ellipsis"><%= next.title %></p>
+      </a>
+      <div class="navigation__meta">
+        <%- partial('_partial/meta', {writeAt: next.date, categories: next.categories}) %>
+      </div>
+      <p class="navigation__desc">
+        <%= next.description %>
+      </p>
+    <% } %>
+  </div>
+</nav>

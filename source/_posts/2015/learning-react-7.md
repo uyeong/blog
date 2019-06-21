@@ -1,6 +1,7 @@
 ---
 title: React.js를 이해하다(7)
 description: 일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 마지막 편입니다.
+permalink: learning-react-7
 date : 2015-07-12
 category:
     - JavaScript
@@ -10,9 +11,9 @@ tags:
     - React
 ---
 
-{% alert info '읽기전에...' '
+{% alert info 읽기전에... %}
 이 문서는 [koba04](http://qiita.com/koba04)님이 작성한 [React.js Advent Calendar](http://qiita.com/advent-calendar/2014/reactjs)를 번역한 것입니다. 본래 원문서는 캘린더 형식으로 소개하지만 여기에서는 회를 나눠 작성할 생각입니다. 또한, React 버전 0.12.1 때 작성된 문서이기 때문에 현 버전과 다른 점이 있을 수 있습니다. 최대한 다른 부분을 노트로 작성할 생각이지만, 만약 생략된 부분이 있다면 댓글로 알려주시면 감사하겠습니다.
-' %}
+{% endalert %}
 
 ## React.js + CSS
 
@@ -54,11 +55,11 @@ CSS와 JS 측에서 변수를 공유하기 어렵습니다.
 
 CSS에서는 상세한 속성이 같은 경우 나중에 작성한 것이 우선됩니다. 그래서 requireCSS 등의 구조를 사용해 컴포넌트와 같이 비동기로 CSS를 읽을 경우 읽는 순서에 따라 다르게 출력돼 의도하지 않는 결과가 발생할 수 있습니다.
 
-{% prism html '
+{% prism html %}
 <div class="foo bar">xxx</div>
-' %}
+{% endprism %}
 
-{% prism css "
+{% prism css %}
 .foo {color: red}
 .bar {color: blue}
 
@@ -66,7 +67,7 @@ CSS에서는 상세한 속성이 같은 경우 나중에 작성한 것이 우선
 
 .bar {color: blue}
 .foo {color: red}
-" %}
+{% endprism %}
 
 이를 회피하기 위해서 상세한 속성을 수정하는 등의 작업이 필요할 수 있습니다.
 
@@ -74,23 +75,23 @@ CSS에서는 상세한 속성이 같은 경우 나중에 작성한 것이 우선
 
 React.js에서 Button 컴포넌트를 만들었을 때 이 button 태그의 스타일을 지정하려면 Button 컴포넌트가 어떤 태그 구조로 구현돼 있는지를 알아야 할 필요가 있어 컴포넌트를 잘 분리 할 수 없습니다.
 
-{% prism html '
+{% prism html %}
 <div className="foo">
   <Button/> <!-- <div><button>xxx</button></div> -->
 </div>
-' %}
+{% endprism %}
 
-{% prism css "
+{% prism css %}
 .foo > div {
   ...
 }
-" %}
+{% endprism %}
 
 ### 그렇다면 CSS in JS
 
 위와 같은 문제는 Sass 같은 CSS Preprocessor 등을 사용하거나 설계 레벨에서 해결 가능한 것도 있지만, CSS를 JavaScript의 Object 형태로 컴포넌트의 스타일을 지정하는데 사용하면 문제를 해결할 수 있지 않을까 하는 접근법입니다. 즉, 템플릿(HTML)을 JS의 안에 가지고 온 것(JSX)처럼 CSS도 JS 안으로 가지고 오겠다는 뜻입니다.
 
-{% prism js "
+{% prism js %}
 var style = {
   container: {
     backgroundColor: '#ddd',
@@ -103,11 +104,11 @@ var Container = React.createClass({
     return <div style={style.container}>{this.props.children}</div>;
   }
 });
-" %}
+{% endprism %}
 
 아래와 같은 함수를 이용하면 조금 더 유연하게 스타일을 지정할 수 있습니다.
 
-{% prism jsx "
+{% prism jsx %}
 function m() {
   var res = {};
   for (var i=0; i < arguments.length; ++i) {
@@ -121,29 +122,29 @@ function m() {
   { marginTop: 10 },
   this.props.isWarning && {color: 'red'}
 )}>xxx</div>
-" %}
+{% endprism %}
 
 또, Prop을 공개해 밖에서 스타일을 지정하도록 할 수 있습니다.
 
-{% prism jsx "
+{% prism jsx %}
 propTypes: {
   style: React.PropTypes.object
 },
 render() {
   return <div style={m(style.container, this.props.style)}>xxx</div>
 }
-" %}
+{% endprism %}
 
 스타일의 우선 순위는 순서를 조절하는 것으로 간단히 변경할 수 있습니다.
 
-{% prism jsx "
+{% prism jsx %}
 propTypes: {
   style: React.PropTypes.object
 },
 render() {
   return <div style={m(this.props.style, style.container)}>xxx</div>
 }
-" %}
+{% endprism %}
 
 이처럼 컴포넌트에 직접 지정하는 것으로 상세한 속성 등은 알 필요 없어지고 JavaScript에 가져오는 것으로 프로그래밍적으로 처리 가능하며 공통화나 상속 등도 간단히 실현할 수 있어 그 결과 처음에 언급한 여러가지 문제를 해결할 수 있습니다. 예에서는 스타일을 컴포넌트의 안에 작성했지만 다른 파일에 작성하고 require 해서 사용할 수도 있습니다. 
 
@@ -163,7 +164,7 @@ React.js는 원래 페이스북이 PHP + XML로 만든 [XHP](https://github.com/
 
 「React Through the Ages」를 보면 API의 안정화와 삭제 그리고 ES6, 7 사양을 따르려고 하는 의도를 느낄 수 있습니다. ES6, 7에서 사용할 수 있는 기능을 최대한 활용하여 React.js 자체에서는 부가적인 처리를 하지 않겠다는 방향성을 엿볼 수 있습니다.
 
-{% prism jsx "
+{% prism jsx %}
 class Button extends React.Component {
   getInitialState() {
     return {count: 0};
@@ -176,7 +177,7 @@ class Button extends React.Component {
     );
   }
 }
-" %}
+{% endprism %}
 
 * **CSS in JS** : 이는 이전 절에서 소개한 CSS의 문제를 해결하기 위한 접근 방식입니다.
 * **Web Workers** : VirtualDOM 계산을 WebWorkers에서 하는 것으로 UI 단에 좋은 영향을 줄 수 있다면 도입하고 싶다고 합니다.
@@ -188,13 +189,13 @@ class Button extends React.Component {
 
 react-future의 저장소를 보면 ES6, 7의 기능을 도입할 경우의 형태를 볼 수 있습니다. 단, 여기에서 소개하는 기능은 아직 구현돼 있지 않고 합의된 것도 아니기 때문에 이렇게 지원된다고 장담할 순 없습니다.
 
-{% alert info '역자노트' '
+{% alert info 역자노트 %}
 일부 기능은 이미 사용할 수 있습니다. 원문이 2014년 12월에 작성됐다는 사실을 감안해주세요.
-' %}
+{% endalert %}
 
 #### Class
 
-{% prism jsx "
+{% prism jsx %}
 import {Component} from 'react';
 
 export class Button extends Component {
@@ -215,18 +216,18 @@ export class Button extends Component {
     return (
       <div>
         This button has been clicked: {state.counter} times
-        <button onClick={this.handleClick} style={{ idth: props.width}}/>
+        <button onClick={this.handleClick} style=&#123;&#123;width: props.width}}/>
       </div>
     );
   }
 }
-" %}
+{% endprism %}
 
 ES6의 Module이나 Class, ArrowFunction 등이 사용됐고 React.js 독자적인 부분이 적어졌습니다. 또 props의 형 지정 방식도 변경 됐는데 이는 facebook/flow와 연계될 수도 있을 것 같습니다. (댓글에는 TypeScript compatible syntax로 작성돼 있지만) 또, render에 props와 state를 인자로 전달하는 것 같은 형태로 돼 있습니다.
 
 #### mixin
 
-{% prism jsx "
+{% prism jsx %}
 import { mixin } from 'react-utils';
 
 const A = {
@@ -252,22 +253,22 @@ class Component extends mixin(Component, C) {
     return <div/>;
   }
 }
-" %}
+{% endprism %}
 
 mixin은 util로써 준비하고, super로 부모의 것을 호출하는 식으로 디자인돼 있습니다. state의 merge 방식에 관한 문제가 있는 것 같습니다.
 
 #### Stateless Functions
 
-{% prism jsx "
+{% prism jsx %}
 export function Button(props : {width: number, onClick: function}) {
   return (
     <div>
       Fancy button
-      <button onClick={props.onClick} style={{width: props.width}}/>
+      <button onClick={props.onClick} style=&#123;&#123;width: props.width}}/>
     </div>
   );
 }
-" %}
+{% endprism %}
 
 Prop 만을 갖는 Stateless한 컴포넌트는 Prop을 전달받는 함수로써 정의할 수 있도록 돼 있습니다.
 
@@ -277,7 +278,7 @@ JavaScript 객체 문법이나 JSX 이외에도 여러가지 방법으로 React 
 
 ##### Object 리터럴
 
-{% prism jsx "
+{% prism jsx %}
 {
   type: Button,
   props: {
@@ -291,7 +292,7 @@ JavaScript 객체 문법이나 JSX 이외에도 여러가지 방법으로 React 
   key: 'mybutton',
   ref: myButtonRef
 }
-" %}
+{% endprism %}
 
 ##### Native Components
 
@@ -301,14 +302,14 @@ React.DOM 이하의 API는 없어지고 단순한 문자열로 정의할 수 있
 
 ES6의 Template Strings을 이용해 정의할 수 있도록 돼 있습니다.
 
-{% prism jsx '
+{% prism jsx %}
 X`
  <my-button foo=${bar} key="mybutton" ref=${myButtonRef}>
    <span>${a}</span>
    <span>${b}</span>
  </my-button>
 `
-' %}
+{% endprism %}
 
 이외에도 여러가지 소개하고 있으므로 흥미가 있다면 꼭 한번 읽어보시길 바랍니다.
 

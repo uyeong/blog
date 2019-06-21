@@ -1,6 +1,7 @@
 ---
 title: React.js를 이해하다(4)
 description: 일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 네번째 편입니다.
+permalink: learning-react-4
 date : 2015-06-29
 category:
     - JavaScript
@@ -10,9 +11,9 @@ tags:
     - React
 ---
 
-{% alert info '읽기전에...' '
+{% alert info 읽기전에... %}
 이 문서는 [koba04](http://qiita.com/koba04)님이 작성한 [React.js Advent Calendar](http://qiita.com/advent-calendar/2014/reactjs)를 번역한 것입니다. 본래 원문서는 캘린더 형식으로 소개하지만 여기에서는 회를 나눠 작성할 생각입니다. 또한, React 버전 0.12.1 때 작성된 문서이기 때문에 현 버전과 다른 점이 있을 수 있습니다. 최대한 다른 부분을 노트로 작성할 생각이지만, 만약 생략된 부분이 있다면 댓글로 알려주시면 감사하겠습니다.
-' %}
+{% endalert %}
 
 이번에는 React.js의 VIRTUAL DOM을 간단히 소개하겠습니다. VIRTUAL DOM의 자세한 설명은 [VirtualDOM Advent Calendar 2014](http://qiita.com/advent-calendar/2014/virtual-dom)(일본어)를 참고하세요. 사실 이 캘린더 만으로도 Virtual DOM을 충분히 이해할 수 있지만 흐름 상 한번 다뤄야 할 것 같아 작성합니다.
 
@@ -24,7 +25,7 @@ tags:
 
 React.js의 경우는 setState(forceUpdate)가 호출되면 그 컴포넌트와 하위 컴포넌트가 다시 랜더링되는 대상이 됩니다. 이 말을 듣게 되면 매번 광범위하게 DOM이 갱신된다고 느껴지지만 React.js에서는 VIRTUAL DOM이라고 하는 형태로 메모리상에 DOM의 상태를 유지하고 있고 전/후 상태를 비교하여 달라진 부분만 실제 DOM에 반영합니다. 참고로 CSS도 마찬가지로 객체 형식으로 지정해 변경된 Style만 갱신합니다.
 
-{% prism jsx "
+{% prism jsx %}
 var Hoge = React.createClass({
   getInitialState() {
     return {
@@ -46,7 +47,7 @@ var Hoge = React.createClass({
     );
   }
 }
-" %}
+{% endprism %}
 
 이러한 방식으로 성능 문제를 해결한 것은 물론, 성능이 중요하지 않은 애플리케이션에서도 상위 레벨의 요소에 애플리케이션의 상태를 갖게 하고 그것을 setState()로 점점 갱신하는 것과 같은 조금은 거친 느낌으로 아키텍처도 할 수 있습니다. 서버 사이드의 렌더링과 비슷하네요. 즉, DOM을 다룰 때 신경 써야 하는 귀찮고 성능에 영향을 주는 부분을 React.js에 맡기는 것으로 애플리케이션의 구현을 단순하게 할 수 있는 특징이 있습니다.
 
@@ -56,12 +57,12 @@ var Hoge = React.createClass({
 
 shouldComponenetUpdate()에 관해서는 Component Lifecycle을 다룰 때 설명했습니다. 이 메서드를 구현(재정의)하지 않는 경우엔 UI를 항상 갱신하도록 구현돼 있습니다. 이 메서드가 false를 반환하면 그 컴포넌트와 하위 컴포넌트의 UI를 갱신하지 않습니다.([참고](https://github.com/facebook/react/blob/c5fb3ff9870cc09a6ec82672e854ab54a412cef1/src/renderers/shared/reconciler/ReactCompositeComponent.js#L546-L549))
 
-{% prism js '
+{% prism js %}
 var shouldUpdate =
       this._pendingForceUpdate ||
       !inst.shouldComponentUpdate ||
       inst.shouldComponentUpdate(nextProps, nextState, nextContext);
-' %}
+{% endprism %}
 
 최소한의 DOM만 갱신되는 메커니즘으로 인해 항상 UI를 갱신하도록 구현해도 문제가 안 될 것 같지만, 매번 VIRTUAL DOM 트리를 만들어 실제 DOM을 비교하는 작업을 하게 되므로 실제 DOM은 갱신되지 않더라도 비용 들어 갑니다. 따라서 컴포넌트의 State와 Prop의 전/후 상태를 비교하여 변경이 있는 경우에만 컴포넌트와 하위 컴포넌트의 VIRTUAL DOM의 트리를 만들어 실제 DOM과 비교하여 UI를 갱신하도록 하는 것이 조금 더 비용을 낮추는 방법입니다.
 
@@ -79,7 +80,7 @@ React.js 외에도 VIRTUAL DOM을 채용하고 있는 라이브러리로는 [mer
 
 예로써, 텍스트와 이미지를 한데 묶은 ImageText 컴포넌트를 사용합니다. 이 컴포넌트의 I/F는 이미지 경로와 텍스트를 전달할 수 있도록 디자인했습니다.
 
-{% prism jsx '
+{% prism jsx %}
 var ImageText = React.createClass({
   render() {
     return (
@@ -92,11 +93,11 @@ var ImageText = React.createClass({
 });
 
 <ImageText text="이름" src="/img/foo.png" width="100" height="200" />
-' %}
+{% endprism %}
 
 위와 같은 느낌으로 단순하게 구현할 수 있습니다. 하지만 이미지 태그를 표기할 때는 alt 어트리뷰트가 필요합니다. 여기에 또 추가하자니 귀찮습니다. 이런 문제는 Spread Attributes를 사용하면 다음과 같이 작성할 수 있습니다.
 
-{% prism jsx '
+{% prism jsx %}
 var ImageText = React.createClass({
   render() {
     var {text, ...other} = this.props;
@@ -105,7 +106,7 @@ var ImageText = React.createClass({
     );
   }
 });
-' %}
+{% endprism %}
 
 Spread Attributes를 이용해 text와 ohter를 나누어 전달하면 이미지 어트리뷰트 갯수나 형식에 상관없이 사용할 수 있습니다. 자바스크립트로도 _.omit()을 이처럼 사용할 수 있습니다. 하지만 이렇게 작성할 경우 컴포넌트의 I/F를 알기 어려워지므로 PropTypes를 될 수 있으면 지정해두는 편이 좋다고 생각합니다.
 
@@ -113,7 +114,7 @@ Spread Attributes를 이용해 text와 ohter를 나누어 전달하면 이미지
 
 이번에는 클릭 이벤트 발생 시 Ajax를 요청하도록 해보겠습니다.
 
-{% prism jsx "
+{% prism jsx %}
 var request = require('superagent');
 var ImageText = React.createClass({
   onClick() {
@@ -126,11 +127,11 @@ var ImageText = React.createClass({
     );
   }
 });
-" %}
+{% endprism %}
 
 위와 같이 onClick()을 추가하면 Prop의 값과 자동으로 merge 합니다. 만약 {...other} 앞에 onClick()을 선언하면 Prop의 onClick을 우선시하여 덮어쓰므로 주의가 필요합니다.
 
-{% prism jsx "
+{% prism jsx %}
 var Hello = React.createClass({
     onClick() {
         alert('inner');
@@ -147,7 +148,7 @@ function onClick() {
     alert('outer');
 }
 React.render(<Hello name=\"World\" onClick={onClick}/>, document.getElementById('container'));
-" %}
+{% endprism %}
 
 Spread Attributes는 JSX 없이도 _.extend(), Object.assign() 등을 사용하여 구현할 수 있습니다. 하지만 JSX의 spread attributes 사용하는 편이 조금 더 편리한 것 같습니다. 다음 절에서는 mixin을 소개하겠습니다.
 
@@ -155,15 +156,15 @@ Spread Attributes는 JSX 없이도 _.extend(), Object.assign() 등을 사용하�
 
 이번에는 컴포넌트의 믹스-인 기능을 소개하겠습니다. 보통 믹스-인은 이름 그대로 기능을 수집하는 수단을 말하고 React.js에서 믹스-인은 컴포넌트의 공통 로직을 Object로 분리하여 공통적으로 사용할 수 있도록 하는 기능 뜻합니다. React.js 자체도 LinkedStateMixin이나 PureRenderMxin 등의 믹스-인을 제공하고 있습니다. 덧붙여 Marionette.js에서는 Behavior로, Vue.js에서는 믹스-인이라는 이름으로 같은 기능이 존재합니다.
 
-{% alert info '역자노트' '
+{% alert info 역자노트 %}
 아쉽지만 ES6 문법에서는 Mixin을 사용할 수 없습니다.([참고](http://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html#mixinshttp://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html#mixins)), [react-mixin](https://github.com/brigand/react-mixin)으로 사용할 수 있지만, 개인적으로 깔끔하진 않은 거 같습니다.
-' %}
+{% endalert %}
 
 ### 사용 방법
 
 Object를 배열로 지정하는 방식으로 사용합니다. 배열을 보면 알 수 있듯이 복수 지정이 가능합니다.
 
-{% prism jsx "
+{% prism jsx %}
 var Logger = {
   logging(str) {
     console.log(str);
@@ -180,13 +181,13 @@ var Hello = React.createClass({
     return <div>Hello</div>
   }
 });
-" %}
+{% endprism %}
 
 ### 믹스-인이 로드되는 순서
 
 복수의 믹스-인을 지정할 수 있다고 말씀드렸습니다. 그럼 어떤 순서로 로드될까요? 예상대로 배열의 순서대로 믹스-인이 호출된 후 마지막에 컴포넌트의 메서드가 호출되는 것을 확인할 수 있습니다.
 
-{% prism js "
+{% prism js %}
 var MixinA = {
   componentWillMount() {
     console.log('mixinA');
@@ -213,7 +214,7 @@ React.render(<Hello />, document.body);
 // mixinA
 // mixinB
 // hello
-" %}
+{% endprism %}
 
 ### Conflict State or Prop
 
@@ -223,7 +224,7 @@ getInitialState와 getDefaultProps 등을 믹스-인으로 지정하면 어떻�
 
 아래 예제를 보면 알 수 있듯이 State 값을 합칩니다.
 
-{% prism jsx "
+{% prism jsx %}
 var Mixin = {
   getInitialState() {
     return {
@@ -247,13 +248,13 @@ var Hello = React.createClass({
 
 React.render(<Hello />, document.body);
 //  Object {mixinValue: 'mixin state', componentValue: 'component state'}
-" %}
+{% endprism %}
 
 #### getDefaultProps
 
 Props도 State와 마찬가지로 값을 합칩니다.
 
-{% prism js "
+{% prism js %}
 var Mixin = {
   getDefaultProps: function() {
     return {
@@ -277,13 +278,13 @@ var Hello = React.createClass({
  
 React.render(<Hello />, document.body);
 // Object {mixinValue: 'mixin prop', componentValue: 'component prop'}
-" %}
+{% endprism %}
 
 #### getInitialState에서 같은 key를 지정
 
 만약 믹스-인과 같은 key를 지정할 경우엔 에러가 발생합니다.
 
-{% prism jsx "
+{% prism jsx %}
 var Mixin = {
   getInitialState() {
     return {
@@ -307,13 +308,13 @@ var Hello = React.createClass({
  
 React.render(<Hello />, document.body);
 //  Uncaught Error: Invariant Violation: mergeObjectsWithNoDuplicateKeys(): Tried to merge two objects with the same key: `value`. This conflict may be due to a mixin; in particular, this may be caused by two getInitialState() or getDefaultProps() methods returning objects with clashing keys.
-" %}
+{% endprism %}
 
 #### 메서드 재정의
 
 믹스-인과 동일한 이름의 메서드를 컴포넌트에서 선언해 재정의 할때도 에러가 발생합니다.
 
-{% prism jsx "
+{% prism jsx %}
 var Mixin = {
   foo: function() {
     console.log('mixin foo');
@@ -332,7 +333,7 @@ var Hello = React.createClass({
  
 React.render(<Hello />, document.body);
 // Uncaught Error: Invariant Violation: ReactCompositeComponentInterface: You are attempting to define `foo` on your component more than once. This conflict may be due to a mixin.
-" %}
+{% endprism %}
 
 믹스-인을 이용하면 코드를 줄일 수 있습니다. 로직을 어렵게 하지 않을 수준에서 잘 사용하길 바랍니다. 여기까지 믹스-인을 소개했습니다. 다음 절에서는 애드온을 소개하겠습니다.
 
@@ -344,13 +345,13 @@ React.render(<Hello />, document.body);
 
 애드온은 require하거나 js 파일을 로드하는 것으로 사용할 수 있습니다.
 
-{% prism js "
+{% prism js %}
 var React = require('react/addons');
-" %}
+{% endprism %}
 
-{% prism html "
+{% prism html %}
 <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.1/react-with-addons.js"></script>
-" %}
+{% endprism %}
 
 ### 애드온
 
@@ -366,7 +367,7 @@ var React = require('react/addons');
 
 className 지정을 쉽게 하기 위한 애드온입니다. {className: boolean} 형식으로 지정할 수 있고 boolean이 true인 className만 적용됩니다. Angular.js나 다른 프레임워크에도 있는 기능입니다.([참고](http://jsfiddle.net/koba04/4Le38o0n/1/)) 이 애드온은 곧 삭제될 예정입니다. 대신 [classnames](https://github.com/JedWatson/classnames) 같은 별도의 npm 모듈을 사용하도록 권고하고 있습니다.
 
-{% prism jsx "
+{% prism jsx %}
 var classSet = React.addons.classSet;
  
 var Hello = React.createClass({
@@ -396,7 +397,7 @@ var Hello = React.createClass({
     );
   }
 });
-" %}
+{% endprism %}
 
 #### TestUtils
 
@@ -406,7 +407,7 @@ React.js를 테스트할 때 편리하게 사용할 수 있는 애드온이며 �
 
 이 애드온을 사용하는 경우는 많지 않습니다. 어떤 컴포넌트에서 다른 Prop에 의한 새로운 컴포넌트를 만들고 싶을 때 사용합니다.
 
-{% prism jsx "
+{% prism jsx %}
 var cloneWithProps = React.addons.cloneWithProps;
  
 var Item = React.createClass({
@@ -426,7 +427,7 @@ var Loop = React.createClass({
 });
  
 React.render(<Loop count=\"10\"><Item text=\"hoge\" /></Loop>, document.body);
-" %}
+{% endprism %}
 
 위는 횟수만큼 children 컴포넌트를 만드는 과정을 cloneWithProps 애드온을 사용해 작성한 것입니다.
 
@@ -434,7 +435,7 @@ React.render(<Loop count=\"10\"><Item text=\"hoge\" /></Loop>, document.body);
 
 Object를 Immutable하게 조작하기 위한 애드온입니다. 뒤에서 설명할 PureRenderMixin() 또는 Prop과 State를 비교해 최적화하는 용도의 shouldComponentUpdate와 함께 조합해서 사용하면 편리합니다.
 
-{% prism js "
+{% prism js %}
 var update = React.addons.update;
 
 var obj = {
@@ -449,11 +450,11 @@ var obj2 = update(obj, {
 
 console.log(obj2.list);     // ['a','b','c','d']
 console.log(obj === obj2);  // false
-" %}
+{% endprism %}
 
 참고로 페이스북은 별도의 [Immutable.js](http://facebook.github.io/immutable-js/)를 만들고 있습니다. 이를 다음과 같이 사용할 수도 있습니다.
 
-{% prism js "
+{% prism js %}
 var obj = Immutable.Map({
     list: Immutable.List.of(1, 2, 3)
 });
@@ -462,24 +463,24 @@ var obj2 = obj.set('list', obj.get('list').push(4));
 
 console.log(obj2.get('list').toArray()); // ['a','b','c','d']
 console.log(obj === obj2); // false
-" %}
+{% endprism %}
 
 #### PureRenderMixin
 
 성능을 최적화하기 위한 믹스-인입니다. 아래 코드를 살펴보겠습니다.([참고](https://github.com/facebook/react/blob/master/src/addons/ReactComponentWithPureRenderMixin.js))
 
-{% prism js "
+{% prism js %}
 var ReactComponentWithPureRenderMixin = {
   shouldComponentUpdate: function(nextProps, nextState) {
     return !shallowEqual(this.props, nextProps) ||
            !shallowEqual(this.state, nextState);
   }
 };
-" %}
+{% endprism %}
 
 위 믹스-인이 사용하는 shallowEqual은 다음과 같이 작성돼 있습니다. 중첩된 값까지는 고려하지 않고 단순하게 비교합니다.([참고](https://github.com/facebook/react/blob/38acadf6f493926383aec0362617b8507ddee0d8/src/shared/utils/shallowEqual.js))
 
-{% prism js "
+{% prism js %}
 function shallowEqual(objA, objB) {
   if (objA === objB) {
     return true;
@@ -500,19 +501,19 @@ function shallowEqual(objA, objB) {
   }
   return true;
 }
-" %}
+{% endprism %}
 
 #### Perf
 
 성능 측정을 위한 애드온입니다. 개발 환경에서만 사용할 수 있습니다. Perf.start()와 Perf.stop()으로 성능을 측정하고 싶은 로직을 둘러싸고 수치화할 수 있습니다.
 
-{% prism js "
+{% prism js %}
 React.addons.Perf.start();
 this.setState({ items: items }, function() {
   React.addons.Perf.stop();
   React.addons.Perf.printInclusive();
 });
-" %}
+{% endprism %}
 
 어떤 식으로 수치화되는지 확인하기 위해 Item 컴포넌트를 100개 추가하는 로직을 성능 측정하는 [예제](http://jsfiddle.net/koba04/Lpeubepw/1/)를 작성했습니다. 측정 결과는 개발자 콘솔에서 확인할 수 있습니다.
 
@@ -554,7 +555,7 @@ this.setState({ items: items }, function() {
 
 CSSTransitionGroup을 이용하면 컴포넌트를 추가/삭제 시 CSS 애니메이션을 줄 수 있습니다. 방법은 Angular.js와 Vue.js와 비슷합시다. 추가/삭제 시 클래스를 추가하여 CSS 애니메이션을 처리하는 방식입니다. `{transitionName}-{enter, leave}` 패턴으로 클래스 명이 추가된 뒤, 다음 이벤트 루프에서 `{transitionName}-{enter, leave}-active`의 className이 추가되는데 이때 이 클래스 명을 사용하여 CSS애니메이션을 처리합니다.([참고](http://jsfiddle.net/koba04/4L6oLfbg/4/))
 
-{% prism jsx "
+{% prism jsx %}
 var CSSTransitionGroup = React.addons.CSSTransitionGroup;
  
 var Hello = React.createClass({
@@ -581,9 +582,9 @@ var Hello = React.createClass({
 });
  
 React.render(<Hello />, document.body);
-" %}
+{% endprism %}
 
-{% prism css '
+{% prism css %}
 .sample-enter {
      -webkit-transition: 1s ease-in;
 }
@@ -596,7 +597,7 @@ React.render(<Hello />, document.body);
 .sample-leave.sample-leave-active {
     font-size: 10px;
 }
-' %}
+{% endprism %}
 
 #### 주의할 점
 
@@ -604,15 +605,15 @@ React.render(<Hello />, document.body);
 
 애니메이션은 추가(enter) 시와 삭제(leave) 시 두 경우 모두에 지정할 필요가 있습니다. 만약 한 경우에만 애니메이션을 지정하고 싶다면 transitionEnter={false}, transitionLeave={false}를 지정합니다.
 
-{% prism jsx '
+{% prism jsx %}
 <CSSTransitionGroup transitionName="sample" transitionLeave={false}>
   {value}
 </CSSTransitionGroup>
-' %}
+{% endprism %}
 
 CSSTransitionGroup의 컴포넌트는 애니메이션 시작 시엔 이미 랜더링 돼 있어야 합니다. 추가되는 요소와 함께 CSSTransitionGroup의 컴포넌트를 추가하면 애니메이션하지 않습니다. 예를 들어 아래의 경우 처음 click 시엔 CSSTransitionGroup이 없으므로 애니메이션하지 않습니다.
 
-{% prism jsx "
+{% prism jsx %}
 var Hello = React.createClass({
   getInitialState: function() {
     return {
@@ -640,13 +641,13 @@ var Hello = React.createClass({
     );
   }
 });
-" %}
+{% endprism %}
 
 ### ReactTransitionGroup
 
 CSS 애니메이션이 아니라 직접 유연하게 애니메이션 작성하고 싶은 경우엔 ReactTransitionGroup을 사용합니다. componentWillEnter(callback), componentDidEnter(), componentWillLeave(callback), componentDidLeave() 이 4개의 Lifecycle 메서드를 이용해 작성합니다. 또 ReactTransitionGroup은 기본으로 span 요소를 DOM에 추가하는데 `<ReactTransitionGroup compoenent="ul">` 문법으로 추가하는 요소를 지정할 수 있습니다.([참고](http://jsfiddle.net/koba04/hr5vkteL/5/))
 
-{% prism jsx "
+{% prism jsx %}
 var TransitionGroup = React.addons.TransitionGroup;
 var duration = 1000;
 var AnimationComponent = React.createClass({
@@ -695,7 +696,7 @@ var Hello = React.createClass({
 });
  
 React.render(<Hello />, document.body);
-" %}
+{% endprism %}
 
 #### 주의할 점
 

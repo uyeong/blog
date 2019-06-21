@@ -1,0 +1,18 @@
+<header class="header">
+  <div class="header__picture">
+    <a href="<%- url_for() %>">
+      <img src="<%- url_for(`/images/common/author.png`) %>" alt="<%= config.author %>'s Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="<%- url_for() %>">
+        <%= config.title %>
+      </a>
+    </h1>
+    <p class="header__subtitle"><%= config.subtitle %></p>
+    <div class="header__media">
+      <%- partial('media') %>
+    </div>
+  </div>
+</header>

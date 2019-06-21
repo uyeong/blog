@@ -1,6 +1,7 @@
 ---
 title: Tabnabbing 공격과 rel=noopener 속성
 description: 이 문서는 Tabnabbing 공격과 이를 막을 수 있는 rel=noopener 속성에 대해 소개합니다.
+permalink: tabnabbing_attack_and_noopener
 date : 2017-05-30
 category:
     - JavaScript
@@ -62,9 +63,9 @@ _blank 속성으로 열린 탭(페이지)는 언제든지 opener를 참조할 �
 
 noopener 속성을 사용해 열린 탭은 부모를 호출할 일이 없다. 따라서 같은 스레드 일 필요 없으며 새로운 페이지가 느리다고 부모 탭까지 느려질 일도 없다.
 
-{% alert info '
+{% alert info %}
 rel="noopener" prevents window.opener, so there\'s no cross-window access. Chromium browsers optimise for this and open the new page in its own process.
-' %}
+{% endalert %}
 
 자세한 내용은 [The performance benefits of rel=noopener](https://jakearchibald.com/2016/performance-benefits-of-rel-noopener/)을 참고하자.
 

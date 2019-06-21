@@ -1,6 +1,7 @@
 ---
 title: "페이스북의 결정: MVC는 확장에 용이하지 않다. 그렇다면 Flux다."
 description: "이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead」를 번역한 글이며, 페이스북이 Flux 아키텍처를 디자인한 이유와 그것이 무엇인지 설명하고 있습니다."
+permalink: mvc-does-not-scale-use-flux-instead
 date : 2015-06-19
 category:
     - JavaScript
@@ -13,9 +14,9 @@ tags:
     - MVC
 ---
 
-{% alert info '읽기전에...' '
+{% alert info 읽기전에... %}
 이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead([일본어](http://www.infoq.com/jp/news/2014/05/facebook-mvc-flux), [영어](http://www.infoq.com/news/2014/05/facebook-mvc-flux))」를 번역한 글입니다. 주로 일본어 문서를 번역했으며 영어 문서는 참고 자료로써 사용했습니다.
-' %}
+{% endalert %}
 
 이 문서는 개발자 커뮤니티와 [Jing Chen](https://www.linkedin.com/pub/jing-chen/5/425/353)(페이스북)의 반응을 바탕으로 업데이트하고 있다.(아래 Update 절 참고)
 
@@ -37,9 +38,9 @@ Jing Chen씨는 이어서 MVC는 소규모 애플리케이션에는 적합하지
 
 페이스북 깃-허브의 [Flux Overview 페이지](https://facebook.github.io/flux/docs/overview.html)에 Flux나 Dispatcher 그리고 Store에 관해 자세히 작성돼 있다.
 
-{% alert info 'Dispatcher와 Store' '
+{% alert info 'Dispatcher와 Store' %}
 Dispatcher는 Flux 아키텍처의 모든 데이터 흐름을 관리하는 중앙 허브다. 이는 본질적으로 Store 내에서 콜백을 등록할 때 사용하는 장소다. 각 Store는 Dispatcher에 등록할 콜백을 제공한다. 이 Dispatcher가 발생시킨 Action에 응답할 때 애플리케이션 내의 모든 Store는 Dispatcher에 등록한 콜백을 통해 Action에 의해 생긴 데이터를 송신한다.<br/><br/>등록된 콜백을 정해진 순서로 실행하여 Store 간의 의존 관계를 관리할 수 있으므로 애플리케이션이 커질수록 더욱 없어선 안 될 존재가 된다. 선언에 따라 Store는 다른 Store의 갱신이 완료될 때까지 기다린 다음 자기 자신을 갱신할 수 있다.<br/><br/>Store는 애플리케이션의 상태나 논리를 포함한다. Store의 역할은 전통적인 MVC의 Model 역할과 조금 비슷하다. 하지만 다수의 객체의 상태를 관리하는 MVC와 달리 단일 객체 인스턴스(싱글-톤)로 관리한다. 또, Backbone 프레임워크의 컬렉션과도 같지 않다. ORM 형식의 객체를 집합으로 관리하기보다 조금 더 단순하게 애플리케이션 내의 한 특정 도메인에 관한 애플리케이션의 상태를 관리한다.
-' %}
+{% endalert %}
 
 중요한 것은 데이터 계층에서 다른 Action이 발생하기 전에 자신과 관계를 맺고 있는 View의 갱신을 끝내는 것이라고 Jing Chen씨는 말했다. Dispatcher는 이전 Action의 처리를 완료하지 않은 상태라면 다음 Action의 처리를 거부할 수 있다. 이 설계 방식은 다른 View도 함께 갱신할 때 발생할 수 있는 부작용을 가지고 있는 Action에 대응할 때 유용하며 코드를 좀 더 명확하게 이해할 수 있고 새로운 개발자도 디버깅을 간단하게 할 수 있도록 한다고 했다. Flux는 페이스북 채팅의 버그(가짜 신규 메시지 통지를 발생시키는 버그)를 수정하는 역할로 사용됐다.
 
