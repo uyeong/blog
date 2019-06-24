@@ -1,6 +1,6 @@
 ---
 title: 한글 웹 폰트 경량화해 사용하기
-description: 폰트의 서브셋 개념을 소개하고 한글 웹 폰트 Note Sans CJK를 경량화해 사용하는 이유와 그 방법을 소개합니다.
+description: 폰트의 서브셋 개념을 소개하고 한글 웹 폰트 Note Sans CJK를 이용해 폰트를 경량화하는 이유와 그 방법을 소개합니다.
 permalink: using-korean-web-fonts
 date : 2015-04-04
 category:
