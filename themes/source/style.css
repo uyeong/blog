@@ -537,12 +537,14 @@ a:active {
   .post__contents pre[class*=language] {
     font-size: .75rem;
     padding: 8px;
+    border-left-width: 0;
+    border-right-width: 0;
   }
 
   .post__contents > pre[class*=language] {
     padding: 8px 21px;
-    margin-left: -21px;
-    margin-right: -21px;
+    margin-left: -20px;
+    margin-right: -20px;
     border-radius: 0;
   }
 
