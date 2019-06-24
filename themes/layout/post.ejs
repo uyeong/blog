@@ -10,6 +10,13 @@
           <%- partial('_partial/tags', {tags: page.tags}) %>
         </div>
       </div>
+      <% const tocText = toc(page.content); %>
+      <% if (tocText) { %>
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <%- tocText %>
+        </aside>
+      <% } %>
       <div class="post__contents">
         <%- page.content %>
       </div>

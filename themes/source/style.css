@@ -69,11 +69,11 @@ a:active {
 }
 
 .root {
+  position: relative;
   max-width: 700px;
   padding: 50px 20px;
   margin: 0 auto;
   font-size: 1rem;
-  overflow: hidden;
 }
 
 @media (max-width: 480px) {
@@ -307,6 +307,33 @@ a:active {
   line-height: 1.25;
 }
 
+.post__toc {
+  position: absolute;
+  left: 740px;
+  top: 186px;
+  width: 240px;
+  font-size: .75rem;
+  word-break: break-all;
+}
+
+.post__toc h2 {
+  margin: 0;
+  padding: 0;
+  font-size: .875rem;
+  line-height: 1.25;
+}
+
+.post__toc ol {
+  list-style: none;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.post__toc > ol {
+  margin-top: 20px;
+  padding-left: 0;
+}
+
 .post__contents {
   margin-top: 50px;
   font-size: 1rem;
@@ -414,6 +441,23 @@ a:active {
   color: #1d39c4; /* geeblue-7 */
 }
 
+@media (max-width: 1249px) {
+  .post__toc {
+    position: static;
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .post__toc h2 {
+    margin-top: 50px;
+    font-size: 2.125rem;
+  }
+
+  .post__toc > ol {
+    margin-top: 30px;
+  }
+}
+
 @media (max-width: 480px) {
   .post,
   .post__navigation,
@@ -427,6 +471,14 @@ a:active {
 
   .post__title {
     font-size: 2rem;
+  }
+
+  .post__toc {
+    font-size: .85rem;
+  }
+
+  .post__toc > ol {
+    margin-top: 25px;
   }
 
   .post__contents {
@@ -450,6 +502,7 @@ a:active {
     margin-top: 25px;
   }
 
+  .post__toc h2,
   .post__contents h2 {
     margin-top: 43px;
     font-size: 1.8rem;
@@ -869,7 +922,7 @@ a:active {
 
 .pagination__item {
   display: inline-block;
-  margin-right: 4px;
+  margin-right: 6px;
 }
 
 .pagination__item:last-child {
