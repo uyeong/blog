@@ -1,6 +1,6 @@
 ---
 title: 백엔드 개발자와 협업하는 두 가지 방법
-description: 이 문서는 백엔드 개발자와 협업하는 두 가지 방법을 정리한 문서로 API 협의 과정 또는 그러한 과정없이 애플리케이션을 개발하는 방법을 소개한다.
+description: 이 문서는 백엔드 개발자와 협업하는 두 가지 방법을 정리한 문서로 API 협의 과정 또는 그러한 과정없이 애플리케이션을 개발하는 방법을 소개합니다.
 permalink: two-ways-to-work-with-backend-developer
 date : 2018-03-03
 category:
