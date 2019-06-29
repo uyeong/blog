@@ -13,6 +13,8 @@ tags:
     - Undo/Redo
 ---
 
+{% figure undo-redo.00.jpg %}
+
 이 문서는 자바스크립트 라이브러리 [serializr](https://github.com/mobxjs/serializr)를 사용하여 실행 취소 / 다시 실행 구현 방법을 소개한다. 이와 같은 기능을 구현하는 데 있어 적게나마 도움이 되길 바란다.
 
 ## 예제 소개

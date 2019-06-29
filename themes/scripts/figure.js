@@ -12,7 +12,7 @@ hexo.extend.tag.register('figure', function([ source, alt, caption, width ]) {
           style="${width ? `max-width:${width}` : ''}"
         >
       </a>
-      <figcaption>&lt;${caption || ''}&gt;</figcaption>
+      ${caption ? `<figcaption><${caption}></figcaption>` : ''}
     </figure>
   `;
 });

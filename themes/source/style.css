@@ -226,7 +226,7 @@ a:active {
   top: 0;
   right: 0;
   width: 160px;
-  height: 112px;
+  height: 106px;
   background-color: #e8e8e8;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -270,7 +270,7 @@ a:active {
 
   .posts__picture {
     width: 100px;
-    height: 70px;
+    height: 66px;
   }
 
   .posts__body,
@@ -965,7 +965,6 @@ a:active {
   color: #fff;
   fill: #fff;
 }
-
 
 #cp_embed_RzZBdX,
 #cp_embed_VJMOxp {
