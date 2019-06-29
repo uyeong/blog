@@ -413,6 +413,10 @@ a:active {
   text-align: center;
 }
 
+.post__contents figure a {
+  display: block;
+}
+
 .post__contents figure img {
   width: 100%;
   border-radius: 2px;
@@ -548,7 +552,7 @@ a:active {
     border-radius: 0;
   }
 
-  .post__contents figure {
+  .post__contents > figure {
     margin-left: -20px;
     margin-right: -20px;
   }

@@ -36,7 +36,7 @@ tags:
 {% prism js %}
 import { bind, wire } from 'https://dev.jspm.io/hyperhtml/esm';
 
-... 생략 ...
+...
 const graphic = document.querySelector('.graphic');
 const render = bind(graphic);
 const shapes = new Shapes();
@@ -44,7 +44,7 @@ const shapes = new Shapes();
 function update() {
   render`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"> 
-      ... 생략 ... 
+      ... 
     </svg>
   `;
 }
@@ -110,7 +110,7 @@ const { createModelSchema, serialize, deserialize, primitive, list } = serializr
 {% prism js %}
 class Shape {
   constructor(data = { }) {
-    ... 생략 ...
+    ...
     this.posX = posX;
     this.posY = posY;
     this.tempX = undefined;
@@ -118,11 +118,11 @@ class Shape {
     this.fill = fill;
     this.selected = selected;
   }
-  ... 생략 ...
+  ...
 }
 {% endprism %}
 
-`Shape`는 `posX`, `posY`, `tempX`, `tempY`, `fill`, `selected` 속성을 가지고 있다. 이때 직렬화가 필요한 속성은 `posX`, `posY`, `fill`, `selected`다. `tempX`, `tempY`는 도형에 끄는 동안에 사용할 임시 값으로 실행 취소 / 다시 실행을 위해 따로 복사하지 않는다.
+`Shape`는 `posX`, `posY`, `tempX`, `tempY`, `fill`, `selected` 속성을 가지고 있다. 이때 직렬화가 필요한 속성은 `posX`, `posY`, `fill`, `selected`다. `tempX`, `tempY`는 도형을 끄는 동안에 사용할 임시 값으로 실행 취소 / 다시 실행을 위해 따로 복사하지 않는다.
 
 {% prism js %}
 createModelSchema(Shape, {
@@ -162,7 +162,7 @@ createModelSchema(Triangle, {
 
 {% prism js %}
 class Shapes {
-  ... 생략 ...
+  ...
   snapshot() {
     return serialize(this._shapes);
   }
@@ -179,7 +179,7 @@ class Shapes {
 
 `Shapes`에 `snapshot()`과 `restore()`를 추가했다. 각 메서드에서 사용하는 `serialize()`와 `deserialize()`는 serializr에서 제공하는 함수다.
 
-`snapshot()`은 간단하다. `_shapes`를 `serialize()`에 전달하기만 하면 된다. 그러면 serializr는 앞서 정의한 스키마를 이용해 플레인 자바스크립트 객체를 반환할 것이다.
+`snapshot()`은 간단하다. `_shapes`를 `serialize()`에 전달하기만 하면 된다. 그러면 serializr는 앞서 정의한 스키마를 토대로 플레인 자바스크립트 객체를 반환할 것이다.
 
 하지만 `restore()`는 그렇지 않다. `deserialize()`의 첫 번째 인자로는 역직렬화 할 객체 생성자, 두 번째 인자엔 되돌릴 객체 상태를 전달해야 하는데 복사본만으로는 연관된 생성자를 알 수 없다. 이 문제를 해결하기 위해서 모델을 다음과 같이 수정한다.
 
@@ -232,7 +232,7 @@ class Triangle extends Shape {
 Triangle.shapeType = ShapeType.Triangle;
 {% endprism %}
 
-이어서 각 모델에 `shapeType` 속성을 추가하고 연관된 `ShapeType`을 대입한다. 이제 추가한 속성을 이용하면 연관된 생성자를 알 수 있다.
+이어서 각 모델에 `shapeType` 속성을 추가하고 연관된 `ShapeType`을 대입한다. 이렇게 추가한 속성을 이용하면 연관된 생성자를 알 수 있다.
 
 {% prism js %}
 function getShapeClass(shapeType) {
@@ -256,7 +256,7 @@ class Shapes {
 }
 {% endprism %}
 
-필요한 모델 수정은 모두 끝났다. 다음으로 실행 취소 / 다시 실행의 상태를 보관할 `History` 객체를 작성해보자.
+이것으로 필요한 모델 수정은 모두 끝났다. 다음으로 실행 취소 / 다시 실행의 상태를 보관할 `History` 객체를 작성해보자.
 
 ### History 작성
 
@@ -356,9 +356,8 @@ remove.addEventListener('click', () => {
 {% prism js %}
 function handlePointerEnd() {
   if (dragging && shape) {
-    // 추가
     if (shape.tempX !== undefined) {
-      history.take();      
+      history.take(); // 추가  
     }
     shapes.arrive(shape);
     dragging = false;
