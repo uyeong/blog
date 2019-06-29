@@ -965,3 +965,16 @@ a:active {
   color: #fff;
   fill: #fff;
 }
+
+
+#cp_embed_RzZBdX,
+#cp_embed_VJMOxp {
+  height: 420px;
+}
+
+@media (max-width: 420px) {
+  #cp_embed_RzZBdX,
+  #cp_embed_VJMOxp {
+    height: 504px;
+  }
+}
