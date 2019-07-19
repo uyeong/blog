@@ -413,7 +413,7 @@ a:active {
   text-align: center;
 }
 
-.post__contents figure a {
+.post__contents figure > a {
   display: block;
 }
 
