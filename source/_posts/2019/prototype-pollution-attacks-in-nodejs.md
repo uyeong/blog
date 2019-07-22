@@ -2,7 +2,7 @@
 title: Node.js에서의 프로토타입 오염 공격이란 무엇인가
 description: __proto__을 이용한 프로토타입 오염(prototype pollution) 공격의 원리를 설명하면서 노드 환경에서 실제 공격이 가능한 사례를 함께 소개합니다.
 permalink: prototype-pollution-attacks-in-nodejs
-date : 2019-09-19
+date : 2019-07-19
 category:
     - JavaScript
     - Security
@@ -16,7 +16,7 @@ tags:
 ---
 
 {% alert info '읽기전에...' %}
-이 문서는 「[Node.jsにおけるプロトタイプ汚染攻撃とは何か](https://jovi0608.hatenablog.com/entry/2018/10/19/083725)」를 번역한 글입니다. 원작자에게 번역 및 배포 허락을 받았습니다. 프로토타입 오염 취약성이 많은 분들에게 알려지길 바랍니다.
+이 문서는 「[Node.jsにおけるプロトタイプ汚染攻撃とは何か](https://jovi0608.hatenablog.com/entry/2018/10/19/083725)」를 번역한 글입니다. 원작자에게 번역 및 배포 허락을 받았습니다. 프로토타입 오염 취약성이 많은 분에게 알려지길 바랍니다.
 {% endalert %}
 
 ## 시작하면서
