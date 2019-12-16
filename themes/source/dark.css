@@ -151,14 +151,12 @@ img {
 /*************************************************************/
 
 .pagination__pick {
-    border-color: #8c8c8c;
-    color: #f5f5f5;
-    fill: #f5f5f5;
+    color: #bfbfbf;
+    /*fill: #f5f5f5;*/
 }
 
 .pagination__pick.on,
 .pagination__pick:hover {
-    background: #8c8c8c;
     color: #f5f5f5;
-    fill: #f5f5f5;
+    /*fill: #f5f5f5;*/
 }

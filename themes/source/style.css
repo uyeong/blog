@@ -941,37 +941,22 @@ a:active {
 
 .pagination__pick {
   position: relative;
-  display: block;
+  display: inline-block;
   font-size: 1rem;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid #36cfc9;
-  color: #13c2c2;
-  fill: #13c2c2;
+  padding: 0 10px;
+  color: #8c8c8c;
+  /*fill: #13c2c2;*/
 }
 
 .pagination__pick > span {
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  line-height: 1;
 }
-
-/*.pagination__pick > svg {*/
-/*  position: absolute;*/
-/*  top: 50%;*/
-/*  left: 50%;*/
-/*  width: 16px;*/
-/*  transform: translate(-50%, -50%);*/
-/*}*/
 
 .pagination__pick.on,
 .pagination__pick:hover {
-  background: #36cfc9;
-  color: #fff;
-  fill: #fff;
+  /*fill: #fff;*/
+  color: #262626;
+  text-decoration: underline !important;
 }
 
 #cp_embed_RzZBdX,
