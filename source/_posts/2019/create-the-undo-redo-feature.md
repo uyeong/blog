@@ -53,7 +53,7 @@ update();
 shapes.on(update);
 {% endprism %}
 
-이어서 `update()`를 살펴보자. 이 함수는 모델을 토대로 UI를 렌더링하는 즉, 표현을 위한 함수다. 표현에는 [hyperHTML](https://github.com/WebReflection/hyperHTML)을 사용했다. hyperHTML은 Template literal 문법으로 사용할 수 있는 작고 가벼운 가상 돔 라이브러리다. 
+이어서 `update()`를 살펴보자. 이 함수는 모델을 토대로 UI를 렌더링하는 즉, 표현을 위한 함수다. 표현에는 [hyperHTML](https://github.com/WebReflection/hyperHTML)을 사용했다. hyperHTML은 Template literal 문법으로 UI를 만들 수 있는 작고 가벼운 라이브러리다. 
 
 먼저 `update()`를 호출해 SVG를 렌더링한다. 그리고 `shapes.on()`에 `update()`를 등록한다. 이로써 모델에 어떠한 변경이 있을 때마다 `update()`가 호출돼 자동으로 UI가 갱신된다.   
 
