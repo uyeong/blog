@@ -1,7 +1,6 @@
 ---
 title: 한글 웹 폰트 경량화해 사용하기
 description: 폰트의 서브셋 개념을 소개하고 한글 웹 폰트 Note Sans CJK를 이용해 폰트를 경량화하는 이유와 그 방법을 소개합니다.
-permalink: using-korean-web-fonts
 date : 2015-04-04
 category:
     - Fonts
@@ -83,7 +82,7 @@ Google Font 역시 [서브셋 기능](https://developers.google.com/fonts/docs/g
 
 변환한 파일이 제대로 동작하는지 한번 사용해 보겠습니다.
 
-{% prism css %}
+{% codeblock lang:css %}
 @font-face {
     font-family: 'Noto Sans';
     font-style: normal;
@@ -106,11 +105,11 @@ Google Font 역시 [서브셋 기능](https://developers.google.com/fonts/docs/g
     url(NotoSansKR-Light-subset.otf) format('truetype');
 }
 ... 이하 생략 ...
-{% endprism %}
+{% endcodeblock %}
 
 먼저 css 파일에서 웹 폰트를 지정합니다.
 
-{% prism html %}
+{% codeblock lang:html %}
 <style>
   span {font-family: 'Noto Sans';font-size: 20px}
 </style>
@@ -121,7 +120,7 @@ Google Font 역시 [서브셋 기능](https://developers.google.com/fonts/docs/g
 <span style="font-weight: 500">모든 인간은 태어날 때부터 자유로우며 그 존엄과 권리에 있어 동등하다., 12345567890, ABCDEFG<br />
 <span style="font-weight: 700">모든 인간은 태어날 때부터 자유로우며 그 존엄과 권리에 있어 동등하다., 12345567890, ABCDEFG<br />
 <span style="font-weight: 900">모든 인간은 태어날 때부터 자유로우며 그 존엄과 권리에 있어 동등하다., 12345567890, ABCDEFG
-{% endprism %}
+{% endcodeblock %}
 
 그리고 이 폰트를 사용해 HTML에 적용합니다.
 
@@ -143,7 +142,7 @@ Google Font 역시 [서브셋 기능](https://developers.google.com/fonts/docs/g
 
 첫 번째로 `font-face`를 이용해 다양한 가중치를 선언하면 IE8에서 특정 가중치가 동작하지 않는 문제가 있습니다.
 
-{% prism css %}
+{% codeblock lang:css %}
 @font-face {
     font-family: 'Noto Sans';
     font-style: normal;
@@ -167,7 +166,7 @@ Google Font 역시 [서브셋 기능](https://developers.google.com/fonts/docs/g
 .fw400 {font-weight: 400}
 .fw500 {font-weight: 500}
 .fw700 {font-weight: 700}
-{% endprism %}
+{% endcodeblock %}
 
 보통 위와 같은 방식으로 `font-face`를 선언하고 가중치를 이용해 다양한 굵기의 폰트를 사용합니다.
 
@@ -175,12 +174,12 @@ Google Font 역시 [서브셋 기능](https://developers.google.com/fonts/docs/g
 
 위 그림을 보면 파이어폭스에서는 의도한대로 출력되지만 IE8에서는 `font-weight: 300`, `400`, `500`으로 선언한 폰트가 동일한 굵기로 출력되는 것을 볼 수 있습니다. 이 문제는 하나의 폰트 명으로 묶지 않고 각각 폰트 명을 지정하는 방법으로 회피할 수 있습니다.
 
-{% prism css %}
+{% codeblock lang:css %}
 .fw300 {font-family: 'Noto Sans Light'}
 .fw400 {font-family: 'Noto Sans Regular'}
 .fw500 {font-family: 'Noto Sans Medium'}
 .fw700 {font-family: 'Noto Sans Bold'}
-{% endprism %}
+{% endcodeblock %}
 
 위 코드를 IE8로 실행해보면 다음과 같이 출력됩니다.
 

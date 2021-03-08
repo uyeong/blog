@@ -1,7 +1,6 @@
 ---
 title: 공학기술과 사회를 읽고
 description: 지호출판사에서 발행한 「공학기술과 사회」라는 책을 읽고 개인적인 느낌과 감평을 작성한 문서입니다.
-permalink: read-the-engineering-technology-and-society 
 date : 2016-10-11
 category:
     - Book

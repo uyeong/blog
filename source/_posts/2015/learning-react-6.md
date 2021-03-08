@@ -1,7 +1,6 @@
 ---
 title: React.js를 이해하다(6)
 description: 일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 여섯번째 편입니다.
-permalink: learning-react-6
 date : 2015-07-11
 category:
     - JavaScript
@@ -31,11 +30,11 @@ React.js 컴포넌트는 서버-사이드에서도 사용할 수 있으므로 no
 
 「버튼을 클릭하면」이라는 테스트를 작성하고자 할 때 DOM을 셀렉트하고 값을 설정하여 이벤트를 발생시키는 일련의 과정이 필요하지만, React.addons.TestUtils.Simulate를 사용하면 DOM을 지정하고, 전달하고 싶은 이벤트 객체의 형식을 지정할 수 있으므로 격식없이 사용자 액션 테스트를 작성할 수 있습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 Simulate.{eventName}(DOMElement element, object eventData)
-{% endprism %}
+{% endcodeblock %}
 
-{% prism js %}
+{% codeblock lang:js %}
 var node = this.refs.input.getDOMNode();
 
 React.addons.TestUtils.Simulate.click(node);
@@ -43,7 +42,7 @@ React.addons.TestUtils.Simulate.click(node);
 // 전달하고자 하는 이벤트 객체를 지정한다.
 React.addons.TestUtils.Simulate.change(node, {target: {value: 'Hello, world'}});
 React.addons.TestUtils.Simulate.keyDown(node, {key: 'Enter'});
-{% endprism %}
+{% endcodeblock %}
 
 ### 컴포넌트 작성 지원
 
@@ -51,10 +50,10 @@ React.addons.TestUtils.Simulate.keyDown(node, {key: 'Enter'});
 
 renderIntoDocument를 사용하면 DOM에 컴포넌트를 실제로 추가하지 않아도 테스트할 수 있습니다. 아래 예제를 보면 일단 renderintoDocument가 컴포넌트를 DOM에 추가해 나갈 것으로 보입니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var Hello = require('./components/hello');
 var component = React.addons.TestUtils.renderIntoDocument(<Hello name=\"foo\" />);
-{% endprism %}
+{% endcodeblock %}
 
 하지만 이것은 실제 DOM 트리에 추가되는 것이 아니라 document.createElement로 생성한 div에 render 할 뿐입니다. 그래서 요소의 실제 높이나 너비 등은 알 수 없습니다. (이름이 다소 혼란스럽기 때문에 변경될 수 있을 것 같습니다)
 
@@ -62,7 +61,7 @@ var component = React.addons.TestUtils.renderIntoDocument(<Hello name=\"foo\" />
 
 Jest를 사용하고 있을 때 mock 컴포넌트에서 더미로 `<div/>`(엘리먼트 요소)를 반환하도록 하는 mockComponent도 있습니다. 이 함수를 사용하기 위해서는` component.prototype.render.mockImplementation`이 작성되어야 하는데 Jest를 고려한 함수([mockFn.mockImplementation(fn)](http://facebook.github.io/jest/docs/api.html#mockfn-mockimplementation-fn)) 인듯합니다. 자주 쓰일지 모르겠습니다만, 보통 Mock으로 작성한 컴포넌트에서 render를 동작시키고 싶을 때 사용하는 듯합니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 mockComponent: function(module, mockTagName) {
   mockTagName = mockTagName || module.mockTagName || 'div';
 
@@ -76,7 +75,7 @@ mockComponent: function(module, mockTagName) {
 
   return this;
 },
-{% endprism %}
+{% endcodeblock %}
 
 ### 컴포넌트 셀렉트
 
@@ -84,7 +83,7 @@ mockComponent: function(module, mockTagName) {
 
 특정 컴포넌트의 하위 컴포넌트 중에서 지정한 함수의 조건을 충족한 컴포넌트만 배열로 반환합니다. 아래에서 소개할 함수를 사용할 수 없는 경우에 사용할 수 있는 가장 기본적인 구현입니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 console.log(
   React.addons.TestUtils.findAllInRenderedTree(
     React.render(<div><span>foo</span><span>bar</span><p>baz</p></div>, document.body),
@@ -93,13 +92,13 @@ console.log(
 );
  
 // ['foo', 'bar']
-{% endprism %}
+{% endcodeblock %}
 
 #### scryRenderedDOMComponentsWithClass(ReactComponent tree, string className)
 
 특정 컴포넌트의 하위 컴포넌트 중, 지정한 className에 해당하는 컴포넌트를 배열로 반환합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 console.log(
   React.addons.TestUtils.scryRenderedDOMComponentsWithClass(
     React.render(
@@ -115,13 +114,13 @@ console.log(
 );
  
 // ['foo1', 'foo2']
-{% endprism %}
+{% endcodeblock %}
 
 #### findRenderedDOMComponentWithClass(ReactComponent tree, string className)
 
 특정 컴포넌트의 하위 컴포넌트 중, 지정한 className에 해당하는 컴포넌트를 1개만 반환합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 console.log(
   React.addons.TestUtils.findRenderedDOMComponentWithClass(
     React.render(
@@ -137,11 +136,11 @@ console.log(
 );
  
 // ['foo1']
-{% endprism %}
+{% endcodeblock %}
 
 해당하는 컴포넌트가 없거나 여러개가 매치되면 오류를 발생시킵니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 console.log(
   React.addons.TestUtils.findRenderedDOMComponentWithClass(
     React.render(
@@ -157,13 +156,13 @@ console.log(
 );
  
 //  Uncaught Error: Did not find exactly one match for class:foo
-{% endprism %}
+{% endcodeblock %}
 
 #### scryRenderedDOMComponentsWithTag(ReactComponent tree, string tagName)
 
 특정 컴포넌트의 하위 컴포넌트 중, 지정한 태그 네임에 해당하는 컴포넌트를 배열로 반환합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 console.log(
   React.addons.TestUtils.scryRenderedDOMComponentsWithTag(
     React.render(
@@ -179,13 +178,13 @@ console.log(
 );
  
 // ['foo1', 'foo2']
-{% endprism %}
+{% endcodeblock %}
 
 #### findRenderedDOMComponentWithTag(ReactComponent tree, string tagName)
 
 특정 컴포넌트의 하위 컴포넌트 중, 지정한 className에 해당하는 컴포넌트를 1개만 반환합니다. 해당하는 컴포넌트가 없거나 여러개가 매치되면 오류를 발생시킵니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 console.log(
   React.addons.TestUtils.findRenderedDOMComponentWithTag(
     React.render(
@@ -201,13 +200,13 @@ console.log(
 );
  
 // barbar
-{% endprism %}
+{% endcodeblock %}
 
 #### scryRenderedComponentsWithType(ReactComponent tree, function componentClass)
 
 특정 컴포넌트의 하위 컴포넌트 중, 지정한 컴포넌트의 인스턴스에 해당하는 컴포넌트를 배열로 반환합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 console.log(
   React.addons.TestUtils.scryRenderedComponentsWithType(
     React.render(
@@ -224,13 +223,13 @@ console.log(
 );
  
 // ['foo', 'bar']
-{% endprism %}
+{% endcodeblock %}
 
 #### findRenderedComponentWithType(ReactComponent tree, function componentClass)
 
 특정 컴포넌트의 하위 컴포넌트 중, 지정한 컴포넌트의 인스턴스에 해당하는 컴포넌트를 1개만 반환합니다. 해당하는 컴포넌트가 없거나 여러개가 매치되면 오류를 발생시킵니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 console.log(
   React.addons.TestUtils.findRenderedComponentWithType(
     React.render(
@@ -245,7 +244,7 @@ console.log(
 );
  
 // foo
-{% endprism %}
+{% endcodeblock %}
 
 ### Assert
 
@@ -255,45 +254,45 @@ React 컴포넌트의 상태를 확인하기 위한 함수들의 모음입니다
 
 특정 컴포넌트가 지정한 컴포넌트의 인스턴스에 해당하는지를 판단합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 React.addons.TestUtils.isElementOfType(<Hello />, Hello);
-{% endprism %}
+{% endcodeblock %}
 
 #### isDOMComponent(ReactComponent instance)
 
 특정 컴포넌트가 div나 span과 같은 DOM 컴포넌트인지 판단합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 React.addons.TestUtils.isDOMComponent(
   React.render(<div />, document.body)
 );
-{% endprism %}
+{% endcodeblock %}
 
 #### isCompositeComponent(ReactComponent instance)
 
 특정 컴포넌트가 React.createClass에 의해 정의된 컴포넌트를 포함해 작성된 것인지 판단합니다. div나 span 등은 포함하지 않습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 React.addons.TestUtils.isCompositeComponent(
   React.render(<Hello />, document.body)
 );
-{% endprism %}
+{% endcodeblock %}
 
 #### isCompositeComponentWithType(ReactComponent instance, function componentClass)
 
 특정 컴포넌트가 지정한 Component 타입을 포함해 작성된 것인지 판단합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 React.addons.TestUtils.isCompositeComponentWithType(
   React.render(<Hello />, document.body), Hello
 );
-{% endprism %}
+{% endcodeblock %}
 
 #### isTextComponent(ReactComponent instance)
 
 특정 컴포넌트가 텍스트 컴포넌트를 반환하는지 판단합니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 var textComponents = React.addons.TestUtils.findAllInRenderedTree(
   React.render(
     <div>{'hello'}{'react'}</div>,
@@ -305,7 +304,7 @@ var textComponents = React.addons.TestUtils.findAllInRenderedTree(
 );
 console.log(textComponents[0].props + ' ' + textComponents[1].props);
 // hello react
-{% endprism %}
+{% endcodeblock %}
 
 여기까지 TestUtils의 종류와 사용 방법을 설명했습니다. 다음 절에서는 페이스북이 만들고 배포한 테스트 프레임워크인 Jest와 조합하는 방법을 소개하고자 합니다.
 
@@ -329,19 +328,19 @@ Jest는 jsdom으로 생성한 DOM 위에서 실행되므로 Node.js 환경처럼
 
 jest-cli만 설치하면 됩니다.
 
-{% prism bash %}
+{% codeblock lang:bash %}
 $ npm install --save-dev jest-cli
-{% endprism %}
+{% endcodeblock %}
 
 ### tests
 
 기본적으로 __tests__ 디렉터리를 찾습니다. 그리고 그 디렉터리 내의 파일을 테스트로써 실행합니다. 따라서 Getting Started에서도 알 수 있듯이 __tests__ 디렉터리를 내에 테스트 파일를 두고 jest를 실행하면 테스트가 진행됩니다. 만약 jest-cli를 전역이 아닌 devDependencies에 설치한다면 package.json의 scripts 프로퍼티에 npm test로 실행할 수 있도록 아래처럼 작성하면 편리하게 사용할 수 있습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 "scripts": {
   "test": "jest"
 }
-{% endprism %}
+{% endcodeblock %}
 
 ### React.js를 테스트한다.
 
@@ -351,7 +350,7 @@ Jest의 [Tutorial – React](https://facebook.github.io/jest/docs/tutorial-react
 
 JSX를 사용해 애플리케이션을 작성한 경우에는 테스트를 위해 JSX를 변환할 필요가 있습니다. package.json의 Jest 프로퍼티에 scriptPreprocessor로 사전에 동작해야할 script를 지정합니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 // package.json
 "jest": {
   "scriptPreprocessor": "preprocessor.js"
@@ -364,24 +363,24 @@ module.exports = {
     return ReactTools.transform(src, {harmony: true});
   }
 };
-{% endprism %}
+{% endcodeblock %}
 
 ### Mock의 해제
 
 위에서 언급한 것처럼 Jest에서는 모든 require 구문이 Mock을 반환합니다. 단, React도 Mock으로 대체되면 테스트할 수 없으므로 react를 Mock으로 대체하지 않도록 경로를 설정할 필요가 있습니다. 이러한 설정도 package.json에 속성을 추가하는 것으로 간단하게 할 수 있습니다. 테스트 파일에서도 Mock하지 않을 파일을 지정할 수 있지만, 만약 모든 테스트에서 Mock 하고 싶지 않은 파일이 있다면 아래와 같이 작성합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 "jest": {
   "scriptPreprocessor": "preprocessor.js",
   "unmockedModulePathPatterns": ["node_modules/react"]
 },
-{% endprism %}
+{% endcodeblock %}
 
 ### 테스트 작성해보기
 
 아래와 비슷한 느낌으로 React 컴포넌트의 테스트를 작성할 수 있습니다.([참고](https://github.com/koba04/react-boilerplate/blob/master/app/components/__tests__/InputArtistTest.js))
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 jest.dontMock('../InputArtist');
  
 var React = require('react/addons'),
@@ -419,28 +418,28 @@ describe('inputArtist', function() {
     });
   });
 });
-{% endprism %}
+{% endcodeblock %}
 
 {% figure react_test.01.gif 'Jest 동작 테스트' '그림 1 Jest 동작 테스트' %}
 
 그럼 코드를 자세히 살펴보겠습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 jest.dontMock('../InputArtist');
-{% endprism %}
+{% endcodeblock %}
 
 Mock으로 대체할 필요가 없는 module은 dontMock에 명시적으로 지정합니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 var React = require('react/addons'),
     InputArtist = require('../InputArtist'),
     AppTracksActionCreators = require('../../actions/AppTracksActionCreators')
 ;
-{% endprism %}
+{% endcodeblock %}
 
 React는 package.json의 unmockedModulePathPatterns의 지정했으므로 Mock으로 대체되지 않습니다. 그 외 다른 모듈은 Mock으로 대체됩니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 describe('inputArtist', function() {
   var inputArtist;
   beforeEach(function() {
@@ -452,11 +451,11 @@ describe('inputArtist', function() {
       expect(inputArtist.state.inputArtist).toBe('radiohead');
     });
   });
-{% endprism %}
+{% endcodeblock %}
 
 이 코드는 보통의 Jasmine 테스트 코드와 같습니다. React.addons.TestUtils.renderIntoDocument를 사용하여 Component를 DOM에 붙여서 테스트하고 있습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 describe('handleSubmit', function() {
   var preventDefault;
   beforeEach(function() {
@@ -473,7 +472,7 @@ describe('handleSubmit', function() {
   it ('calls e.preventDefault', function() {
     expect(preventDefault).toBeCalled();
   });
-{% endprism %}
+{% endcodeblock %}
 
 위는 submit 버튼이 클릭 됐을 때 fetchByArtist와 e.preventDefault가 호출되는지 테스트하는 코드입니다. React.addons.TestUtils.Simulate.submit를 사용해 submit 이벤트를 발생시켜 이벤트 객체의  jest.genMockFunction 생성한 preventDefault Mock 함수을 통해서 호출됐지 확인합니다. fetchByArtist는 실제로 Ajax 요청을 하지만 Jest가 Mock으로  대체했으므로 특별히 의식하지 않고 간단하게 테스트를 작성할 수 있습니다.
 
@@ -525,7 +524,7 @@ API는 공식 홈페이지의 [API Reference](https://facebook.github.io/jest/do
 
 Flux에서는 각 요소 간 주고 받을 타입을 상수처럼 정의합니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 var keyMirror = require('react/lib/keyMirror');
  
 module.exports = {
@@ -537,7 +536,7 @@ module.exports = {
     VIEW_ACTION: null
   })
 };
-{% endprism %}
+{% endcodeblock %}
 
 참고로 keyMirror는 key를 사용해 value로 설정해주는 Util 입니다.
 
@@ -545,7 +544,7 @@ module.exports = {
 
 Dispatcher는 Action을 받아 등록된 callback을 실행합니다. 여기에서는 facebook/flux가 유일하게 제공하고 있는 Dispatcher를 확장하는 느낌으로 오브젝트를 생성해 싱들톤으로 반환합니다. 여기에서는 ActionCreators부터 Dispatcher에 Acton을 던지기 위한 handleViewAction을 정의하고 있습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 var Dispatcher    = require('flux').Dispatcher,
     assign        = require('object-assign'),
     AppConstants  = require('../constants/AppConstants')
@@ -561,13 +560,13 @@ module.exports = assign(new Dispatcher(), {
     });
   }
 });
-{% endprism %}
+{% endcodeblock %}
 
 #### Store
 
 Store는 애플리케이션의 데이터와 비즈니스 로직을 담당합니다. Store에서 담당하는 데이터는 메시지 목록과 같은 집합도 다룹니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 var AppDispatcher = require('../dispatcher/AppDispatcher'),
     AppConstants  = require('../constants/AppConstants'),
     EventEmitter  = require('events').EventEmitter,
@@ -610,7 +609,7 @@ TrackStore.dispatchToken = AppDispatcher.register(function(payload) {
 });
  
 module.exports = TrackStore;
-{% endprism %}
+{% endcodeblock %}
 
 여기에서 눈여겨 봐야 할 포인트는 다음과 같습니다.
 
@@ -624,7 +623,7 @@ module.exports = TrackStore;
 
 Action을 생성해 Dispatcher에 전달합니다. 이 문서의 예제에서는 Ajax 요청도 ActionCreators 내에서 담당하고 있지만 facebook/flux의 예제에서는 Utils 이라고 하는 네임스페이스를 만들어 그 안에서 담당하도록 디자인돼 있습니다. Ajax이 끝난 시점뿐만 아니라 시작한 시점에도 Action을 발생시켜 로딩하는 View를 출력할 수도 있을 것 같습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 var request = require('superagent'),
     AppDispatcher = require('../dispatcher/AppDispatcher'),
     AppConstants  = require('../constants/AppConstants')
@@ -658,16 +657,16 @@ module.exports = {
     );
   }
 };
-{% endprism %}
+{% endcodeblock %}
 
 Action은 아래와 같은 형태의 리터럴 객체입니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 {
   type: ActionTypes.RECEIVE_TRACKS_BY_ARTIST,
   tracks: res.body.toptracks.track
 }
-{% endprism %}
+{% endcodeblock %}
 
 #### View (ReactComponent)
 
@@ -677,7 +676,7 @@ Action은 아래와 같은 형태의 리터럴 객체입니다.
 
 View에서는 componentDidMount로 Store의 change 이벤트를 구독하고 componentWillUnmount에서 구독을 해제하고 있습니다. change 이벤트가 발행되면 Store에서 다시 데이터를 가져와 setState에 설정합니다. 여기에서 Store 데이터는 동기적으로 취득할 수 있다고 전제하고 있습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 module.exports = React.createClass({
   getInitialState() {
     return {
@@ -713,13 +712,13 @@ module.exports = React.createClass({
     );
   }
 });
-{% endprism %}
+{% endcodeblock %}
 
 ##### Action을 발생시키는 컴포넌트
 
 이번에는 이벤트를 받아서 ActionCreator에 전달하는 컴포넌트입니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
       AppTracksActionCreators.fetchByArtist(artist);
     }
   },
@@ -741,7 +740,7 @@ module.exports = React.createClass({
     );
   }
 });
-{% endprism %}
+{% endcodeblock %}
 
 {% alert info 역자노트 %}
 Flux를 조금 더 알고 싶다면 「[페이스북의 결정: MVC는 확장에 용이하지 않다. 그렇다면 Flux다.](/2015/06/19/mvc-does-not-scale-use-flux-instead/)」와 「[다같이! FluxUtils 한바퀴](http://www.slideshare.net/UyeongJu/fluxutils)」를 참고해주세요.
@@ -767,15 +766,15 @@ Flux의 경우, Store의 데이터가 싱글톤이 되지만 Server-Side Renderi
 
 개인적으로 데이터 검증을 담당하는 곳은 Store라고 생각합니다. View가 Action을 발생시키고 Store가 받았을 때 부정확한 데이터의 경우 오류를 발생시켜 View에 전달하고 View는 필요하다면 에러를 출력하는 흐름이 좋은 것 같습니다.
 
-{% prism txt %}
+{% codeblock lang:txt %}
 ------        ------------        ---------------------        ------
 |View|--------|Dispatcher|--------|Store에서 Validation|--------|View|--- 에러 표시
 ------ action ------------ action --------------------- error  ------
-{% endprism %}
+{% endcodeblock %}
 
 에러를 전달하는 방법은 여러가지가 있습니다만 Node.js에서 첫 번째 인자로 err를 전달하는 패턴을 사용하면 좋을 것 같습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 // Store
 var TrackStore = assign({}, EventEmitter.prototype, {
  
@@ -834,7 +833,7 @@ module.exports = React.createClass({
       this.setState({ tracks: TrackStore.getAll() });
     }
   },
-{% endprism %}
+{% endcodeblock %}
 
 또는 err가 아니라 객체를 전달하여 type으로써 error을 지정하거나 에러는 별도의 이벤트로써 발행하는 방법(CHANGE_EVENT가 아닌 ERROR_EVENT 등)도 있을 것 같습니다. Flux는 개념을 제공한 부분이 많으므로 이 개념을 잘 이용해 자신에게 맞는 최적의 환경을 구성하는 게 좋을 것 같습니다. 하지만 전혀 다른 형태의 Flux가 난립하여 혼란스러울 수도 있으니 조심히 접근합시다.
 

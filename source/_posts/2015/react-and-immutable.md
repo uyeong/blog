@@ -1,7 +1,6 @@
 ---
 title: React와 불변객체
 description: 불변객체(Immutable Object)의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개합니다.
-permalink: react-and-immutable
 date : 2015-08-16
 category:
     - JavaScript
@@ -18,12 +17,12 @@ tags:
 
 객체 지향 프로그래밍에 있어서 불변객체(Immutable object)는 생성 후 그 상태를 변경할 수 없는 객체를 말합니다. 불변객체의 반대말은 가변객체로 자바스크립트의 배열과 같이 객체 내에서 관리하는 값이나 상태를 변경할 수 있는 것을 말합니다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 var greeting = new String('Hello World!!');
 
 greeting.replace('World', 'Gil-dong');
 greeting.valueOf(); // Hello World!!
-{% endprism %}
+{% endcodeblock %}
 
 위 예에서 `greeting` 변수에 문자열 객체를 생성해 대입했습니다. 그리고 문자열 객체의 `replace` 메서드를 이용해 'World'라는 문자열을 'Gil-dong'으로 변경했습니다. 하지만 여전히 `greeting`의 값은 'Hello World' 입니다.
 
@@ -31,12 +30,12 @@ greeting.valueOf(); // Hello World!!
 
 변수에 값을 바꾸기 위해서는 아래 처럼 새로운 객체를 변수에 대입해야 합니다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 var greeting = new String('Hello World!!');
 
 greeting = greeting.replace('World', 'Gil-dong');
 greeting.valueOf(); // Hello Gil-dong!!
-{% endprism %}
+{% endcodeblock %}
 
 ### 값 객체
 
@@ -54,12 +53,12 @@ greeting.valueOf(); // Hello Gil-dong!!
 
 값 객체는 값을 이용해 새로운 값을 만들어 낼 수 있지만 값 자체를 변경할 수 없습니다. 즉, 불변입니다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 var num = new Number(2);
 num = num + new Number(3);
 
 num.valueOf(); // 5
-{% endprism %}
+{% endcodeblock %}
 
 위에서 숫자 `2`를 생성한 후 숫자 `3`을 더해 숫자 `5`를 얻고 있습니다. 숫자 `2`에 숫자 `3`을 더하는 것은 값 자체를 바꾸는 것이 아니라 새로운 값을 생성하는 것입니다. 이러한 특징은 상태를 변화시키지 않으며 새로운 값을 생성하는 함수형 스타일(functional style)과 닮았습니다.
 
@@ -73,7 +72,7 @@ React 컴포넌트의 라이프 사이클 메서드 중에는 `shouldComponentUp
 
 잘 알려진 TodoMVC를 예를 들어 설명하겠습니다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 // todoItem.js
 shouldComponentUpdate(nextProps, nextState) {
   return (
@@ -81,11 +80,11 @@ shouldComponentUpdate(nextProps, nextState) {
     nextState.label !== this.state.label
   );
 }
-{% endprism %}
+{% endcodeblock %}
 
 todoItem 컴포넌트의 `shouldComponentUpdate` 메서드는 prop 속성으로 전달된 todo 객체를 비교하여 VirtualDOM을 비교할지 말지 결정하고 있습니다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 // todoHome.js
 onUpdate(todoId, label) {
   this.todos.update(todoId, label);
@@ -98,13 +97,13 @@ update(todoId, label) {
     todo.update(label);
     this.emit('update');
 }
-{% endprism %}
+{% endcodeblock %}
 
 특정 todo의 label 값을 변경하라고 todos 모델 객체에 요청하고 있습니다. todos 모델 객체는 자신이 관리하는 todo 객체들 중 하나를 찾아서 값을 변경하고 변경 사실을 통지합니다. 하지만 todoItem 컴포넌트의 단순한 비교문으로는 todo 객체의 값이 변경됐는지 알 수 없습니다.
 
 todos 모델 객체에서 관리하는 todo 객체와 prop 속성으로 전달된 todo 객체의 참조가 동일하기 때문에 항상 참이되므로 의도한 결과를 얻을 수 없는 것입니다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 // todoItem.js
 shouldComponentUpdate(nextProps, nextState) {
   return (
@@ -113,13 +112,13 @@ shouldComponentUpdate(nextProps, nextState) {
     nextState.label !== this.state.label
   );
 }
-{% endprism %}
+{% endcodeblock %}
 
 `shouldComponentUpdate` 메서드의 비교문을 변경했습니다. 조금 복잡해졌습니다. 만약 하나의 객체에서 관리하고 있는 상태가 많을수록 이 비교문은 아주 복잡해질 것입니다.
 
 하지만 여전히 이 코드는 동작하지 않습니다. todos 모델 객체에서 특정 todo 객체의 상태를 변경하면 같은 todo 객체를 참조하는 todoItem 컴포넌트에도 동일하게 반영돼 상태가 변경됐는지 알 수 없습니다. 이처럼 가변 객체의 참조를 가지고 있는 어떤 장소에서 객체를 변경하면 참조를 공유하는 모든 장소에서 그 영향을 받기 때문에 객체를 참조로 다루기란 쉽지 않습니다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 // todoHome.js
 render() {
     var todos = this.props.todos.forEach((todo) => {
@@ -130,7 +129,7 @@ render() {
         &lt;ul>{todos}&lt;/ul>
     );
 }
-{% endprism %}
+{% endcodeblock %}
 
 이번엔 `clone` 메서드를 이용해서 todo의 객체 상태를 전부 복사하여 새로운 todo 객체를 만들어 todoItem 컴포넌트에 전달하고 있습니다. 이러한 방법을 방어적 복사(defensive copy)라고 합니다.
 
@@ -140,7 +139,7 @@ render() {
 
 이제 todos 모델 객체의 update 메서드를 [Immutable.js](https://facebook.github.io/immutable-js/)를 이용해 불변 객체로 관리하도록 변경해보겠습니다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 // todos.js
 class Todos extends events.EventEmitter {
     constructor() {
@@ -159,11 +158,11 @@ class Todos extends events.EventEmitter {
         this.emit('update');
     }
 }
-{% endprism %}
+{% endcodeblock %}
 
 todos 객체의 생성자 메서드를 통해 Immutable.js의 List 객체를 생성하고 있습니다. 특정 todo 객체의 값을 변경할 때는 List 객체의 update 메서드를 이용해 새로운 상태를 갖는 todo 객체와 List 객체를 다시 생성하여 설정합니다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 // todoItem.js
 shouldComponentUpdate(nextProps, nextState) {
     return (
@@ -171,7 +170,7 @@ shouldComponentUpdate(nextProps, nextState) {
         nextState.label !== this.state.label
     );
 }
-{% endprism %}
+{% endcodeblock %}
 
 이제 비교문이 다시 단순해졌습니다. 객체의 상태가 변하지 않는 한 참조는 항상 같을 것이고, 객체의 상태가 변경될때만 새로운 객체가 생성되므로 참조가 달라집니다. 따라서 단순히 참조만 비교하는 것 만으로도 객체의 상태가 변경됐는지 판단할 수 있습니다.
 

@@ -1,7 +1,6 @@
 ---
 title: "history 객체의 scrollRestoration 속성"
 description: "onload 타임에 특정 위치에 자동 스크롤링 되는 기능을 프로토타이핑 하면서 마주한 문제와 history 객체의 scrollRestoration 속성으로 해결한 과정을 소개합니다."
-permalink: scroll-restoration-property-of-history
 date : 2016-11-28
 category:
     - JavaScript
@@ -16,7 +15,7 @@ tags:
 
 그런데 프로토타이핑하던 도중 예전엔 경험하지 못했던 이상한 현상이 발견됐다. 아래는 사용자가 마지막으로 클릭한 아이템이 "product30" 이라고 보고 해당하는 엘리먼트의 위치로 스크롤링하는 간단한 코드다.
 
-{% prism js %}
+{% codeblock lang:js %}
 window.addEventListener('load', () => {
     console.log('onloaded');
 
@@ -27,7 +26,7 @@ window.addEventListener('load', () => {
 
     window.scrollTo(0, top);
 });
-{% endprism %}
+{% endcodeblock %}
 
 생각한 대로라면 지정한 위치로 스크롤링 되어야 하지만 동작하지 않았다. 아래 "그림 1"을 보면 분명히 `9970.875` 즉, "product30"의 위치로 스크롤링을 지시했음에도 문서는 여전히 최상단에 있음을 알 수 있다.
 
@@ -37,12 +36,12 @@ window.addEventListener('load', () => {
 
  이렇게 동작하는 이유는 크롬이 사용자가 보고 있던 스크롤 위치를 저장하고 있다가 해당 페이지에 다시 접근하면 브라우저 레벨에서 자동으로 스크롤링하기 때문인데 어떻게 해야 이를 회피할 수 있을지 고민됐다. 이때 [찬욱](http://sculove.github.io/blog/)님에게 여쭤보니 아래와 같은 코드로 이를 무력화할 수 있다는 답변을 받았다.
 
-{% prism js %}
+{% codeblock lang:js %}
 if ('scrollRestoration' in history) {
     // Back off, browser, I got this...
     history.scrollRestoration = 'manual';
 }
-{% endprism %}
+{% endcodeblock %}
 
 위 코드를 삽입하고 다시 페이지에 접근하니 정확히 의도한 대로 동작했다.
 

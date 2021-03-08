@@ -1,7 +1,6 @@
 ---
 title: E2E 테스트와 나이트왓치
 description: E2E의 정의와 E2E 테스트 프레임워크의 역사 그리고 나이트왓치를 소개하며 설치하는 방법과 사용하는 방법까지 폭 넓게 설명합니다.
-permalink: e2e-test-and-nightwatch
 date : 2016-06-17
 category:
     - JavaScript
@@ -69,15 +68,15 @@ E2E 테스트 프레임워크는 다양한 종류가 있는데, 크게 헤드리
 
 나이트왓치 설치는 개발자 가이드 [Getting Started](http://nightwatchjs.org/guide##installation) 절에 잘 설명돼 있다. 이 문서에는 간단하게 요약해 설치 과정을 설명한다. 우선 NPM을 이용해 설치한다.
 
-{% prism base %}
+{% codeblock lang:base %}
 $ npm install --save-dev nightwatch
-{% endprism %}
+{% endcodeblock %}
 
 웹드라이버로 브라우저와 통신하기 위해서는 셀레니움 서버를 실행시켜야한다. [셀레니움 서버 다운로드 사이트](http://selenium-release.storage.googleapis.com/index.html)에서 파일을 다운 받고 아래와 같이 서버를 실행한다. 이 글을 작성하는 현재 기준 가장 최신 버전은 2.53.0 이다.
 
 프로젝트 디렉터리에서 nightwatch.json을 생성하고 다음과 같이 작성한다. 옵션의 자세한 설명은 개발자 가이드 [Configuration](http://nightwatchjs.org/guide##settings-file) 절을 참고한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 {
   "src_folders" : ["tests"], // 테스트할 디렉터리, 배열로 지정
   "output_folder" : "tests/reports", // JUnit XML 리포트 파일이 저장될 위치
@@ -116,11 +115,11 @@ $ npm install --save-dev nightwatch
     }
   }
 }
-{% endprism %}
+{% endcodeblock %}
 
 tests 디렉터리 하위에 demo.js를 생성하고 간단한 테스트 코드를 한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 module.exports = {
     '사용자는 검색어를 입력 후 검색어가 포함된 자동 완성 리스트를 볼 수 있다.' : function (browser) {
         browser
@@ -132,34 +131,34 @@ module.exports = {
             .end();
     }
 };
-{% endprism %}
+{% endcodeblock %}
 
 이어서 아래 명령어로 간단한 E2E 테스트를 실행할 수 있다.
 
-{% prism bash %}
+{% codeblock lang:bash %}
 $ ./node_modules/nightwatch/bin/nightwatch
-{% endprism %}
+{% endcodeblock %}
 
 하지만 현재 파이어폭스 버전 47에 문제가 있어 테스트가 실행되지 않을것이다. 파이어폭스에서 테스트 하고 싶다면 예전 버전([Install an older version of Firefox](https://support.mozilla.org/en-US/kb/install-older-version-of-firefox))으로 다운그레이드 하거나 GeckoDriver를 사용해야한다([Setting up the Marionette executable](https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver##Setting_up_the_Marionette_executable)). 여기에서는 GeckoDriver를 이용하는 방법을 소개(OSX 기준)하겠다.
 
 먼저 [mozilla/geckodriver](https://github.com/mozilla/geckodriver/releases)에서  GeckoDriver를 다운로드한다.
 
-{% prism bash %}
+{% codeblock lang:bash %}
 $ cd ~/Downloads
 $ wget https://github.com/mozilla/geckodriver/releases/download/v0.8.0/geckodriver-0.8.0-OSX.gz
-{% endprism %}
+{% endcodeblock %}
 
 다운로드한 파일을 압축 해제하고 적당한 위치로 옮긴 후 실행가능한 파일로 변경한다.
 
-{% prism bash %}
+{% codeblock lang:bash %}
 $ gunzip geckodriver-0.8.0-OSX.gz
 $ mkdir executable && mv geckodriver-0.8.0-OSX executable/wires
 $ chmod 755 executable/wires
-{% endprism %}
+{% endcodeblock %}
 
 이제 .bash_profile(또는 .zshrc)에서 PATH를 지정한다.
 
-{% prism bash %}
+{% codeblock lang:bash %}
 $ vim ~/.zshrc
 
 	GECKO_DRIVER=$HOME/Downloads/executable
@@ -167,18 +166,18 @@ $ vim ~/.zshrc
 
 ## rc파일을 다시 불러온다.
 $ source ~/.zshrc
-{% endprism %}
+{% endcodeblock %}
 
 마지막으로 nightwatch.json파일에서 desiredCapabilities 속성을 다음과 같이 변경한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 "desiredCapabilities": {
   "browserName": "firefox",
   "marionette": true, // 추가
   "javascriptEnabled": true,
   "acceptSslCerts": true
 }
-{% endprism %}
+{% endcodeblock %}
 
 이제 다시 실행해보면 파이어폭스 브라우저에서 정상적으로 테스트가 진행될 것이다.
 
@@ -188,7 +187,7 @@ $ source ~/.zshrc
 
 현재 작성한 설정 파일로 나이트왓치를 실행하면 파이어폭스에서만 테스트가 진행된다. 이번엔 크롬 브라우저에서도 테스트가 진행되도록 설정을 변경하겠다. 크롬 브라우저는 셀레니움과 통신할 웹드라이버를 별도로 설치해야하는데 웹드라이버 매니저를 사용하면 쉽게 설치할 수 있다. 아래 명령어로 웹드라이버 매니저를 설치한다.
 
-{% prism bash %}
+{% codeblock lang:bash %}
 $ npm install --save-dev webdriver-manager
  
 # 크롬 웹드라이버와 앞 절에서 다운로드 받았던 셀레니움 서버가 함께 설치된다.
@@ -196,11 +195,11 @@ $ ./node_modules/.bin/webdriver-manager update
  
 # 또는 아래 명령어 처럼 인자를 전달해 별도로 설치할 수도 있다.
 # ./node_modules/.bin/webdriver-manager update --chrome
-{% endprism %}
+{% endcodeblock %}
 
 이제 nightwatch.json에 셀레니움 서버 경로와 크롬 웹드라이버 서버 경로를 수정한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 "selenium": {
   "start_process": true,
   "server_path": "./selenium-server-standalone-2.53.0.jar",
@@ -212,11 +211,11 @@ $ ./node_modules/.bin/webdriver-manager update
     "webdriver.ie.driver": ""
   }
 },
-{% endprism %}
+{% endcodeblock %}
 
 다음으로 default 속성에 작성했던 파이어폭스 브라우저 설정을 test_settings 속성 하위로 옮기고 크롬 브라우저 설정도 함께 추가 작성한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 {
   // ... 생략 ...
   "test_settings": {
@@ -249,13 +248,13 @@ $ ./node_modules/.bin/webdriver-manager update
     }
   }
 }
-{% endprism %}
+{% endcodeblock %}
 
 이제 아래 명령어로 실행하면 두 브라우저에서 동시에 테스트가 실행된다.
 
-{% prism base %}
+{% codeblock lang:base %}
 $ ./node_modules/nightwatch/bin/nightwatch --env firefox,chrome
-{% endprism %}
+{% endcodeblock %}
 
 사파리 브라우저에서 테스트하고자 한다면 사파리 웹드라이버를 확장 기능으로 설치해야한다. 자세한 내용은 나이트왓치 위치의 [Running tests in Safari](https://github.com/nightwatchjs/nightwatch/wiki/Running-tests-in-Safari) 문서를 참고한다.
 
@@ -267,7 +266,7 @@ $ ./node_modules/nightwatch/bin/nightwatch --env firefox,chrome
 
 먼저 nightwatch.json 파일에 다음과 같이 test_runner 속성을 추가한다. 옵션에 관한 자세한 설명은 모카 위키의 [Set options](https://github.com/mochajs/mocha/wiki/Using-mocha-programmatically##set-options) 절을 참고한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 {
   "test_runner" : {
     "type" : "mocha",
@@ -278,11 +277,11 @@ $ ./node_modules/nightwatch/bin/nightwatch --env firefox,chrome
   },
   // ... 생략 ...
 }
-{% endprism %}
+{% endcodeblock %}
 
 테스트 코드를 모카 기반으로 재작성한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 describe('구글 메인 페이지', function() {
  
     before(function(client, done) {
@@ -305,7 +304,7 @@ describe('구글 메인 페이지', function() {
         });
     });
 });
-{% endprism %}
+{% endcodeblock %}
 
 다시 실행해 보면 모카 기반으로 테스트 코드가 동작하는 것을 볼 수 있다.
 
@@ -317,7 +316,7 @@ describe('구글 메인 페이지', function() {
 
 먼저 browserstack.json 파일을 작성한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 {
   // ... 생략 ...
   "selenium": {
@@ -346,15 +345,15 @@ describe('구글 메인 페이지', function() {
     }
   }
 }
-{% endprism %}
+{% endcodeblock %}
 
 platform 속성엔 XP를 browserName 속성엔 파이어폭스를 지정했고 로컬 환경에서 셀레니움 서버를 실행시킬 필요가 없기 때문에 start_process은 false로 지정했다. 이제 브라우저 스택은 윈도우즈 XP 환경의 파이어폭스 브라우저에서 테스트를 진행할 것이다. 브라우저 스택에서 지원하는 플랫폼과 브라우저는 공식 홈페이지의 [Capabilities](https://www.browserstack.com/automate/capabilities) 페이지를 참고하면 알 수 있다.
 
 아래 명령어를 참고해 실행해본다.
 
-{% prism js %}
+{% codeblock lang:js %}
 $ ./node_modules/nightwatch/bin/nightwatch --config browserstack.json
-{% endprism %}
+{% endcodeblock %}
 
 다양한 플랫폼과 브라우저에서 E2E 테스트를 할 수 있다는 점은 큰 장점이지만 통신이나 테스트를 구동하는 속도가 아주 느리다. 따라서 테스트 배치 혹은 정기 배포 전에만 사용하기 적합해 보인다.
 

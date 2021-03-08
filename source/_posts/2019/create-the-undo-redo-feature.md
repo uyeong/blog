@@ -1,7 +1,6 @@
 ---
 title: 실행 취소 / 다시 실행 기능 구현하기(feat. serializr)
 description: 실행 취소 / 다시 실행(Undo/Redo) 기능을 어떻게 구현할 수 있는지 자바스크립트 라이브러리 serializr와 함께 단계별로 자세히 설명합니다. 
-permalink: create-the-undo-redo-feature
 date : 2019-06-29
 category:
     - JavaScript
@@ -33,7 +32,7 @@ tags:
 
 ### 표현
 
-{% prism js %}
+{% codeblock lang:js %}
 import { bind, wire } from 'https://dev.jspm.io/hyperhtml/esm';
 
 ...
@@ -51,7 +50,7 @@ function update() {
 
 update();
 shapes.on(update);
-{% endprism %}
+{% endcodeblock %}
 
 이어서 `update()`를 살펴보자. 이 함수는 모델을 토대로 UI를 렌더링하는 즉, 표현을 위한 함수다. 표현에는 [hyperHTML](https://github.com/WebReflection/hyperHTML)을 사용했다. hyperHTML은 Template literal 문법으로 UI를 만들 수 있는 작고 가벼운 라이브러리다. 
 
@@ -59,7 +58,7 @@ shapes.on(update);
 
 ### 이벤트 핸들러
 
-{% prism js %}
+{% codeblock lang:js %}
 addCircle.addEventListener('click', create.bind(null, Circle));
 addSquare.addEventListener('click', create.bind(null, Square));
 addTriangle.addEventListener('click', create.bind(null, Triangle));
@@ -76,7 +75,7 @@ if ('ontouchstart' in document.documentElement) {
   docEl.addEventListener('mousemove', handlePointerMove);
   docEl.addEventListener('mouseup', handlePointerEnd);
 }
-{% endprism %}
+{% endcodeblock %}
 
 마지막으로 이벤트 핸들러를 살펴보자. 이벤트 핸들러는 도형을 추가하거나 삭제하는 버튼과 끌어다 놓을 수 있도록 `documentElement`에 등록하고 구현했다. 
 
@@ -100,14 +99,14 @@ if ('ontouchstart' in document.documentElement) {
 
 그럼 모델을 serialzr를 이용해 직렬화 가능하게 수정해보자.
 
-{% prism js %}
+{% codeblock lang:js %}
 import serializr from 'https://dev.jspm.io/serializr';
 const { createModelSchema, serialize, deserialize, primitive, list } = serializr;
-{% endprism %}
+{% endcodeblock %}
 
 먼저 serializr를 불러오고 구현에 사용할 함수를 몇 개 추린다.
 
-{% prism js %}
+{% codeblock lang:js %}
 class Shape {
   constructor(data = { }) {
     ...
@@ -120,18 +119,18 @@ class Shape {
   }
   ...
 }
-{% endprism %}
+{% endcodeblock %}
 
 `Shape`는 `posX`, `posY`, `tempX`, `tempY`, `fill`, `selected` 속성을 가지고 있다. 이때 직렬화가 필요한 속성은 `posX`, `posY`, `fill`, `selected`다. `tempX`, `tempY`는 도형을 끄는 동안에 사용할 임시 값으로 실행 취소 / 다시 실행을 위해 따로 복사하지 않는다.
 
-{% prism js %}
+{% codeblock lang:js %}
 createModelSchema(Shape, {
   posX: primitive(),
   posY: primitive(),
   fill: primitive(),
   selected: primitive(),
 });
-{% endprism %}
+{% endcodeblock %}
 
 직렬화할 속성을 정했으면 serializr의 `createModelSchema()`를 사용해서 스키마를 정의한다. 이렇게 정의한 스키마는 추후 직렬화 시 사용된다. 
 
@@ -139,7 +138,7 @@ createModelSchema(Shape, {
 여기에서는 `createModelSchema()`를 사용하지만, decorator를 이용해 보다 깔끔하게 스키마를 정의할 수도 있다. 자세한 내용은 serializr 저장소를 참고한다.
 {% endalert %}
 
-{% prism js %}
+{% codeblock lang:js %}
 createModelSchema(Circle, {
   cx: primitive(),
   cy: primitive(),
@@ -156,11 +155,11 @@ createModelSchema(Square, {
 createModelSchema(Triangle, {
   points: list(list(primitive())),
 });
-{% endprism %}
+{% endcodeblock %}
 
 이어서 `Shape`와 같은 방법으로 `Circle`, `Square`, `Triangle`에 대한 스키마를 정의한다. 그리고 `Shapes`에 객체의 상태를 복사할 수 있는 메서드와 복사본을 다시 되돌릴 수 있는 메서드를 추가한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 class Shapes {
   ...
   snapshot() {
@@ -175,7 +174,7 @@ class Shapes {
     this.emit();
   }
 }
-{% endprism %}
+{% endcodeblock %}
 
 `Shapes`에 `snapshot()`과 `restore()`를 추가했다. 각 메서드에서 사용하는 `serialize()`와 `deserialize()`는 serializr에서 제공하는 함수다.
 
@@ -183,17 +182,17 @@ class Shapes {
 
 하지만 `restore()`는 그렇지 않다. `deserialize()`의 첫 번째 인자로는 역직렬화 할 객체 생성자, 두 번째 인자엔 되돌릴 객체 상태를 전달해야 하는데 복사본만으로는 연관된 생성자를 알 수 없다. 이 문제를 해결하기 위해서 모델을 다음과 같이 수정한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 const ShapeType = { 
   Circle: 0, 
   Square: 1, 
   Triangle: 2 
 };
-{% endprism %}
+{% endcodeblock %}
 
 우선 enum으로 사용할 `ShapeType` 객체를 추가한다. `ShapeType`은 `Circle`, `Square`, `Triangle`을 식별할 수 있는 값을 정수로 갖는다.
 
-{% prism js %}
+{% codeblock lang:js %}
 class Shape {
   constructor(data = { }) {
     ...
@@ -230,19 +229,19 @@ class Triangle extends Shape {
 }
 
 Triangle.shapeType = ShapeType.Triangle;
-{% endprism %}
+{% endcodeblock %}
 
 이어서 각 모델에 `shapeType` 속성을 추가하고 연관된 `ShapeType`을 대입한다. 이렇게 추가한 속성을 이용하면 연관된 생성자를 알 수 있다.
 
-{% prism js %}
+{% codeblock lang:js %}
 function getShapeClass(shapeType) {
   return [ Circle, Square, Triangle ].find(C => C.shapeType === shapeType);
 }
-{% endprism %}
+{% endcodeblock %}
 
 `getShapeClass()`은 `shapeType` 인자를 이용해 해당하는 생성자를 반환한다. 이 함수를 사용해 `Shapes`의 `restore()`를 다음과 같이 수정한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 class Shapes {
   ...
   snapshot() {
@@ -254,13 +253,13 @@ class Shapes {
     this.emit();
   }
 }
-{% endprism %}
+{% endcodeblock %}
 
 이것으로 필요한 모델 수정은 모두 끝났다. 다음으로 실행 취소 / 다시 실행의 상태를 보관할 `History` 객체를 작성해보자.
 
 ### History 작성
 
-{% prism js %}
+{% codeblock lang:js %}
 class History {
   constructor(shapes) {
     this._undoStack = [];
@@ -292,7 +291,7 @@ class History {
     }
   }
 }
-{% endprism %}
+{% endcodeblock %}
 
 `History`는 실행 취소 / 다시 실행 시 필요한 상태를 관리하고 실행하는 역할을 한다. 
 
@@ -320,14 +319,14 @@ class History {
  
 ### 이벤트 핸들러 수정
 
-{% prism js %}
+{% codeblock lang:js %}
 const shapes = new Shapes();
 const history = new History(shapes);
-{% endprism %}
+{% endcodeblock %}
 
 먼저 `shapes`를 생성한 후 이를 주입해 `history`를 생성한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 function create(Shape) {
   history.take(); // 추가
   const shape = new Shape({ 
@@ -337,11 +336,11 @@ function create(Shape) {
   shapes.add(shape);
   shapes.selectOne(shape);
 }
-{% endprism %}
+{% endcodeblock %}
 
 이어서 도형 생성 시 호출되는 `create()`를 살펴보자. 새로운 도형을 생성하기 전에 `history.take()`를 호출하여 현재 상태를 저장하도록 수정한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 remove.addEventListener('click', () => {
   const shape = shapes.getSelected();
   if (shape) {
@@ -349,11 +348,11 @@ remove.addEventListener('click', () => {
     shapes.remove(shape);
   }
 });
-{% endprism %} 
+{% endcodeblock %} 
 
 삭제도 마찬가지로 도형을 삭제하기 전 `history.take()`를 호출하여 현재 상태를 저장하도록 수정한다.
 
-{% prism js %}
+{% codeblock lang:js %}
 function handlePointerEnd() {
   if (dragging && shape) {
     if (shape.tempX !== undefined) {
@@ -364,16 +363,16 @@ function handlePointerEnd() {
     shape = undefined;
   }
 }
-{% endprism %}
+{% endcodeblock %}
 
 `handlePointerEnd()`는 도형을 끌어다 놓는 시점(`mouseup` 또는 `touchend`)에 호출되는 이벤트 핸들러다. `shape`에 저장된 임시 위칫값이 적용되기 전에 `history.take()`를 호출하여 현재 상태를 저장하도록 수정한다. 
 
 만약 도형을 끄는 시점(`mousemove` 또는 `touchmove`)에 `posX`, `posY`의 값을 수정하면 `history.take()`를 호출할 때 이미 값이 변경돼 전 상태를 보관할 수 없다. 이것이 `tempX`, `tempY`를 사용하는 이유다.
 
-{% prism js %}
+{% codeblock lang:js %}
 undo.addEventListener('click', () => history.undo());
 redo.addEventListener('click', () => history.redo());
-{% endprism %}
+{% endcodeblock %}
 
 마지막으로 실행 취소 / 다시 실행 버튼을 추가하고 각 이벤트 핸들러에 `history`의 `undo()`, `redo()`가 호출되도록 작성한다. 
 

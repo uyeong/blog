@@ -1,7 +1,6 @@
 ---
 title: 백엔드 개발자와 협업하는 두 가지 방법
 description: 이 문서는 백엔드 개발자와 협업하는 두 가지 방법을 정리한 문서로 API 협의 과정 또는 그러한 과정없이 애플리케이션을 개발하는 방법을 소개합니다.
-permalink: two-ways-to-work-with-backend-developer
 date : 2018-03-03
 category:
     - Development
@@ -26,7 +25,7 @@ tags:
 
 [Node.js](https://nodejs.org/en/)에 익숙하다면 [Express](https://expressjs.com/)를 이용해 목서버를 만들 수 있다. 만약 테스트를 작성한다면 [Sinon.JS](http://sinonjs.org/)의 [Fake XHR](http://sinonjs.org/releases/v4.4.2/fake-xhr-and-server/)을 이용한다.
 
-{% prism javascript %}
+{% codeblock lang:javascript %}
 test('collect()', async () => {
   // Given
   server.respondWith('POST', /\\/api\\/feeds\\/collect/, xhr => {
@@ -40,7 +39,7 @@ test('collect()', async () => {
   // Then
   expect(collectId).to.equal('ab8d7ee');
 });
-{% endprism %}
+{% endcodeblock %}
 
 또는, 목서버 없이 개발 환경에서만 [Fake XHR](http://sinonjs.org/releases/v4.4.2/fake-xhr-and-server/)을 애플리케이션 문맥에 불러올 수도 있다.
 
@@ -50,7 +49,7 @@ test('collect()', async () => {
 
 친구 목록을 가져와 출력해주는 기능을 상상해보자. 이 요구사항에서 모델을 디자인할 수 있다.
 
-{% prism typescript %}
+{% codeblock lang:typescript %}
 class FriendEntity {
   public readonly id: number;
   public readonly name: string;
@@ -62,21 +61,21 @@ class FriendEntity {
     this.tel = data.tel;
   }
 }
-{% endprism %}
+{% endcodeblock %}
 
 이 모델을 의존해 기능을 개발한다. API의 응답은 몰라도 된다. 이후 동작하는 API를 전달받았는데 응답 형태가 앞서 작성한 모델과 다르다고 가정해보자.
 
-{% prism typescript %}
+{% codeblock lang:typescript %}
 interface FriendPayload {
   userNo: number;
   name: string;
   phoneNumber: string;
 }
-{% endprism %}
+{% endcodeblock %}
 
 만약 모델을 바꾸면 애플리케이션에 영향이 생긴다. 그리고 외부 데이터가 모델의 변경을 유발한다는 것도 논리적이지 않다. 이때, 우리는 팩토리 객체를 이용할 수 있다.
 
-{% prism typescript %}
+{% codeblock lang:typescript %}
 class FriendFactory {
   public static create(data: FriendPayload) {
     return new FriendEntity({
@@ -91,7 +90,7 @@ me.friends().then((data: FriendPayload[]) => {
   const friends = data.map(d => FriendFactory.create(d));
   friendListView.render(friends);
 });
-{% endprism %}
+{% endcodeblock %}
 
 `friendListView`는 `FriendEntity`에 의존한다. API의 응답 형태로 인해 `friendListView`가 영향받지 않는다. 이처럼 모델에서 시작하고, 모델을 의존하면 API 없이 개발을 시작할 수 있다. API를 전달받으면 팩토리 객체를 이용해 변경을 최소화하고 통합하면 된다.
 

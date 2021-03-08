@@ -1,7 +1,6 @@
 ---
 title: "페이스북의 결정: MVC는 확장에 용이하지 않다. 그렇다면 Flux다."
 description: "이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead」를 번역한 글이며, 페이스북이 Flux 아키텍처를 디자인한 이유와 그것이 무엇인지 설명하고 있습니다."
-permalink: mvc-does-not-scale-use-flux-instead
 date : 2015-06-19
 category:
     - JavaScript

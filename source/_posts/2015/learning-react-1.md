@@ -1,7 +1,6 @@
 ---
 title: React.js를 이해하다(1)
 description: 일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 첫 편입니다.
-permalink: learning-react-1
 date : 2015-06-23
 category:
     - JavaScript
@@ -74,7 +73,7 @@ React.js에 조금 관심이 있는 분은 React.js와 Flux를 세트로 구성�
 
 JSX에 관해서는 다음 절에서 조금 더 자세히 소개할 예정입니다. 보통 아래와 같은 느낌으로 자바스크립트 내에 XML과 비슷한 마크업을 직접 사용할 수 있습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var React = require('react');
 
 var Hello = React.createClass({
@@ -86,7 +85,7 @@ var Hello = React.createClass({
 });
 
 React.render(<Hello name=\"React\" />, document.getElementById(\"app\"));
-{% endprism %}  
+{% endcodeblock %}  
 
 위 코드를 브라우저에서 실행하면 당연히 에러가 발생합니다. 따라서 [react-tools](https://www.npmjs.com/package/react-tools)를 사용하여 사전에 컴파일하거나 [JSXTransformer](http://dragon.ak.fbcdn.net/hphotos-ak-xfp1/t39.3284-6/10734305_1719965068228170_722481775_n.js)를 불러와야 합니다. 또한, browserify와 reactify를 조합해 사용하는 변환 방법도 있습니다. 참고로 말씀드리면 div(division)은 흔히 우리가 생각하는 HTML 태그가 아니라 React의 컴포넌트입니다.
 
@@ -97,11 +96,11 @@ JSX에서 보이는 div, a 등과 같은 HTML 태그는 사실 HTML 태그가 �
 #### JSX + ES6, 7의 문법(일부)
 JSX의 transform에는 harmoney 옵션이 있습니다. 이 옵션을 켜면 ES6, 7의 문법을 일부 사용할 수 있습니다. ES6의 문법인 Arrow function은 map, filter 등과 조합해 사용하면 정말 편리합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var items = this.props.items.map((item) => {
   return <div>{item.name}</div>;
 });
-{% endprism %}  
+{% endcodeblock %}  
 
 {% alert info  역자노트 %} 
 위에서 언급된 react-tools와 JSXTransformer는 곧 Babel로 옮겨집니다([참고](http://facebook.github.io/react/blog/2015/06/12/deprecating-jstransform-and-react-tools.html)). 자바스크립트 발전 속도에 대응하기 힘들었던 거로 보입니다. 반면, Babel은 잘 대응하고 있고 또 많은 개발자가 기본적으로 채택하는 빌드 도구이기 때문에 결정한 것 같습니다. 따라서 이를 사용하기보단 Babel과 함께 프로젝트를 구성하길 바랍니다.
@@ -111,7 +110,7 @@ var items = this.props.items.map((item) => {
 
 JSX 없이 코드를 작성하면 아래와 같습니다. Hello 컴포넌트의 render 메서드 이외에도 React.render에 Hello 컴포넌트를 전달하는 방식도 바뀌었습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var React = require('react');
 
 var Hello = React.createClass({
@@ -123,7 +122,7 @@ var Hello = React.createClass({
 React.render(
   React.createFactory(Hello)({name: 'React'}), document.getElementById(\"app\")
 );
-{% endprism %}  
+{% endcodeblock %}  
 
 이 Advent Calendar에서 소개하는 코드는 JSX에서 harmony 옵션을 켠 상태에서 작성했음을 알려드립니다. 그럼, 다음 절에서 JSX에 관해 조금 더 넓게 설명하도록 하겠습니다.
 
@@ -133,7 +132,7 @@ React.render(
 
 ### JSX
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var Hello = React.createClass({
   render: function() {
     return (
@@ -141,7 +140,7 @@ var Hello = React.createClass({
     );
   }
 });
-{% endprism %} 
+{% endcodeblock %} 
 
 위 코드에서 한눈에 HTML로 보이는 부분 `<div>...</div>`이 JSX 문법입니다. XML과 비슷한 형태로 태그를 작성해 나가면 됩니다. 따로 학습하고 기억해야 할 내용은 거의 없습니다. 이 문법에 관한 자세한 설명은 [JSX Specification](http://facebook.github.io/jsx/)에 작성돼 있습니다. 하나 주의해야 할 점으로는 JSX는 HTML이 아니므로 div에 container라는 클래스를 지정하고 싶은 경우, `<div class="container">...</div>`가 아니라 `<div className="container">...</div>`로 작성해야 한다는 것입니다. 자바스크립트의 예약어 문제를 회피하기 위해서 이런 문법으로 디자인됐습니다. 추가로 label의 for 속성은 htmlFor로 작성해야 합니다. 이와 관련한 내용은 [Tags and Attributes](http://facebook.github.io/react/docs/tags-and-attributes.html)에 정리돼 있습니다. HTML은 태그가 제대로 닫히지 않아도 에러가 발생하지 않지만 JSX는 태그를 닫지 않은 경우 에러가 발생하므로 문법 문제를 쉽게 알아차릴 수 있습니다.
 
@@ -155,27 +154,27 @@ JSX Transformer를 불러오면 JSX 문법을 실시간으로 변환할 수 있�
 
 `npm install -g react-tools` 커맨드 라인으로 react-tools를 설치하면 jsx 명령을 사용할 수 있습니다.
 
-{% prism bash %}
+{% codeblock lang:bash %}
 $ jsx src/build/
-{% endprism %} 
+{% endcodeblock %} 
 
 파일을 감시하는 것도 가능합니다.
 
-{% prism bash %}
+{% codeblock lang:bash %}
 $ jsx --watch src/build/
-{% endprism %} 
+{% endcodeblock %} 
 
 #### browserify나 webpack으로 변환
 
 browserify와 [reactify](https://www.npmjs.com/package/reactify)를 사용하여 변환할 수 있습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 "browserify": {
   "transform": [
     ["reactify", {"harmony": true} ]
   ]
 }
-{% endprism %} 
+{% endcodeblock %} 
 
 #### node-jsx로 변환
 
@@ -200,7 +199,7 @@ JSX를 사용하면 HTML 문법과 비슷한 느낌으로 작성할 수 있어 �
 
 harmony 옵션을 켜면 JSX의 변환할 시 Class나 Arrow Function 등 ES6, 7의 기능 일부를 사용할 수 있습니다. 개인적으로 아래와 같이 ES6, 7 문법으로 작성하는 것을 좋아해 옵션을 켜두고 사용하고 있습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var Items = React.createClass({
   itemName(item) {
     return `${item.name}:${item.count}`;
@@ -213,7 +212,7 @@ var Items = React.createClass({
     );
   }
 });
-{% endprism %} 
+{% endcodeblock %} 
 
 아래와 같은 기능들을 사용할 수 있습니다.([참고](https://github.com/facebook/jstransform/blob/master/visitors/index.js#L57-L68))
 
@@ -236,7 +235,7 @@ React.js를 처음 접하면 JSX라는 불가사의한 언어를 사용할 필�
 
 컴포넌트는 React.createClass()에 render 메서드를 가진 리터럴 객체를 전달해 작성할 수 있습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var Hello = React.createClass({
   render() {
     return (
@@ -244,11 +243,11 @@ var Hello = React.createClass({
     )
   }
 });
-{% endprism %} 
+{% endcodeblock %} 
 
 그러면서 render()는 컴포넌트를 하나만 반환해야 합니다. 아래 처럼 복수의 컴포넌트를 반환할 수 없습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 // NO
 render() {
    return (
@@ -266,7 +265,7 @@ render() {
     </div>
   );
 }
-{% endprism %} 
+{% endcodeblock %} 
 
 또, render()는 어떤 타이밍에 몇번 호출될지 모르기 때문에 반드시 [멱등성](https://ko.wikipedia.org/wiki/%EB%A9%B1%EB%93%B1%EB%B2%95%EC%B9%99)을 지키는 방법으로 구현해야합니다.
 
@@ -282,7 +281,7 @@ HTML, CSS, 자바스크립트를 분리하는 건 관심사의 분리가 아니�
 
 Prop을 I/F로써 외부와 주고 받을 수 있습니다. `<Hello name="foo"/>` 처럼 작성하면, `this.props.name` 으로 참조할 수 있습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var Hello = React.createClass({
   render() {
     return (
@@ -293,7 +292,7 @@ var Hello = React.createClass({
 
 // <Hello name=\"React\"/>
 // <div>Hello React</div>
-{% endprism %} 
+{% endcodeblock %} 
 
 Prop에 관해서는 다음 편에서 소개할 예정입니다.
 
@@ -301,7 +300,7 @@ Prop에 관해서는 다음 편에서 소개할 예정입니다.
 
 유저의 액션이나 Ajax 요청 등으로 값이 동적으로 변화하는 경우는 State를 사용합니다. 특정 `this.state.xxx`을 갱신할 때는 `this.state`를 사용해 갱신하는 것이 아니라 반드시 `this.setState`를 사용해 갱신합니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var Counter = React.createClass({
   getInitialState() {
     return {
@@ -320,7 +319,7 @@ var Counter = React.createClass({
     );
   }
 });
-{% endprism %} 
+{% endcodeblock %} 
 
 State에 관한 내용은 다음 편에서 소개할 예정입니다.
 
@@ -328,7 +327,7 @@ State에 관한 내용은 다음 편에서 소개할 예정입니다.
 
 React.createClass()는 컴포넌트를 작성할 때 사용하는 함수입니다. 이 함수는 버전 0.12에서 동작 방식이 바뀌었습니다. 0.11에서는 컴포넌트의 정의하고 컴포넌트의 엘리먼트를 반환하는 두 가지의 일을 담당했지만 0.12부터 컴포넌트를 정의하는 작업만 담당하도록 분리됐습니다. 즉, 엘리먼트가 아니므로 사용할 때는 `React.createElement(Component, {name: 'xxx'})` 처럼 React Element로 변환할 필요가 있습니다. 이 작업은 `React.createFactory(Component)`로 해도 같습니다. 다만, JSX를 사용하고 있는 경우는 이전과 똑같이 React.createClass의 반환 값을 `<Component />`로 직접 전달해도 괜찮습니다.
 
-{% prism jsx %}
+{% codeblock lang:jsx %}
 var Hello = React.createClass({
   render() {
     return <div>{this.props.name}</div>;
@@ -341,7 +340,7 @@ React.render(React.createFactory(Hello)({name: \"foo\"}), document.body);
 
 // JSX는 이전과 같은 방식
 React.render(<Hello name=\"foo\" />, document.body);
-{% endprism %} 
+{% endcodeblock %} 
 
 이 변경은 createClass()라는 이름 외에 또 다른 일을 담당하고 있었다는 문제를 해결하기도 하지만, createElement를 통해 컴포넌트를 만들도록 함으로써 최적화할 수 있도록 하고 장기적으로 React.createClass로 작성한 문법을 ES6의 class로 대체 할 수 있도록 하려는 뜻도 있습니다.
 

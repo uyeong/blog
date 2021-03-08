@@ -1,7 +1,6 @@
 ---
 title: The Clean Architecture
 description: 이 문서는 로버트 C. 마틴의 The Clean Architecture를 한국어로 번역한 문서입니다. 그의 좋은 의도와 생각이 널리 전파되길 바랍니다
-permalink: the-clean-architecture
 date : 2017-12-18
 category:
     - Architecture

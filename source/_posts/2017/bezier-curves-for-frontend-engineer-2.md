@@ -1,7 +1,6 @@
 ---
 title: 프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 2편
 description: 이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 두 번째 편입니다.
-permalink: bezier-curves-for-frontend-engineer-2
 date : 2017-01-03
 category:
     - Algorithm
@@ -37,72 +36,72 @@ tags:
 
 자, 위 그림 2와 같이 서로 떨어져 있는 점 A와 점 B가 있다고 해보자. 이때 점 P를 이 두 점 사이의 평균 즉,  [선분](http://dic.daum.net/word/view.do?wordid=kkw000140374&supid=kku000175471)의 중앙에 두고 싶다면 어떻게 해야 할까?
 
-{% prism text %}
+{% codeblock lang:text %}
 P = (A + B) / 2
-{% endprism %}
+{% endcodeblock %}
 
 위처럼 간단히 평균을 구해 중앙에 둘 수 있다. 이 수식을 조금 다르게 전개해보자.
 
-{% prism text %}
+{% codeblock lang:text %}
 P = (A + B) / 2
   = (A + B) * ½
   = ½A + ½B
   = .5A + .5B
   = (.5 * A) + (.5 * B)
-{% endprism %}
+{% endcodeblock %}
 
 위 수식을 이용한 연산을 블렌딩(Blending)이라고 표현한다. 지정된 각각의 비율에 맞춰 적절히 혼합하는 것이다. 자, 이제 같은 값이 아닌 가중치(Weights)를 줘서 블렌딩해보자.
 
 {% figure bezier-for-frontend.03.png '점 A와 점 B의 블렌딩 비율 조절' '그림 3. 점 A와 점 B의 블렌딩 비율 조절' %}
 
-{% prism text %}
+{% codeblock lang:text %}
 P = (.35 * A) + (.65 * B)' 
-{% endprism %}
+{% endcodeblock %}
 
 이번엔 A는 0.35(35%), B는 0.65(65%)로 비율을 조정해 블렌딩했다. 이때 두 비율의 합은 당연하겠지만 1(100%)이 돼야 한다. 이것은 반드시 지켜져야 할 필수 조건이다. 이어서 비율 값을 다음과 같이 일반화해보자.
 
-{% prism text %}
+{% codeblock lang:text %}
 P = (s * A) + (t * B)' 
-{% endprism %}
+{% endcodeblock %}
 
 s는 A의 비율을, t는 B의 비율을 나타낸다. 만약 s가 높으면 t는 낮아지고 반대로 t가 높으면 s는 낮아질 것이다. 잠깐, s와 t는 서로 영향을 주며 두 수의 합은 항상 1이 돼야 한다. 그렇다면 s는 `1 - t`와 같다고 할 수 있다.
 
-{% prism text %}
+{% codeblock lang:text %}
 P = ((1-t) * A) + (t * B)' 
-{% endprism %}
+{% endcodeblock %}
 
 이제 변수 t 하나만으로 비율을 조정해 블렌딩할 수 있다. 이 수식은 다음과 같이 표현될 수 있다.
 
-{% prism text %}
+{% codeblock lang:text %}
 P = ((1 - t) * A) + (t * B)
   = (1 - t) * A + t * B
   = A - tA + tB
   = A + t(-A + B)
   = A + t(B - A)
-{% endprism %}
+{% endcodeblock %}
 
 이 글에서는 수식 `P = (s * A) + (t * B)`를 사용해 설명을 이어가겠다. 다시 한번 말하지만 `s = 1 - t`다. 여기에 몇 가지 규칙이 추가된다. 만약 변수 t가 0이라면 P는 항상 A와 같으므로 다음과 같이 표현될 수 있다.
 
-{% prism text %}
+{% codeblock lang:text %}
 P = ((1 - t) * A) + (t * B)
   = ((1 - 0) * A) + (0 * B)
   = (1 * A) + (0 * B)
   = A
-{% endprism %}
+{% endcodeblock %}
 
 또 변수 t가 1이라면 P는 항상 B와 같으므로 다음과 같이 표현될 수 있다.
 
-{% prism text %}
+{% codeblock lang:text %}
 P = ((1 - t) * A) + (t * B)
   = ((1 - 1) * A) + (1 * B)
   = (0 * A) + (1 * B)
   = A + B - A
   = B
-{% endprism %}
+{% endcodeblock %}
 
 이제 수식과 몇 가지 규칙을 참고하여 블렌딩하는 자바스크립트 함수를 작성해보자.
 
-{% prism js %}
+{% codeblock lang:js %}
 const A = 20;
 const B = 198;
 
@@ -126,7 +125,7 @@ console.log(blend(.4)); // 91.2
 console.log(blend(.6)); // 126.8
 console.log(blend(.8)); // 162.4
 console.log(blend(1));  // 198
-{% endprism %}
+{% endcodeblock %}
 
 {% codepen "Uyeong Ju|uyeong" qRBdvb default result %}
 
@@ -134,11 +133,11 @@ console.log(blend(1));  // 198
 
 이번에는 「에버리징과 블렌딩」 절에서 이해한 수식을 이용해 복합 데이터(Compound data)를 블렌딩해보자. 블렌딩 수식만 잘 활용하면 2차원 또는 3차원 같은 복합적인 데이터도 쉽게 블렌딩할 수 있다.
 
-{% prism text %}
+{% codeblock lang:text %}
 Px = (s * Ax) + (t * Bx)
 Py = (s * Ay) + (t * By)
 Pz = (s * Az) + (t * Bz)
-{% endprism %}
+{% endcodeblock %}
 
 3차원인 경우 위처럼 개별적으로 블렌딩한 후 연산된 값을 조합해 사용한다.
 
@@ -148,15 +147,15 @@ Pz = (s * Az) + (t * Bz)
 
 {% figure bezier-for-frontend.05.png '2차원에서 점 P의 위치 구하기' '그림 5. 2차원에서 점 P의 위치 구하기' %}
 
-{% prism text %}
+{% codeblock lang:text %}
 Px = (s * Ax) + (t * Bx)
 Py = (s * Ay) + (t * By)
 P = {Px, Py}
-{% endprism %}
+{% endcodeblock %}
 
 위 수식은 자바스크립트 코드로 다음과 같이 표현할 수 있다.
 
-{% prism js %}
+{% codeblock lang:js %}
 const Ax = 20;
 const Ay = 144;
 const Bx = 198;
@@ -167,7 +166,7 @@ const blendY = blender.bind(null, Ay, By);
 
 // t = .5
 // P = { blendX(t), blendY(t) }
-{% endprism %}
+{% endcodeblock %}
 
 {% codepen "Uyeong Ju|uyeong" EZxVVV default result %}
 
@@ -177,7 +176,7 @@ const blendY = blender.bind(null, Ay, By);
 
 쉽게 말해 특정 값으로 블렌딩하는 게 아닌 지속해서 흐르는 시간에 근거해 블렌딩 하는 것이다. 이러한 과정은 대개 update()로 표현된다. 아래 자바스크립트 코드를 보자.
 
-{% prism js %}
+{% codeblock lang:js %}
 function interpolator(Ax, Bx, Ay, By, duration) {
   return function(update) {
   	 // x, y 블랜드 함수 준비
@@ -212,7 +211,7 @@ interpolate(function(nx, ny) {
 	// 1초간 Interpolating.
 	// P = {nx, ny}
 });
-{% endprism %}
+{% endcodeblock %}
 
 우선 requestAnimationFrame()를 사용해 지정한 시간 만큼 흐르게 한다. 그리고 현재 시각에 해당하는 진행 값 즉, t를 구한 후 이 값을 근거해 블렌딩한다.
 

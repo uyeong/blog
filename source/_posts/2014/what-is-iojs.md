@@ -1,7 +1,6 @@
 ---
 title: io.js란 무엇인가?
 description: 2014년 12월 경 Node Forward가 Node.js를 fork하고 자신들의 운영 규칙을 작성하기 시작했고, io.js라는 프로젝트를 시작했습니다. 이 문서에서는 io.js가 무엇인지 그리고 왜 새로운 프로젝트를 시작할 수 밖에 없었는지 살펴봅니다.
-permalink: what-is-iojs
 date : 2014-12-05
 category:
     - Node.js

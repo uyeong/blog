@@ -12,7 +12,7 @@
   <% } %>
   <ul class="posts__list">
     <% page.posts.each((post) => { %>
-      <% const picture = post.content.split(/<figure.+>\n\s+<a.+>\n\s+<img\ssrc="([\/\w\-_\.]+)"/g)[1] %>
+      <% const picture = post.content.split(/<figure.+>\n\s+<a.+>\n\s+<img\s\n\s+src="([\/\w\-_\.]+)"/g)[1] %>
       <li class="posts__item<%= picture ? ' has-picture' : '' %>">
         <article class="posts__contents">
           <div class="posts__header">

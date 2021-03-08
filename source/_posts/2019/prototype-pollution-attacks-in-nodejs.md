@@ -1,7 +1,6 @@
 ---
 title: Node.js에서의 프로토타입 오염 공격이란 무엇인가
 description: __proto__을 이용한 프로토타입 오염(prototype pollution) 공격의 원리를 설명하면서 노드 환경에서 실제 공격이 가능한 사례를 함께 소개합니다.
-permalink: prototype-pollution-attacks-in-nodejs
 date : 2019-07-19
 category:
     - JavaScript
@@ -48,13 +47,13 @@ tags:
 
 프로토타입 오염은 무엇일까. 방법에는 여러 가지 있겠지만 가장 기본은 객체 리터럴의 `__proto__`는 `Object.prototype`과 같다는 것을 이용해 다른 객체 속성에 영향을 주는 방식입니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 const obj1 = {};
 console.log(obj1.__proto__ === Object.prototype); // true
 obj1.__proto__.polluted = 1;
 const obj2 = {};
 console.log(obj2.polluted); // 1
-{% endprism %}
+{% endcodeblock %}
 
 위 예제에서 obj1의 프로토타입 객체를 조작했습니다. 이제 아무 관계 없는 `obj2` 속성의 값(obj2.polluted)이 `undefined`가 아니라 `1`로 출력됩니다.
 
@@ -62,7 +61,7 @@ console.log(obj2.polluted); // 1
 
 ### 속성 설정
 
-{% prism js %}
+{% codeblock lang:js %}
 function isObject(obj) {
   return obj !== null && typeof obj === 'object';
 }
@@ -83,11 +82,11 @@ const obj1 = {};
 setValue(obj1, "__proto__.polluted", 1);
 const obj2 = {};
 console.log(obj2.polluted); // 1
-{% endprism %}
+{% endcodeblock %}
 
 ### 객체 병합
 
-{% prism js %}
+{% codeblock lang:js %}
 function merge(a, b) {
   for (let key in b) {
     if (isObject(a[key]) && isObject(b[key])) {
@@ -104,11 +103,11 @@ const obj2 = JSON.parse('{"__proto__":{"polluted":1}}');
 merge(obj1, obj2);
 const obj3 = {};
 console.log(obj3.polluted); // 1
-{% endprism %}
+{% endcodeblock %}
 
 ### 객체 복사
 
-{% prism js %}
+{% codeblock lang:js %}
 function clone(obj) {
   return merge({}, obj);
 }
@@ -117,7 +116,7 @@ const obj1 = JSON.parse('{"__proto__":{"polluted":1}}');
 const obj2 = clone(obj1);
 const obj3 = {};
 console.log(obj3.polluted); // 1
-{% endprism %}
+{% endcodeblock %}
 
 위와 비슷한 기능을 제공하는 유저 모듈에서 프로토타입 오염 취약점이 발견, 수정되고 있습니다. 수정된 부분을 살펴보았는데 key에 `__proto__`가 있을 경우 건너뛰도록 돼 있습니다.
 
@@ -133,7 +132,7 @@ console.log(obj3.polluted); // 1
 
 다음은 서버 코드입니다. 외부에서 전달받은 JSON을 그대로 복사하고 있습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 function isObject(obj) {
   return obj !== null && typeof obj === 'object';
 }
@@ -166,11 +165,11 @@ app.post('/', (req, res) => {
   res.send(status)
 });
 app.listen(1234);
-{% endprism %}
+{% endcodeblock %}
 
 클라이언트는 `__proto__` 속성을 갖는 JSON을 서버에 전달해 공격합니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 const http = require('http');
 const client = http.request({
   host: 'localhost',
@@ -184,14 +183,14 @@ const client = http.request({
 const data = '{"__proto__":{"status":"polluted"}}';
 client.setHeader('content-type', 'application/json');
 client.end(data);
-{% endprism %}
+{% endcodeblock %}
 
 공격 결과. 전달한 JSON에 의해 서버의 객체 프로토타입이 오염돼 응답의 값이 `NG`가 아니라 `polluted`로 변경돼 내려옵니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 $ node client.js
 polluted
-{% endprism %}
+{% endcodeblock %}
 
 ## 대책
 
@@ -209,7 +208,7 @@ polluted
 
 취약점이 알려진 사용자 모듈 대부분은 이미 고쳐진 상태입니다. 그럼에도 신경 쓰인다면 한번 `npm audit`으로 확인해보시기 바랍니다.
 
-{% prism text %}
+{% codeblock lang:text %}
 $ npm audit
  
                        === npm audit security report ===
@@ -230,4 +229,4 @@ $ npm audit
  
 found 1 low severity vulnerability in 1 scanned package
   run `npm audit fix` to fix 1 of them.
-{% endprism %}
+{% endcodeblock %}

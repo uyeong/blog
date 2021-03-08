@@ -1,7 +1,6 @@
 ---
 title: 자바스크립트와 비동기 오류 처리
 description: 자바스크립트 환경에서 비동기 오류를 처리할 때 어려움을 겪는 부분을 설명하고 Generator를 사용한 비동기 에러 핸들링 방법에 관해 소개합니다.
-permalink: javascript-and-async-error
 date : 2014-11-15
 category:
     - JavaScript
@@ -21,7 +20,7 @@ tags:
 
 비동기 처리를 이야기하기 전에 "예외"에 대해서 복습해 보겠습니다. 자바스크립트뿐만 아니라 많은 언어에서도 예외를 사용하여 오류를 핸들링할 수 있습니다. WebAPI의 응답 코드가 500 이거나 입력된 값이 기대하는 타입이 아닌 경우 등, 특정 오류가 발생하면 예외로써 throw하고 try-catch 블록으로 감싸 통합하여 처리합니다. 자바스크립트는 throw 할 수 있는 타입에 제한이 없으므로 문자열을 이용해서도 throw 할 수 있습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 try {
   a();
 } catch(e) {
@@ -45,7 +44,7 @@ function c() {
 '에러가 발생했다!'
 '에러에서 복구됐다.'
 */
-{% endprism %}
+{% endcodeblock %}
 
 throw 된 예외를 try-catch로 감싸지 않으면 함수를 호출한 상위로 전파합니다. 만약 전파 과정에서 try-catch를 만나지 못한다면 컴파일러가 중단됩니다. 위 코드로 설명해 드리자면 함수 c에서 예외가 발생해 함수 b와 함수 a로 전파됩니다. 그리고 마지막으로 global로 전파되는데 try~catch로 감싸져 있으므로 예외 처리됩니다.
 
@@ -57,15 +56,15 @@ throw 된 예외를 try-catch로 감싸지 않으면 함수를 호출한 상위�
 
 문제는 비동기 처리의 경우입니다. 여기에서는 비동기로 처리되는 함수의 예로 setTimeout()을 사용해보겠습니다. 이는 Ajax와 같은 비동기 함수에도 동일하게 해당합니다. 아래는 호출된 시점부터 1초 후에 예외가 발생하는 비동기 코드입니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 setTimeout(function() {
   throw '에러가 발생했다!';
 }, 1000);
-{% endprism %}
+{% endcodeblock %}
 
 이 코드를 try-catch로 감싸면 예외를 감지할 수 있을까요?
 
-{% prism js %}
+{% codeblock lang:js %}
 try {
   setTimeout(function() {
     throw '에러가 발생했다!';
@@ -74,7 +73,7 @@ try {
   console.log(e);
   console.log('에러에서 복구됐다.');
 }
-{% endprism %}
+{% endcodeblock %}
 
 유감스럽게도 이 코드는 동작하지 않습니다. 예외는 감지되지 않으며 컴파일러는 중단됩니다. 이전 절에서 예외는 함수를 호출한 상위(호출 이력, 콜-스택)로 거슬러 전파된다고 설명해 드렸습니다. 콜백 스타일의 비동기 처리에서는 작성한 곳에서 함수가 호출되지 않습니다. 예외를 throw 하는 함수는 이 try-catch 안에서 단순히 정의된 것뿐입니다. 실제로 함수는 타이머 이벤트에 의해서 실행됩니다. try-catch 안에서 발생한 오류가 아니므로 예외를 감지할 수 없습니다.
 
@@ -82,7 +81,7 @@ try {
 
 위와 같이 비동기 처리가 중간에 있으면 실질적으로 try-catch 구문을 사용할 수 없습니다. 물론 finally도 마찬가지입니다. 위와 같은 코드는 금방 실수를 눈치챌 수 있지만 setTimeout 부분을 함수나 객체로 추상화한다면 예외가 처리되지 않는 이유를 발견하기 힘듭니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 // 다음과 같이 에러를 다루고 싶다.
 try {
   asyncDoSomething(); //비동기 함수
@@ -92,7 +91,7 @@ try {
 }
 
 // 하지만 asyncDoSomething()에서 throw한 예외는 절대 catch할 수 없다.
-{% endprism %}
+{% endcodeblock %}
 
 그럼 이 문제를 어떻게 해결할 수 있을까요?
 
@@ -100,7 +99,7 @@ try {
 
 먼저 어떻게든 예외를 사용할 수 있도록 하는 방법을 찾아보겠습니다. 사전에 try-catch를 포함하여 콜백을 정의하면 예외를 사용할 수 있습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 setTimeout(function() {
   try {
     //...
@@ -111,11 +110,11 @@ setTimeout(function() {
     console.log('에러에서 복구됐다.');
   }
 }, 1000);
-{% endprism %}
+{% endcodeblock %}
 
 하지만 이 방법은 비슷한 에러를 통합해 처리할 수 없습니다. 정의할 때마다 try-catch 블록을 작성해야 합니다. 이 문제는 AOP(관점 지향 프로그래밍)와 같은 느낌의 확장 포인트를 둔다면 다소 개선할 수 있습니다. try-catch만 별도의 함수로 정의하고 그 함수를 사용해 코드를 작성하면 비슷한 에러를 통합해 처리할 수 있습니다. AOP는 JAVA에서 유연성을 위해 사용하는 테크닉이지만, 자바스크립트는 본래 유연한 언어이기 때문에 특별한 라이브러리의 도움 없이 쉽게 구현할 수 있습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 /**
  * 예외 처리를 분담하는 함수
  * try-catch를 공통화할 수 있다.
@@ -141,7 +140,7 @@ setTimeout(errorHandle(function() {
 }), 2000);
 
 //↑ 두 setTimeout에서 발생한 에러를 감지한다.
-{% endprism %}
+{% endcodeblock %}
 
 
 다만, 원래의 try-catch 구문 작성법과 달라져 버리며 심미적으로도 좋지도 않습니다. 각종 플로우 제어 라이브러리를 살펴보면 오류 처리 시 예외를 사용하지 않는 것도 많이 있습니다. 그만큼 비동기 처리에서 예외를 사용하는 것은 상당히 어려운 것 같습니다.
@@ -156,7 +155,7 @@ setTimeout(errorHandle(function() {
 
 아래 예제는 Firefox를 기준으로 작성했습니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 /**
  * sleep
  * @description setTimeout()을 Generator로 사용하기 쉽게한 함수
@@ -194,21 +193,21 @@ thread.next();
 
  '2'을 출력
 */
-{% endprism %}
+{% endcodeblock %}
 
 비동기 처리에서는 예외를 사용할 수 없다고 했지만 사실 Generator 내에서는 try-catch를 사용할 수 있습니다. 가령, 일정 시간 후 예외를 throw 하는 sleepAndError 라고 하는 함수(실용적인 코드는 아니지만)가 있다고 합시다.
 
-{% prism js %}
+{% codeblock lang:js %}
 function sleepAndError(ms, thread) {
   return setTimeout(function() {
     thread.throw('에러가 발생했다!');
   }, ms);
 }
-{% endprism %}
+{% endcodeblock %}
 
 throw 대신, Generator 객체에 있는 .throw() 메서드를 사용하면 비동기 함수 안이 아닌 yield의 위치에서 예외가 발생합니다. 단순히 throw 문을 사용하면 여전히 예외를 감지할 수 없으므로 주의해야 합니다.
 
-{% prism js %}
+{% codeblock lang:js %}
 var thread = (function() {
   try{
     console.log(0);
@@ -232,7 +231,7 @@ thread.next();
 '에러가 발생했다!'를 출력한다.
 '에러에서 복구됐다.'를 출력한다.
 */
-{% endprism %}
+{% endcodeblock %}
 
 위 플로우를 그림으로 설명하겠습니다.
 
