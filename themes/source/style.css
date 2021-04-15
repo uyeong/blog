@@ -53,6 +53,8 @@ body {
   font-size: 19px;
   color: #262626; /* grey-9 */
   line-height: 1.58;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 a {
@@ -210,7 +212,6 @@ a:active {
   margin: 0;
   font-size: 2.125rem;
   line-height: 1.25;
-  word-break: break-word;
 }
 
 .posts__title a {
@@ -314,7 +315,6 @@ a:active {
   top: 186px;
   width: 240px;
   font-size: .75rem;
-  word-break: break-all;
 }
 
 .post__toc h2 {
@@ -426,7 +426,6 @@ a:active {
 .post__contents figure figcaption {
   font-size: .875rem;
   color: #8c8c8c; /* grey-7 */
-  word-break: keep-all;
   padding-top: 4px;
 }
 
@@ -489,7 +488,6 @@ a:active {
   .post__contents {
     margin-top: 43px;
     font-size: .85rem;
-    word-wrap: break-word;
   }
 
   .post__contents h2,
