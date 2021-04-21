@@ -164,7 +164,7 @@ fabric.properties
 
 ### Project files.
 source/assets
-.deplay_git
+.deploy_git
 db.json
 public
 themes/mooji/source/assets/*
