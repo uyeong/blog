@@ -21,10 +21,10 @@
     "hexo-generator-seo-friendly-sitemap": "0.2.1",
     "hexo-generator-tag": "^1.0.0",
     "hexo-renderer-ejs": "^1.0.0",
-    "hexo-renderer-marked": "^4.0.0",
+    "hexo-renderer-marked": "^4.1.0",
     "hexo-renderer-stylus": "^2.0.1",
     "hexo-server": "^2.0.0",
-    "truncate-html": "^1.0.3"
+    "truncate-html": "^1.0.4"
   },
   "main": "index.js",
   "license": "MIT"
