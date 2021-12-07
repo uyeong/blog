@@ -5,9 +5,11 @@ date : 2021-12-07
 category:
 - Test
 tags:
-- Development
-- Test
-- UnitTest
+- Weekly
+- FrontEnd
+- Translate
+- JSer
+- Jser.info
 ---
 
 {% figure jserinfo.01.jpg '' '' %}
