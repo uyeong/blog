@@ -1,6 +1,6 @@
 ---
-title: 실전! 리액트, 응집성 있게 만들기
-description: React.js에서 로직을 어떠한 방식으로 응집성 있게 관리할 수 있는지 간단한 송금 예제와 함께 소개한다.
+title: 실전! 리액트, 응집성 있게 가자!
+description: React.js에서 로직을 어떻게 응집성 있게 관리할 수 있는지 간단한 송금 예제와 함께 소개한다.
 date : 2023-02-27
 category:
 - JavaScript
