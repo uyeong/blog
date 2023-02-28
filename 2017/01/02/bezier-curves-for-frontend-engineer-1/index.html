@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 1편 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 첫 번째 편입니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Algorithm,BezierCurves,Spline,Animation,Math">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 첫 번째 편입니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 1편">
+<meta property="og:url" content="http://blog.coderifleman.com/2017/01/02/bezier-curves-for-frontend-engineer-1/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 첫 번째 편입니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.01.gif">
+<meta property="og:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.02.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.03.png">
+<meta property="article:published_time" content="2017-01-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="BezierCurves">
+<meta property="article:tag" content="Spline">
+<meta property="article:tag" content="Animation">
+<meta property="article:tag" content="Math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.01.gif">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2017/01/02/bezier-curves-for-frontend-engineer-1/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 1편</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2017-01-02T00:00:00+09:00">
+      2017.01.02
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Algorithm/" class="meta__category-list-item">
+            <span>Algorithm</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Algorithm/" >
+            #Algorithm
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/BezierCurves/" >
+            #BezierCurves
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Spline/" >
+            #Spline
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Animation/" >
+            #Animation
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Math/" >
+            #Math
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SVG%EC%99%80-3%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">1.</span> <span class="toc-text">SVG와 3차 베지에 곡선</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%EC%99%80-3%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">2.</span> <span class="toc-text">CSS와 3차 베지에 곡선</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%95%9C%EA%B1%B8%EC%9D%8C-%EB%8D%94%E2%80%A6"><span class="toc-number">3.</span> <span class="toc-text">한걸음 더…</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        <p>퇴근 후 여느 때와 마찬가지로 PlayStation 4 전원에 손이 향하는 순간, 오랫동안 관리하지 못한 <a target="_blank" rel="noopener" href="https://github.com/uyeong/react-preloader-icon">react-preloader-icon</a> 컴포넌트가 돌연 떠올랐다. react-preloader-icon은 <a target="_blank" rel="noopener" href="http://samherbert.net/svg-loaders/">SVG Loaders</a>의 아이콘을 React 컴포넌트로 옮기고 있는 작은 사이즈의 프로젝트다.</p>
+<p>SVG Loaders에 디자인된 아이콘은 12개밖에 안되지만 게으른 나머지 아직 2개밖에 옮기지 못했다. 그래서 게임은 잠시 제쳐두고 Spinning과 Puff 아이콘을 한번 React 컴포넌트로 옮겨보기로 했다.</p>
+
+    <figure title="Spinning과 Puff">
+      <a href="/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.01.gif" target="_blank">
+        <img 
+          src="/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.01.gif" 
+          alt="Spinning과 Puff" 
+          style="max-width:340px"
+        >
+      </a>
+      <figcaption>&lt;그림 1. Spinning과 Puff&gt;</figcaption>
+    </figure>
+  
+
+<h2 id="SVG와-3차-베지에-곡선"><a href="#SVG와-3차-베지에-곡선" class="headerlink" title="SVG와 3차 베지에 곡선"></a>SVG와 3차 베지에 곡선</h2><p>Spinning 아이콘은 손쉽게 옮겼지만, Puff 아이콘은 좀 달랐다. 이전에 옮긴 아이콘 모두 애니메이션이 선형적(linear) 이기 때문에 신경 쓸 게 없었다. 하지만 Puff 아이콘의 SVG는 조금 다른 방식으로 만들어져 있다.</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>svg</span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>44<span class="token punctuation">"</span></span> <span class="token attr-name">height</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>44<span class="token punctuation">"</span></span> <span class="token attr-name">viewBox</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0 0 44 44<span class="token punctuation">"</span></span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2000/svg<span class="token punctuation">"</span></span> <span class="token attr-name">stroke</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#fff<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>g</span> <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>none<span class="token punctuation">"</span></span> <span class="token attr-name">fill-rule</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>evenodd<span class="token punctuation">"</span></span> <span class="token attr-name">stroke-width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>circle</span> <span class="token attr-name">cx</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>22<span class="token punctuation">"</span></span> <span class="token attr-name">cy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>22<span class="token punctuation">"</span></span> <span class="token attr-name">r</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>animate</span> <span class="token attr-name">attributeName</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>r<span class="token punctuation">"</span></span>
+                <span class="token attr-name">begin</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0s<span class="token punctuation">"</span></span> <span class="token attr-name">dur</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1.8s<span class="token punctuation">"</span></span>
+                <span class="token attr-name">calcMode</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>spline<span class="token punctuation">"</span></span>
+                <span class="token attr-name">values</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1; 20<span class="token punctuation">"</span></span>
+                <span class="token attr-name">keyTimes</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0; 1<span class="token punctuation">"</span></span>
+                <span class="token attr-name">keySplines</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.165, 0.84, 0.44, 1<span class="token punctuation">"</span></span>
+                <span class="token attr-name">repeatCount</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>indefinite<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+                ... 중략 ...
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>circle</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>g</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>svg</span><span class="token punctuation">></span></span></code></pre>
+
+<p>위 코드에서 <code>animate</code> 엘리먼트를 살펴보자. 이 엘리먼트는 <code>calcMode</code>, <code>values</code>, <code>keyTimes</code>, <code>keySplines</code> 속성을 갖고 있다. 일단 이 속성에 관한 지식이 전혀 없기 때문에 우선 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/2001/REC-smil-animation-20010904/">SMIL</a> 스펙 문서를 살펴봤다.</p>
+<p>스펙 문서를 통해 <code>calcMode</code>는 <strong>값의 타이밍을 제어할 함수</strong>를 선택하는 속성임을 알 수 있다. 속성 값으로 “discrete”, “linear”, “paced”, “spline” 중 하나를 지정할 수 있다.</p>
+<p>위 코드의 <code>calcMode</code> 속성에는 “spline”이 지정돼 있는데 “spline”으로 지정하면 <code>values</code>, <code>keyTimes</code>, <code>keySplines</code> 속성과 함께 “<strong>3차 베지에 곡선</strong>“으로 값을 제어할 수 있다.</p>
+<p>잠깐, “3차 베지에 곡선”이라고? 다들 CSS로 애니메이션을 처리할 때 cubic-bezier라는 애니메이션 타이밍 함수를 한 번쯤 사용해본 적이 있을 것이다. cubic-bezier… 그렇다. 3차 베지에라는 뜻이다.</p>
+<h2 id="CSS와-3차-베지에-곡선"><a href="#CSS와-3차-베지에-곡선" class="headerlink" title="CSS와 3차 베지에 곡선"></a>CSS와 3차 베지에 곡선</h2><p>cubic-bezier 애니메이션 타이밍 함수는 x, y, x`, y` 즉, 4개의 값을 인자로 전달받아 에니메이션의 타이밍을 조절한다. x, y는 첫 번째 가이드 포인트(Guide Point)의 좌표, x`, y`은 두 번째 가이드 포인트의 좌표다. 가이드 포인트란 곡선의 형태에 영향을 주는 조절 가능한 점을 뜻한다.</p>
+
+    <figure title="3차 베지에 곡선의 가이드 포인트">
+      <a href="/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.02.png" target="_blank">
+        <img 
+          src="/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.02.png" 
+          alt="3차 베지에 곡선의 가이드 포인트" 
+          style="max-width:340px"
+        >
+      </a>
+      <figcaption>&lt;그림 2. 3차 베지에 곡선의 가이드 포인트&gt;</figcaption>
+    </figure>
+  
+
+<p>3차 베지에 곡선이란 이 두 가이드 포인트의 위치에 따라 그려지는 곡선을 말한다. cubic-bezier는 이 곡선을 이용해 에니메이션의 타이밍을 조절한다(이 속성은 <a target="_blank" rel="noopener" href="http://cubic-bezier.com/">cubic-bezier.com</a>, <a target="_blank" rel="noopener" href="http://www.css3beziercurve.net/">CSS3 Bezier Curve Tester</a>, <a target="_blank" rel="noopener" href="https://www.desmos.com/calculator/cahqdxeshd">desmos</a>에서 간단히 테스트해 볼 수 있다).</p>
+
+    <figure title="cubic-bezier를 이용해 선언한 Easing 함수 셋">
+      <a href="/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.03.png" target="_blank">
+        <img 
+          src="/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.03.png" 
+          alt="cubic-bezier를 이용해 선언한 Easing 함수 셋" 
+          style="max-width:340px"
+        >
+      </a>
+      <figcaption>&lt;그림 3. cubic-bezier를 이용해 선언한 Easing 함수 셋&gt;</figcaption>
+    </figure>
+  
+
+<p>우리가 알고 있는 easeInSine, easeInQuad 등과 같은 Easing 함수(<a target="_blank" rel="noopener" href="http://easings.net/ko#">참고</a>)는 모두 이 베지에 곡선을 이용해 미리 만든 일종의 셋이다.</p>
+<h2 id="한걸음-더…"><a href="#한걸음-더…" class="headerlink" title="한걸음 더…"></a>한걸음 더…</h2><p>자, 본래 이야기로 다시 돌아와서… </p>
+<p>SVG의 <code>calcMode=&quot;spline&quot;</code>의 의미를 살펴봤으니 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/bezier-easing">bezier-easing</a>같은 npm 모듈을 사용해 Puff 아이콘을 React 컴포넌트로 옮기면 된다. 하지만 커밋을 완료하고 따듯한 이불 속에서 편안한 마음으로 잠자리에 들기엔 모르는 것이 너무나 많다. </p>
+<p>왜 베지에 곡선이라 부를까? 무엇을 근거로 1차, 2차, 3차라고 나눌까? 또, 곡선이 그려지는 원리와 공식은 무엇일까? 몇 가지 물음이 잠 못 이루게 했고 결국 이 주제로 글을 작성하게 됐다. </p>
+<p>그럼 다음 편부터 본격적으로 베지에 곡선에 관해서 연재하도록 하겠다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://qiita.com/volkuwabara/items/64d1ac2c3d8e8a3110f5">SCSS에서 사용할 cubic-bezier 값을 저장해두자(일본어)</a></li>
+</ul>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/" class="navigation__link">
+        <p class="navigation__title ellipsis">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 2편</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2017-01-03T00:00:00+09:00">
+      2017.01.03
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Algorithm/" class="meta__category-list-item">
+            <span>Algorithm</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 두 번째 편입니다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2016/12/30/bezier-curves/" class="navigation__link">
+        <p class="navigation__title ellipsis">중학생도 알 수 있는 베지에 곡선(Bezier Curves)</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-12-30T00:00:00+09:00">
+      2016.12.30
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Algorithm/" class="meta__category-list-item">
+            <span>Algorithm</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        이 문서는 일본어 문서 「中学生でもわかるベジェ曲線」을 번역한 것으로 곡선을 그리거나 애니메이션 처리에 근간이 되는 베지에 곡선(Bezier Curves)의 원리에 관해서 쉽고 간단하게 소개합니다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2017/01/02/bezier-curves-for-frontend-engineer-1/';
+      this.page.identifier = '2017/01/02/bezier-curves-for-frontend-engineer-1/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

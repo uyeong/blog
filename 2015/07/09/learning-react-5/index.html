@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React.js를 이해하다(5) | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 다섯번째 편입니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,React">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 다섯번째 편입니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React.js를 이해하다(5)">
+<meta property="og:url" content="http://blog.coderifleman.com/2015/07/09/learning-react-5/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 다섯번째 편입니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2015-07-08T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.012Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2015/07/09/learning-react-5/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">React.js를 이해하다(5)</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-07-09T00:00:00+09:00">
+      2015.07.09
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/React/" >
+            #React
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Server-side-rendering"><span class="toc-number">1.</span> <span class="toc-text">Server-side rendering</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#React-js%EC%99%80-Server-Side-Rendering"><span class="toc-number">1.1.</span> <span class="toc-text">React.js와 Server-Side Rendering</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%9B%90%EC%B9%99-renderToString-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">원칙(renderToString()를 사용할 경우)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="toc-number">1.1.2.</span> <span class="toc-text">컴포넌트</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%84%9C%EB%B2%84"><span class="toc-number">1.1.3.</span> <span class="toc-text">서버</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#node-jsx"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">node-jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#renderToString"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">renderToString()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%ED%85%9C%ED%94%8C%EB%A6%BF"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">템플릿</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80"><span class="toc-number">1.1.4.</span> <span class="toc-text">브라우저</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%83%9D%EC%84%B1%EB%90%98%EB%8A%94-%EC%86%8C%EC%8A%A4"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">생성되는 소스</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#renderToString-%EA%B3%BC-renderToStaticMarkup"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">renderToString()과 renderToStaticMarkup()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flux%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%A0-%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90"><span class="toc-number">1.1.5.</span> <span class="toc-text">Flux를 사용할 때 주의할 점</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EB%9D%BC%EC%9A%B0%ED%8C%85"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">라우팅</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#express-react-views"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">express-react-views</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Node-js-%EC%9D%B4%EC%99%B8%EC%9D%98-%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9"><span class="toc-number">1.1.5.3.</span> <span class="toc-text">Node.js 이외의 서버에서 사용</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Server-Side-Rendering%EC%97%90-%EB%8C%80%EC%9D%91%ED%95%9C-Routing"><span class="toc-number">1.2.</span> <span class="toc-text">Server-Side Rendering에 대응한 Routing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#React-Router"><span class="toc-number">1.2.1.</span> <span class="toc-text">React Router</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%A0%95%EC%9D%98"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">정의</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Link"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">Link</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Handler"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">Handler</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#History-API"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">History API</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Server-Side-Rendering"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">Server-Side Rendering</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%98%88%EC%A0%9C-%EC%BD%94%EB%93%9C"><span class="toc-number">1.2.2.</span> <span class="toc-text">예제 코드</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%84%9C%EB%B2%84-1"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">서버</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Browser-entry-point"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">Browser entry point</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Routing"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">Routing</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#App"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">App</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Handler-1"><span class="toc-number">1.2.2.5.</span> <span class="toc-text">Handler</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%B4%88%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%A0%84%EB%B6%80-%EC%A0%84%EB%8B%AC%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0"><span class="toc-number">1.2.2.6.</span> <span class="toc-text">초기 데이터를 전부 전달하지 않는 경우</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EA%B3%B5%EA%B0%9C%EB%90%9C-React-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90"><span class="toc-number">2.</span> <span class="toc-text">공개된 React 컴포넌트를 사용해보자</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B6%80%ED%8A%B8%EC%8A%A4%ED%8A%B8%EB%9E%A9"><span class="toc-number">2.1.</span> <span class="toc-text">부트스트랩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%B0%BE%EA%B8%B0"><span class="toc-number">2.2.</span> <span class="toc-text">컴포넌트 찾기</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#React-Components"><span class="toc-number">2.2.1.</span> <span class="toc-text">React Components</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#React-Rocks"><span class="toc-number">2.2.2.</span> <span class="toc-text">React Rocks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EA%B9%83-%ED%97%88%EB%B8%8C%EC%9D%98-%EC%9C%84%ED%82%A4"><span class="toc-number">2.2.3.</span> <span class="toc-text">깃-허브의 위키</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%8B%A4%EC%A0%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A5%BC-%EC%B0%BE%EC%95%84%EC%84%9C-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">실전, 컴포넌트를 찾아서 사용해보자.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95"><span class="toc-number">2.3.1.</span> <span class="toc-text">사용 방법</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CSS"><span class="toc-number">2.3.2.</span> <span class="toc-text">CSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#I-F-%ED%99%95%EC%9D%B8"><span class="toc-number">2.3.3.</span> <span class="toc-text">I&#x2F;F 확인</span></a></li></ol></li></ol></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        
+    <div class="alert alert--info">
+      
+        <strong class="alert__title">
+          읽기전에...
+        </strong>
+      
+      <div class="alert__body">
+        <p>이 문서는 <a target="_blank" rel="noopener" href="http://qiita.com/koba04">koba04</a>님이 작성한 <a target="_blank" rel="noopener" href="http://qiita.com/advent-calendar/2014/reactjs">React.js Advent Calendar</a>를 번역한 것입니다. 본래 원문서는 캘린더 형식으로 소개하지만 여기에서는 회를 나눠 작성할 생각입니다. 또한, React 버전 0.12.1 때 작성된 문서이기 때문에 현 버전과 다른 점이 있을 수 있습니다. 최대한 다른 부분을 노트로 작성할 생각이지만, 만약 생략된 부분이 있다면 댓글로 알려주시면 감사하겠습니다.</p>
+
+      </div>
+    </div>
+  
+
+<h2 id="Server-side-rendering"><a href="#Server-side-rendering" class="headerlink" title="Server-side rendering"></a>Server-side rendering</h2><p>이번에는 Server-Side Rendering을 소개하겠습니다. 이 기능 때문에 React.js를 사용하는 사람이 있을 정도로 React.js의 큰 특징 중 하나입니다. Server-Side Rendering은 말 그대로 서버 측에서 HTML을 생성하여 응답하는 방법을 말합니다. SPA(SinglePageApplication) 같은 자바스크립트에서 DOM을 조작하는 애플리케이션의 경우, 서버에서 만들어주는 HTML에는 빈 태그들만 있고 자바스크립트로 템플릿을 이용해 렌더링하는데 이러한 방법에는 두 가지의 큰 문제점이 있습니다.</p>
+<ul>
+<li><strong>초기 로드 시간</strong> : HTML이 반환된 후 자바스크립트를 컴파일하고 템플릿을 이용해 렌더링하므로 서버 측에서 HTML을 만들어 응답하는 것에 비해 처리 시간이 조금 더 걸립니다. 그래서 로딩-바를 보여주는 등의 UI/UX 연구도 함께 필요합니다.</li>
+<li><strong>SEO</strong> : 최근에 구글의 크롤러가 자바스크립트를 컴파일할 수 있으므로 괜찮을지 모르겠지만 다른 크롤러에 대응하기 위해서는 PhantomJS를 사용해 서버 측에서 렌더링한 HTML을 응답하는 등의 별도의 기법이 필요합니다.</li>
+</ul>
+<h3 id="React-js와-Server-Side-Rendering"><a href="#React-js와-Server-Side-Rendering" class="headerlink" title="React.js와 Server-Side Rendering"></a>React.js와 Server-Side Rendering</h3><p>React.js는 실제 DOM을 의존하지 않고 컴포넌트의 VirtualDOM을 HTML로 반환하는 메서드를 갖고 있습니다. 이 메서드를 이용해 Node.js 서버에서 React.js의 컴포넌트를 HTML로 만들어 응답할 수 있습니다. 요즘은 Browserify 를 이용해 브라우저 측에서도 CommonJS 스타일을 많이 사용하고 있으므로 도입하는 데 큰 문제가 없을 것으로 보입니다.</p>
+<p>한번 간단한 샘플(<a target="_blank" rel="noopener" href="https://github.com/koba04/react-server-side-rendering-sample/tree/minimum">저장소</a>)을 이용해 한번 시험해 봤습니다.</p>
+<h4 id="원칙-renderToString-를-사용할-경우"><a href="#원칙-renderToString-를-사용할-경우" class="headerlink" title="원칙(renderToString()를 사용할 경우)"></a>원칙(renderToString()를 사용할 경우)</h4><p>Server-Side Rendering 시, 서버 측에서 React.rednerToString()을 사용해 생성한 HTML의 DOM 구조와 브라우저 측에서 React.redner()하여 생성된 컴포넌트의 DOM 구조가 같아야하는데, HTML에 부여되는 data-react-checksum이라는 값을 사용해 두 상태가 같은지 비교합니다. checksum이 다를 경우엔 아래와 같은 경고 메시지가 출력됩니다.</p>
+<pre class="language-txt" data-language="txt"><code class="language-txt">React attempted to use reuse markup in a container but the checksum was invalid. This generally means that you are using server rendering and the markup generated on the server was not what the client was expecting. React injected new markup to compensate which works but you have lost many of the benefits of server rendering. Instead, figure out why the markup being generated is different on the client or server.</code></pre>
+
+<p>경고가 출력되면 서버에서 응답한 HTML에 의해 만들어진 DOM은 폐기되고 자바스크립트에 의해 다시 생성됩니다. 참고로 checksum은 HTML을 기준으로 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Adler-32">Adler-32</a> 알고리즘을 이용해 생성됩니다.</p>
+<h4 id="컴포넌트"><a href="#컴포넌트" class="headerlink" title="컴포넌트"></a>컴포넌트</h4><p>컴포넌트 자체는 크게 의식할 필요가 없습니다만 componenetWillMount()는 서버 측에서도 호출되고, componentDidMount()는 브라우저에서만 호출되는 Lifecycle 메서드의 특징은 알아둘 필요가 있습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> React <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'react'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token keyword">var</span> App <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token function">getInitialState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      message<span class="token operator">:</span> <span class="token string">'loading...'</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ 
+  <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>message<span class="token operator">:</span> <span class="token string">'welcome!'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+ 
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> list <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>data<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">obj</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>obj<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>obj<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span><span class="token plain-text">:</span><span class="token punctuation">&#123;</span>obj<span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">server-side rendering sample</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>message<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>list<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> App<span class="token punctuation">;</span></code></pre> 
+
+<p>위에서 “loading…” 이라는 메시지를 로드가 끝날 때 “welcome!” 으로 바꾸고 있는데 이 작업은 브라우저에서만 동작합니다.</p>
+<h4 id="서버"><a href="#서버" class="headerlink" title="서버"></a>서버</h4><p>서버 측에서 주목해야 할 부분은 node-jsx와 renderToString() 입니다. 아래 예제에서는 /bundle.js를 요청할 때 동적으로 browserify 하고 있지만, 실제 서비스 시엔 사전에 browserify한 bundle.js를 준비해 두는 편이 좋습니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> express     <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    app         <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    fs          <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    browserify  <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'browserify'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    reactify    <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'reactify'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Handlebars  <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'handlebars'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    React       <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'react'</span><span class="token punctuation">)</span>
+<span class="token punctuation">;</span>
+ 
+<span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'node-jsx'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">install</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>harmony<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token keyword">var</span> App <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./components/app'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> data <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">'backbone'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">'react'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span> id<span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">'angular'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+ 
+<span class="token keyword">var</span> template <span class="token operator">=</span> Handlebars<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span><span class="token string">'./index.hbs'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token function">template</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    initialData<span class="token operator">:</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    markup<span class="token operator">:</span> React<span class="token punctuation">.</span><span class="token function">renderToString</span><span class="token punctuation">(</span>React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>App<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>data<span class="token operator">:</span> data<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/bundle.js'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  res<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">'content-type'</span><span class="token punctuation">,</span> <span class="token string">'application/javascript'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">browserify</span><span class="token punctuation">(</span><span class="token string">'./browser'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">transform</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> harmony<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> reactify<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">bundle</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+  <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token keyword">var</span> port <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">PORT</span> <span class="token operator">||</span> <span class="token number">5000</span><span class="token punctuation">;</span>
+ 
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'listening...'</span> <span class="token operator">+</span> port<span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>port<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="node-jsx"><a href="#node-jsx" class="headerlink" title="node-jsx"></a>node-jsx</h5><p>먼저 JSX로 작성한 컴포넌트 파일도 require 할 수 있도록 <code>require(&#39;node-jsx&#39;).install(&#123;harmony: true&#125;)</code>를 선언하고 있습니다(harmony option도 유효).</p>
+<h5 id="renderToString"><a href="#renderToString" class="headerlink" title="renderToString()"></a>renderToString()</h5><p>React.renderToString()에는 React.createElement()를 이용해 작성한 컴포넌트를 전달합니다. 초기 설정 시 사용하는 데이터가 있다면 이것도 컴포넌트에 Prop으로 전달합니다. 또 전달한 데이터는 클라이언트 측에도 공유해야 하므로 템플릿으로 전달하기 위해 별도의 JSON.stringify 하여 initialData 로써 설정합니다.</p>
+<h5 id="템플릿"><a href="#템플릿" class="headerlink" title="템플릿"></a>템플릿</h5><p>여기에서 포인트는 <code>{{{}}}</code>(이스케이프 하지 않는다) 에 renderToString()으로 HTML 문자열을 바인드하고, script 태그의 속성값으로 initialData를 바인드한 것입니다. 초기 데이터는 <code>&lt;script id=&quot;initial-data&quot;&gt;{{{data}}}&lt;/script&gt;</code>로도 바인드해 사용할 수 있지만, data를 사용자가 조작 가능할 경우 XSS이 가능하므로 주의가 필요합니다 (<a target="_blank" rel="noopener" href="http://qiita.com/koba04/items/e9de79b517662f3d9922">참고</a>(일본어))</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>React.js server-side rendering sample<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token entity" title="&#123;">&amp;#123;</span><span class="token entity" title="&#123;">&amp;#123;</span>&#123;markup&#125;&#125;&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>initial-data<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/plain<span class="token punctuation">"</span></span> <span class="token attr-name">data-json</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/bundle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span></code></pre>
+
+<h4 id="브라우저"><a href="#브라우저" class="headerlink" title="브라우저"></a>브라우저</h4><p>브라우저 측의 엔트리 포인트에서는 initialData의 값을 취득하고 그 값을 사용해 컴포넌트를 작성합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> React <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'react'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    App   <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./components/app'</span><span class="token punctuation">)</span>
+<span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> data <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'initial-data'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">'data-json'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">App</span></span> <span class="token attr-name">data</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>data<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="생성되는-소스"><a href="#생성되는-소스" class="headerlink" title="생성되는 소스"></a>생성되는 소스</h5><p>생성된 소스는 아래와 같은 느낌으로 root의 요소엔 data-react-checksum이, 각각 요소엔 data-reactid가 지정됩니다.</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4<span class="token punctuation">"</span></span> <span class="token attr-name">data-react-checksum</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>-1037109598<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>server-side rendering sample<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>loading...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$1.1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$1.2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>backbone<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$2.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$2.1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$2.2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>react<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$3.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$3.1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-reactid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>.25wfuv5brb4.2.$3.2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>angular<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>initial-data<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/plain<span class="token punctuation">"</span></span> <span class="token attr-name">data-json</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>[&#123;\<span class="token punctuation">'</span>id\<span class="token punctuation">'</span>:1,\<span class="token punctuation">'</span>name\<span class="token punctuation">'</span>:\<span class="token punctuation">'</span>backbone\<span class="token punctuation">'</span>&#125;,&#123;\<span class="token punctuation">'</span>id\<span class="token punctuation">'</span>:2,\<span class="token punctuation">'</span>name\<span class="token punctuation">'</span>:\<span class="token punctuation">'</span>react\<span class="token punctuation">'</span>&#125;,&#123;\<span class="token punctuation">'</span>id\<span class="token punctuation">'</span>:3,\<span class="token punctuation">'</span>name\<span class="token punctuation">'</span>:\<span class="token punctuation">'</span>angular\<span class="token punctuation">'</span>&#125;]<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/bundle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span></code></pre>
+
+<p>이 상태에서 브라우저 측에서 React.render()를 사용해 컴포넌트를 붙이면 checksum을 확인하여 문제가 없으면 DOM은 그대로 두고 이벤트 리스너만 등록합니다. 이러한 원리로 Server-Side Rendering 할 때는 HTML이 서버에서 반환되고 자바스크립트가 컴파일되어 이벤트 리스너가 등록되기 전까지 이벤트에 반응하지 않으므로 주의가 필요합니다.</p>
+<h5 id="renderToString-과-renderToStaticMarkup"><a href="#renderToString-과-renderToStaticMarkup" class="headerlink" title="renderToString()과 renderToStaticMarkup()"></a>renderToString()과 renderToStaticMarkup()</h5><p>이 두 메서드는 필요에 따라 구별해 사용합니다. renderToStaticMarkup()은 data-reactid를 부여하지 않고 순수 HTML을 반환합니다. 즉, 정적 페이지로 출력해도 문제 없으면 사용합니다. 이때 renderToString()과 마찬가지로 renderToStaticMarkup()으로 HTML을 반환하고 브라우저 측에서도 컴포넌트를 실행할 수 있지만, 그 경우 renderToStaticMakrup()이 만든 HTML은 재사용되지 않고 브라우저 측에서 다시 HTML을 만들게 됩니다.</p>
+<p>renderToStaticMarkup()에서 출력되는 HTML은 다음과 같습니다.</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>server-side rendering sample<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>loading...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>1:backbone<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>2:react<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>3:angular<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>initial-data<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/plain<span class="token punctuation">"</span></span> <span class="token attr-name">data-json</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>[&#123;\<span class="token punctuation">'</span>id\<span class="token punctuation">'</span>:1,\<span class="token punctuation">'</span>name\<span class="token punctuation">'</span>:\<span class="token punctuation">'</span>backbone\<span class="token punctuation">'</span>&#125;,&#123;\<span class="token punctuation">'</span>id\<span class="token punctuation">'</span>:2,\<span class="token punctuation">'</span>name\<span class="token punctuation">'</span>:\<span class="token punctuation">'</span>react\<span class="token punctuation">'</span>&#125;,&#123;\<span class="token punctuation">'</span>id\<span class="token punctuation">'</span>:3,\<span class="token punctuation">'</span>name\<span class="token punctuation">'</span>:\<span class="token punctuation">'</span>angular\<span class="token punctuation">'</span>&#125;]<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/bundle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span></code></pre>
+
+<h4 id="Flux를-사용할-때-주의할-점"><a href="#Flux를-사용할-때-주의할-점" class="headerlink" title="Flux를 사용할 때 주의할 점"></a>Flux를 사용할 때 주의할 점</h4><p>Flux을 사용할 때, 컴포넌트가 싱글-톤의 Store를 가지고 있는 애플리케이션을 그대로 서버 측에서 사용하면 사용자마다 같은 Store가 공유돼 버리므로 주의가 필요합니다. 이 문제를 해결하기 위해 요청마다 Store를 만들 필요가 있습니다.</p>
+<h5 id="라우팅"><a href="#라우팅" class="headerlink" title="라우팅"></a>라우팅</h5><p>라우팅하고 싶은 경우엔 어떻게 할지 고민될 것 같습니다. 이는 다음에 라우팅을 소개할 때 함께 이야기하겠습니다.</p>
+<h5 id="express-react-views"><a href="#express-react-views" class="headerlink" title="express-react-views"></a>express-react-views</h5><p>이 <a target="_blank" rel="noopener" href="https://github.com/reactjs/express-react-views">라이브러리</a>는 본 문서에서도 소개하고 있는 renderToStaticMarkup()을 사용하고 있으므로 주의가 필요합니다.</p>
+<h5 id="Node-js-이외의-서버에서-사용"><a href="#Node-js-이외의-서버에서-사용" class="headerlink" title="Node.js 이외의 서버에서 사용"></a>Node.js 이외의 서버에서 사용</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/reactjs/react-rails">react-rails</a> : rails와 조합하고 싶을 때 사용할 수 있습니다. ExecJS를 컴포넌트로 처리하고 있는 것 같습니다.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/reactjs/React.NET">React.NET</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/reactjs/react-python">react-python</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/reactjs/react-php-v8js">react-php-v8js</a></li>
+</ul>
+<p>여기까지 React.js의 Server-Side Rendering의 구조를 간단하게 소개했습니다. 다음 절에서는 React.js의 라우팅을 소개하겠습니다.</p>
+<h3 id="Server-Side-Rendering에-대응한-Routing"><a href="#Server-Side-Rendering에-대응한-Routing" class="headerlink" title="Server-Side Rendering에 대응한 Routing"></a>Server-Side Rendering에 대응한 Routing</h3><p>Server-Side Rendering을 이어서 이번에는 Routing을 이야기하겠습니다. React.js는 컴포넌트를 만드는 라이브러리이므로 Router는 당연히 구현돼 있지 않습니다. 그래서 Backbone.Router나 Driector 등 좋아하는 Router 라이브러리를 조합해 사용합니다. 하지만 Page 단위로 컴포넌트를 만들어 갱신하는 경우엔 작성하기 거추장스럽고 장황하게 될 가능성이 있습니다. 그래서 여기에서는 <a target="_blank" rel="noopener" href="https://github.com/rackt/react-router">react-router</a>라는 것을 소개할까 합니다.</p>
+<h4 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h4><p>React Router는 이전까지 Server-Side Rendering을 지원하지 않았기 때문에 <a target="_blank" rel="noopener" href="https://github.com/STRML/react-router-component">react-router-component</a>를 사용했지만, 현재는 지원하므로 Server-Side Rendering이 필요한 경우에도 사용할 수 있습니다. React Router Component가 조금 더 단순하게 디자인돼 있으므로 조금 더 접근하기 편한 라이브러리를 찾는다면 분은 이 라이브러리를 참고해주세요. React Router는 기존 Component와 마찬가지로 Routing을 컴포넌트로 정의하는 형태가 됩니다. React Router는 중첩한 라우팅, 링크에 active class, Scroll Top 등 다양한 라우팅 기능을 지원합니다. README에 작성된 내용을 기준으로 사용 방법을 간단히 소개합니다.</p>
+<h5 id="정의"><a href="#정의" class="headerlink" title="정의"></a>정의</h5><p>라우트를 정의할떄는 Route 컴포넌트를 사용하여 선언하고 라우팅 정의를 작성한 후 Router.run으로 시작합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> routes <span class="token operator">=</span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>App<span class="token punctuation">&#125;</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DefaultRoute</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>Home<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>about<span class="token punctuation">"</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>About<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>users<span class="token punctuation">"</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>Users<span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>recent-users<span class="token punctuation">"</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>recent<span class="token punctuation">"</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>RecentUsers<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>user<span class="token punctuation">"</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/user/:userId<span class="token punctuation">"</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>User<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">NotFoundRoute</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>UserRouteNotFound<span class="token punctuation">&#125;</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Route</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">NotFoundRoute</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>NotFound<span class="token punctuation">&#125;</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Redirect</span></span> <span class="token attr-name">from</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>company<span class="token punctuation">"</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>about<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Route</span></span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+Router<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>routes<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">Handler</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Handler</span></span><span class="token punctuation">/></span></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h5><p>앵커(Anchor)는 Link 컴포넌트를 이용합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Link</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>users<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">Users</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Link</span></span><span class="token punctuation">></span></span></code></pre>
+
+<h5 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h5><p>위 예의 경우 App의 Handler의 안에 각각의 Route가 정의 되어 있으므로 App 컴포넌트 안에 RouteHandler 컴포넌트를 정의해야합니다. <RouteHandler/> 이 부분이 Routing을 응답하는 Handler로 대체됩니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> App <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">title</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouteHandler</span></span><span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="History-API"><a href="#History-API" class="headerlink" title="History API"></a>History API</h5><p>HTML5의 History API를 사용하고 싶다면 아래와 같이 두번째 인수에 Router.HistoryLocation을 지정하고 Router.run을 실행합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">Router<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>routes<span class="token punctuation">,</span> Router<span class="token punctuation">.</span>HistoryLocation<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">Handler</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Handler</span></span><span class="token punctuation">/></span></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="Server-Side-Rendering"><a href="#Server-Side-Rendering" class="headerlink" title="Server-Side Rendering"></a>Server-Side Rendering</h5><p>Server-Side rendering 시에는 서버 측에서 아래와 같이 두번째 인수에 path를 전달하고 Router.run 합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token comment">//express</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     <span class="token comment">// pass in `req.path` and the router will immediately match</span>
+     Router<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>routes<span class="token punctuation">,</span> req<span class="token punctuation">.</span>path<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">Handler</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+         <span class="token keyword">var</span> markup <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">renderToString</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Handler</span></span><span class="token punctuation">/></span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         res<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token string">'index'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>markup<span class="token operator">:</span> markup<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h4 id="예제-코드"><a href="#예제-코드" class="headerlink" title="예제 코드"></a>예제 코드</h4><p>그럼, 예제 코드를 한번 살펴보겠습니다. 이 예제 코드는 다음 글에서도 사용합니다. Vimeo와 YouTube의 비디오 리스트를 라우팅으로 전환할 수 있도록 작성했습니다. 초기의 데이터를 서버와 브라우저에서 공유하도록 설계했습니다. 예제에서는 React Router뿐만 아니라 <a target="_blank" rel="noopener" href="http://react-bootstrap.github.io/">react-bootstrap</a>과 <a target="_blank" rel="noopener" href="https://github.com/pedronauck/react-video">react-video</a>를 사용하고 있습니다.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/koba04/react-server-side-rendering-sample">https://github.com/koba04/react-server-side-rendering-sample</a></li>
+<li><a target="_blank" rel="noopener" href="http://react-ssr-sample.herokuapp.com/">http://react-ssr-sample.herokuapp.com</a></li>
+</ul>
+<p><code>curl http://react-ssr-sample.herokuapp.com/youtube</code> 나 <code>curl http://react-ssr-sample.herokuapp.com/vimeo</code> 으로 요청하면 이에 대응하는 video 정보를 data-react-id와 함께 반환하는 사실을 알 수 있습니다.</p>
+<h5 id="서버-1"><a href="#서버-1" class="headerlink" title="서버"></a>서버</h5><p>코드 일부만 설명하겠습니다. Handler의 Prop에 params으로 초기 데이터를 전달합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+     Router<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>routes<span class="token punctuation">,</span> req<span class="token punctuation">.</span>path<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">Handler</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+         res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token function">template</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+             initialData<span class="token operator">:</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">,</span>
+             markup<span class="token operator">:</span> React<span class="token punctuation">.</span><span class="token function">renderToString</span><span class="token punctuation">(</span>React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>Handler<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>params<span class="token operator">:</span> <span class="token punctuation">&#123;</span>videos<span class="token operator">:</span> data<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+         <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>이 예에서는 항상 같은 데이터를 반환하게 돼 있지만, req.path에 대응한 데이터를 반환하는 것도 가능합니다.</p>
+<h5 id="Browser-entry-point"><a href="#Browser-entry-point" class="headerlink" title="Browser entry point"></a>Browser entry point</h5><p>Server-Side Rendering 때에도 동일하게 작성했습니다. JSON을 받아 Handler의 Props에 params로 전달합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> initialData <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'initial-data'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span><span class="token string">'data-json'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+Router<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>routes<span class="token punctuation">,</span> Router<span class="token punctuation">.</span>HistoryLocation<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">Handler</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>Handler params<span class="token operator">=</span><span class="token entity" title="&#123;">&amp;#123;</span><span class="token entity" title="&#123;">&amp;#123;</span>videos<span class="token operator">:</span> initialData<span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="Routing"><a href="#Routing" class="headerlink" title="Routing"></a>Routing</h5><p>아래 코드는 이제 특별한 설명 없이도 이해할 수 있을것입니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/<span class="token punctuation">"</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>App<span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>youtube<span class="token punctuation">"</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>YouTube<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Route</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>vimeo<span class="token punctuation">"</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>Vimeo<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DefaultRoute</span></span> <span class="token attr-name">handler</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>Top<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Route</span></span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="App"><a href="#App" class="headerlink" title="App"></a>App</h5><p>아래와 같은 느낌으로 RouteHandler에 spread attributes({…this.props})을 이용해 초기 데이터를 Prop으로 전달합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> App <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Link</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">React server-side rendering sample</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Link</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ListGroup</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Link</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>youtube<span class="token punctuation">"</span></span> <span class="token attr-name">key</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>youtube<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ListGroupItem</span></span><span class="token punctuation">></span></span><span class="token plain-text">youtube</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ListGroupItem</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Link</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Link</span></span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>vimeo<span class="token punctuation">"</span></span> <span class="token attr-name">key</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>vimeo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">ListGroupItem</span></span><span class="token punctuation">></span></span><span class="token plain-text">vimeo</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ListGroupItem</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Link</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">ListGroup</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RouteHandler</span></span> <span class="token spread"><span class="token punctuation">&#123;</span><span class="token punctuation">...</span><span class="token attr-value">this</span><span class="token punctuation">.</span><span class="token attr-value">props</span><span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="Handler-1"><a href="#Handler-1" class="headerlink" title="Handler"></a>Handler</h5><p>그러면 Handler에서 전달한 초기 데이터를 Prop으로 받을 수 있으므로 이를 이용해 화면을 랜더링합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> YouTube <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  mixins<span class="token operator">:</span> <span class="token punctuation">[</span>VideoMixin<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Grid</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">></span></span><span class="token plain-text">youtube</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;Row className=\"show-grid\"></span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">renderVideos</span><span class="token punctuation">(</span><span class="token string">'youtube'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Row</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Grid</span></span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// VideoMixin</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">getDefaultProps</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      params<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        videos<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          youtube<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          vimeo<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">renderVideos</span><span class="token punctuation">(</span><span class="token parameter">type</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>params<span class="token punctuation">.</span>videos<span class="token punctuation">[</span>type<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span> <span class="token parameter">video</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Col</span></span> <span class="token attr-name">xs</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token number">6</span><span class="token punctuation">&#125;</span></span> <span class="token attr-name">md</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token number">4</span><span class="token punctuation">&#125;</span></span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>video<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Jumbotron</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Video</span></span> <span class="token attr-name">from</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>type<span class="token punctuation">&#125;</span></span> <span class="token attr-name">id</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>video<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>video<span class="token punctuation">.</span>title<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Jumbotron</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Col</span></span><span class="token punctuation">></span></span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="초기-데이터를-전부-전달하지-않는-경우"><a href="#초기-데이터를-전부-전달하지-않는-경우" class="headerlink" title="초기 데이터를 전부 전달하지 않는 경우"></a>초기 데이터를 전부 전달하지 않는 경우</h5><p>위 예를 조금 바꿔서 <code>/api/youtube</code>와 <code>/api/vimeo</code>로 각각의 데이터를 반환하는 API를 만들고 <code>/youtube</code>에 접근 시 <code>/api/youtube</code>가 반환하는 데이터를 초기 데이터로 사용할 때, 각각의 컴포넌트의 componentDidMount()에서 초기 데이터가 있는지 없는지 확인하여 없을 때만 Ajax 요청을 하도록 작성하면 됩니다.(componentDidMount()는 Server-Side에서 실행되지 않습니다) 이것으로 React Router를 사용한 Routing 작성법에 대해 알아봤습니다.</p>
+<h2 id="공개된-React-컴포넌트를-사용해보자"><a href="#공개된-React-컴포넌트를-사용해보자" class="headerlink" title="공개된 React 컴포넌트를 사용해보자"></a>공개된 React 컴포넌트를 사용해보자</h2><p>이번에는 조금 화제를 전환해 웹에 공개된 React 컴포넌트를 사용하는 것에 관해 이야기하겠습니다. 컴포넌트는 기본적으로는 Prop이 I/F가 됩니다. 따라서 문서를 통해서 컴포넌트의 특성을 알 수 없는 경우엔 Prop을 보면 어떤 I/F로 형성돼 있는지 알 수 있습니다. 직접 컴포넌트를 공개하는 경우엔 PropTypes나 getDefaultProps()를 사용해 I/F를 명확하게 작성해야 합니다.</p>
+<h3 id="부트스트랩"><a href="#부트스트랩" class="headerlink" title="부트스트랩"></a>부트스트랩</h3><p>먼저 많이 사용하는 라이브러리인 부트스트랩입니다. React 컴포넌트로 구현한 라이브러리는 react-bootstrap입니다. 이 라이브러리를 사용하고자 할 땐 별도로 부트스트랩 CSS를 로드할 필요가 있습니다.</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></code></pre>
+
+<p>부트스트랩의 각 컴포넌트가 React의 컴포넌트로 구현돼 있으며 다른 React의 컴포넌트와 마찬가지로 사용할 수 있습니다. (<a target="_blank" rel="noopener" href="http://react-bootstrap.github.io/">참고</a>)</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> <span class="token punctuation">&#123;</span>Jumbotron<span class="token punctuation">,</span> Col<span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'react-bootstrap'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Col</span></span> <span class="token attr-name">xs</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token number">6</span><span class="token punctuation">&#125;</span></span> <span class="token attr-name">md</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token number">4</span><span class="token punctuation">&#125;</span></span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>video<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Jumbotron</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Video</span></span> <span class="token attr-name">from</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>type<span class="token punctuation">&#125;</span></span> <span class="token attr-name">id</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>video<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+       </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>video<span class="token punctuation">.</span>title<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Jumbotron</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Col</span></span><span class="token punctuation">></span></span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>react-bootstrap의 <a target="_blank" rel="noopener" href="http://react-bootstrap.github.io/components.html">component 페이지</a>에서 데모와 Prop의 사양 등을 확인할 수 있습니다</p>
+<h3 id="컴포넌트-찾기"><a href="#컴포넌트-찾기" class="headerlink" title="컴포넌트 찾기"></a>컴포넌트 찾기</h3><h4 id="React-Components"><a href="#React-Components" class="headerlink" title="React Components"></a>React Components</h4><p><a target="_blank" rel="noopener" href="http://react-components.com/">React Components</a>는 npm의 키워드로 react-component를 등록한 React의 컴포넌트를 모아놓은 사이트입니다. 여기에서 원하는 컴포넌트를 찾아볼 수 있습니다.</p>
+<h4 id="React-Rocks"><a href="#React-Rocks" class="headerlink" title="React Rocks"></a>React Rocks</h4><p><a target="_blank" rel="noopener" href="http://react.rocks/">React Rocks</a>는 여러 가지의 React의 컴포넌트를 사용한 샘플을 소개하고 있는 사이트입니다. 실제로 동작하는 데모(참고)를 볼 수 있습니다.</p>
+<h4 id="깃-허브의-위키"><a href="#깃-허브의-위키" class="headerlink" title="깃-허브의 위키"></a>깃-허브의 위키</h4><p>리액트의 깃허브 저장소에 작성된 <a target="_blank" rel="noopener" href="https://github.com/facebook/react/wiki/Complementary-Tools#ui-components">공식 위키</a>에도 여러가지 UI 컴포넌트를 소개하고 있으니 참고할 수 있습니다.</p>
+<h3 id="실전-컴포넌트를-찾아서-사용해보자"><a href="#실전-컴포넌트를-찾아서-사용해보자" class="headerlink" title="실전, 컴포넌트를 찾아서 사용해보자."></a>실전, 컴포넌트를 찾아서 사용해보자.</h3><p>이번 절에서는 <a target="_blank" rel="noopener" href="https://github.com/pedronauck/react-video">react-video</a>라고 하는 유투브와 비메오(vimeo) 플레이어를 출력하는 컴포넌트를 실제로 사용해보고자 합니다. 이를 사용해 구현한 샘플을 공개해놨습니다.</p>
+<h4 id="사용-방법"><a href="#사용-방법" class="headerlink" title="사용 방법"></a>사용 방법</h4><p>type(from)과 id를 속성을 지정하는 방식으로 간단하게 사용할 수 있습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> Video <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'react-video'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+type <span class="token operator">=</span> <span class="token string">'youtube'</span> <span class="token comment">// or 'vimeo'</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Video</span></span> <span class="token attr-name">from</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>type<span class="token punctuation">&#125;</span></span> <span class="token attr-name">id</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>video<span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span></code></pre>
+
+<h4 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h4><p>컴포넌트를 사용하기 위해서는 아래 CSS를 로드해야 합니다. require하는 것만으로 CSS도 함께 작업해줬으면 하지만 아쉬운 점입니다.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/pedronauck/react-video/blob/master/dist/react-video.css">https://github.com/pedronauck/react-video/blob/master/dist/react-video.css</a></li>
+</ul>
+<h4 id="I-F-확인"><a href="#I-F-확인" class="headerlink" title="I/F 확인"></a>I/F 확인</h4><p>react-video의 <a target="_blank" rel="noopener" href="https://github.com/echonest/pyechonest/blob/master/README.md">README.md</a>를 보면 알 수 있지만, I/F를 어떻게 디자인했는지 알아보겠습니다. propTypes과 getDefaultProps을 살펴보면 다음과 같은 사항을 알 수 있습니다.</p>
+<ul>
+<li>from에는 youtube나 vimeo를 지정하며 필수 인자다.</li>
+<li>id는 문자열이며 필수 인자다.</li>
+<li>className도 지정할 수 있으며 기본값은 video다.</li>
+</ul>
+<p>propTypes를 잘 명시하면 이해하는데 용이합니다.(<a target="_blank" rel="noopener" href="https://github.com/pedronauck/react-video/blob/master/lib/react-video.jsx#L9-L17">참고</a>)</p>
+<pre class="language-js" data-language="js"><code class="language-js">propTypes<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">from</span><span class="token operator">:</span> React<span class="token punctuation">.</span>PropTypes<span class="token punctuation">.</span><span class="token function">oneOf</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'youtube'</span><span class="token punctuation">,</span> <span class="token string">'vimeo'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>isRequired<span class="token punctuation">,</span>
+  id<span class="token operator">:</span> React<span class="token punctuation">.</span>PropTypes<span class="token punctuation">.</span>string<span class="token punctuation">.</span>isRequired
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token function">getDefaultProps</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+    className<span class="token operator">:</span> <span class="token string">'video'</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span></code></pre>
+
+<p>이번 편에서는 React.js의 Server-Side rendering과 Routing 그리고 공개된 React.js의 컴포넌트를 사용하는 방법을 소개했습니다. Server-Side rendering은 최근 Ember(<a target="_blank" rel="noopener" href="http://emberjs.com/blog/2015/06/12/ember-1-13-0-released.html#toc_component-lifecycle-hooks">참고</a>)와 Angular2(<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0wvZ7gakqV4">참고</a>)에서도 지원할 정도로 인기있는 기능입니다. 다음 편에서는 React.js를 테스트하는 방법과 Flux 아키텍처를 소개하겠습니다.</p>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2015/07/11/learning-react-6/" class="navigation__link">
+        <p class="navigation__title ellipsis">React.js를 이해하다(6)</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-07-11T00:00:00+09:00">
+      2015.07.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 여섯번째 편입니다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2015/06/29/learning-react-4/" class="navigation__link">
+        <p class="navigation__title ellipsis">React.js를 이해하다(4)</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-06-29T00:00:00+09:00">
+      2015.06.29
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 네번째 편입니다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2015/07/09/learning-react-5/';
+      this.page.identifier = '2015/07/09/learning-react-5/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="Coderifleman(코드소총수)의 기술 블로그입니다. 주로 프론트엔드 관련한 기술 글을 자주 포스팅하며 가끔 접근법, 방법론, 아키텍처, 서버사이드 등 프론트엔드 개발 뿐만 아니라 개발과 관련한 전반적인 지식도 함께 포스팅합니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="Coderifleman(코드소총수)의 기술 블로그입니다. 주로 프론트엔드 관련한 기술 글을 자주 포스팅하며 가끔 접근법, 방법론, 아키텍처, 서버사이드 등 프론트엔드 개발 뿐만 아니라 개발과 관련한 전반적인 지식도 함께 포스팅합니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Coderifleman&#39;s blog">
+<meta property="og:url" content="http://blog.coderifleman.com/archives/2015/08/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="Coderifleman(코드소총수)의 기술 블로그입니다. 주로 프론트엔드 관련한 기술 글을 자주 포스팅하며 가끔 접근법, 방법론, 아키텍처, 서버사이드 등 프론트엔드 개발 뿐만 아니라 개발과 관련한 전반적인 지식도 함께 포스팅합니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/archives/2015/08/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <main class="home">
+  <section class="home__posts">
+    <div class="posts">
+  
+  <ul class="posts__list">
+    
+      
+      <li class="posts__item">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2015/08/16/react-and-immutable/">React와 불변객체</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+            <div class="posts__desc">
+              불변객체(Immutable Object)의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개합니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-08-16T00:00:00+09:00">
+      2015.08.16
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+  </ul>
+</div>
+
+  </section>
+  <div class="home__navigation">
+    <nav class="pagination">
+<!--    <div class="pagination__prev">-->
+<!--      <a class="pagination__pick" href="#" data-page="prev">-->
+<!--        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">-->
+<!--          <path-->
+<!--            d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,-->
+<!--            1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2-->
+<!--            0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2-->
+<!--            0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,-->
+<!--            1.6-1.6,4.2 0,5.8l54,53.9z"/>-->
+<!--        </svg>-->
+<!--        <span class="blind">이전</span>-->
+<!--      </a>-->
+<!--    </div>-->
+  
+    <ul class="pagination__list">
+      
+        <li class="pagination__item">
+          <a
+            class="pagination__pick on"
+            href="/"
+            data-page="1"
+          >
+            
+              <span>1</span>
+              <span class="blind">번째 페이지(현재)</span>
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+<!--    <div class="pagination__next">-->
+<!--      <a class="pagination__pick" href="#" data-page="next">-->
+<!--        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">-->
+<!--          <path-->
+<!--            d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,-->
+<!--            1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2-->
+<!--            0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8-->
+<!--            1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,-->
+<!--            1.6 1.6,4.2 0,5.8l-53.9,53.9z"/>-->
+<!--        </svg>-->
+<!--        <span class="blind">다음</span>-->
+<!--      </a>-->
+<!--    </div>-->
+</nav>
+
+  </div>
+</main>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

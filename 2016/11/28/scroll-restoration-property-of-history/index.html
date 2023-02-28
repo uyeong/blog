@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>history 객체의 scrollRestoration 속성 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="onload 타임에 특정 위치에 자동 스크롤링 되는 기능을 프로토타이핑 하면서 마주한 문제와 history 객체의 scrollRestoration 속성으로 해결한 과정을 소개합니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,history,scrollRestoration">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="onload 타임에 특정 위치에 자동 스크롤링 되는 기능을 프로토타이핑 하면서 마주한 문제와 history 객체의 scrollRestoration 속성으로 해결한 과정을 소개합니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="history 객체의 scrollRestoration 속성">
+<meta property="og:url" content="http://blog.coderifleman.com/2016/11/28/scroll-restoration-property-of-history/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="onload 타임에 특정 위치에 자동 스크롤링 되는 기능을 프로토타이핑 하면서 마주한 문제와 history 객체의 scrollRestoration 속성으로 해결한 과정을 소개합니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="http://blog.coderifleman.com/images/scroll-restoration-property-of-history/scroll.01.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/scroll-restoration-property-of-history/scroll.02.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/scroll-restoration-property-of-history/scroll.03.png">
+<meta property="article:published_time" content="2016-11-27T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.014Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="history">
+<meta property="article:tag" content="scrollRestoration">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.coderifleman.com/images/scroll-restoration-property-of-history/scroll.01.png">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2016/11/28/scroll-restoration-property-of-history/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">history 객체의 scrollRestoration 속성</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-11-28T00:00:00+09:00">
+      2016.11.28
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Etc/" class="meta__category-list-item">
+            <span>Etc</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/history/" >
+            #history
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/scrollRestoration/" >
+            #scrollRestoration
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">1.</span> <span class="toc-text">참고</span></a></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        <p>특정 목록 페이지에 접근할 때 사용자가 마지막으로 클릭했던 아이템이 보이도록 자동 스크롤링 해달라는 요청이 들어왔다. 개인적으로 <code>onload</code> 타임에 특정 목록으로 자동 스크롤링하는 기능은 지양해 왔기 때문에 웹이 가진 한계점을 설명하면서 간단히 프로토타이핑해본 후 판단하자고 의견을 냈다.</p>
+<p>그런데 프로토타이핑하던 도중 예전엔 경험하지 못했던 이상한 현상이 발견됐다. 아래는 사용자가 마지막으로 클릭한 아이템이 “product30” 이라고 보고 해당하는 엘리먼트의 위치로 스크롤링하는 간단한 코드다.</p>
+<pre class="language-js" data-language="js"><code class="language-js">window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'onloaded'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> product30 <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByClassName</span><span class="token punctuation">(</span><span class="token string">'product-item'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">29</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> top <span class="token operator">=</span> product30<span class="token punctuation">.</span><span class="token function">getBoundingClientRect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>top<span class="token punctuation">;</span>
+
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">scroll to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>top<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">(product30)</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    window<span class="token punctuation">.</span><span class="token function">scrollTo</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> top<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>생각한 대로라면 지정한 위치로 스크롤링 되어야 하지만 동작하지 않았다. 아래 “그림 1”을 보면 분명히 <code>9970.875</code> 즉, “product30”의 위치로 스크롤링을 지시했음에도 문서는 여전히 최상단에 있음을 알 수 있다.</p>
+
+    <figure title="동작하지 않는 scrollTo()">
+      <a href="/images/scroll-restoration-property-of-history/scroll.01.png" target="_blank">
+        <img 
+          src="/images/scroll-restoration-property-of-history/scroll.01.png" 
+          alt="동작하지 않는 scrollTo()" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 1. 동작하지 않는 scrollTo()&gt;</figcaption>
+    </figure>
+  
+
+<p>간단한 코드로 재현하긴 힘들지만, 실제 서비스 페이지에서는 <code>setTimeout(() =&gt; ..., 0)</code>으로 지정해도 금세 원래의 위치로 크롬이 재보정한다.</p>
+<p> 이렇게 동작하는 이유는 크롬이 사용자가 보고 있던 스크롤 위치를 저장하고 있다가 해당 페이지에 다시 접근하면 브라우저 레벨에서 자동으로 스크롤링하기 때문인데 어떻게 해야 이를 회피할 수 있을지 고민됐다. 이때 <a target="_blank" rel="noopener" href="http://sculove.github.io/blog/">찬욱</a>님에게 여쭤보니 아래와 같은 코드로 이를 무력화할 수 있다는 답변을 받았다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">'scrollRestoration'</span> <span class="token keyword">in</span> history<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// Back off, browser, I got this...</span>
+    history<span class="token punctuation">.</span>scrollRestoration <span class="token operator">=</span> <span class="token string">'manual'</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>위 코드를 삽입하고 다시 페이지에 접근하니 정확히 의도한 대로 동작했다.</p>
+
+    <figure title="제대로 동작하는 scrollTo()">
+      <a href="/images/scroll-restoration-property-of-history/scroll.02.png" target="_blank">
+        <img 
+          src="/images/scroll-restoration-property-of-history/scroll.02.png" 
+          alt="제대로 동작하는 scrollTo()" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 2. 제대로 동작하는 scrollTo()&gt;</figcaption>
+    </figure>
+  
+
+<p>프로토타이핑은 무사히 완료했고 의사 결정하는데 큰 역할을 했다. 하지만 이렇게 이야기를 마무리하기엔 찜찜하다. <code>scrollRestoration</code> 속성을 좀 이해하고 넘어가야 할 것 같다.</p>
+<p>필자는 이번에 <code>scrollRestoration</code>이라는 속성을 처음 봤다. 그도 그럴 것이 <code>scrollRestoration</code>은 실험적(Experimental) API 에다가 아직 MDN에 페이지도 없고(<a target="_blank" rel="noopener" href="https://developer.mozilla.org/ko/docs/Web/API/History/scrollRestoration">참고</a>), 2015년 10월에 배포된 크롬 46에서야 추가된 API다.</p>
+<p><code>scrollRestoration</code>은 히스토리 네비게이션의 스크롤 복원 기능을 명시적으로 지정할 수 있는 속성이다. 속성값은 ‘auto’와 ‘manual’이 전부. SPA 환경과 관련이 있어 보인다. 이 글을 읽는 사람 중 대다수는 목록 페이지에서 특정 아이템을 클릭해 엔드 페이지로 갔다가 다시 되돌아오면 스크롤을 처음부터 다시 해야 하는 경험을 한 적 있을 것 같다. 그래서 스크롤 포지션 값을 <code>LocalStorage</code>에 저장했다가 다시 목록 페이지에 접근하면 억지로 스크롤 위치를 잡아주는 기능을 구현한다.</p>
+<p>대표적으로 네이버 주식 모바일 웹이 그런 방식으로 구현돼 있는데 토론 목록 페이지에서 토론 페이지로 접근하면 <code>scrollY</code> 값을 기억해 뒀다가,  뒤로 가기 하여 토론 목록 페이지로 되돌아오면 이 값을 이용해 스크롤 위치를 조절한다.</p>
+
+    <figure title="보던 목록으로 스크롤링하기 위해 scrollY 값을 기억한다">
+      <a href="/images/scroll-restoration-property-of-history/scroll.03.png" target="_blank">
+        <img 
+          src="/images/scroll-restoration-property-of-history/scroll.03.png" 
+          alt="보던 목록으로 스크롤링하기 위해 scrollY 값을 기억한다" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 3. 사용자가 보던 곳으로 보정하기 위해 scrollY 값 저장&gt;</figcaption>
+    </figure>
+  
+
+<p>위와 같은 구현 방식은 사용자가 정확히 어느 경로를 통해 목록 페이지로 접근하는지 알기 어려워 자칫 잘못된 경험을 제공(검색을 통해 접근했는데 스크롤 위치를 조절하는 등)하기도 하는데 <code>scrollRestoration</code>은 history navigation을 기반으로 동작하기 때문에 이러한 부분을 해소할 수 있을 것으로 보인다. 하지만 처음에 이야기한 것처럼 자동 스크롤링 기능이 오히려 특정 기능 구현에 방해가 될 수도 있는데 세심하게 개발자에게 조절할 수 있도록 속성을 열어줘서 고마울 따름.</p>
+<p>테스트 코드는 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/scroll-restoration-test">UYEONG/scroll-restoration-test</a>에 올려놓았으니 참고하길 바란다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/History">History - Web APIs</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration">History API: Scroll Restoration</a></li>
+<li><a target="_blank" rel="noopener" href="https://majido.github.io/scroll-restoration-proposal/history-based-api.html">Custom Scroll Restoration - History-based API</a></li>
+</ul>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2016/12/02/how-to-test-request-animation-frame/" class="navigation__link">
+        <p class="navigation__title ellipsis">requestAnimationFrame을 어떻게 테스트 할 수 있을까?</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-12-02T00:00:00+09:00">
+      2016.12.02
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        requestAnimationFrame을 사용해 작성한 코드를 어떻게 유닛 테스트(Unit Test)할 수 있는지 단계별로 자세히 소개합니다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2016/10/31/good-first-impression-testcafe/" class="navigation__link">
+        <p class="navigation__title ellipsis">첫 인상이 좋은 E2E 테스트 프레임워크, TestCafe</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-10-31T00:00:00+09:00">
+      2016.10.31
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        E2E 테스트 프레임워크의 한 종류인 TestCafe를 소개하고 사용 방법과 또 다른 E2E 테스트 프레임워크인 나이트왓치와의 차이점을 간략하게 살펴본다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2016/11/28/scroll-restoration-property-of-history/';
+      this.page.identifier = '2016/11/28/scroll-restoration-property-of-history/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

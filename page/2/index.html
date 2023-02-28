@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="Coderifleman(코드소총수)의 기술 블로그입니다. 주로 프론트엔드 관련한 기술 글을 자주 포스팅하며 가끔 접근법, 방법론, 아키텍처, 서버사이드 등 프론트엔드 개발 뿐만 아니라 개발과 관련한 전반적인 지식도 함께 포스팅합니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="Coderifleman(코드소총수)의 기술 블로그입니다. 주로 프론트엔드 관련한 기술 글을 자주 포스팅하며 가끔 접근법, 방법론, 아키텍처, 서버사이드 등 프론트엔드 개발 뿐만 아니라 개발과 관련한 전반적인 지식도 함께 포스팅합니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Coderifleman&#39;s blog">
+<meta property="og:url" content="http://blog.coderifleman.com/page/2/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="Coderifleman(코드소총수)의 기술 블로그입니다. 주로 프론트엔드 관련한 기술 글을 자주 포스팅하며 가끔 접근법, 방법론, 아키텍처, 서버사이드 등 프론트엔드 개발 뿐만 아니라 개발과 관련한 전반적인 지식도 함께 포스팅합니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/page/2/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <main class="home">
+  <section class="home__posts">
+    <div class="posts">
+  
+  <ul class="posts__list">
+    
+      
+      <li class="posts__item has-picture">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 2편</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+              <div class="posts__picture" style="background-image:url('/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.01.png')"></div>
+            
+            <div class="posts__desc">
+              이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 두 번째 편입니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2017-01-03T00:00:00+09:00">
+      2017.01.03
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Algorithm/" class="meta__category-list-item">
+            <span>Algorithm</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+      
+      <li class="posts__item has-picture">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2017/01/02/bezier-curves-for-frontend-engineer-1/">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 1편</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+              <div class="posts__picture" style="background-image:url('/images/bezier-curves-for-frontend-engineer-1/bezier-for-frontend.01.gif')"></div>
+            
+            <div class="posts__desc">
+              이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 첫 번째 편입니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2017-01-02T00:00:00+09:00">
+      2017.01.02
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Algorithm/" class="meta__category-list-item">
+            <span>Algorithm</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+      
+      <li class="posts__item has-picture">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2016/12/30/bezier-curves/">중학생도 알 수 있는 베지에 곡선(Bezier Curves)</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+              <div class="posts__picture" style="background-image:url('/images/bezier-curves/bezier-curve.01.gif')"></div>
+            
+            <div class="posts__desc">
+              이 문서는 일본어 문서 「中学生でもわかるベジェ曲線」을 번역한 것으로 곡선을 그리거나 애니메이션 처리에 근간이 되는 베지에 곡선(Bezier Curves)의 원리에 관해서 쉽고 간단하게 소개합니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-12-30T00:00:00+09:00">
+      2016.12.30
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Algorithm/" class="meta__category-list-item">
+            <span>Algorithm</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+      
+      <li class="posts__item">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2016/12/02/how-to-test-request-animation-frame/">requestAnimationFrame을 어떻게 테스트 할 수 있을까?</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+            <div class="posts__desc">
+              requestAnimationFrame을 사용해 작성한 코드를 어떻게 유닛 테스트(Unit Test)할 수 있는지 단계별로 자세히 소개합니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-12-02T00:00:00+09:00">
+      2016.12.02
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+      
+      <li class="posts__item has-picture">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2016/11/28/scroll-restoration-property-of-history/">history 객체의 scrollRestoration 속성</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+              <div class="posts__picture" style="background-image:url('/images/scroll-restoration-property-of-history/scroll.01.png')"></div>
+            
+            <div class="posts__desc">
+              onload 타임에 특정 위치에 자동 스크롤링 되는 기능을 프로토타이핑 하면서 마주한 문제와 history 객체의 scrollRestoration 속성으로 해결한 과정을 소개합니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-11-28T00:00:00+09:00">
+      2016.11.28
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Etc/" class="meta__category-list-item">
+            <span>Etc</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+      
+      <li class="posts__item has-picture">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2016/10/31/good-first-impression-testcafe/">첫 인상이 좋은 E2E 테스트 프레임워크, TestCafe</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+              <div class="posts__picture" style="background-image:url('/images/good-first-impression-testcafe/testcafe.01.gif')"></div>
+            
+            <div class="posts__desc">
+              E2E 테스트 프레임워크의 한 종류인 TestCafe를 소개하고 사용 방법과 또 다른 E2E 테스트 프레임워크인 나이트왓치와의 차이점을 간략하게 살펴본다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-10-31T00:00:00+09:00">
+      2016.10.31
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+      
+      <li class="posts__item has-picture">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2016/10/11/read-the-engineering-technology-and-society/">공학기술과 사회를 읽고</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+              <div class="posts__picture" style="background-image:url('/images/read-the-engineering-technology-and-society/engineering.01.jpg')"></div>
+            
+            <div class="posts__desc">
+              지호출판사에서 발행한 「공학기술과 사회」라는 책을 읽고 개인적인 느낌과 감평을 작성한 문서입니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-10-11T00:00:00+09:00">
+      2016.10.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Book/" class="meta__category-list-item">
+            <span>Book</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+      
+      <li class="posts__item has-picture">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2016/06/17/e2e-test-and-nightwatch/">E2E 테스트와 나이트왓치</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+              <div class="posts__picture" style="background-image:url('/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png')"></div>
+            
+            <div class="posts__desc">
+              E2E의 정의와 E2E 테스트 프레임워크의 역사 그리고 나이트왓치를 소개하며 설치하는 방법과 사용하는 방법까지 폭 넓게 설명합니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-06-17T00:00:00+09:00">
+      2016.06.17
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+      
+      <li class="posts__item has-picture">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2016/04/26/read-the-thinking-about-react/">React에 대한 여러가지 생각을 읽고</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+              <div class="posts__picture" style="background-image:url('/images/read-the-thinking-about-react/about_react.01.png')"></div>
+            
+            <div class="posts__desc">
+              Youngrok Pak님의 「React에 대한 여러 가지 생각」을 읽고 해당 글에 대한 개인적인 의견과 React에 관해 평소에 이야기하고 싶었던 내용을 함께 이야기합니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-04-26T00:00:00+09:00">
+      2016.04.26
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+      
+      <li class="posts__item">
+        <article class="posts__contents">
+          <div class="posts__header">
+            <h1 class="posts__title">
+              <a href="/2015/08/16/react-and-immutable/">React와 불변객체</a>
+            </h1>
+          </div>
+          <div class="posts__body">
+            
+            <div class="posts__desc">
+              불변객체(Immutable Object)의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개합니다.
+            </div>
+            <div class="posts__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-08-16T00:00:00+09:00">
+      2015.08.16
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </article>
+      </li>
+    
+  </ul>
+</div>
+
+  </section>
+  <div class="home__navigation">
+    <nav class="pagination">
+<!--    <div class="pagination__prev">-->
+<!--      <a class="pagination__pick" href="#" data-page="prev">-->
+<!--        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">-->
+<!--          <path-->
+<!--            d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,-->
+<!--            1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2-->
+<!--            0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2-->
+<!--            0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,-->
+<!--            1.6-1.6,4.2 0,5.8l54,53.9z"/>-->
+<!--        </svg>-->
+<!--        <span class="blind">이전</span>-->
+<!--      </a>-->
+<!--    </div>-->
+  
+    <ul class="pagination__list">
+      
+        <li class="pagination__item">
+          <a
+            class="pagination__pick "
+            href="/"
+            data-page="1"
+          >
+            
+              <span>1</span>
+              <span class="blind">번째 페이지</span>
+            
+          </a>
+        </li>
+      
+        <li class="pagination__item">
+          <a
+            class="pagination__pick on"
+            href="/page/2"
+            data-page="2"
+          >
+            
+              <span>2</span>
+              <span class="blind">번째 페이지(현재)</span>
+            
+          </a>
+        </li>
+      
+        <li class="pagination__item">
+          <a
+            class="pagination__pick "
+            href="/page/3"
+            data-page="3"
+          >
+            
+              <span>3</span>
+              <span class="blind">번째 페이지</span>
+            
+          </a>
+        </li>
+      
+        <li class="pagination__item">
+          <a
+            class="pagination__pick "
+            href="/page/4"
+            data-page="4"
+          >
+            
+              <span>4</span>
+              <span class="blind">번째 페이지</span>
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+<!--    <div class="pagination__next">-->
+<!--      <a class="pagination__pick" href="#" data-page="next">-->
+<!--        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129">-->
+<!--          <path-->
+<!--            d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,-->
+<!--            1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2-->
+<!--            0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8-->
+<!--            1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,-->
+<!--            1.6 1.6,4.2 0,5.8l-53.9,53.9z"/>-->
+<!--        </svg>-->
+<!--        <span class="blind">다음</span>-->
+<!--      </a>-->
+<!--    </div>-->
+</nav>
+
+  </div>
+</main>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

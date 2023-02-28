@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>힘세고 오래가는 테스트 전략 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="웹 애플리케이션에서 무엇을 테스트 해야 할지 또, 어떤 관점에서 코드를 바라봐야 장기적으로도 유용한 결과물을 만들 수 있는지 이야기합니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Development,Test,UnitTest">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="웹 애플리케이션에서 무엇을 테스트 해야 할지 또, 어떤 관점에서 코드를 바라봐야 장기적으로도 유용한 결과물을 만들 수 있는지 이야기합니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="힘세고 오래가는 테스트 전략">
+<meta property="og:url" content="http://blog.coderifleman.com/2021/11/17/a-strong-and-maintainable-test-strategy/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="웹 애플리케이션에서 무엇을 테스트 해야 할지 또, 어떤 관점에서 코드를 바라봐야 장기적으로도 유용한 결과물을 만들 수 있는지 이야기합니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="http://blog.coderifleman.com/images/a-strong-and-maintainable-test-strategy/test.01.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/a-strong-and-maintainable-test-strategy/test.02.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/a-strong-and-maintainable-test-strategy/test.03.png">
+<meta property="article:published_time" content="2021-11-16T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Development">
+<meta property="article:tag" content="Test">
+<meta property="article:tag" content="UnitTest">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.coderifleman.com/images/a-strong-and-maintainable-test-strategy/test.01.png">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2021/11/17/a-strong-and-maintainable-test-strategy/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">힘세고 오래가는 테스트 전략</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2021-11-17T00:00:00+09:00">
+      2021.11.17
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Development/" >
+            #Development
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Test/" >
+            #Test
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/UnitTest/" >
+            #UnitTest
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+      <div class="post__contents">
+        
+    <figure title="undefined">
+      <a href="/images/a-strong-and-maintainable-test-strategy/test.01.png" target="_blank">
+        <img 
+          src="/images/a-strong-and-maintainable-test-strategy/test.01.png" 
+          alt="" 
+          style=""
+        >
+      </a>
+      
+    </figure>
+  
+
+<p>소위 프런트엔드 그러니까 웹 애플리케이션은 왜 테스트하기 힘들까? 복잡하게 생각 할 필요 없다. 허구헌날 바뀌기 때문이다.</p>
+<p>사용자 프로필을 출력하는 모달 컴포넌트를 떠올려보자. 여러분은 꽤나 신경써서 유닛 테스트도 작성했다. 신성한 초록색 바도 확인했다. 자 이제 PR을 보내볼까? 하는 순간 UI는 바뀐다(그… 그 정도는 아니야). 애써 작성한 유닛테스트의 3분의 1이 실패하고 테스트를 하나하나 고쳐야한다. 내일도 모레도 UI는 바뀌고 테스트는 다시 깨지며 또 고쳐야 한다.</p>
+<p>시간이 지날수록 테스트 관리 비용은 크지만 얻을 수 있는 긍정적인 효과는 적다고 느껴진다. 점점 테스트와 거리가 생기기 시작하고 결국엔 이별을 맞이한다.</p>
+
+    <figure title="가! 가란말이야!">
+      <a href="/images/a-strong-and-maintainable-test-strategy/test.02.png" target="_blank">
+        <img 
+          src="/images/a-strong-and-maintainable-test-strategy/test.02.png" 
+          alt="가! 가란말이야!" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;가! 가란말이야!!&gt;</figcaption>
+    </figure>
+  
+
+<p>UI는 자주 바뀐다. 왜냐하면 가장 바꾸기 쉽기 때문이다(심지어 효과적이다). 그래서 UI를 테스트하지 않겠다는 의견도 어느정도 이해가 된다. 하지만 UI에 대한 테스트 포기가 곧 모든 코드에 대한 테스트 포기로 이어져서는 안된다.</p>
+<p>힘세고 오래가는 테스트 전략은 간단하다.</p>
+<p>우선 테스트하기 편안해야 한다. 즉, 거치적거리는 것 없이 유닛 테스트를 작성할 수 있어야 한다. 밥과 함께 씹히는 돌을 한번은 참고 넘길 수 있어도 만약 계속 반복된다면 여러분은 숟가락을 집어던질 것이다.</p>
+
+    <figure title="에잇! 더는 못먹겠네!">
+      <a href="/images/a-strong-and-maintainable-test-strategy/test.03.png" target="_blank">
+        <img 
+          src="/images/a-strong-and-maintainable-test-strategy/test.03.png" 
+          alt="에잇! 더는 못먹겠네!" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;에잇! 더는 못먹겠네!&gt;</figcaption>
+    </figure>
+  
+
+<p>두번째로 상대적으로 덜 변하는 것을 테스트한다. 덜 변하는 것은 그렇지 않은 것에 비해 더 중요한 내용을 담고 있기 마련이다. 다시 말해서 애플리케이션 규칙이나 서비스 정책을 식별하고, 표현이라는 맥락에서 분리할 수 있어야 한다.</p>
+<p>정리하자면 다음과 같다.</p>
+<ol>
+<li>UI 컴포넌트는 개인의 판단에 따라 테스트 작성 여부를 결정할 수 있도록 한다.</li>
+<li>중요한 것(상대적으로 덜 변하는 것)을 식별하여 테스트 작성하기 쉬운 방법으로 구현하고 테스트한다.</li>
+</ol>
+<p>어떻게 끝내야 할 지 모르겠지만 일단 하고 싶은 말은 여기까지다. </p>
+<p>끝.</p>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2021/12/07/jserinfo_translation_story/" class="navigation__link">
+        <p class="navigation__title ellipsis">꾸준히 하기가 제일 어려워! JSer.info 번역 이야기</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2021-12-07T00:00:00+09:00">
+      2021.12.07
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        일본 프런트엔드 기술 위클리 JSer.info를 번역하고 공유해 온 이야기. 2021년 12월을 맞이하여 작성한 회고와 자기 반성글.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2021/04/21/react-hooks-and-humble-object-pattern-and-tests/" class="navigation__link">
+        <p class="navigation__title ellipsis">리액트 훅스(react hooks)와 험블 객체 패턴(humble object pattern) 그리고 테스트</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2021-04-21T00:00:00+09:00">
+      2021.04.21
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        훅스 관점에서 어떻게 테스트 용이성과 유지보수성 높은 애플리케이션을 일관된 루틴으로 개발하고 설계할 수 있는지 소개한다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2021/11/17/a-strong-and-maintainable-test-strategy/';
+      this.page.identifier = '2021/11/17/a-strong-and-maintainable-test-strategy/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

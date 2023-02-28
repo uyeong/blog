@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React.js를 이해하다(6) | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 여섯번째 편입니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,React">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 여섯번째 편입니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React.js를 이해하다(6)">
+<meta property="og:url" content="http://blog.coderifleman.com/2015/07/11/learning-react-6/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 여섯번째 편입니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="http://blog.coderifleman.com/images/learning-react-6/react_test.01.gif">
+<meta property="og:image" content="http://blog.coderifleman.com/images/learning-react-6/react_flux.01.png">
+<meta property="article:published_time" content="2015-07-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.012Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.coderifleman.com/images/learning-react-6/react_test.01.gif">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2015/07/11/learning-react-6/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">React.js를 이해하다(6)</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-07-11T00:00:00+09:00">
+      2015.07.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/React/" >
+            #React
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-%ED%85%8C%EC%8A%A4%ED%8A%B8"><span class="toc-number">1.</span> <span class="toc-text">React.js의 테스트</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#React-js%EC%99%80-%ED%85%8C%EC%8A%A4%ED%8A%B8"><span class="toc-number">1.1.</span> <span class="toc-text">React.js와 테스트</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C"><span class="toc-number">1.2.</span> <span class="toc-text">DOM이 필요할까?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EC%8B%9C%EB%AE%AC%EB%A0%88%EC%9D%B4%ED%8A%B8"><span class="toc-number">1.3.</span> <span class="toc-text">이벤트 시뮬레이트</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9E%91%EC%84%B1-%EC%A7%80%EC%9B%90"><span class="toc-number">1.4.</span> <span class="toc-text">컴포넌트 작성 지원</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#renderIntoDocument"><span class="toc-number">1.4.1.</span> <span class="toc-text">renderIntoDocument</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mockComponent"><span class="toc-number">1.4.2.</span> <span class="toc-text">mockComponent</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%85%80%EB%A0%89%ED%8A%B8"><span class="toc-number">1.5.</span> <span class="toc-text">컴포넌트 셀렉트</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#findAllInRenderedTree-ReactComponent-tree-function-test"><span class="toc-number">1.5.1.</span> <span class="toc-text">findAllInRenderedTree(ReactComponent tree, function test)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scryRenderedDOMComponentsWithClass-ReactComponent-tree-string-className"><span class="toc-number">1.5.2.</span> <span class="toc-text">scryRenderedDOMComponentsWithClass(ReactComponent tree, string className)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#findRenderedDOMComponentWithClass-ReactComponent-tree-string-className"><span class="toc-number">1.5.3.</span> <span class="toc-text">findRenderedDOMComponentWithClass(ReactComponent tree, string className)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scryRenderedDOMComponentsWithTag-ReactComponent-tree-string-tagName"><span class="toc-number">1.5.4.</span> <span class="toc-text">scryRenderedDOMComponentsWithTag(ReactComponent tree, string tagName)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#findRenderedDOMComponentWithTag-ReactComponent-tree-string-tagName"><span class="toc-number">1.5.5.</span> <span class="toc-text">findRenderedDOMComponentWithTag(ReactComponent tree, string tagName)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scryRenderedComponentsWithType-ReactComponent-tree-function-componentClass"><span class="toc-number">1.5.6.</span> <span class="toc-text">scryRenderedComponentsWithType(ReactComponent tree, function componentClass)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#findRenderedComponentWithType-ReactComponent-tree-function-componentClass"><span class="toc-number">1.5.7.</span> <span class="toc-text">findRenderedComponentWithType(ReactComponent tree, function componentClass)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Assert"><span class="toc-number">1.6.</span> <span class="toc-text">Assert</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#isElementOfType-ReactElement-element-function-componentClass"><span class="toc-number">1.6.1.</span> <span class="toc-text">isElementOfType(ReactElement element, function componentClass)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#isDOMComponent-ReactComponent-instance"><span class="toc-number">1.6.2.</span> <span class="toc-text">isDOMComponent(ReactComponent instance)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#isCompositeComponent-ReactComponent-instance"><span class="toc-number">1.6.3.</span> <span class="toc-text">isCompositeComponent(ReactComponent instance)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#isCompositeComponentWithType-ReactComponent-instance-function-componentClass"><span class="toc-number">1.6.4.</span> <span class="toc-text">isCompositeComponentWithType(ReactComponent instance, function componentClass)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#isTextComponent-ReactComponent-instance"><span class="toc-number">1.6.5.</span> <span class="toc-text">isTextComponent(ReactComponent instance)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%99%80-Jest"><span class="toc-number">2.</span> <span class="toc-text">React.js와 Jest</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Painless-JavaScript-Unit-Testing"><span class="toc-number">2.1.</span> <span class="toc-text">Painless JavaScript Unit Testing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jasmine"><span class="toc-number">2.2.</span> <span class="toc-text">Jasmine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM"><span class="toc-number">2.3.</span> <span class="toc-text">DOM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Install"><span class="toc-number">2.4.</span> <span class="toc-text">Install</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tests"><span class="toc-number">2.5.</span> <span class="toc-text">tests</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React-js%EB%A5%BC-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%9C%EB%8B%A4"><span class="toc-number">2.6.</span> <span class="toc-text">React.js를 테스트한다.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSX%EC%9D%98-%EB%B3%80%ED%99%98"><span class="toc-number">2.6.1.</span> <span class="toc-text">JSX의 변환</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mock%EC%9D%98-%ED%95%B4%EC%A0%9C"><span class="toc-number">2.7.</span> <span class="toc-text">Mock의 해제</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%9E%91%EC%84%B1%ED%95%B4%EB%B3%B4%EA%B8%B0"><span class="toc-number">2.8.</span> <span class="toc-text">테스트 작성해보기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mock"><span class="toc-number">2.9.</span> <span class="toc-text">Mock</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mock-Assert"><span class="toc-number">2.9.1.</span> <span class="toc-text">Mock Assert</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#module-%EA%B5%90%EC%B2%B4"><span class="toc-number">2.9.2.</span> <span class="toc-text">module 교체</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Timer"><span class="toc-number">2.10.</span> <span class="toc-text">Timer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API"><span class="toc-number">2.11.</span> <span class="toc-text">API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B6%88%ED%8E%B8%ED%95%9C-%EC%A0%90"><span class="toc-number">2.12.</span> <span class="toc-text">불편한 점</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%99%80-Flux"><span class="toc-number">3.</span> <span class="toc-text">React.js와 Flux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flux-is-Architecture"><span class="toc-number">3.1.</span> <span class="toc-text">Flux is Architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unidirectional-data-flow"><span class="toc-number">3.2.</span> <span class="toc-text">Unidirectional data flow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flux%EC%9D%98-%EA%B5%AC%EC%84%B1-%EC%9A%94%EC%86%8C"><span class="toc-number">3.3.</span> <span class="toc-text">Flux의 구성 요소</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Constants"><span class="toc-number">3.3.1.</span> <span class="toc-text">Constants</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dispatcher"><span class="toc-number">3.3.2.</span> <span class="toc-text">Dispatcher</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Store"><span class="toc-number">3.3.3.</span> <span class="toc-text">Store</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ActionCreators-Action"><span class="toc-number">3.3.4.</span> <span class="toc-text">ActionCreators (Action)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#View-ReactComponent"><span class="toc-number">3.3.5.</span> <span class="toc-text">View (ReactComponent)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Store%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%B6%9C%EB%A0%A5%ED%95%98%EB%8A%94-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="toc-number">3.3.5.1.</span> <span class="toc-text">Store의 데이터를 출력하는 컴포넌트</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Action%EC%9D%84-%EB%B0%9C%EC%83%9D%EC%8B%9C%ED%82%A4%EB%8A%94-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="toc-number">3.3.5.2.</span> <span class="toc-text">Action을 발생시키는 컴포넌트</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B7%B8-%EC%99%B8-Flux-%EA%B5%AC%ED%98%84"><span class="toc-number">3.4.</span> <span class="toc-text">그 외 Flux 구현</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flux-server-side-rendering"><span class="toc-number">3.5.</span> <span class="toc-text">Flux + server-side rendering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B2%80%EC%A6%9D"><span class="toc-number">3.6.</span> <span class="toc-text">데이터 검증</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">4.</span> <span class="toc-text">정리</span></a></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        
+    <div class="alert alert--info">
+      
+        <strong class="alert__title">
+          읽기전에...
+        </strong>
+      
+      <div class="alert__body">
+        <p>이 문서는 <a target="_blank" rel="noopener" href="http://qiita.com/koba04">koba04</a>님이 작성한 <a target="_blank" rel="noopener" href="http://qiita.com/advent-calendar/2014/reactjs">React.js Advent Calendar</a>를 번역한 것입니다. 본래 원문서는 캘린더 형식으로 소개하지만 여기에서는 회를 나눠 작성할 생각입니다. 또한, React 버전 0.12.1 때 작성된 문서이기 때문에 현 버전과 다른 점이 있을 수 있습니다. 최대한 다른 부분을 노트로 작성할 생각이지만, 만약 생략된 부분이 있다면 댓글로 알려주시면 감사하겠습니다.</p>
+
+      </div>
+    </div>
+  
+
+<h2 id="React-js의-테스트"><a href="#React-js의-테스트" class="headerlink" title="React.js의 테스트"></a>React.js의 테스트</h2><p>이번에는 React.js 환경에서 테스트하는 방법을 소개하겠습니다.</p>
+<h3 id="React-js와-테스트"><a href="#React-js와-테스트" class="headerlink" title="React.js와 테스트"></a>React.js와 테스트</h3><p>React.js는 컴포넌트에 대응하여 테스트를 작성해야 하므로 DOM을 의존하여 힘들 것으로 예상하지만 React.addons.TestUtils라는 Addon이 테스트에 편리한 함수를 제공하고 있으므로 이를 이용하면 더 쉽게 테스트를 작성할 수 있습니다.</p>
+<h3 id="DOM이-필요할까"><a href="#DOM이-필요할까" class="headerlink" title="DOM이 필요할까?"></a>DOM이 필요할까?</h3><p>React.js 컴포넌트는 서버-사이드에서도 사용할 수 있으므로 node.js 환경에서 테스트를 작성하고 싶을 수 있지만 onClick이나 onKeyUp 같은 이벤트에 실제로 반응하는지 테스트하기 위해서 DOM이 필요합니다. 단순히 Prop 값을 전달하고 renderToStaticMarkup을 사용하여 결괏값인 HTML을 테스트하는 경우엔 node.js 환경에서 작성할 수 있습니다.</p>
+<h3 id="이벤트-시뮬레이트"><a href="#이벤트-시뮬레이트" class="headerlink" title="이벤트 시뮬레이트"></a>이벤트 시뮬레이트</h3><p>「버튼을 클릭하면」이라는 테스트를 작성하고자 할 때 DOM을 셀렉트하고 값을 설정하여 이벤트를 발생시키는 일련의 과정이 필요하지만, React.addons.TestUtils.Simulate를 사용하면 DOM을 지정하고, 전달하고 싶은 이벤트 객체의 형식을 지정할 수 있으므로 격식없이 사용자 액션 테스트를 작성할 수 있습니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js">Simulate<span class="token punctuation">.</span><span class="token punctuation">&#123;</span>eventName<span class="token punctuation">&#125;</span><span class="token punctuation">(</span>DOMElement element<span class="token punctuation">,</span> object eventData<span class="token punctuation">)</span></code></pre>
+
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> node <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>refs<span class="token punctuation">.</span>input<span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span>Simulate<span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 전달하고자 하는 이벤트 객체를 지정한다.</span>
+React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span>Simulate<span class="token punctuation">.</span><span class="token function">change</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>target<span class="token operator">:</span> <span class="token punctuation">&#123;</span>value<span class="token operator">:</span> <span class="token string">'Hello, world'</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span>Simulate<span class="token punctuation">.</span><span class="token function">keyDown</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>key<span class="token operator">:</span> <span class="token string">'Enter'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h3 id="컴포넌트-작성-지원"><a href="#컴포넌트-작성-지원" class="headerlink" title="컴포넌트 작성 지원"></a>컴포넌트 작성 지원</h3><h4 id="renderIntoDocument"><a href="#renderIntoDocument" class="headerlink" title="renderIntoDocument"></a>renderIntoDocument</h4><p>renderIntoDocument를 사용하면 DOM에 컴포넌트를 실제로 추가하지 않아도 테스트할 수 있습니다. 아래 예제를 보면 일단 renderintoDocument가 컴포넌트를 DOM에 추가해 나갈 것으로 보입니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> Hello <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./components/hello'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> component <span class="token operator">=</span> React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">renderIntoDocument</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>Hello name<span class="token operator">=</span>\"foo\" <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>하지만 이것은 실제 DOM 트리에 추가되는 것이 아니라 document.createElement로 생성한 div에 render 할 뿐입니다. 그래서 요소의 실제 높이나 너비 등은 알 수 없습니다. (이름이 다소 혼란스럽기 때문에 변경될 수 있을 것 같습니다)</p>
+<h4 id="mockComponent"><a href="#mockComponent" class="headerlink" title="mockComponent"></a>mockComponent</h4><p>Jest를 사용하고 있을 때 mock 컴포넌트에서 더미로 <code>&lt;div/&gt;</code>(엘리먼트 요소)를 반환하도록 하는 mockComponent도 있습니다. 이 함수를 사용하기 위해서는<code> component.prototype.render.mockImplementation</code>이 작성되어야 하는데 Jest를 고려한 함수(<a target="_blank" rel="noopener" href="http://facebook.github.io/jest/docs/api.html#mockfn-mockimplementation-fn">mockFn.mockImplementation(fn)</a>) 인듯합니다. 자주 쓰일지 모르겠습니다만, 보통 Mock으로 작성한 컴포넌트에서 render를 동작시키고 싶을 때 사용하는 듯합니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token function-variable function">mockComponent</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">module<span class="token punctuation">,</span> mockTagName</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  mockTagName <span class="token operator">=</span> mockTagName <span class="token operator">||</span> module<span class="token punctuation">.</span>mockTagName <span class="token operator">||</span> <span class="token string">'div'</span><span class="token punctuation">;</span>
+
+  module<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>render<span class="token punctuation">.</span><span class="token function">mockImplementation</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>
+      mockTagName<span class="token punctuation">,</span>
+      <span class="token keyword">null</span><span class="token punctuation">,</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>children
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span></code></pre>
+
+<h3 id="컴포넌트-셀렉트"><a href="#컴포넌트-셀렉트" class="headerlink" title="컴포넌트 셀렉트"></a>컴포넌트 셀렉트</h3><h4 id="findAllInRenderedTree-ReactComponent-tree-function-test"><a href="#findAllInRenderedTree-ReactComponent-tree-function-test" class="headerlink" title="findAllInRenderedTree(ReactComponent tree, function test)"></a>findAllInRenderedTree(ReactComponent tree, function test)</h4><p>특정 컴포넌트의 하위 컴포넌트 중에서 지정한 함수의 조건을 충족한 컴포넌트만 배열로 반환합니다. 아래에서 소개할 함수를 사용할 수 없는 경우에 사용할 수 있는 가장 기본적인 구현입니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">findAllInRenderedTree</span><span class="token punctuation">(</span>
+    React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">foo</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">bar</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">baz</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">component</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> component<span class="token punctuation">.</span>tagName <span class="token operator">===</span> <span class="token string">'SPAN'</span> <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">component</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span> <span class="token keyword">return</span> component<span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>textContent <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// ['foo', 'bar']</span></code></pre>
+
+<h4 id="scryRenderedDOMComponentsWithClass-ReactComponent-tree-string-className"><a href="#scryRenderedDOMComponentsWithClass-ReactComponent-tree-string-className" class="headerlink" title="scryRenderedDOMComponentsWithClass(ReactComponent tree, string className)"></a>scryRenderedDOMComponentsWithClass(ReactComponent tree, string className)</h4><p>특정 컴포넌트의 하위 컴포넌트 중, 지정한 className에 해당하는 컴포넌트를 배열로 반환합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">scryRenderedDOMComponentsWithClass</span><span class="token punctuation">(</span>
+    React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;span className=\"foo\">foo1</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;span className=\"foo\">foo2</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;span className=\"bar\">barbar</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">,</span>
+      document<span class="token punctuation">.</span>body
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token string">'foo'</span>
+  <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">component</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span> <span class="token keyword">return</span> component<span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>textContent <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// ['foo1', 'foo2']</span></code></pre>
+
+<h4 id="findRenderedDOMComponentWithClass-ReactComponent-tree-string-className"><a href="#findRenderedDOMComponentWithClass-ReactComponent-tree-string-className" class="headerlink" title="findRenderedDOMComponentWithClass(ReactComponent tree, string className)"></a>findRenderedDOMComponentWithClass(ReactComponent tree, string className)</h4><p>특정 컴포넌트의 하위 컴포넌트 중, 지정한 className에 해당하는 컴포넌트를 1개만 반환합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">findRenderedDOMComponentWithClass</span><span class="token punctuation">(</span>
+    React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;span className=\"foo\">foo1</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;span className=\"foo2\">foo2</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;span className=\"bar\">barbar</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">,</span>
+      document<span class="token punctuation">.</span>body
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token string">'foo'</span>
+  <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>textContent
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// ['foo1']</span></code></pre>
+
+<p>해당하는 컴포넌트가 없거나 여러개가 매치되면 오류를 발생시킵니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">findRenderedDOMComponentWithClass</span><span class="token punctuation">(</span>
+    React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;span className=\"foo\">foo1</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;span className=\"foo\">foo2</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;span className=\"bar\">barbar</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">,</span>
+      document<span class="token punctuation">.</span>body
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token string">'foo'</span>
+  <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>textContent
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">//  Uncaught Error: Did not find exactly one match for class:foo</span></code></pre>
+
+<h4 id="scryRenderedDOMComponentsWithTag-ReactComponent-tree-string-tagName"><a href="#scryRenderedDOMComponentsWithTag-ReactComponent-tree-string-tagName" class="headerlink" title="scryRenderedDOMComponentsWithTag(ReactComponent tree, string tagName)"></a>scryRenderedDOMComponentsWithTag(ReactComponent tree, string tagName)</h4><p>특정 컴포넌트의 하위 컴포넌트 중, 지정한 태그 네임에 해당하는 컴포넌트를 배열로 반환합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">scryRenderedDOMComponentsWithTag</span><span class="token punctuation">(</span>
+    React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">foo1</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">foo2</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">barbar</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">,</span>
+      document<span class="token punctuation">.</span>body
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token string">'span'</span>
+  <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">component</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span> <span class="token keyword">return</span> component<span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>textContent <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// ['foo1', 'foo2']</span></code></pre>
+
+<h4 id="findRenderedDOMComponentWithTag-ReactComponent-tree-string-tagName"><a href="#findRenderedDOMComponentWithTag-ReactComponent-tree-string-tagName" class="headerlink" title="findRenderedDOMComponentWithTag(ReactComponent tree, string tagName)"></a>findRenderedDOMComponentWithTag(ReactComponent tree, string tagName)</h4><p>특정 컴포넌트의 하위 컴포넌트 중, 지정한 className에 해당하는 컴포넌트를 1개만 반환합니다. 해당하는 컴포넌트가 없거나 여러개가 매치되면 오류를 발생시킵니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">findRenderedDOMComponentWithTag</span><span class="token punctuation">(</span>
+    React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">foo1</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">foo2</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">barbar</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">,</span>
+      document<span class="token punctuation">.</span>body
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token string">'p'</span>
+  <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>textContent
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// barbar</span></code></pre>
+
+<h4 id="scryRenderedComponentsWithType-ReactComponent-tree-function-componentClass"><a href="#scryRenderedComponentsWithType-ReactComponent-tree-function-componentClass" class="headerlink" title="scryRenderedComponentsWithType(ReactComponent tree, function componentClass)"></a>scryRenderedComponentsWithType(ReactComponent tree, function componentClass)</h4><p>특정 컴포넌트의 하위 컴포넌트 중, 지정한 컴포넌트의 인스턴스에 해당하는 컴포넌트를 배열로 반환합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">scryRenderedComponentsWithType</span><span class="token punctuation">(</span>
+    React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        &lt;Hello name=\"foo\" key=\"foo\" />
+        &lt;Hello name=\"bar\" key=\"bar\" />
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">xxx</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">zzz</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">,</span>
+      document<span class="token punctuation">.</span>body
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Hello
+  <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">component</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span> <span class="token keyword">return</span> component<span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>textContent <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// ['foo', 'bar']</span></code></pre>
+
+<h4 id="findRenderedComponentWithType-ReactComponent-tree-function-componentClass"><a href="#findRenderedComponentWithType-ReactComponent-tree-function-componentClass" class="headerlink" title="findRenderedComponentWithType(ReactComponent tree, function componentClass)"></a>findRenderedComponentWithType(ReactComponent tree, function componentClass)</h4><p>특정 컴포넌트의 하위 컴포넌트 중, 지정한 컴포넌트의 인스턴스에 해당하는 컴포넌트를 1개만 반환합니다. 해당하는 컴포넌트가 없거나 여러개가 매치되면 오류를 발생시킵니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">findRenderedComponentWithType</span><span class="token punctuation">(</span>
+    React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Hello</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>foo<span class="token punctuation">"</span></span> <span class="token attr-name">key</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>foo<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">xxx</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token punctuation">,</span>
+      document<span class="token punctuation">.</span>body
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Hello
+  <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>textContent
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// foo</span></code></pre>
+
+<h3 id="Assert"><a href="#Assert" class="headerlink" title="Assert"></a>Assert</h3><p>React 컴포넌트의 상태를 확인하기 위한 함수들의 모음입니다.</p>
+<h4 id="isElementOfType-ReactElement-element-function-componentClass"><a href="#isElementOfType-ReactElement-element-function-componentClass" class="headerlink" title="isElementOfType(ReactElement element, function componentClass)"></a>isElementOfType(ReactElement element, function componentClass)</h4><p>특정 컴포넌트가 지정한 컴포넌트의 인스턴스에 해당하는지를 판단합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">isElementOfType</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Hello</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">,</span> Hello<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h4 id="isDOMComponent-ReactComponent-instance"><a href="#isDOMComponent-ReactComponent-instance" class="headerlink" title="isDOMComponent(ReactComponent instance)"></a>isDOMComponent(ReactComponent instance)</h4><p>특정 컴포넌트가 div나 span과 같은 DOM 컴포넌트인지 판단합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">isDOMComponent</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token punctuation">/></span></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h4 id="isCompositeComponent-ReactComponent-instance"><a href="#isCompositeComponent-ReactComponent-instance" class="headerlink" title="isCompositeComponent(ReactComponent instance)"></a>isCompositeComponent(ReactComponent instance)</h4><p>특정 컴포넌트가 React.createClass에 의해 정의된 컴포넌트를 포함해 작성된 것인지 판단합니다. div나 span 등은 포함하지 않습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">isCompositeComponent</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Hello</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h4 id="isCompositeComponentWithType-ReactComponent-instance-function-componentClass"><a href="#isCompositeComponentWithType-ReactComponent-instance-function-componentClass" class="headerlink" title="isCompositeComponentWithType(ReactComponent instance, function componentClass)"></a>isCompositeComponentWithType(ReactComponent instance, function componentClass)</h4><p>특정 컴포넌트가 지정한 Component 타입을 포함해 작성된 것인지 판단합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">isCompositeComponentWithType</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Hello</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">,</span> Hello
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h4 id="isTextComponent-ReactComponent-instance"><a href="#isTextComponent-ReactComponent-instance" class="headerlink" title="isTextComponent(ReactComponent instance)"></a>isTextComponent(ReactComponent instance)</h4><p>특정 컴포넌트가 텍스트 컴포넌트를 반환하는지 판단합니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> textComponents <span class="token operator">=</span> React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">findAllInRenderedTree</span><span class="token punctuation">(</span>
+  React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>div<span class="token operator">></span><span class="token punctuation">&#123;</span><span class="token string">'hello'</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token string">'react'</span><span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span class="token punctuation">,</span>
+    document<span class="token punctuation">.</span>body
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">component</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">isTextComponent</span><span class="token punctuation">(</span>component<span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span> 
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>textComponents<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>props <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> textComponents<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// hello react</span></code></pre>
+
+<p>여기까지 TestUtils의 종류와 사용 방법을 설명했습니다. 다음 절에서는 페이스북이 만들고 배포한 테스트 프레임워크인 Jest와 조합하는 방법을 소개하고자 합니다.</p>
+<h2 id="React-js와-Jest"><a href="#React-js와-Jest" class="headerlink" title="React.js와 Jest"></a>React.js와 Jest</h2><p>이전에는 TestUtils를 사용하는 방법을 중심으로 설명했습니다. 이번에는 facebook이 개발하고 있는 Jest라고 하는 프레임워크와 함께 구성해 보고자 합니다.</p>
+<h3 id="Painless-JavaScript-Unit-Testing"><a href="#Painless-JavaScript-Unit-Testing" class="headerlink" title="Painless JavaScript Unit Testing"></a>Painless JavaScript Unit Testing</h3><p>Jest는 공식 홈페이지에서 「Painless JavaScript Unit Testing」 문구를 대표적으로 소개하고 있으며 도입하기 쉽다는 특징을 가지고 있습니다. 그 특징으로는 「Mock By Default」가 있는데 기본적으로 Jest에서는 CommonJS Style의 require 구문이 Mock을 반환하도록 설정합니다. 조금 과격한 느낌입니다만 테스트 대상이 되는 동작에만 민감한 테스트를 간단하게 작성할 수 있습니다. 반대로 테스트 대상 이 외는 모두 Mock으로 대체 되므로 인터페이스 밖에 테스트 할 수 없지만, 그것은 Unit Test의 범위 밖으로 볼 수 있어서 큰 문제가 되지 않습니다.</p>
+<h3 id="Jasmine"><a href="#Jasmine" class="headerlink" title="Jasmine"></a>Jasmine</h3><p>Jest는 Jasmine을 기반으로 만들어졌습니다. 따라서 Assert 등과 같은 기본적인 문법은 Jasmine과 같습니다. 단, Jasmine 2.0에서 비동기 테스트를 작성하기 보다 쉬워졌지만 1.3을 기반으로 하고 있어 이를 이용할 수 없습니다(<a target="_blank" rel="noopener" href="https://github.com/facebook/jest/issues/74">issues/74</a>).</p>
+<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><p>Jest는 jsdom으로 생성한 DOM 위에서 실행되므로 Node.js 환경처럼 CLI로 테스트를 실행할 수 있습니다. 즉, Jest를 사용하면 Karma 같은 Test Runner를 사용할 필요가 없으므로 간단하게 도입할 수 있습니다.</p>
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><p>jest-cli만 설치하면 됩니다.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> --save-dev jest-cli</code></pre>
+
+<h3 id="tests"><a href="#tests" class="headerlink" title="tests"></a>tests</h3><p>기본적으로 <strong>tests</strong> 디렉터리를 찾습니다. 그리고 그 디렉터리 내의 파일을 테스트로써 실행합니다. 따라서 Getting Started에서도 알 수 있듯이 <strong>tests</strong> 디렉터리를 내에 테스트 파일를 두고 jest를 실행하면 테스트가 진행됩니다. 만약 jest-cli를 전역이 아닌 devDependencies에 설치한다면 package.json의 scripts 프로퍼티에 npm test로 실행할 수 있도록 아래처럼 작성하면 편리하게 사용할 수 있습니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token string">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token string">"test"</span><span class="token operator">:</span> <span class="token string">"jest"</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="React-js를-테스트한다"><a href="#React-js를-테스트한다" class="headerlink" title="React.js를 테스트한다."></a>React.js를 테스트한다.</h3><p>Jest의 <a target="_blank" rel="noopener" href="https://facebook.github.io/jest/docs/tutorial-react.html">Tutorial – React</a> 문서에 React.js를 사용한 애플리케이션을 테스트하는 경우도 작성돼 있습니다. 테스트하기 위해서는 두 가지 설정을 할 필요가 있습니다.</p>
+<h4 id="JSX의-변환"><a href="#JSX의-변환" class="headerlink" title="JSX의 변환"></a>JSX의 변환</h4><p>JSX를 사용해 애플리케이션을 작성한 경우에는 테스트를 위해 JSX를 변환할 필요가 있습니다. package.json의 Jest 프로퍼티에 scriptPreprocessor로 사전에 동작해야할 script를 지정합니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// package.json</span>
+<span class="token string">"jest"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token string">"scriptPreprocessor"</span><span class="token operator">:</span> <span class="token string">"preprocessor.js"</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+
+<span class="token comment">// preprocessor.js</span>
+<span class="token keyword">var</span> ReactTools <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>\'react<span class="token operator">-</span>tools\'<span class="token punctuation">)</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token function-variable function">process</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">src</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> ReactTools<span class="token punctuation">.</span><span class="token function">transform</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>harmony<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
+
+<h3 id="Mock의-해제"><a href="#Mock의-해제" class="headerlink" title="Mock의 해제"></a>Mock의 해제</h3><p>위에서 언급한 것처럼 Jest에서는 모든 require 구문이 Mock을 반환합니다. 단, React도 Mock으로 대체되면 테스트할 수 없으므로 react를 Mock으로 대체하지 않도록 경로를 설정할 필요가 있습니다. 이러한 설정도 package.json에 속성을 추가하는 것으로 간단하게 할 수 있습니다. 테스트 파일에서도 Mock하지 않을 파일을 지정할 수 있지만, 만약 모든 테스트에서 Mock 하고 싶지 않은 파일이 있다면 아래와 같이 작성합니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token string">"jest"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token string">"scriptPreprocessor"</span><span class="token operator">:</span> <span class="token string">"preprocessor.js"</span><span class="token punctuation">,</span>
+  <span class="token string">"unmockedModulePathPatterns"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"node_modules/react"</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span></code></pre>
+
+<h3 id="테스트-작성해보기"><a href="#테스트-작성해보기" class="headerlink" title="테스트 작성해보기"></a>테스트 작성해보기</h3><p>아래와 비슷한 느낌으로 React 컴포넌트의 테스트를 작성할 수 있습니다.(<a target="_blank" rel="noopener" href="https://github.com/koba04/react-boilerplate/blob/master/app/components/__tests__/InputArtistTest.js">참고</a>)</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">jest<span class="token punctuation">.</span><span class="token function">dontMock</span><span class="token punctuation">(</span><span class="token string">'../InputArtist'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token keyword">var</span> React <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'react/addons'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    InputArtist <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../InputArtist'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    AppTracksActionCreators <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../../actions/AppTracksActionCreators'</span><span class="token punctuation">)</span>
+<span class="token punctuation">;</span>
+ 
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'inputArtist'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> inputArtist<span class="token punctuation">;</span>
+  <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    inputArtist <span class="token operator">=</span> React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">renderIntoDocument</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">InputArtist</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'state'</span><span class="token punctuation">,</span>  <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'set inputArtist radiohead'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">expect</span><span class="token punctuation">(</span>inputArtist<span class="token punctuation">.</span>state<span class="token punctuation">.</span>inputArtist<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'radiohead'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'handleSubmit'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> preventDefault<span class="token punctuation">;</span>
+    <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      preventDefault <span class="token operator">=</span> jest<span class="token punctuation">.</span><span class="token function">genMockFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      inputArtist<span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> inputArtist<span class="token operator">:</span> <span class="token string">'travis'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span>Simulate<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span>inputArtist<span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+        preventDefault<span class="token operator">:</span> preventDefault
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">it</span> <span class="token punctuation">(</span><span class="token string">'calls AppTracksActionCreators.fetchByArtist with state.inputArtist'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">expect</span><span class="token punctuation">(</span>AppTracksActionCreators<span class="token punctuation">.</span>fetchByArtist<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBeCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">expect</span><span class="token punctuation">(</span>AppTracksActionCreators<span class="token punctuation">.</span>fetchByArtist<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBeCalledWith</span><span class="token punctuation">(</span><span class="token string">'travis'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">it</span> <span class="token punctuation">(</span><span class="token string">'calls e.preventDefault'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">expect</span><span class="token punctuation">(</span>preventDefault<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBeCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+
+    <figure title="Jest 동작 테스트">
+      <a href="/images/learning-react-6/react_test.01.gif" target="_blank">
+        <img 
+          src="/images/learning-react-6/react_test.01.gif" 
+          alt="Jest 동작 테스트" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 1 Jest 동작 테스트&gt;</figcaption>
+    </figure>
+  
+
+<p>그럼 코드를 자세히 살펴보겠습니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js">jest<span class="token punctuation">.</span><span class="token function">dontMock</span><span class="token punctuation">(</span><span class="token string">'../InputArtist'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>Mock으로 대체할 필요가 없는 module은 dontMock에 명시적으로 지정합니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> React <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'react/addons'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    InputArtist <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../InputArtist'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    AppTracksActionCreators <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../../actions/AppTracksActionCreators'</span><span class="token punctuation">)</span>
+<span class="token punctuation">;</span></code></pre>
+
+<p>React는 package.json의 unmockedModulePathPatterns의 지정했으므로 Mock으로 대체되지 않습니다. 그 외 다른 모듈은 Mock으로 대체됩니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'inputArtist'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> inputArtist<span class="token punctuation">;</span>
+  <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    inputArtist <span class="token operator">=</span> React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span><span class="token function">renderIntoDocument</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">InputArtist</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'state'</span><span class="token punctuation">,</span>  <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'set inputArtist radiohead'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">expect</span><span class="token punctuation">(</span>inputArtist<span class="token punctuation">.</span>state<span class="token punctuation">.</span>inputArtist<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'radiohead'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>이 코드는 보통의 Jasmine 테스트 코드와 같습니다. React.addons.TestUtils.renderIntoDocument를 사용하여 Component를 DOM에 붙여서 테스트하고 있습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'handleSubmit'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> preventDefault<span class="token punctuation">;</span>
+  <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    preventDefault <span class="token operator">=</span> jest<span class="token punctuation">.</span><span class="token function">genMockFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    inputArtist<span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> inputArtist<span class="token operator">:</span> <span class="token string">'travis'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    React<span class="token punctuation">.</span>addons<span class="token punctuation">.</span>TestUtils<span class="token punctuation">.</span>Simulate<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span>inputArtist<span class="token punctuation">.</span><span class="token function">getDOMNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      preventDefault<span class="token operator">:</span> preventDefault
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">it</span> <span class="token punctuation">(</span><span class="token string">'calls AppTracksActionCreators.fetchByArtist with state.inputArtist'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>AppTracksActionCreators<span class="token punctuation">.</span>fetchByArtist<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBeCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>AppTracksActionCreators<span class="token punctuation">.</span>fetchByArtist<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBeCalledWith</span><span class="token punctuation">(</span><span class="token string">'travis'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">it</span> <span class="token punctuation">(</span><span class="token string">'calls e.preventDefault'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>preventDefault<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBeCalled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>위는 submit 버튼이 클릭 됐을 때 fetchByArtist와 e.preventDefault가 호출되는지 테스트하는 코드입니다. React.addons.TestUtils.Simulate.submit를 사용해 submit 이벤트를 발생시켜 이벤트 객체의  jest.genMockFunction 생성한 preventDefault Mock 함수을 통해서 호출됐지 확인합니다. fetchByArtist는 실제로 Ajax 요청을 하지만 Jest가 Mock으로  대체했으므로 특별히 의식하지 않고 간단하게 테스트를 작성할 수 있습니다.</p>
+<h3 id="Mock"><a href="#Mock" class="headerlink" title="Mock"></a>Mock</h3><p>Mock은 jest.genMockFunction과 같은 API로 직접 만드는 것도 가능하며 mock property에 calls나 instances 등의 호출 정보가 기록되므로 이 기록을 사용해 테스트를 작성할 수 있습니다. 또, Mock Function의 mockReturnValue를 사용해 지정한 값을 반환하도록 할 수 있고 mockimplementation에 callback을 전달하는 것으로 직접 Mock을 구현할 수도 있습니다.</p>
+<h4 id="Mock-Assert"><a href="#Mock-Assert" class="headerlink" title="Mock Assert"></a>Mock Assert</h4><p>Mock을 확인하기 위한 assert도 준비돼 있습니다. expect(mockFunc).toBeCalled와 같이 테스트를 작성할 수 있습니다.</p>
+<h4 id="module-교체"><a href="#module-교체" class="headerlink" title="module 교체"></a>module 교체</h4><p><strong>mocks</strong> 디렉터리를 생성하여 그 안에 module 구현을 작성하는 하면 테스트 시 모듈 자체를 항상 대체할 수 있습니다. superagent를 Mock으로 대체하면 에러가 발생하는 이슈가 있는데, 이를 방지하기 위해 <a target="_blank" rel="noopener" href="https://github.com/koba04/react-boilerplate/blob/master/app/actions/__mocks__/superagent.js"><strong>mocks</strong>/superagent.js</a>에서 workaround로 Mock을 두고 있습니다.</p>
+<h3 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h3><p>setTimeout이나 setInterval을 사용하는 구현을 테스트하는 경우 jset.runAllTimers나 jset.runOnlyPendingTimers를 사용하여 동기적으로 테스트를 작성할 수 있습니다. runAllTimers는 setTimeout이나 setInterval 큐에 존재하는 모든 태스크를 실행하고 runOnlyPendingTimers는 호출한 시점에서 대기중인 태스크만 실행합니다. setTimeout으로 반복하고 있는 구현의 경우 runAllTimers를 사용하면 무한 루프에 빠지므로 runOnlyPendingTimers를 사용해 한 번에 하나씩 테스트를 진행하도록 작성합니다.</p>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>API는 공식 홈페이지의 <a target="_blank" rel="noopener" href="https://facebook.github.io/jest/docs/api.html#content">API Reference</a>에 정리돼 있습니다. 여기에서 전부 소개하진 않지만 여러 상황에 대응한 API를 제공하고 있음을 알 수 있습니다.</p>
+<h3 id="불편한-점"><a href="#불편한-점" class="headerlink" title="불편한 점"></a>불편한 점</h3><p>이것저것 설정하여 해결할 수 있을지 모르지만, Karma와 비교할 때 상대적으로 테스트 실행이 느립니다. 이슈(<a target="_blank" rel="noopener" href="https://github.com/facebook/jest/issues/116">issues/116</a>)로도 등록돼 있으므로 빨리 개선되길 바랍니다.</p>
+<p>여기까지 Jest를 소개하겠습니다. 다음 절에서는 Flux를 소개하겠습니다.</p>
+<h2 id="React-js와-Flux"><a href="#React-js와-Flux" class="headerlink" title="React.js와 Flux"></a>React.js와 Flux</h2><p>이번에는 React.js와 관계가 깊은 <a target="_blank" rel="noopener" href="http://facebook.github.io/flux/">Flux</a>를 소개하겠습니다.</p>
+<h3 id="Flux-is-Architecture"><a href="#Flux-is-Architecture" class="headerlink" title="Flux is Architecture"></a>Flux is Architecture</h3>
+    <figure title="Flux 아키텍처">
+      <a href="/images/learning-react-6/react_flux.01.png" target="_blank">
+        <img 
+          src="/images/learning-react-6/react_flux.01.png" 
+          alt="Flux 아키텍처" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 2 Flux 아키텍처&gt;</figcaption>
+    </figure>
+  
+
+<p>위는 깃-허브 저장소에 명시된 그림입니다. Flux는 위와 같은 아키텍처의 명칭이기도 합니다. 조금 더 살펴보면 알겠지만, Dispatcher 부분만 구현하고 있습니다.</p>
+<h3 id="Unidirectional-data-flow"><a href="#Unidirectional-data-flow" class="headerlink" title="Unidirectional data flow"></a>Unidirectional data flow</h3><p>위 아키텍처를 보면 알 수 있듯이 Flux는 애플리케이션의 복잡함을 없애기 위해서 데이터의 흐름을 단방향 운영합니다. 이런 방식은 전체적인 처리 흐름을 알기 쉽지만 Angular.js 등과 비교했을 때 상대적으로 표현이나 문법이 장황한 느낌이 있습니다. 그렇지만 데이터의 흐름을 단순하게 만드는 것으로 애플리케이션의 규모가 커져 복잡화돼도 데이터나 이벤트의 흐름이 엉키지 않고 파악하기 쉬운 구조를 유지할 수 있다고 합니다. (실제로 Flux를 사용해 대규모 애플리케이션을 구현해보지 않아서 단언할 순 없습니다)</p>
+<p>자, 그럼 <a target="_blank" rel="noopener" href="https://github.com/koba04/react-boilerplate">react-boilerplate</a>를 예제를 사용해 본격적으로 Flux를 소개하겠습니다.</p>
+<h3 id="Flux의-구성-요소"><a href="#Flux의-구성-요소" class="headerlink" title="Flux의 구성 요소"></a>Flux의 구성 요소</h3><h4 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h4><p>Flux에서는 각 요소 간 주고 받을 타입을 상수처럼 정의합니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> keyMirror <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'react/lib/keyMirror'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  ActionTypes<span class="token operator">:</span> <span class="token function">keyMirror</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    <span class="token constant">RECEIVE_TRACKS_BY_ARTIST</span><span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+    <span class="token constant">RECEIVE_TRACKS_BY_COUNTRY</span><span class="token operator">:</span> <span class="token keyword">null</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  PayloadSources<span class="token operator">:</span> <span class="token function">keyMirror</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    <span class="token constant">VIEW_ACTION</span><span class="token operator">:</span> <span class="token keyword">null</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
+
+<p>참고로 keyMirror는 key를 사용해 value로 설정해주는 Util 입니다.</p>
+<h4 id="Dispatcher"><a href="#Dispatcher" class="headerlink" title="Dispatcher"></a>Dispatcher</h4><p>Dispatcher는 Action을 받아 등록된 callback을 실행합니다. 여기에서는 facebook/flux가 유일하게 제공하고 있는 Dispatcher를 확장하는 느낌으로 오브젝트를 생성해 싱들톤으로 반환합니다. 여기에서는 ActionCreators부터 Dispatcher에 Acton을 던지기 위한 handleViewAction을 정의하고 있습니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> Dispatcher    <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'flux'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Dispatcher<span class="token punctuation">,</span>
+    assign        <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'object-assign'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    AppConstants  <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../constants/AppConstants'</span><span class="token punctuation">)</span>
+<span class="token punctuation">;</span>
+ 
+<span class="token keyword">var</span> PayloadSources <span class="token operator">=</span> AppConstants<span class="token punctuation">.</span>PayloadSources<span class="token punctuation">;</span>
+ 
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">assign</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Dispatcher</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+  <span class="token function-variable function">handleViewAction</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">action</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+      source<span class="token operator">:</span> PayloadSources<span class="token punctuation">.</span><span class="token constant">VIEW_ACTION</span><span class="token punctuation">,</span>
+      action<span class="token operator">:</span> action
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h4 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h4><p>Store는 애플리케이션의 데이터와 비즈니스 로직을 담당합니다. Store에서 담당하는 데이터는 메시지 목록과 같은 집합도 다룹니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> AppDispatcher <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../dispatcher/AppDispatcher'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    AppConstants  <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../constants/AppConstants'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    EventEmitter  <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'events'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>EventEmitter<span class="token punctuation">,</span>
+    assign        <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'object-assign'</span><span class="token punctuation">)</span>
+<span class="token punctuation">;</span>
+ 
+<span class="token keyword">var</span> ActionTypes <span class="token operator">=</span> AppConstants<span class="token punctuation">.</span>ActionTypes<span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token constant">CHANGE_EVENT</span> <span class="token operator">=</span> <span class="token string">'change'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> tracks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+ 
+<span class="token keyword">var</span> TrackStore <span class="token operator">=</span> <span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">.</span>prototype<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+ 
+  <span class="token function-variable function">emitChange</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token constant">CHANGE_EVENT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">addChangeListener</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">callback</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token constant">CHANGE_EVENT</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">removeChangeListener</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">callback</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">removeListener</span><span class="token punctuation">(</span><span class="token constant">CHANGE_EVENT</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">getAll</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> tracks<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+TrackStore<span class="token punctuation">.</span>dispatchToken <span class="token operator">=</span> AppDispatcher<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">payload</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> action <span class="token operator">=</span> payload<span class="token punctuation">.</span>action<span class="token punctuation">;</span>
+ 
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">case</span> ActionTypes<span class="token punctuation">.</span><span class="token constant">RECEIVE_TRACKS_BY_ARTIST</span><span class="token operator">:</span>
+      tracks <span class="token operator">=</span> action<span class="token punctuation">.</span>tracks<span class="token punctuation">;</span>
+      TrackStore<span class="token punctuation">.</span><span class="token function">emitChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> ActionTypes<span class="token punctuation">.</span><span class="token constant">RECEIVE_TRACKS_BY_COUNTRY</span><span class="token operator">:</span>
+      tracks <span class="token operator">=</span> action<span class="token punctuation">.</span>tracks<span class="token punctuation">;</span>
+      TrackStore<span class="token punctuation">.</span><span class="token function">emitChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> TrackStore<span class="token punctuation">;</span></code></pre>
+
+<p>여기에서 눈여겨 봐야 할 포인트는 다음과 같습니다.</p>
+<ul>
+<li>getter 메서드만 정의하여 외부에서 데이터에 접근할 수 없는 형태로 유지합니다.</li>
+<li>데이터의 갱신은 ActionCreator에서 Despatcher에 전달하여 등록한 callback 함수를 호출하여 실시합니다.</li>
+<li>Dispatcher에 callback을 등록하여 처리 할 수 있도록 합니다.</li>
+<li>Store는 EventEmiiter의 기능을 가지고 있어 데이터가 갱신되면 이벤트를 발행합니다.</li>
+<li>View는 Store의 이벤트를 구독합니다.</li>
+</ul>
+<h4 id="ActionCreators-Action"><a href="#ActionCreators-Action" class="headerlink" title="ActionCreators (Action)"></a>ActionCreators (Action)</h4><p>Action을 생성해 Dispatcher에 전달합니다. 이 문서의 예제에서는 Ajax 요청도 ActionCreators 내에서 담당하고 있지만 facebook/flux의 예제에서는 Utils 이라고 하는 네임스페이스를 만들어 그 안에서 담당하도록 디자인돼 있습니다. Ajax이 끝난 시점뿐만 아니라 시작한 시점에도 Action을 발생시켜 로딩하는 View를 출력할 수도 있을 것 같습니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> request <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'superagent'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    AppDispatcher <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../dispatcher/AppDispatcher'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    AppConstants  <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../constants/AppConstants'</span><span class="token punctuation">)</span>
+<span class="token punctuation">;</span>
+ 
+<span class="token keyword">var</span> ActionTypes <span class="token operator">=</span> AppConstants<span class="token punctuation">.</span>ActionTypes<span class="token punctuation">;</span>
+<span class="token keyword">var</span> urlRoot <span class="token operator">=</span> <span class="token string">'http://ws.audioscrobbler.com/2.0/?api_key=xxxx&amp;format=json&amp;'</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// TODO Loading</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token function-variable function">fetchByArtist</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">artist</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    request<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>
+      urlRoot <span class="token operator">+</span> <span class="token string">'method=artist.gettoptracks&amp;artist='</span> <span class="token operator">+</span> <span class="token function">encodeURIComponent</span><span class="token punctuation">(</span>artist<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        AppDispatcher<span class="token punctuation">.</span><span class="token function">handleViewAction</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+          type<span class="token operator">:</span> ActionTypes<span class="token punctuation">.</span><span class="token constant">RECEIVE_TRACKS_BY_ARTIST</span><span class="token punctuation">,</span>
+          tracks<span class="token operator">:</span> res<span class="token punctuation">.</span>body<span class="token punctuation">.</span>toptracks<span class="token punctuation">.</span>track
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">fetchByCountry</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">country</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    request<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>
+      urlRoot <span class="token operator">+</span> <span class="token string">'method=geo.gettoptracks&amp;country='</span> <span class="token operator">+</span> <span class="token function">encodeURIComponent</span><span class="token punctuation">(</span>country<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        AppDispatcher<span class="token punctuation">.</span><span class="token function">handleViewAction</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+          type<span class="token operator">:</span> ActionTypes<span class="token punctuation">.</span><span class="token constant">RECEIVE_TRACKS_BY_ARTIST</span><span class="token punctuation">,</span>
+          tracks<span class="token operator">:</span> res<span class="token punctuation">.</span>body<span class="token punctuation">.</span>toptracks<span class="token punctuation">.</span>track
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
+
+<p>Action은 아래와 같은 형태의 리터럴 객체입니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span>
+  type<span class="token operator">:</span> ActionTypes<span class="token punctuation">.</span><span class="token constant">RECEIVE_TRACKS_BY_ARTIST</span><span class="token punctuation">,</span>
+  tracks<span class="token operator">:</span> res<span class="token punctuation">.</span>body<span class="token punctuation">.</span>toptracks<span class="token punctuation">.</span>track
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h4 id="View-ReactComponent"><a href="#View-ReactComponent" class="headerlink" title="View (ReactComponent)"></a>View (ReactComponent)</h4><p>데이터를 출력하는 View와 Action을 발생하는 View를 나누어서 소개하겠습니다.</p>
+<h5 id="Store의-데이터를-출력하는-컴포넌트"><a href="#Store의-데이터를-출력하는-컴포넌트" class="headerlink" title="Store의 데이터를 출력하는 컴포넌트"></a>Store의 데이터를 출력하는 컴포넌트</h5><p>View에서는 componentDidMount로 Store의 change 이벤트를 구독하고 componentWillUnmount에서 구독을 해제하고 있습니다. change 이벤트가 발행되면 Store에서 다시 데이터를 가져와 setState에 설정합니다. 여기에서 Store 데이터는 동기적으로 취득할 수 있다고 전제하고 있습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token function">getInitialState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      tracks<span class="token operator">:</span> TrackStore<span class="token punctuation">.</span><span class="token function">getAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">componentDidMount</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    TrackStore<span class="token punctuation">.</span><span class="token function">addChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token operator">&lt;</span>onChange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">componentWillUnmount</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    TrackStore<span class="token punctuation">.</span><span class="token function">removeChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token operator">&lt;</span>onChange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token operator">&lt;</span><span class="token function-variable function">onChange</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> tracks<span class="token operator">:</span> TrackStore<span class="token punctuation">.</span><span class="token function">getAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> tracks <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>tracks<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span> <span class="token punctuation">(</span><span class="token parameter">track<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>list-group-item<span class="token punctuation">"</span></span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>index<span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>label label-info<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>track<span class="token punctuation">.</span>url<span class="token punctuation">&#125;</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>&lt;blank<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>track<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>track<span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>artist<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>track<span class="token punctuation">.</span>artist<span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>small</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>listeners glyphicon glyphicon-headphones<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>track<span class="token punctuation">.</span>listeners<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>small</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tracks<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>list-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token punctuation">&#123;</span>tracks<span class="token punctuation">&#125;</span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h5 id="Action을-발생시키는-컴포넌트"><a href="#Action을-발생시키는-컴포넌트" class="headerlink" title="Action을 발생시키는 컴포넌트"></a>Action을 발생시키는 컴포넌트</h5><p>이번에는 이벤트를 받아서 ActionCreator에 전달하는 컴포넌트입니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">      AppTracksActionCreators<span class="token punctuation">.</span><span class="token function">fetchByArtist</span><span class="token punctuation">(</span>artist<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-horizontal<span class="token punctuation">"</span></span> <span class="token attr-name">role</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form<span class="token punctuation">"</span></span> <span class="token attr-name">onSubmit</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleSubmit<span class="token punctuation">&#125;</span></span> <span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">htmlFor</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>js-input-location<span class="token punctuation">"</span></span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-sm-1 control-label<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">Artist</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-sm-11<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-control<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Input Atrist Name<span class="token punctuation">"</span></span> <span class="token attr-name">valueLink</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">linkState</span><span class="token punctuation">(</span>\'inputArtist\'<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span> <span class="token attr-name">required</span> <span class="token punctuation">/></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form-group<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>col-sm-offset-1 col-sm-11<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>btn btn-primary<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>glyphicon glyphicon-search<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">search</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+
+    <div class="alert alert--info">
+      
+        <strong class="alert__title">
+          역자노트
+        </strong>
+      
+      <div class="alert__body">
+        <p>Flux를 조금 더 알고 싶다면 「<a href="/2015/06/19/mvc-does-not-scale-use-flux-instead/">페이스북의 결정: MVC는 확장에 용이하지 않다. 그렇다면 Flux다.</a>」와 「<a target="_blank" rel="noopener" href="http://www.slideshare.net/UyeongJu/fluxutils">다같이! FluxUtils 한바퀴</a>」를 참고해주세요.</p>
+
+      </div>
+    </div>
+  
+
+<p>이 모두를 종합해보면 Dispatcher -&gt; Store -&gt; View -&gt; ActionCreator -&gt; Dispatcher 순으로 데이터가 단방향으로 흘러간다는 사실을 알 수 있습니다.</p>
+<h3 id="그-외-Flux-구현"><a href="#그-외-Flux-구현" class="headerlink" title="그 외 Flux 구현"></a>그 외 Flux 구현</h3><p>Flux의 아키텍처는 비교적 단순합니다. 실제로 애플리케이션을 개발하고 있는 개발자는 각각 확장하여 여러 가지 형태의 Flux를 구현하고 있습니다. 몇 가지 소개해드리겠습니다. Flux를 구현할 때 참고하세요.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/yahoo/flux-examples">Yahoo의 Flux 구현</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spoike/refluxjs">RefluxJS</a></li>
+<li><a target="_blank" rel="noopener" href="http://kenwheeler.github.io/mcfly/">McFly</a></li>
+<li><a target="_blank" rel="noopener" href="http://deloreanjs.com/">Delorean</a></li>
+<li><a target="_blank" rel="noopener" href="http://fluxxor.com/">Fluxxor</a></li>
+</ul>
+<h3 id="Flux-server-side-rendering"><a href="#Flux-server-side-rendering" class="headerlink" title="Flux + server-side rendering"></a>Flux + server-side rendering</h3><p>Flux의 경우, Store의 데이터가 싱글톤이 되지만 Server-Side Rendering의 경우는 싱글-톤으로 생성하면 안 되기 때문에 리퀘스트마다 Store를 생성할 필요가 있으므로 주의가 필요합니다. 이 문제를 어떻게 해결햇는지는 Yahoo의 개발자가 작성한 <a target="_blank" rel="noopener" href="https://speakerdeck.com/mridgway/isomorphic-flux">isomorphic-flux</a> 슬라이드를 참고하시길 바랍니다.</p>
+<h3 id="데이터-검증"><a href="#데이터-검증" class="headerlink" title="데이터 검증"></a>데이터 검증</h3><p>개인적으로 데이터 검증을 담당하는 곳은 Store라고 생각합니다. View가 Action을 발생시키고 Store가 받았을 때 부정확한 데이터의 경우 오류를 발생시켜 View에 전달하고 View는 필요하다면 에러를 출력하는 흐름이 좋은 것 같습니다.</p>
+<pre class="language-txt" data-language="txt"><code class="language-txt">------        ------------        ---------------------        ------
+|View|--------|Dispatcher|--------|Store에서 Validation|--------|View|--- 에러 표시
+------ action ------------ action --------------------- error  ------</code></pre>
+
+<p>에러를 전달하는 방법은 여러가지가 있습니다만 Node.js에서 첫 번째 인자로 err를 전달하는 패턴을 사용하면 좋을 것 같습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token comment">// Store</span>
+<span class="token keyword">var</span> TrackStore <span class="token operator">=</span> <span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token class-name">EventEmitter</span><span class="token punctuation">.</span>prototype<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+ 
+  <span class="token function-variable function">emitChange</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token constant">CHANGE_EVENT</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">addChangeListener</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">callback</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token constant">CHANGE_EVENT</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">removeChangeListener</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">callback</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">removeListener</span><span class="token punctuation">(</span><span class="token constant">CHANGE_EVENT</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">getAll</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> tracks<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+TrackStore<span class="token punctuation">.</span>dispatchToken <span class="token operator">=</span> AppDispatcher<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">payload</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> action <span class="token operator">=</span> payload<span class="token punctuation">.</span>action<span class="token punctuation">;</span>
+ 
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">case</span> ActionTypes<span class="token punctuation">.</span><span class="token constant">RECEIVE_TRACKS_BY_ARTIST</span><span class="token operator">:</span>
+      <span class="token keyword">var</span> err <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>tracks<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        err <span class="token operator">=</span> <span class="token string">'no tracks'</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        tracks <span class="token operator">=</span> action<span class="token punctuation">.</span>tracks<span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+      TrackStore<span class="token punctuation">.</span><span class="token function">emitChange</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> ActionTypes<span class="token punctuation">.</span><span class="token constant">RECEIVE_TRACKS_BY_COUNTRY</span><span class="token operator">:</span>
+      tracks <span class="token operator">=</span> action<span class="token punctuation">.</span>tracks<span class="token punctuation">;</span>
+      TrackStore<span class="token punctuation">.</span><span class="token function">emitChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// View</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token function">getInitialState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+      tracks<span class="token operator">:</span> TrackStore<span class="token punctuation">.</span><span class="token function">getAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      err<span class="token operator">:</span> <span class="token keyword">null</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">componentDidMount</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    TrackStore<span class="token punctuation">.</span><span class="token function">addChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_onChange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">componentWillUnmount</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    TrackStore<span class="token punctuation">.</span><span class="token function">removeChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_onChange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">_onChange</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>err<span class="token operator">:</span> err<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> tracks<span class="token operator">:</span> TrackStore<span class="token punctuation">.</span><span class="token function">getAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></code></pre>
+
+<p>또는 err가 아니라 객체를 전달하여 type으로써 error을 지정하거나 에러는 별도의 이벤트로써 발행하는 방법(CHANGE_EVENT가 아닌 ERROR_EVENT 등)도 있을 것 같습니다. Flux는 개념을 제공한 부분이 많으므로 이 개념을 잘 이용해 자신에게 맞는 최적의 환경을 구성하는 게 좋을 것 같습니다. 하지만 전혀 다른 형태의 Flux가 난립하여 혼란스러울 수도 있으니 조심히 접근합시다.</p>
+<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 편에서는 React.js에서 테스트를 작성하는 방법과 테스트 프레임워크인 Jest 그리고 Flux 아키텍처를 간단히 소개했습니다. 다음 편에서는 React.js와 CSS의 관계를 CSS in JS 개념과 함께 소개하면서 최종적으로 정리하며 이 시리즈를 마무리하도록 하겠습니다.</p>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2015/07/12/learning-react-7/" class="navigation__link">
+        <p class="navigation__title ellipsis">React.js를 이해하다(7)</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-07-12T00:00:00+09:00">
+      2015.07.12
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 마지막 편입니다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2015/07/09/learning-react-5/" class="navigation__link">
+        <p class="navigation__title ellipsis">React.js를 이해하다(5)</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-07-09T00:00:00+09:00">
+      2015.07.09
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 다섯번째 편입니다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2015/07/11/learning-react-6/';
+      this.page.identifier = '2015/07/11/learning-react-6/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

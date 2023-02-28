@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>E2E 테스트와 나이트왓치 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="E2E의 정의와 E2E 테스트 프레임워크의 역사 그리고 나이트왓치를 소개하며 설치하는 방법과 사용하는 방법까지 폭 넓게 설명합니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Test,E2E,E2E Test,Nightwatch">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="E2E의 정의와 E2E 테스트 프레임워크의 역사 그리고 나이트왓치를 소개하며 설치하는 방법과 사용하는 방법까지 폭 넓게 설명합니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="E2E 테스트와 나이트왓치">
+<meta property="og:url" content="http://blog.coderifleman.com/2016/06/17/e2e-test-and-nightwatch/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="E2E의 정의와 E2E 테스트 프레임워크의 역사 그리고 나이트왓치를 소개하며 설치하는 방법과 사용하는 방법까지 폭 넓게 설명합니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.02.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.03.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.04.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.05.png">
+<meta property="article:published_time" content="2016-06-16T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Test">
+<meta property="article:tag" content="E2E">
+<meta property="article:tag" content="E2E Test">
+<meta property="article:tag" content="Nightwatch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2016/06/17/e2e-test-and-nightwatch/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">E2E 테스트와 나이트왓치</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-06-17T00:00:00+09:00">
+      2016.06.17
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Test/" >
+            #Test
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/E2E/" >
+            #E2E
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/E2E-Test/" >
+            #E2E Test
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Nightwatch/" >
+            #Nightwatch
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#E2E-%ED%85%8C%EC%8A%A4%ED%8A%B8"><span class="toc-number">1.</span> <span class="toc-text">E2E 테스트</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%A0%95%EC%9D%98"><span class="toc-number">1.1.</span> <span class="toc-text">정의</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#E2E-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC"><span class="toc-number">1.2.</span> <span class="toc-text">E2E 테스트 프레임워크</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%85%80%EB%A0%88%EB%8B%88%EC%9B%80-%EC%9B%B9%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84"><span class="toc-number">1.3.</span> <span class="toc-text">셀레니움 웹드라이버</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%82%98%EC%9D%B4%ED%8A%B8%EC%99%93%EC%B9%98"><span class="toc-number">2.</span> <span class="toc-text">나이트왓치</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0"><span class="toc-number">2.1.</span> <span class="toc-text">설치하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%97%AC%EB%9F%AC-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%EC%84%9C-%EB%8F%99%EC%8B%9C%EC%97%90-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0"><span class="toc-number">2.2.</span> <span class="toc-text">여러 브라우저에서 동시에 테스트하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%AA%A8%EC%B9%B4-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0"><span class="toc-number">2.3.</span> <span class="toc-text">모카 사용하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80-%EC%8A%A4%ED%83%9D"><span class="toc-number">2.4.</span> <span class="toc-text">브라우저 스택</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9B%B9%EC%8A%A4%ED%86%B0-%EB%94%94%EB%B2%84%EA%B9%85"><span class="toc-number">2.5.</span> <span class="toc-text">웹스톰 디버깅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">3.</span> <span class="toc-text">끝으로</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        <p>나이트왓치를 소개하기 전에 E2E 테스트의 정의부터 셀레니움 웹드라이버 등 기본 개념부터 간단히 소개하겠다.</p>
+<h2 id="E2E-테스트"><a href="#E2E-테스트" class="headerlink" title="E2E 테스트"></a>E2E 테스트</h2><h3 id="정의"><a href="#정의" class="headerlink" title="정의"></a>정의</h3><p>소프트웨어 테스트는 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Software_testing##Testing_levels">테스트의 규모(레벨)</a>에 따라 유닛 테스트, 통합 테스트, 시스템 테스트, 인수 테스트 이렇게 4가지로 분류한다. 여기에서 E2E 테스트는 시스템 테스트에 속한다. </p>
+<p>E2E(End-to-End) 테스트는 전체 시스템이 제대로 작동하는지 확인 하기 위한 테스트로 시나리오 테스트, 기능 테스트, 통합 테스트, GUI 테스트를 하는데 사용한다. API와의 연동도 테스트 항목에 포함되기 때문에 일반적으로 목(Mock)이나 스텁(Stub)과 같은 테스트 더블을 사용하지 않으며 최대한 실제 시스템을 사용하는 사용자 관점에서 시뮬레이션 한다. 그래서 테스트 속도가 서비스 규모에 따라 상당히 느릴 수 있기 때문에 유닛 테스트나 기능 테스트를 위한 일반적인 테스트 자동화와 시스템 테스트를 위한 E2E 테스트 자동화를 함께 구성한다.</p>
+<h3 id="E2E-테스트-프레임워크"><a href="#E2E-테스트-프레임워크" class="headerlink" title="E2E 테스트 프레임워크"></a>E2E 테스트 프레임워크</h3><p>E2E 테스트 프레임워크는 다양한 종류가 있는데, 크게 헤드리스 브라우저를 의존하는 것과 셀레니움 웹드라이버를 의존하는 것으로 나눌 수 있다. 셀레니움 웹드라이버는 다음 절에서 자세히 설명한다.</p>
+<p>헤드리스 브라우저는 커맨드 라인 명령어로 조작할 수 있는 화면이 없는 브라우저로 Jsdom 기반의 좀비(Zombie.js), 웹킷 엔진 기반의 팬텀(Pantom.js), 겟코 엔진 기반의 슬리머(Slimer.js) 등이 있다. 잘 알려진 캐스퍼(Casper.js)는 팬텀과 슬리머를 조금 더 사용하기 쉽게 만들어 놓은 유틸리티 도구다. 헤드리스 브라우저는 기본적으로 크로스 브라우징 테스트가 불가능하며 어썰트(Assert)도 내장하고 있지 않기 때문에 필요하다면 추가를 해야한다.</p>
+<p>셀레니움 웹드라이버를 의존하는 프레임워크로는 <a target="_blank" rel="noopener" href="http://webdriver.io/">webdriver.io</a>, <a target="_blank" rel="noopener" href="https://github.com/cucumber/cucumber-js">큐컴버(Cucumber.js)</a>, <a target="_blank" rel="noopener" href="https://github.com/angular/protractor">프로트랙터</a>, <a target="_blank" rel="noopener" href="http://nightwatchjs.org/">나이트왓치</a> 등이 있다. 이들은 크로스 브라우징 테스트가 가능하고 어썰트도 내장하고 있다. 단, 각 프레임워크 마다 내장하고 있는 어썰트 라이브러리는 다르다.</p>
+<h3 id="셀레니움-웹드라이버"><a href="#셀레니움-웹드라이버" class="headerlink" title="셀레니움 웹드라이버"></a>셀레니움 웹드라이버</h3><p>나이트왓치는 셀레니움 웹드라이버(Selenium WebDriver) API를 사용해 개발된 E2E 테스트 프레임워크이기 때문에 본격적으로 사용해보기 전에 셀레니움과 웹드라이버를 먼저 이해할 필요가 있다.</p>
+<p>셀레니움 웹드라이버의 원래 이름은 셀레니움(또는 셀레니움 1.0)이었다. 셀레니움은 웹 브라우저를 사용하여 웹 애플리케이션을 테스트하는 오픈 소스 도구다. 이때 사람의 손으로 직접 웹 브라우저를 조작하는 것이 아니라 작성된 스크립트에 따라 자동으로 조작한다. 이러한 방법을 브라우저 자동화(Browser Automation)라고 표현한다.</p>
+<p>셀레니움은 시카고에 위치한 <a target="_blank" rel="noopener" href="https://www.thoughtworks.com/">소트워크스(ThoughtWorks)</a> 사에서 개발을 시작했다. 소트워크스는 마틴 파울러(Martin Fowler)가 속한 그룹으로 유명하다.</p>
+<p>웹드라이버는 셀레니움의 단점을 보완하고자 구글의 엔지니어들이 개발하고 사용한 브라우저 자동 테스트 도구이다. 2006년 경 구글에서 근무 중이던 <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/sistewart">시몬 스튜어트(Simon Stewart)</a>가 주도해 프로젝트를 시작하고 2009년에 처음으로 공식 발표했다.</p>
+
+    <figure title="Selenium Projects">
+      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png" target="_blank">
+        <img 
+          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png" 
+          alt="Selenium Projects" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 1. 셀레니움 프로젝트의 흐름&gt;</figcaption>
+    </figure>
+  
+
+<p>과거 셀레니움은 자체 엔진인 셀레니움 RC(Remote Control)를 이용해 브라우저와 통신했다.</p>
+<p>셀레니움 RC는 자바나 파이썬 등의 언어로 스크립트를 작성하면 그 스크립트를 기반으로 브라우저를 조작하는 자바스크립트를 생성하고 해당 페이지에 삽입 후 브라우저를 조작하는 간단한 구조였다. 이러한 구조는 브라우저의 보안 제약이나 자바스크립트의 한계로 인해 실효성이 떨어지는 단점이 있었다. 이 단점이 시몬 스튜어트가 웹드라이버를 만들게 된 이유이기도 하다.</p>
+<p>그에 반해 웹드라이버는 브라우저의 확장 기능과 OS의 기본 기능 등을 이용하여 브라우저를 조작하는 구조였다. 이는 셀레니움 RC의 단점을 충족해줄 수 있는 방식이었다.</p>
+
+    <figure title="Selenium webdriver high level block diagram">
+      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.02.png" target="_blank">
+        <img 
+          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.02.png" 
+          alt="Selenium webdriver high level block diagram" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 1. 셀레니움 웹드라이버 다이어그램&gt;</figcaption>
+    </figure>
+  
+
+<p>이 방식이 성공하여 셀레니움 RC와 웹드라이버 통합이 이루어졌고 2011년 7월에 셀레니움 웹드라이버(또는 셀레니움 2.0)를 릴리즈하게 된다. 즉, 현재 우리가 알고있는 셀레니움은 웹드라이버와 통합한 버전이다.</p>
+<p>그림 2를 보면 알 수 있듯이 웹드라이버는 다양한 브라우저와 환경을 대응해야하는데, 브라우저마다 이를 위한 API가 다를 경우 또 다른 문제가 발생할 수 있기 때문에 현재 표준화를 제정(<a target="_blank" rel="noopener" href="https://www.w3.org/TR/webdriver/">W3C WebDriver</a>) 중이다.</p>
+<p>현재 셀레니움 웹드라이버는 파이썬, 루비, 자바, C## 그리고 Node.js를 이용해 웹브라우저는 조작할 수 있도록 다양한 API를 제공하고 있다. 하지만 셀레니움 서버와 자바스크립트의 궁합이 좋지 않고, 돔을 조작 하거나 셀렉팅하는데 한계가 있어 셀레니움 웹드라이버와 노드를 바인딩하여 다양한 기능을 제공하는 여러가지 형태의 프로젝트가 생겨났다. 그 중 유명한 프로젝트가 바로 webdriver.io와 나이트왓치 그리고 앵귤러 프로젝트를 위한 프로트랙터다.</p>
+<p>이들 도구는 웹드라이버 API를 사용할 때 생기는 다양한 패턴을 추상화한 API와 신택스 슈가 등을 제공해 셀레니움 2.0 보더 더 편리하고 다양한 경험을 제공한다.</p>
+<h2 id="나이트왓치"><a href="#나이트왓치" class="headerlink" title="나이트왓치"></a>나이트왓치</h2><p>나이트왓치는 노드 기반의 E2E 테스트 프레임워크다. 셀레니움 웹드라이버를 중개하여 각종 브라우저를 조작하고 동작이 기대한 것과 일치하는지 테스트하는데 사용한다. CSS 셀렉터로 엘리먼트를 셀렉팅하여 테스트를 작성할 수 있도록 하는 기능과 신텍스 슈가 그리고 단순하고 간결한 문법을 제공한다. 또한 테스트 러너를 포함하고 있으므로 독자적으로 그룹화한 테스트를 한번에 실행할 수 있으며 지속적인 통합의 파이프 라인과 합칠 수 있다는 특징을 가지고 있다.</p>
+<p>나이트왓치를 알게 된건 나보다 먼저 E2E 테스트를 리서치하고 관련 도구를 찾고있던 훈민이형(개발왕 김코딩, <a target="_blank" rel="noopener" href="http://huns.me/">블로그</a>) 덕분이었다. 미리 삽질을 하고 계셨기 때문에 다른 도구를 선택하기 보다 같이 삽질하는 편이 고민할 시간도 적어서 큰 고민 없이 사용했다.</p>
+<h3 id="설치하기"><a href="#설치하기" class="headerlink" title="설치하기"></a>설치하기</h3><p>나이트왓치 설치는 개발자 가이드 <a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide##installation">Getting Started</a> 절에 잘 설명돼 있다. 이 문서에는 간단하게 요약해 설치 과정을 설명한다. 우선 NPM을 이용해 설치한다.</p>
+<pre class="language-base" data-language="base"><code class="language-base">$ npm install --save-dev nightwatch</code></pre>
+
+<p>웹드라이버로 브라우저와 통신하기 위해서는 셀레니움 서버를 실행시켜야한다. <a target="_blank" rel="noopener" href="http://selenium-release.storage.googleapis.com/index.html">셀레니움 서버 다운로드 사이트</a>에서 파일을 다운 받고 아래와 같이 서버를 실행한다. 이 글을 작성하는 현재 기준 가장 최신 버전은 2.53.0 이다.</p>
+<p>프로젝트 디렉터리에서 nightwatch.json을 생성하고 다음과 같이 작성한다. 옵션의 자세한 설명은 개발자 가이드 <a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide##settings-file">Configuration</a> 절을 참고한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span>
+  <span class="token string">"src_folders"</span> <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"tests"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// 테스트할 디렉터리, 배열로 지정</span>
+  <span class="token string">"output_folder"</span> <span class="token operator">:</span> <span class="token string">"tests/reports"</span><span class="token punctuation">,</span> <span class="token comment">// JUnit XML 리포트 파일이 저장될 위치</span>
+  <span class="token string">"custom_commands_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 커스텀 커맨드가 있는 위치</span>
+  <span class="token string">"custom_assertions_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 커스텀 어썰트가 있는 위치</span>
+  <span class="token string">"page_objects_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 페이지 객체가 있는 위치</span>
+  <span class="token string">"globals_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 외부 글로벌 모듈이 있는 위치</span>
+  <span class="token string">"selenium"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>   <span class="token comment">// 셀레니움 서버 환경 설정</span>
+    <span class="token string">"start_process"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 테스트 시작시 셀레니움 프로세스를 자동으로 실행할 것 인지 여부</span>
+    <span class="token string">"server_path"</span> <span class="token operator">:</span> <span class="token string">"./selenium-server-standalone-2.53.0.jar"</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움 서버 jar 파일의 경로, start_process가 false면 지정하지 않아도 된다.</span>
+    <span class="token string">"log_path"</span> <span class="token operator">:</span> <span class="token string">"tests/logs"</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움의 output.log 파일이 저장될 경로</span>
+    <span class="token string">"host"</span> <span class="token operator">:</span> <span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움 서버의 listen ip</span>
+    <span class="token string">"port"</span> <span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움 서버의 listen port</span>
+    <span class="token string">"cli_args"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 셀레니움 프로세스로 넘겨질 cli 인자 목록</span>
+      <span class="token string">"webdriver.chrome.driver"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"webdriver.ie.driver"</span> <span class="token operator">:</span> <span class="token string">""</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">"test_settings"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 테스트 브라우저 별 환경 설정</span>
+    <span class="token string">"default"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 모든 브라우저에 적용 될 공통 설정</span>
+      <span class="token string">"launch_url"</span> <span class="token operator">:</span> <span class="token string">"http://localhost"</span><span class="token punctuation">,</span>
+      <span class="token string">"selenium_port"</span>  <span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span>
+      <span class="token string">"selenium_host"</span>  <span class="token operator">:</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
+      <span class="token string">"silent"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움의 로그를 숨길지 여부</span>
+      <span class="token string">"screenshots"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 테스트가 실패 했을 때 촬영 될 스크린샷 설정</span>
+        <span class="token string">"enabled"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"on_failure"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"on_error"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token string">"path"</span> <span class="token operator">:</span> <span class="token string">"tests/screenshots"</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 셀레니움 웹드라이버로 전달할 브라우저 이름과 기능 지정</span>
+        <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
+        <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>tests 디렉터리 하위에 demo.js를 생성하고 간단한 테스트 코드를 한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">'사용자는 검색어를 입력 후 검색어가 포함된 자동 완성 리스트를 볼 수 있다.'</span> <span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">browser</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        browser
+            <span class="token punctuation">.</span><span class="token function">url</span><span class="token punctuation">(</span><span class="token string">'http://www.google.com'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">waitForElementVisible</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setValue</span><span class="token punctuation">(</span><span class="token string">'input[type=text]'</span><span class="token punctuation">,</span> <span class="token string">'nightwatch'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span>assert<span class="token punctuation">.</span><span class="token function">containsText</span><span class="token punctuation">(</span><span class="token string">'##sbtc'</span><span class="token punctuation">,</span> <span class="token string">'nightwatch'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre>
+
+<p>이어서 아래 명령어로 간단한 E2E 테스트를 실행할 수 있다.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ ./node_modules/nightwatch/bin/nightwatch</code></pre>
+
+<p>하지만 현재 파이어폭스 버전 47에 문제가 있어 테스트가 실행되지 않을것이다. 파이어폭스에서 테스트 하고 싶다면 예전 버전(<a target="_blank" rel="noopener" href="https://support.mozilla.org/en-US/kb/install-older-version-of-firefox">Install an older version of Firefox</a>)으로 다운그레이드 하거나 GeckoDriver를 사용해야한다(<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver##Setting_up_the_Marionette_executable">Setting up the Marionette executable</a>). 여기에서는 GeckoDriver를 이용하는 방법을 소개(OSX 기준)하겠다.</p>
+<p>먼저 <a target="_blank" rel="noopener" href="https://github.com/mozilla/geckodriver/releases">mozilla/geckodriver</a>에서  GeckoDriver를 다운로드한다.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ~/Downloads
+$ <span class="token function">wget</span> https://github.com/mozilla/geckodriver/releases/download/v0.8.0/geckodriver-0.8.0-OSX.gz</code></pre>
+
+<p>다운로드한 파일을 압축 해제하고 적당한 위치로 옮긴 후 실행가능한 파일로 변경한다.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ gunzip geckodriver-0.8.0-OSX.gz
+$ <span class="token function">mkdir</span> executable <span class="token operator">&amp;&amp;</span> <span class="token function">mv</span> geckodriver-0.8.0-OSX executable/wires
+$ <span class="token function">chmod</span> <span class="token number">755</span> executable/wires</code></pre>
+
+<p>이제 .bash_profile(또는 .zshrc)에서 PATH를 지정한다.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">vim</span> ~/.zshrc
+
+	<span class="token assign-left variable">GECKO_DRIVER</span><span class="token operator">=</span><span class="token environment constant">$HOME</span>/Downloads/executable
+	<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$HOME</span>/bin:/usr/local/bin:/usr/local/sbin:<span class="token variable">$GECKO_DRIVER</span><span class="token builtin class-name">:</span><span class="token environment constant">$PATH</span>
+
+<span class="token comment">## rc파일을 다시 불러온다.</span>
+$ <span class="token builtin class-name">source</span> ~/.zshrc</code></pre>
+
+<p>마지막으로 nightwatch.json파일에서 desiredCapabilities 속성을 다음과 같이 변경한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
+  <span class="token string">"marionette"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 추가</span>
+  <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>이제 다시 실행해보면 파이어폭스 브라우저에서 정상적으로 테스트가 진행될 것이다.</p>
+
+    <figure title="데모 테스트 실행 결과">
+      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.03.png" target="_blank">
+        <img 
+          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.03.png" 
+          alt="데모 테스트 실행 결과" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 3. 데모 테스트 실행 결과&gt;</figcaption>
+    </figure>
+  
+
+<h3 id="여러-브라우저에서-동시에-테스트하기"><a href="#여러-브라우저에서-동시에-테스트하기" class="headerlink" title="여러 브라우저에서 동시에 테스트하기"></a>여러 브라우저에서 동시에 테스트하기</h3><p>현재 작성한 설정 파일로 나이트왓치를 실행하면 파이어폭스에서만 테스트가 진행된다. 이번엔 크롬 브라우저에서도 테스트가 진행되도록 설정을 변경하겠다. 크롬 브라우저는 셀레니움과 통신할 웹드라이버를 별도로 설치해야하는데 웹드라이버 매니저를 사용하면 쉽게 설치할 수 있다. 아래 명령어로 웹드라이버 매니저를 설치한다.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> --save-dev webdriver-manager
+ 
+<span class="token comment"># 크롬 웹드라이버와 앞 절에서 다운로드 받았던 셀레니움 서버가 함께 설치된다.</span>
+$ ./node_modules/.bin/webdriver-manager update
+ 
+<span class="token comment"># 또는 아래 명령어 처럼 인자를 전달해 별도로 설치할 수도 있다.</span>
+<span class="token comment"># ./node_modules/.bin/webdriver-manager update --chrome</span></code></pre>
+
+<p>이제 nightwatch.json에 셀레니움 서버 경로와 크롬 웹드라이버 서버 경로를 수정한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token string">"selenium"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token string">"start_process"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string">"server_path"</span><span class="token operator">:</span> <span class="token string">"./selenium-server-standalone-2.53.0.jar"</span><span class="token punctuation">,</span>
+  <span class="token string">"log_path"</span><span class="token operator">:</span> <span class="token string">"tests/logs"</span><span class="token punctuation">,</span>
+  <span class="token string">"host"</span><span class="token operator">:</span> <span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span>
+  <span class="token string">"port"</span><span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span>
+  <span class="token string">"cli_args"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"webdriver.chrome.driver"</span> <span class="token operator">:</span> <span class="token string">"node_modules/webdriver-manager/selenium/chromedriver_2.21"</span><span class="token punctuation">,</span> <span class="token comment">// 추가</span>
+    <span class="token string">"webdriver.ie.driver"</span><span class="token operator">:</span> <span class="token string">""</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span></code></pre>
+
+<p>다음으로 default 속성에 작성했던 파이어폭스 브라우저 설정을 test_settings 속성 하위로 옮기고 크롬 브라우저 설정도 함께 추가 작성한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span>
+  <span class="token comment">// ... 생략 ...</span>
+  <span class="token string">"test_settings"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"default"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string">"launch_url"</span><span class="token operator">:</span> <span class="token string">"http://localhost"</span><span class="token punctuation">,</span>
+      <span class="token string">"selenium_port"</span><span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span>
+      <span class="token string">"selenium_host"</span><span class="token operator">:</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
+      <span class="token string">"silent"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string">"screenshots"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"enabled"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"on_failure"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"on_error"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token string">"path"</span> <span class="token operator">:</span> <span class="token string">"tests/screenshots"</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token string">"firefox"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
+        <span class="token string">"marionette"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token string">"chrome"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"chrome"</span><span class="token punctuation">,</span>
+        <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>이제 아래 명령어로 실행하면 두 브라우저에서 동시에 테스트가 실행된다.</p>
+<pre class="language-base" data-language="base"><code class="language-base">$ .&#x2F;node_modules&#x2F;nightwatch&#x2F;bin&#x2F;nightwatch --env firefox,chrome</code></pre>
+
+<p>사파리 브라우저에서 테스트하고자 한다면 사파리 웹드라이버를 확장 기능으로 설치해야한다. 자세한 내용은 나이트왓치 위치의 <a target="_blank" rel="noopener" href="https://github.com/nightwatchjs/nightwatch/wiki/Running-tests-in-Safari">Running tests in Safari</a> 문서를 참고한다.</p>
+
+    <figure title="사파리의 웹드라이버 확장프로그램">
+      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.04.png" target="_blank">
+        <img 
+          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.04.png" 
+          alt="사파리의 웹드라이버 확장프로그램" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 4. 사파리의 웹드라이버 확장프로그램&gt;</figcaption>
+    </figure>
+  
+
+<h3 id="모카-사용하기"><a href="#모카-사용하기" class="headerlink" title="모카 사용하기"></a>모카 사용하기</h3><p>이번엔 테스트 코드를 모카 기반으로 작성할 수 있는 환경을 만들어보겠다. 나이트왓치는 어썰트로 챠이(chai)를 내장하고 있지만 모카는 별도로 설정해 사용해야한다. 모카를 설정하는 자세한 내용은 개발자 가이드 <a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide##using-mocha">Using Mocha</a> 절을 참고한다. 모카를 굳이 사용하려는 이유는 JUnit XML로 리포팅 하는 기본 러너와는 달리 다양하고 보기 쉬운 리포팅을 지원하기 때문이다.</p>
+<p>먼저 nightwatch.json 파일에 다음과 같이 test_runner 속성을 추가한다. 옵션에 관한 자세한 설명은 모카 위키의 <a target="_blank" rel="noopener" href="https://github.com/mochajs/mocha/wiki/Using-mocha-programmatically##set-options">Set options</a> 절을 참고한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span>
+  <span class="token string">"test_runner"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"type"</span> <span class="token operator">:</span> <span class="token string">"mocha"</span><span class="token punctuation">,</span>
+    <span class="token string">"options"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string">"ui"</span><span class="token operator">:</span> <span class="token string">"bdd"</span><span class="token punctuation">,</span>
+      <span class="token string">"reporter"</span><span class="token operator">:</span> <span class="token string">"spec"</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token comment">// ... 생략 ...</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>테스트 코드를 모카 기반으로 재작성한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'구글 메인 페이지'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ 
+    <span class="token function">before</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">client<span class="token punctuation">,</span> done</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+    <span class="token function">after</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">client<span class="token punctuation">,</span> done</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'##사용자는 검색할 수 있다.'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'사용자는 검색어를 입력 후 자동 완성된 리스트를 볼 수 있다.'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">client<span class="token punctuation">,</span> done</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            client
+                <span class="token punctuation">.</span><span class="token function">url</span><span class="token punctuation">(</span><span class="token string">'http://www.google.com'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">waitForElementVisible</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">setValue</span><span class="token punctuation">(</span><span class="token string">'input[type=text]'</span><span class="token punctuation">,</span> <span class="token string">'nightwatch'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span>assert<span class="token punctuation">.</span><span class="token function">containsText</span><span class="token punctuation">(</span><span class="token string">'##sbtc'</span><span class="token punctuation">,</span> <span class="token string">'nightwatch'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>done<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>다시 실행해 보면 모카 기반으로 테스트 코드가 동작하는 것을 볼 수 있다.</p>
+
+    <figure title="모카 테스트 실행 결과">
+      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.05.png" target="_blank">
+        <img 
+          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.05.png" 
+          alt="모카 테스트 실행 결과" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 5. 모카 테스트 실행 결과&gt;</figcaption>
+    </figure>
+  
+
+<h3 id="브라우저-스택"><a href="#브라우저-스택" class="headerlink" title="브라우저 스택"></a>브라우저 스택</h3><p>크로스 브라우징 테스트를 할 수 있도록 해주는 웹 서비스인 브라우저 스택은 다양한 플랫폼과 웹 브라우저를 지원한다. 또한, 셀레니움 서버도 제공하고 있는데 이를 이용하면 나이트왓치와 연동해 테스트를 자동화할 수 있다.</p>
+<p>먼저 browserstack.json 파일을 작성한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span>
+  <span class="token comment">// ... 생략 ...</span>
+  <span class="token string">"selenium"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"start_process"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token string">"test_settings"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"default"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string">"launch_url"</span> <span class="token operator">:</span> <span class="token string">"http://hub.browserstack.com"</span><span class="token punctuation">,</span>
+      <span class="token string">"selenium_host"</span> <span class="token operator">:</span> <span class="token string">"hub.browserstack.com"</span><span class="token punctuation">,</span>
+      <span class="token string">"selenium_port"</span> <span class="token operator">:</span> <span class="token number">80</span><span class="token punctuation">,</span>
+      <span class="token string">"silent"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string">"screenshots"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"enabled"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"on_failure"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"on_error"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token string">"path"</span> <span class="token operator">:</span> <span class="token string">"tests/screenshots"</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"platform"</span><span class="token operator">:</span> <span class="token string">"xp"</span><span class="token punctuation">,</span>
+        <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
+        <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string">"browserstack.user"</span> <span class="token operator">:</span> <span class="token string">"user_id"</span><span class="token punctuation">,</span> <span class="token comment">// 브라우저 스택 아이디</span>
+        <span class="token string">"browserstack.key"</span> <span class="token operator">:</span> <span class="token string">"user_key"</span> <span class="token comment">// 브라우저 스택 키</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>platform 속성엔 XP를 browserName 속성엔 파이어폭스를 지정했고 로컬 환경에서 셀레니움 서버를 실행시킬 필요가 없기 때문에 start_process은 false로 지정했다. 이제 브라우저 스택은 윈도우즈 XP 환경의 파이어폭스 브라우저에서 테스트를 진행할 것이다. 브라우저 스택에서 지원하는 플랫폼과 브라우저는 공식 홈페이지의 <a target="_blank" rel="noopener" href="https://www.browserstack.com/automate/capabilities">Capabilities</a> 페이지를 참고하면 알 수 있다.</p>
+<p>아래 명령어를 참고해 실행해본다.</p>
+<pre class="language-js" data-language="js"><code class="language-js">$ <span class="token punctuation">.</span><span class="token operator">/</span>node_modules<span class="token operator">/</span>nightwatch<span class="token operator">/</span>bin<span class="token operator">/</span>nightwatch <span class="token operator">--</span>config browserstack<span class="token punctuation">.</span>json</code></pre>
+
+<p>다양한 플랫폼과 브라우저에서 E2E 테스트를 할 수 있다는 점은 큰 장점이지만 통신이나 테스트를 구동하는 속도가 아주 느리다. 따라서 테스트 배치 혹은 정기 배포 전에만 사용하기 적합해 보인다.</p>
+<h3 id="웹스톰-디버깅"><a href="#웹스톰-디버깅" class="headerlink" title="웹스톰 디버깅"></a>웹스톰 디버깅</h3><p>웹스톰에서 노드 디버깅 도구를 사용해 나이트왓치를 디버깅할 수 있다. 자세한 내용은 Debugging <a target="_blank" rel="noopener" href="https://github.com/nightwatchjs/nightwatch/wiki/Debugging-Nightwatch-tests-in-WebStorm">Nightwatch tests in WebStorm</a>을 참고한다. 다만, 파이프라인 방식이다 보니 브레이크 포인트를 활용한 디버깅이 다소 무의미한 느낌은 있다.</p>
+<h2 id="끝으로"><a href="#끝으로" class="headerlink" title="끝으로"></a>끝으로</h2><p>여기까지 다양한 사전 지식을 설명하고 나이트왓치에 관해서 이해해봤다. E2E 테스트 특성 상 프로젝트 저장소에 테스트를 작성하고 유지하기 보단 별도의 E2E 테스트 저장소를 만들어 테스트를 작성하고 유지하는게 더 효율적이지 않을까 생각한다. 또, 나이트왓치에는 <a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide##page-objects">페이지 오브젝트</a>, <a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide##extending">커스텀 커맨드</a> 등 테스트를 작성할 때 유용한 개념을 제공한다. 이 두 개념을 적절히 잘 사용하면 생각보다 더 관리하기 쉬운 테스트 코드를 작성할 수 있다. </p>
+<p>위에서 진행한 설치 및 설정 과정은 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/hello-nightwatch">UYEONG/hello-nightwatch</a>에 올려놓았으니 참고하길 바란다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://docs.seleniumhq.org/about/history.jsp">http://docs.seleniumhq.org/about/history.jsp</a></li>
+<li><a target="_blank" rel="noopener" href="http://google-opensource.blogspot.kr/2009/05/introducing-webdriver.html">http://google-opensource.blogspot.kr/2009/05/introducing-webdriver.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.infoq.com/news/2011/07/Selenium-2">http://www.infoq.com/news/2011/07/Selenium-2</a></li>
+<li><a target="_blank" rel="noopener" href="https://seleniumhq.wordpress.com/2011/07/08/selenium-2-0/">https://seleniumhq.wordpress.com/2011/07/08/selenium-2-0/</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.slideshare.net/sethmcl/join-the-darkside-nightwatchjs">http://www.slideshare.net/sethmcl/join-the-darkside-nightwatchjs</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium/issues/2110">https://github.com/SeleniumHQ/selenium/issues/2110</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.trident-qa.com/2013/05/so-many-seleniums">http://blog.trident-qa.com/2013/05/so-many-seleniums</a> (일본어)</li>
+<li><a target="_blank" rel="noopener" href="https://app.codegrid.net/entry/selenium-1">https://app.codegrid.net/entry/selenium-1</a> (일본어)</li>
+<li><a target="_blank" rel="noopener" href="http://pydiary.bitbucket.org/blog/html/2015/08/28/test.html">http://pydiary.bitbucket.org/blog/html/2015/08/28/test.html</a> (일본어)</li>
+<li><a target="_blank" rel="noopener" href="http://blog.mmmcorp.co.jp/blog/2015/09/24/use-nightwatch/">http://blog.mmmcorp.co.jp/blog/2015/09/24/use-nightwatch/</a> (일본어)</li>
+<li><a target="_blank" rel="noopener" href="http://www.infoq.com/jp/news/2014/03/nightwatch">http://www.infoq.com/jp/news/2014/03/nightwatch</a> (일본어)</li>
+<li><a target="_blank" rel="noopener" href="http://qiita.com/yssg/items/a054d67bc7c7fc39b276">http://qiita.com/yssg/items/a054d67bc7c7fc39b276</a> (일본어)</li>
+</ul>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2016/10/11/read-the-engineering-technology-and-society/" class="navigation__link">
+        <p class="navigation__title ellipsis">공학기술과 사회를 읽고</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-10-11T00:00:00+09:00">
+      2016.10.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Book/" class="meta__category-list-item">
+            <span>Book</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        지호출판사에서 발행한 「공학기술과 사회」라는 책을 읽고 개인적인 느낌과 감평을 작성한 문서입니다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2016/04/26/read-the-thinking-about-react/" class="navigation__link">
+        <p class="navigation__title ellipsis">React에 대한 여러가지 생각을 읽고</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-04-26T00:00:00+09:00">
+      2016.04.26
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        Youngrok Pak님의 「React에 대한 여러 가지 생각」을 읽고 해당 글에 대한 개인적인 의견과 React에 관해 평소에 이야기하고 싶었던 내용을 함께 이야기합니다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2016/06/17/e2e-test-and-nightwatch/';
+      this.page.identifier = '2016/06/17/e2e-test-and-nightwatch/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

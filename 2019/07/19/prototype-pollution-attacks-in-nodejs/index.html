@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Node.js에서의 프로토타입 오염 공격이란 무엇인가 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="__proto__을 이용한 프로토타입 오염(prototype pollution) 공격의 원리를 설명하면서 노드 환경에서 실제 공격이 가능한 사례를 함께 소개합니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Development,JavaScript,Node,Security,ECMAScript">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="__proto__을 이용한 프로토타입 오염(prototype pollution) 공격의 원리를 설명하면서 노드 환경에서 실제 공격이 가능한 사례를 함께 소개합니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js에서의 프로토타입 오염 공격이란 무엇인가">
+<meta property="og:url" content="http://blog.coderifleman.com/2019/07/19/prototype-pollution-attacks-in-nodejs/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="__proto__을 이용한 프로토타입 오염(prototype pollution) 공격의 원리를 설명하면서 노드 환경에서 실제 공격이 가능한 사례를 함께 소개합니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2019-07-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.013Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Development">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Node">
+<meta property="article:tag" content="Security">
+<meta property="article:tag" content="ECMAScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2019/07/19/prototype-pollution-attacks-in-nodejs/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">Node.js에서의 프로토타입 오염 공격이란 무엇인가</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2019-07-19T00:00:00+09:00">
+      2019.07.19
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Security/" class="meta__category-list-item">
+            <span>Security</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Development/" >
+            #Development
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Node/" >
+            #Node
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Security/" >
+            #Security
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/ECMAScript/" >
+            #ECMAScript
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%8B%9C%EC%9E%91%ED%95%98%EB%A9%B4%EC%84%9C"><span class="toc-number">1.</span> <span class="toc-text">시작하면서</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-number">2.</span> <span class="toc-text">__proto__</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85-%EC%98%A4%EC%97%BC"><span class="toc-number">3.</span> <span class="toc-text">프로토타입 오염</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%86%8D%EC%84%B1-%EC%84%A4%EC%A0%95"><span class="toc-number">3.1.</span> <span class="toc-text">속성 설정</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%9D%EC%B2%B4-%EB%B3%91%ED%95%A9"><span class="toc-number">3.2.</span> <span class="toc-text">객체 병합</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC"><span class="toc-number">3.3.</span> <span class="toc-text">객체 복사</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%8B%A4%EC%A0%9C-%EA%B3%B5%EA%B2%A9"><span class="toc-number">4.</span> <span class="toc-text">실제 공격</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%8C%80%EC%B1%85"><span class="toc-number">5.</span> <span class="toc-text">대책</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">6.</span> <span class="toc-text">정리</span></a></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        
+    <div class="alert alert--info">
+      
+        <strong class="alert__title">
+          읽기전에...
+        </strong>
+      
+      <div class="alert__body">
+        <p>이 문서는 「<a target="_blank" rel="noopener" href="https://jovi0608.hatenablog.com/entry/2018/10/19/083725">Node.jsにおけるプロトタイプ汚染攻撃とは何か</a>」를 번역한 글입니다. 원작자에게 번역 및 배포 허락을 받았습니다. 프로토타입 오염 취약성이 많은 분에게 알려지길 바랍니다.</p>
+
+      </div>
+    </div>
+  
+
+<h2 id="시작하면서"><a href="#시작하면서" class="headerlink" title="시작하면서"></a>시작하면서</h2><p>최근 까닭이 있어 노드의 보안 사항을 조사하고 있는데요. 올해 5월에 개최된 <a target="_blank" rel="noopener" href="https://nsec.io/">North Sec 2018</a>, 보안 연구자 <a target="_blank" rel="noopener" href="https://github.com/HoLyVieR">Olivier Arteau</a>의 “<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=LUsiFV3dsK8">Prototype pollution attacks in NodeJS applications</a>“라는 재미있는 발표를 발견했습니다.</p>
+<p>이 발표의 논문, 발표 자료, 데모 영상을 깃허브에 공개했으며 때마침 발표 영상도 유튜브를 통해 공개됐습니다.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/HoLyVieR/prototype-pollution-nsec18">HoLyVieR/prototype-pollution-nsec18</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=LUsiFV3dsK8">Prototype pollution attacks in NodeJS applications</a></li>
+</ul>
+<p>이 발표에서는 공격자가 자바스크립트 언어 고유의 프로토타입 체인 동작 원리를 이용해 웹 서버를 공격하는 방법을 이야기합니다.</p>
+<p>발표자는 npm에서 받을 수 있는 모듈을 조사해 lodash를 시작으로 많은 모듈에 프로토타입 오염 취약점이 있는 것을 발견하고 보고했습니다. 그리고 실제 취약점이 있는 Ghost CMS를 이용, 비밀번호 재설정 요청에 필요한 데이터를 변조해 서버상에서 계산기 애플리케이션을 실행시키는 데모까지 성공합니다.</p>
+<p>자바스크립트 실행 환경에 있어 프로토타입 오염 발생 위험성은 오래전부터 이야기 돼 왔지만 이것이 Node.js 환경의 웹 서버를 공격하는데 활용될 것이라고는 생각지 못했을 것 같습니다.</p>
+<p>이 문서에서는 개인적으로도 기억해둘 겸 해당 공격의 원리에 관해서 설명하고자 합니다.</p>
+<h2 id="proto"><a href="#proto" class="headerlink" title="__proto__"></a>__proto__</h2><p>객체의 프로토타입을 참조하는 <code>__proto__</code>는 예로부터 보편적으로 사용해온 기능입니다. 정식 사양은 아니었지만, 실정과 구현 현황을 소급 인정하고 브라우저 간 호환을 위해 ECMAScript2015 사양에 추가됐습니다.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto">Object.prototype.__proto__ - MDN web docs</a></li>
+</ul>
+<p>이 외에도 <code>__proto__</code>에 대한 게터 / 셋터와 같은 기능인 <code>Object.setPrototypeOf</code> / <code>getPrototypeOf</code>도 규정돼 있습니다. 현재 Node.js 환경에서도 모두 사용할 수 있습니다. 하지만 MDN에서는 프로토타입을 변경하는 것을 비권장합니다. </p>
+<h2 id="프로토타입-오염"><a href="#프로토타입-오염" class="headerlink" title="프로토타입 오염"></a>프로토타입 오염</h2><p>프로토타입 오염은 무엇일까. 방법에는 여러 가지 있겠지만 가장 기본은 객체 리터럴의 <code>__proto__</code>는 <code>Object.prototype</code>과 같다는 것을 이용해 다른 객체 속성에 영향을 주는 방식입니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> obj1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj1<span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> <span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+obj1<span class="token punctuation">.</span>__proto__<span class="token punctuation">.</span>polluted <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> obj2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj2<span class="token punctuation">.</span>polluted<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1</span></code></pre>
+
+<p>위 예제에서 obj1의 프로토타입 객체를 조작했습니다. 이제 아무 관계 없는 <code>obj2</code> 속성의 값(obj2.polluted)이 <code>undefined</code>가 아니라 <code>1</code>로 출력됩니다.</p>
+<p>발표에서는 아래와 같은 객체 프로토타입 오염이 일어날 수 있는 세 가지 패턴을 소개합니다. 모두 <code>__proto__</code>을 포함한 문자열을 key로 이용해 정확하지 않은 데이터를 객체에 등록 시켜 <code>Object.prototype</code> 오염을 노리는 방식입니다.</p>
+<h3 id="속성-설정"><a href="#속성-설정" class="headerlink" title="속성 설정"></a>속성 설정</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">isObject</span><span class="token punctuation">(</span><span class="token parameter">obj</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> obj <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> obj <span class="token operator">===</span> <span class="token string">'object'</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token keyword">function</span> <span class="token function">setValue</span><span class="token punctuation">(</span><span class="token parameter">obj<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> keylist <span class="token operator">=</span> key<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> e <span class="token operator">=</span> keylist<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>keylist<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isObject</span><span class="token punctuation">(</span>obj<span class="token punctuation">[</span>e<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> obj<span class="token punctuation">[</span>e<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token function">setValue</span><span class="token punctuation">(</span>obj<span class="token punctuation">[</span>e<span class="token punctuation">]</span><span class="token punctuation">,</span> keylist<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    obj<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token keyword">const</span> obj1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token function">setValue</span><span class="token punctuation">(</span>obj1<span class="token punctuation">,</span> <span class="token string">"__proto__.polluted"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> obj2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj2<span class="token punctuation">.</span>polluted<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1</span></code></pre>
+
+<h3 id="객체-병합"><a href="#객체-병합" class="headerlink" title="객체 병합"></a>객체 병합</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> key <span class="token keyword">in</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isObject</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isObject</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">merge</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      a<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> b<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token keyword">const</span> obj1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span>a<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> b<span class="token operator">:</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> obj2 <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token string">'&#123;"__proto__":&#123;"polluted":1&#125;&#125;'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">merge</span><span class="token punctuation">(</span>obj1<span class="token punctuation">,</span> obj2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> obj3 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj3<span class="token punctuation">.</span>polluted<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1</span></code></pre>
+
+<h3 id="객체-복사"><a href="#객체-복사" class="headerlink" title="객체 복사"></a>객체 복사</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">clone</span><span class="token punctuation">(</span><span class="token parameter">obj</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token keyword">const</span> obj1 <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token string">'&#123;"__proto__":&#123;"polluted":1&#125;&#125;'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> obj2 <span class="token operator">=</span> <span class="token function">clone</span><span class="token punctuation">(</span>obj1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> obj3 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj3<span class="token punctuation">.</span>polluted<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1</span></code></pre>
+
+<p>위와 비슷한 기능을 제공하는 유저 모듈에서 프로토타입 오염 취약점이 발견, 수정되고 있습니다. 수정된 부분을 살펴보았는데 key에 <code>__proto__</code>가 있을 경우 건너뛰도록 돼 있습니다.</p>
+<p>공격자는 외부에서 <code>Object.prototype</code>을 조작할 수 있기 때문에 for-in 문의 오작동을 노려 악의적으로 속성을 수정하거나 <code>toString</code>, <code>valueOf</code> 등의 메서드를 재정의할 수도 있습니다. DoS는 간단하게 일으킬 수 있겠네요.</p>
+<h2 id="실제-공격"><a href="#실제-공격" class="headerlink" title="실제 공격"></a>실제 공격</h2><p>발표에서는 실제 CMS 서버에 비밀번호 재설정에 필요한 JSON을 조작해 공격하는 방법을 소개합니다.</p>
+<p>아이러니하게 객체 프로토타입 오염 공격이 성공한 경우에 서버 크래시 없이 동작하도록 하는 것은 꽤 어려운 기술입니다. 데모에서는 여러가지 방안을 고안해 CMS 템플릿을 조작하고, 테스트용으로 남겨져 있는 템플릿을 조작하여 임의의 자바스크립트를 서버상에서 실행(계산기 앱을 시작) 시키는 과정을 보여줍니다.</p>
+<p>이 글에서는 JSON을 받아 어떠한 처리를 하는 간단한 웹 API 서버를 이용해 프로토타입 오염 공격에 의해 응답이 조작되는 샘플을 소개합니다.</p>
+<p>다음은 서버 코드입니다. 외부에서 전달받은 JSON을 그대로 복사하고 있습니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">isObject</span><span class="token punctuation">(</span><span class="token parameter">obj</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> obj <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> obj <span class="token operator">===</span> <span class="token string">'object'</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token keyword">function</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> key <span class="token keyword">in</span> b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 이 부분에서 key가 __proto__ 일 때에 건너뛰어야 한다.</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isObject</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isObject</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token function">merge</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+      a<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> b<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token keyword">function</span> <span class="token function">clone</span><span class="token punctuation">(</span><span class="token parameter">obj</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>express<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// 여기에서 악의적인 JSON을 그대로 복사함으로써 객체의 프로토타입 오염이 일어난다</span>
+  <span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token function">clone</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token comment">// 프로토타입 오염에 의해 r.status가 변조된다.</span>
+  <span class="token keyword">const</span> status <span class="token operator">=</span> r<span class="token punctuation">.</span>status <span class="token operator">?</span> r<span class="token punctuation">.</span>status<span class="token operator">:</span> <span class="token string">'NG'</span><span class="token punctuation">;</span>
+  res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">1234</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>클라이언트는 <code>__proto__</code> 속성을 갖는 JSON을 서버에 전달해 공격합니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'http'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> client <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">request</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  host<span class="token operator">:</span> <span class="token string">'localhost'</span><span class="token punctuation">,</span>
+  port<span class="token operator">:</span> <span class="token number">1234</span><span class="token punctuation">,</span>
+  method<span class="token operator">:</span> <span class="token string">'POST'</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  res<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">chunk</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>chunk<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> data <span class="token operator">=</span> <span class="token string">'&#123;"__proto__":&#123;"status":"polluted"&#125;&#125;'</span><span class="token punctuation">;</span>
+client<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">'content-type'</span><span class="token punctuation">,</span> <span class="token string">'application/json'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+client<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>공격 결과. 전달한 JSON에 의해 서버의 객체 프로토타입이 오염돼 응답의 값이 <code>NG</code>가 아니라 <code>polluted</code>로 변경돼 내려옵니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js">$ node client<span class="token punctuation">.</span>js
+polluted</code></pre>
+
+<h2 id="대책"><a href="#대책" class="headerlink" title="대책"></a>대책</h2><p>이 공격을 방지하는 대책으로 다음 세 가지 방법이 있습니다.</p>
+<ul>
+<li><strong>Object.freeze</strong> : <code>Object.prototype</code>이나 <code>Object</code>를 <code>freeze</code>하여 변경을 불가능하게 하는 방법입니다. 부작용으로 정상적인 모듈임에도 이 조치로 동작하지 않을 수도 있습니다. </li>
+<li><strong>JSON schema</strong> : <a target="_blank" rel="noopener" href="https://ajv.js.org/">avj</a> 모듈 등을 사용해 JSON을 검증합니다.</li>
+<li><strong>Map</strong> : key / value를 저장하는데 객체를 사용하지 않고 <code>Map</code>을 사용합니다. 단, ES5 이전 환경에서는 사용할 수 없습니다.</li>
+</ul>
+<p>의식하지 않으면 언제든지 이 취약점이 노출될 수 있습니다.</p>
+<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이 글을 정리하면서도 다른 객체를 단순히 깊은 복사 하는 것만으로 취약점이 노출된다는 사실에 놀랐습니다. 역시 외부에서 전달받은 데이터를 처리할 때엔 신중해야 합니다. </p>
+<p>취약점이 알려진 사용자 모듈 대부분은 이미 고쳐진 상태입니다. 그럼에도 신경 쓰인다면 한번 <code>npm audit</code>으로 확인해보시기 바랍니다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">$ npm audit
+ 
+                       &#x3D;&#x3D;&#x3D; npm audit security report &#x3D;&#x3D;&#x3D;
+ 
+# Run  npm install lodash@4.17.11  to resolve 1 vulnerability
+ 
+  Low             Prototype Pollution
+ 
+  Package         lodash
+ 
+  Dependency of   lodash
+ 
+  Path            lodash
+ 
+  More info       https:&#x2F;&#x2F;nodesecurity.io&#x2F;advisories&#x2F;577
+ 
+ 
+ 
+found 1 low severity vulnerability in 1 scanned package
+  run &#96;npm audit fix&#96; to fix 1 of them.</code></pre>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2021/04/21/react-hooks-and-humble-object-pattern-and-tests/" class="navigation__link">
+        <p class="navigation__title ellipsis">리액트 훅스(react hooks)와 험블 객체 패턴(humble object pattern) 그리고 테스트</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2021-04-21T00:00:00+09:00">
+      2021.04.21
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        훅스 관점에서 어떻게 테스트 용이성과 유지보수성 높은 애플리케이션을 일관된 루틴으로 개발하고 설계할 수 있는지 소개한다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2019/06/29/create-the-undo-redo-feature/" class="navigation__link">
+        <p class="navigation__title ellipsis">실행 취소 / 다시 실행 기능 구현하기(feat. serializr)</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2019-06-29T00:00:00+09:00">
+      2019.06.29
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/Implementation/" class="meta__category-list-item">
+            <span>Implementation</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        실행 취소 / 다시 실행(Undo/Redo) 기능을 어떻게 구현할 수 있는지 자바스크립트 라이브러리 serializr와 함께 단계별로 자세히 설명합니다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2019/07/19/prototype-pollution-attacks-in-nodejs/';
+      this.page.identifier = '2019/07/19/prototype-pollution-attacks-in-nodejs/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 3편 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 세 번째 편입니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Algorithm,BezierCurves,Spline,Animation,Math">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 세 번째 편입니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 3편">
+<meta property="og:url" content="http://blog.coderifleman.com/2017/03/19/bezier-curves-for-frontend-engineer-3/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 세 번째 편입니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.01.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.02.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.03.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.04.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.05.png">
+<meta property="article:published_time" content="2017-03-18T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="BezierCurves">
+<meta property="article:tag" content="Spline">
+<meta property="article:tag" content="Animation">
+<meta property="article:tag" content="Math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.coderifleman.com/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.01.png">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2017/03/19/bezier-curves-for-frontend-engineer-3/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 3편</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2017-03-19T00:00:00+09:00">
+      2017.03.19
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Algorithm/" class="meta__category-list-item">
+            <span>Algorithm</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Algorithm/" >
+            #Algorithm
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/BezierCurves/" >
+            #BezierCurves
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Spline/" >
+            #Spline
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Animation/" >
+            #Animation
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Math/" >
+            #Math
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">1.</span> <span class="toc-text">1차 베지에 곡선</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">2.</span> <span class="toc-text">2차 베지에 곡선</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%88%98%EC%8B%9D-%EC%A0%95%EB%A6%AC"><span class="toc-number">2.1.</span> <span class="toc-text">수식 정리</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">3.</span> <span class="toc-text">3차 베지에 곡선</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%88%98%EC%8B%9D%EC%A0%95%EB%A6%AC"><span class="toc-number">3.1.</span> <span class="toc-text">수식정리</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98"><span class="toc-number">3.2.</span> <span class="toc-text">애니메이션</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">4.</span> <span class="toc-text">끝으로</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">5.</span> <span class="toc-text">참고</span></a></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        <p>「<a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/">프런트엔드 엔지니어를 위한 베지에 곡선(Bézier Curves) - 2편</a>」을 포스팅한 후 시간이 꽤 지났다. 어디까지 이야기했더라? 기억도 가물가물하다. 최근에 강의를 시작하면서 여유가 없었다는 핑계를 대보지만, 뭐가 됐든 게을러서 그렇다. 3편을 기다리신 분이 있었다면 죄송할 따름이다.</p>
+<p>글과 관련 없는 얘기는 이쯤 하자. 2편에서는 <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/#%EC%97%90%EB%B2%84%EB%A6%AC%EC%A7%95%EA%B3%BC-%EB%B8%94%EB%A0%8C%EB%94%A9">에버리징과 블렌딩</a> 그리고 인터폴레이션(Interpolation)이라고 부르는 <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/#%EB%B3%B4%EA%B0%84">보간</a>을 소개했다. 베지에 곡선을 이해하기 위한 기초 지식이었으며 이 개념만 이해하고 있으면 나머지는 쉽게 이해할 수 있다.</p>
+<h2 id="1차-베지에-곡선"><a href="#1차-베지에-곡선" class="headerlink" title="1차 베지에 곡선"></a>1차 베지에 곡선</h2><p>우리는 이미 1차 베지에 곡선(Linear Bezier Cuvers)을 경험했다. 2편의 <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/#%EB%B3%B5%ED%95%A9-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B8%94%EB%A0%8C%EB%94%A9">복합 데이터 블렌딩</a>과 <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/#%EB%B3%B4%EA%B0%84">보간</a> 절에서 보여준 예제가 바로 1차 베지에 곡선이다. 차이점이 있다면 단순히 평면상에서 곡선을 그리는 게 아니라 <a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EC%A7%81%EA%B5%90_%EC%A2%8C%ED%91%9C%EA%B3%84">직교좌표계</a> 상에서 그린다는 것이다.</p>
+
+    <figure title="1차 베지에 곡선">
+      <a href="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.01.png" target="_blank">
+        <img 
+          src="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.01.png" 
+          alt="1차 베지에 곡선" 
+          style="max-width:340px"
+        >
+      </a>
+      <figcaption>&lt;그림 1. 1차 베지에 곡선&gt;</figcaption>
+    </figure>
+  
+
+<p>1차 베지에 곡선은 조절점(Control point) 두 개로 그린다. 아주 간단하지만, 굴곡이 없는 <a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EC%84%A0%ED%98%95%EC%84%B1">선형</a>이다(직선도 곡선에 포함된다는 사실을 잊지 말자). </p>
+<h2 id="2차-베지에-곡선"><a href="#2차-베지에-곡선" class="headerlink" title="2차 베지에 곡선"></a>2차 베지에 곡선</h2><p>그럼 2차 베지에 곡선(Quadratic Bézier Curves)을 그려보자. 2차 베지에 곡선은 조절점 3개를 이용해 그린 곡선을 말한다.</p>
+
+    <figure title="2차 베지에 곡선">
+      <a href="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.02.png" target="_blank">
+        <img 
+          src="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.02.png" 
+          alt="2차 베지에 곡선" 
+          style="max-width:340px"
+        >
+      </a>
+      <figcaption>&lt;그림 2. 2차 베지에 곡선&gt;</figcaption>
+    </figure>
+  
+
+<p>3개의 조절점 A, B, C를 이용해 그린 두 개의 직선 즉, 두 개의 1차 베지에 곡선이 있다. 그리고 이 곡선에서 보간되는 점 E와 F도 있다. 이때 점 E와 F를 이용해 또 다른 직선을 그릴 수 있고 이 직선에서 보간되는 점 P도 추가할 수 있다. 이제 점 E와 F 그리고 P를 보간하면 P의 행적이 곡선을 만들어 낸다(이해가 되지 않는다면 「<a href="/2016/12/30/bezier-curves/">중학생도 알 수 있는 베지에 곡선</a>」을 참고한다).</p>
+<p>그럼 이제 2차 베지에 곡선을 직접 그려보도록 하자. 선분에서 블렌딩 되는 점 P를 구하는 공식은 다음과 같다(자세한 내용은 「<a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/">프런트엔드 엔지니어를 위한 베지에 곡선(Bézier Curves) - 2편</a>」을 참고). 이때 <code>s = 1 - t</code>다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">P &#x3D; (s * A) + (t * B)</code></pre>
+
+<p>그림 2를 보면 알 수 있듯이 2차 베지에 곡선을 그리기 위해서는 점 E와 F 그리고 P를 보간해야 한다. 점 E는 조절점 A와 B를 이용해 구할 수 있고, 점 F는 조절점 B와 C를 이용해 구할 수 있다. 그리고 점 P는 다시 점 E와 F를 이용해 구할 수 있다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">E &#x3D; (s * A) + (t * B)
+F &#x3D; (s * B) + (t * C)
+P &#x3D; (s * E) + (t * F)</code></pre>
+
+<p>이 공식을 자바스크립트 코드로 옮겨보자. 여기에서는 구현에 있어 몇 가지 중요한 함수만 소개한다. 전체 코드는 코드펜(CodePen)에 작성해 놓은 <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/qrpYwj">예제</a>를 참고한다.</p>
+<p>먼저 blender()는 점 A와 점 B 그리고 가중치 t를 전달받아 블랜딩한 결괏값을 반환하는 함수다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">blender</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token constant">A</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token constant">B</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> t<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token constant">A</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span>t <span class="token operator">*</span> <span class="token constant">B</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// or A + t * (B - A)</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>이때 blender()는 좌표 하나에 대한 연산만 책임지므로 x, y 좌표를 연산하기 위해 blend()를 작성한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">blend</span><span class="token punctuation">(</span><span class="token parameter">x1<span class="token punctuation">,</span> x2<span class="token punctuation">,</span> y1<span class="token punctuation">,</span> y2<span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token function">blender</span><span class="token punctuation">(</span>x1<span class="token punctuation">,</span> x2<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> y <span class="token operator">=</span> <span class="token function">blender</span><span class="token punctuation">(</span>y1<span class="token punctuation">,</span> y2<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>x<span class="token punctuation">,</span> y<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>다음으로 blend()를 이용해 점 A와 점 B의 좌표를 전달해 점 E의 좌푯값을 구하고 점 B와 점 C의 좌표를 전달해 점 F의 좌표를 구한다. 그리고 다시 점 E와 점 F의 좌표를 전달해 점 P의 좌표를 구하는 방식으로 공식을 구현한다.</p>
+<pre class="language-js" data-language="js"><code class="language-js">interpolateBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>\'click\'<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// Start the interpolation.</span>
+  <span class="token function">raf</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> posE <span class="token operator">=</span> <span class="token function">blend</span><span class="token punctuation">(</span>posA<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posA<span class="token punctuation">.</span>y<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>y<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> posF <span class="token operator">=</span> <span class="token function">blend</span><span class="token punctuation">(</span>posB<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posC<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>y<span class="token punctuation">,</span> posC<span class="token punctuation">.</span>y<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> posP <span class="token operator">=</span> <span class="token function">blend</span><span class="token punctuation">(</span>posE<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posF<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posE<span class="token punctuation">.</span>y<span class="token punctuation">,</span> posF<span class="token punctuation">.</span>y<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 2차 베지에 곡선이라고 한다.</p>
+
+    <p data-height="300" data-theme-id="0" data-slug-hash="qrpYwj" data-default-tab="result" data-user="uyeong" data-embed-version="2" data-pen-title="qrpYwj" class="codepen">
+      See the Pen <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/qrpYwj/">qrpYwj</a> by Uyeong Ju (<a target="_blank" rel="noopener" href="http://codepen.io/uyeong">@uyeong</a>) on <a target="_blank" rel="noopener" href="http://codepen.io">CodePen</a>.
+    </p>
+  
+
+<h3 id="수식-정리"><a href="#수식-정리" class="headerlink" title="수식 정리"></a>수식 정리</h3><p>우리가 2차 베지에 곡선을 위해 사용한 수식은 다음과 같다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">E &#x3D; (s * A) + (t * B)
+F &#x3D; (s * B) + (t * C)
+P &#x3D; (s * E) + (t * F)</code></pre>
+
+<p>하지만 이 수식은 조금 장황하며 자바스크립트 코드상에서도 함수 호출이 빈번한 상태다. 이 수식을 방정식으로  좀더 간결하고 효율적으로 표현할 수 있다. 일단 연산식에 있는 괄호를 없애고 좀더 간략하게 수식을 표현한다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">E(t) &#x3D; sA + tB
+F(t) &#x3D; sB + tC
+P(t) &#x3D; sE(t) + tF(t)</code></pre>
+
+<p>이번엔 중학생 때 배워본 몇 가지 <a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EA%B3%B1%EC%85%88_%EA%B3%B5%EC%8B%9D">곱셈 공식</a> 사용하여 세 줄로 표현한 수식을 한 줄로 작성하고 이차방정식으로 정리한다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">P(t) &#x3D; s(sA + tB) + t(sB + tC)
+P(t) &#x3D; (s²)A + (st)B + (st)B + (t²)C
+P(t) &#x3D; (s²)A + 2(st)B + (t²)C</code></pre>
+
+<p>자, 몇 가지 규칙을 더 추가하자. t가 0이라면 P는 항상 A와 같으며 다음과 같이 증명할 수 있다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">P(t) &#x3D; (s²)A + 2(st)B + (t²)C
+P(t) &#x3D; (1²)A + 2(1 * 0)B + (0²)C
+P(t) &#x3D; (1)A + 2(0)B + (0)C
+P(t) &#x3D; (1)A
+P(t) &#x3D; A</code></pre>
+
+<p>다시 t가 1이라면 P는 항상 C와 같으며 다음과 같이 증명할 수 있다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">P(t) &#x3D; (s²)A + 2(st)B + (t²)C
+P(t) &#x3D; (0²)A + 2(0 * 1)B + (1²)C
+P(t) &#x3D; (0)A + 2(0)B + (1)C
+P(t) &#x3D; (1)C
+P(t) &#x3D; C</code></pre>
+
+<p>이제 정리한 수식을 자바스크립트로 작성해보자. 함수명은 <code>quadBezier</code>로 짓고 2차 베지에 곡선임을 나타낸다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">quadBezier</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token constant">A</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token constant">C</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  
+  <span class="token keyword">const</span> s <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">-</span> t<span class="token punctuation">;</span>
+  
+  <span class="token comment">// (s²)A + 2(st)B + (t²)C</span>
+  <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">pow</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token constant">A</span> <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">*</span> <span class="token punctuation">(</span>s <span class="token operator">*</span> t<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token constant">B</span> <span class="token operator">+</span> Math<span class="token punctuation">.</span><span class="token function">pow</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token constant">C</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>이렇게 작성한 함수는 다음과 같이 사용할 수 있다.</p>
+<pre class="language-js" data-language="js"><code class="language-js">interpolateBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>\'click\'<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// Start the interpolation.</span>
+  <span class="token function">raf</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token function">quadBezier</span><span class="token punctuation">(</span>posA<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posC<span class="token punctuation">.</span>x<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> y <span class="token operator">=</span> <span class="token function">quadBezier</span><span class="token punctuation">(</span>posA<span class="token punctuation">.</span>y<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>y<span class="token punctuation">,</span> posC<span class="token punctuation">.</span>y<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h2 id="3차-베지에-곡선"><a href="#3차-베지에-곡선" class="headerlink" title="3차 베지에 곡선"></a>3차 베지에 곡선</h2><p>이제 3차 베지에 곡선(Cubic Bézier Curves)을 그려보자. 2차 베지에 곡선은 3개의 조절점을 이용해 그린 곡선을 말하듯 3차 베지에 곡선은 4개의 조절점을 이용해 그린 곡선을 말한다. 더 정확히는 두 개의 2차 베지에 곡선을 이용해 그린 곡선을 말한다.</p>
+
+    <figure title="3차 베지에 곡선">
+      <a href="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.03.png" target="_blank">
+        <img 
+          src="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.03.png" 
+          alt="3차 베지에 곡선" 
+          style="max-width:340px"
+        >
+      </a>
+      <figcaption>&lt;그림 3. 3차 베지에 곡선&gt;</figcaption>
+    </figure>
+  
+
+<p>조절점 A, B, C를 이용해 그린 2차 베지에 곡선과 조절점 B, C, D를 이용해 그린 2차 베지에 곡선이 있다. 그리고 각 2차 베지에 곡선에서 보간되는 점 Q와 R이 있다. 이때 점 Q와 R를 이용해 또 다른 직선을 그릴 수 있고 이 직선에서 보간되는 점 P도 추가할 수 있다. 이제 점 Q와 R 그리고 P를 보간하면 P의 행적이 곡선을 만들어 낸다.</p>
+<p>이제 3차 베지에 곡선을 직접 그려보자. 3차 베지에 곡선을 그리기 위해서는 보간되는 점 Q와 R 그리고 P를 구해야 한다. 점 Q는 다음과 같이 구할 수 있다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">E &#x3D; (s * A) + (t * B)
+F &#x3D; (s * B) + (t * C)
+Q &#x3D; (s * E) + (t * F)</code></pre>
+
+<p>다시 점 R은 다음과 같이 구할 수 있다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">F &#x3D; (s * B) + (t * C)
+G &#x3D; (s * C) + (t * D)
+R &#x3D; (s * F) + (t * G)</code></pre>
+
+<p>이제 점 Q와 R을 이용해 점 P를 구할 수 있다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">P &#x3D; (s * Q) + (t * R)</code></pre>
+
+<p>이제 2차 베지에 곡선을 그릴 때 작성한 blend, blender 함수를 활용해 3차 베지에 곡선을 그려보자. 간단하게 새로운 점을 추가한 후 위에서 설명한 것처럼 점 Q, R, P를 구해 보간하면 된다.</p>
+<p>아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 3차 베지에 곡선이라고 한다.</p>
+
+    <p data-height="300" data-theme-id="0" data-slug-hash="EmOPJr" data-default-tab="result" data-user="uyeong" data-embed-version="2" data-pen-title="EmOPJr" class="codepen">
+      See the Pen <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/EmOPJr/">EmOPJr</a> by Uyeong Ju (<a target="_blank" rel="noopener" href="http://codepen.io/uyeong">@uyeong</a>) on <a target="_blank" rel="noopener" href="http://codepen.io">CodePen</a>.
+    </p>
+  
+
+<h3 id="수식정리"><a href="#수식정리" class="headerlink" title="수식정리"></a>수식정리</h3><p>점 Q와 P는 각각 2차 베지에 곡선에서 구해지는 점이므로 2차 베지에 곡선의 수식으로 표현할 수 있다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">Q(t) &#x3D; (s²)A + 2(st)B + (t²)C
+R(t) &#x3D; (s²)B + 2(st)C + (t²)D
+P(t) &#x3D; sQ(t) + tR(t)</code></pre>
+
+<p>위 수식을 조금 더 풀어서 다음과 같이 정리할 수 있다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">P(t) &#x3D; s((s²)A + 2(st)B + (t²)C) + t((s²)B + 2(st)C + (t²)D)
+P(t) &#x3D; s³A + 2(s²t)B + st²C + s²tB + 2(st²)C + t³D
+P(t) &#x3D; s³A + 3(s²t)B + 3(st²)C + t³D</code></pre>
+
+<p>이제 정리한 수식을 자바스크립트로 작성해보자. 함수명은 <code>cubicBezier</code>로 짓고 3차 베지에 곡선임을 나타낸다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">cubicBezier</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span><span class="token punctuation">,</span> <span class="token constant">D</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token constant">A</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  
+  <span class="token keyword">if</span><span class="token punctuation">(</span> t <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token constant">D</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  
+  <span class="token keyword">const</span> s <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">-</span> t<span class="token punctuation">;</span>
+  
+  <span class="token comment">// P = s³A + 3(s²t)B + 3(st²)C + t³D  </span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    Math<span class="token punctuation">.</span><span class="token function">pow</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token constant">A</span> <span class="token operator">+</span> 
+    <span class="token number">3</span> <span class="token operator">*</span> <span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">pow</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">*</span> t<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token constant">B</span> <span class="token operator">+</span> 
+    <span class="token number">3</span> <span class="token operator">*</span> <span class="token punctuation">(</span>s <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">pow</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token constant">C</span> <span class="token operator">+</span> 
+    Math<span class="token punctuation">.</span><span class="token function">pow</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token constant">D</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>이렇게 작성한 함수는 다음과 같이 사용할 수 있다.</p>
+<pre class="language-js" data-language="js"><code class="language-js">interpolateBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>\'click\'<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// Start the interpolation.</span>
+  <span class="token function">raf</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token function">cubicBezier</span><span class="token punctuation">(</span>posA<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posC<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posD<span class="token punctuation">.</span>x<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> y <span class="token operator">=</span> <span class="token function">cubicBezier</span><span class="token punctuation">(</span>posA<span class="token punctuation">.</span>y<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>y<span class="token punctuation">,</span> posC<span class="token punctuation">.</span>y<span class="token punctuation">,</span> posD<span class="token punctuation">.</span>y<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h3 id="애니메이션"><a href="#애니메이션" class="headerlink" title="애니메이션"></a>애니메이션</h3><p>실제 동작하는 데모에서 <code>requestAnimationFrame()</code>을 사용해 일정한 시간마다 점을 찍는 것으로 3차 베지에 곡선을 그리고 있다. 그런데 곡선의 각 점이 찍히는 구간 즉, 보폭이 일정하지 않다.</p>
+
+    <figure title="3차 베지에 곡선의 보폭">
+      <a href="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.04.png" target="_blank">
+        <img 
+          src="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.04.png" 
+          alt="3차 베지에 곡선의 보폭" 
+          style="max-width:340px"
+        >
+      </a>
+      <figcaption>&lt;그림 4. 3차 베지에 곡선의 보폭&gt;</figcaption>
+    </figure>
+  
+
+<p>이러한 특징을 애니메이션 처리에 활용할 수 있다. 보폭이 크면 시간이 빠르게 흐르고 보폭이 작으면 시간이 천천히 흐르도록 표현하여 객체의 움직임에 역동성을 부여할 수 있다.</p>
+
+    <figure title="Easing Functions 치트시트">
+      <a href="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.05.png" target="_blank">
+        <img 
+          src="/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.05.png" 
+          alt="Easing Functions 치트시트" 
+          style="max-width:340px"
+        >
+      </a>
+      <figcaption>&lt;그림 5. Easing Functions 치트시트&gt;</figcaption>
+    </figure>
+  
+
+<p>이제 CSS의 <code>transition-timing-function</code>의 <code>cubic-bezier(Bx, By, Cx, Cy)</code>가 의미하는 바가 무엇인지 또 어떻게 객체의 움직임에 활력을 불어넣을 수 있게 되는지도 이해할 수 있을 것이다.</p>
+<h2 id="끝으로"><a href="#끝으로" class="headerlink" title="끝으로"></a>끝으로</h2><p>여기까지 베지에 곡선에 대한 연재 글을 모두 마친다. 처음엔 필자 역시 단순 호기심으로 시작했지만, 점점 원리를 알아가는 과정에서 상당한 재미를 느꼈다. 연재 글을 읽는 독자분들 역시 재미있는 경험이었길 바란다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://fei.edu.br/~psergio/CG_arquivos/IntroSplines.pdf">An Introduction to Bezier Curves, B-Splines, and Tensor<br>Product Surfaces with History and Applications</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.essentialmath.com/GDC2012/GDC12_Eiserloh_Squirrel_Interpolation-and-Splines.ppt">GDC12 Eiserloh Squirrel Interpolation and Splines</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tsplines.com/resources/class_notes/Bezier_curves.pdf">BEZIER CURVES</a></li>
+</ul>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2017/05/30/tabnabbing_attack_and_noopener/" class="navigation__link">
+        <p class="navigation__title ellipsis">Tabnabbing 공격과 rel=noopener 속성</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2017-05-30T00:00:00+09:00">
+      2017.05.30
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        이 문서는 Tabnabbing 공격과 이를 막을 수 있는 rel=noopener 속성에 대해 소개합니다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/" class="navigation__link">
+        <p class="navigation__title ellipsis">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 2편</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2017-01-03T00:00:00+09:00">
+      2017.01.03
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Algorithm/" class="meta__category-list-item">
+            <span>Algorithm</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 두 번째 편입니다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2017/03/19/bezier-curves-for-frontend-engineer-3/';
+      this.page.identifier = '2017/03/19/bezier-curves-for-frontend-engineer-3/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

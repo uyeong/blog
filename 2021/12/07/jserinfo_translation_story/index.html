@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>꾸준히 하기가 제일 어려워! JSer.info 번역 이야기 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="일본 프런트엔드 기술 위클리 JSer.info를 번역하고 공유해 온 이야기. 2021년 12월을 맞이하여 작성한 회고와 자기 반성글.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Weekly,FrontEnd,Translate,JSer,Jser.info">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="일본 프런트엔드 기술 위클리 JSer.info를 번역하고 공유해 온 이야기. 2021년 12월을 맞이하여 작성한 회고와 자기 반성글.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="꾸준히 하기가 제일 어려워! JSer.info 번역 이야기">
+<meta property="og:url" content="http://blog.coderifleman.com/2021/12/07/jserinfo_translation_story/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="일본 프런트엔드 기술 위클리 JSer.info를 번역하고 공유해 온 이야기. 2021년 12월을 맞이하여 작성한 회고와 자기 반성글.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="http://blog.coderifleman.com/images/jserinfo_translation_story/jserinfo.01.jpg">
+<meta property="og:image" content="http://blog.coderifleman.com/images/jserinfo_translation_story/jserinfo.02.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/jserinfo_translation_story/jserinfo.03.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/jserinfo_translation_story/jserinfo.04.jpg">
+<meta property="og:image" content="http://blog.coderifleman.com/images/jserinfo_translation_story/jserinfo.05.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/jserinfo_translation_story/jserinfo.06.jpg">
+<meta property="article:published_time" content="2021-12-06T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.011Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Weekly">
+<meta property="article:tag" content="FrontEnd">
+<meta property="article:tag" content="Translate">
+<meta property="article:tag" content="JSer">
+<meta property="article:tag" content="Jser.info">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.coderifleman.com/images/jserinfo_translation_story/jserinfo.01.jpg">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2021/12/07/jserinfo_translation_story/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">꾸준히 하기가 제일 어려워! JSer.info 번역 이야기</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2021-12-07T00:00:00+09:00">
+      2021.12.07
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Weekly/" >
+            #Weekly
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/FrontEnd/" >
+            #FrontEnd
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Translate/" >
+            #Translate
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/JSer/" >
+            #JSer
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Jser-info/" >
+            #Jser.info
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B1%85%EC%9E%84%EA%B0%90-%EC%A3%BC%EC%9E%85"><span class="toc-number">1.</span> <span class="toc-text">책임감 주입!</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EA%BE%B8%EC%A4%80%ED%9E%88-%ED%95%98%EA%B8%B0%EA%B0%80-%EC%A0%9C%EC%9D%BC-%EC%96%B4%EB%A0%A4%EC%9B%8C"><span class="toc-number">2.</span> <span class="toc-text">꾸준히 하기가 제일 어려워!</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2021%EB%85%84%EC%9D%80-%EC%96%B4%EB%95%9F%EC%9D%84%EA%B9%8C"><span class="toc-number">3.</span> <span class="toc-text">2021년은 어땟을까?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%8D%94-%EB%82%98%EC%9D%80-%EB%82%B4%EB%85%84%EC%9D%84-%EC%9C%84%ED%95%B4"><span class="toc-number">4.</span> <span class="toc-text">더 나은 내년을 위해</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%8D%A7%EB%B6%99%EC%9E%84"><span class="toc-number">5.</span> <span class="toc-text">덧붙임</span></a></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        
+    <figure title="undefined">
+      <a href="/images/jserinfo_translation_story/jserinfo.01.jpg" target="_blank">
+        <img 
+          src="/images/jserinfo_translation_story/jserinfo.01.jpg" 
+          alt="" 
+          style=""
+        >
+      </a>
+      
+    </figure>
+  
+
+<p>위클리의 홍수에 살고 있다. 다양한 위클리를 구독하고 메일을 통해서 받아보지만, 그 많은 양을 매일 처리하긴 여간 힘든일이 아니다. 결국에는 쌓이고 쌓여 산적한 소식지로 인해 메일함을 여는 것조차 부담을 느끼게 된다. </p>
+<p>그 과정에서 필자가 취한 전략이 있다. 바로 다양한 소식지를 구독해서 집중도를 떨어뜨리기보다는 “하나만이라도 매번 제대로 챙겨보자.”다.</p>
+<p>필자는 영어에는 그다지 경험과 지식이 없다. 하지만 일본어는 나름 학창 시절 긴 오타쿠 생활을 통해 습득한 일종의 짝퉁 일본어를 갖고 있다. 어디 가서 자랑할 만한 언어 능력은 아니지만 간단한 일본어 기술 문서는 파파고를 벗 삼아 살펴볼 수는 있다.</p>
+<p>그렇게 일본에 괜찮은 프런트엔드 관련 위클리 서비스가 없을까 찾아보다가 만나게 된 게 <a target="_blank" rel="noopener" href="https://jser.info/">JSer.info</a> 다.</p>
+
+    <figure title="JSer.info 사이트 메인 페이지의 모습">
+      <a href="/images/jserinfo_translation_story/jserinfo.02.png" target="_blank">
+        <img 
+          src="/images/jserinfo_translation_story/jserinfo.02.png" 
+          alt="JSer.info 사이트 메인 페이지의 모습" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;JSer.info 메인 페이지&gt;</figcaption>
+    </figure>
+  
+
+<p>JSer.info는 필자와 같은 고민 위에서 탄생한 위클리다. 다양한 위클리 소식을 한데 취합해서 주요한 정보만 간추려 두세 줄의 설명 구와 함께 매주 소식을 발행한다는 목표를 갖고 있다(<a target="_blank" rel="noopener" href="https://jser.info/ko/about/">JSer.info 소개</a> 참고).</p>
+<h2 id="책임감-주입"><a href="#책임감-주입" class="headerlink" title="책임감 주입!"></a>책임감 주입!</h2><p>꾸준히 살펴보기 위해서는 동기가 필요하다. 단순히 읽기만 한다면 금세 바쁘다는 핑계로 건너뛰거나 내팽개칠 게 뻔하다(나란 놈. 그런 놈). 좋은 방법이 없을까 고민한 끝에 결정한 방법이 “번역해서 공유하자” 다.</p>
+<p>이는 순수하게 필자를 위한 전략이다. 번역은 글에 더 집중하게 한다. 눈으로만 훑고 간 것과는 다르게 더 오래 기억에 남고 필요한 정보를 찾아 활용하는 데 도움을 준다. 이어서 꾸준히 읽기 위해서 공유라는 활동을 통해 지속할 수 있는 에너지를 만든다 즉, 일종의 책임감 주입이다.</p>
+<p>2014년 초 즈음 <a target="_blank" rel="noopener" href="https://www.nts-corp.com/">NTS</a>(N-Tech Service)에 근무할 당시 JSer.info의 주인장 <a target="_blank" rel="noopener" href="https://github.com/azu">azu</a>에게 메일을 보내 번역에 대한 허락을 받은 후 사내 메일을 통해 공유를 시작했다. 얼마 안 가 NTS의 기술 블로그 <a target="_blank" rel="noopener" href="https://wit.nts-corp.com/">WIT</a>가 오픈했고 사내 메일이 아닌 WIT에 포스팅하는 방식으로 공유 방법을 전환했다.</p>
+
+    <figure title="WIT 블로그에 번역 & 공유한 JSer.info">
+      <a href="/images/jserinfo_translation_story/jserinfo.03.png" target="_blank">
+        <img 
+          src="/images/jserinfo_translation_story/jserinfo.03.png" 
+          alt="WIT 블로그에 번역 & 공유한 JSer.info" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;WIT 블로그에 번역 & 공유한 JSer.info&gt;</figcaption>
+    </figure>
+  
+
+<p>WIT에 몇 주간 소식지를 공유하니 “왜 여기에 올리고 있지?”라는 생각이 문뜩 들었다. JSer.info는 깃허브를 통해 관리되고 있어 직접 PR 하는 편이 더 좋았기 때문이다. 얼마안가 JSer.info에 직접 기여하기 시작했다.</p>
+<p>2014년 초부터 시작했으니 대략 7년이나 흘렀다. 꽤나 대견하다 싶지만 부끄럽게도 책임감 주입은 반은 성공했고 반은 실패했다.</p>
+<h2 id="꾸준히-하기가-제일-어려워"><a href="#꾸준히-하기가-제일-어려워" class="headerlink" title="꾸준히 하기가 제일 어려워!"></a>꾸준히 하기가 제일 어려워!</h2><p>공유라는 방법으로 책임감을 주입하는 방법은 매년 활동을 이어가는 데는 성공했지만 매주 꾸준히 번역하는 데는 실패했다. 프로젝트 막바지나 정신없는 QA 또는 프로그래밍 문제에 오랜 시간 몰입할 때에는 건너뛰기 일쑤였다.</p>
+
+    <figure title="2015, 2016, 2017 JSer.info 번역 현황">
+      <a href="/images/jserinfo_translation_story/jserinfo.04.jpg" target="_blank">
+        <img 
+          src="/images/jserinfo_translation_story/jserinfo.04.jpg" 
+          alt="2015, 2016, 2017 JSer.info 번역 현황" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;2015, 2016, 2017 JSer.info 번역 현황&gt;</figcaption>
+    </figure>
+  
+
+<p>빨간색은 번역하지 않고 건너뛴 것. 하얀색은 번역해서 커밋한 것이다. 2015년에는 55개 중 22개, 2016년에는 58개 중 31개, 2017년에는 54개 중 30개를 번역했다. 번역하지 않은 소식지는 필자 자신도 살펴보지 않았음을 의미한다.</p>
+<p>누두고 찾지 않더라도 어딘가 공개된 공간에서 활동을 시작하면 책임감을 갖고 꾸준히 이어갈 수 있다고 생각했지만 정작 어떤 피드백이 없는 상황에서 그런 마음을 갖기란 만만치 않은 일이었다.</p>
+<p>이대로는 안 되겠다는 생각에 2019년 새해에 JSer.info 소식지를 매주 꾸준히 번역해서 공유하자는 목표를 세우기도 했다. 그 결과 53개 중 40개를 번역하여 이전보다는 나아졌지만, 목표는 달성하지 못했다. </p>
+<h2 id="2021년은-어땟을까"><a href="#2021년은-어땟을까" class="headerlink" title="2021년은 어땟을까?"></a>2021년은 어땟을까?</h2>
+    <figure title="2021 JSer.info 번역 현황">
+      <a href="/images/jserinfo_translation_story/jserinfo.05.png" target="_blank">
+        <img 
+          src="/images/jserinfo_translation_story/jserinfo.05.png" 
+          alt="2021 JSer.info 번역 현황" 
+          style="max-width:340px"
+        >
+      </a>
+      <figcaption>&lt;2021 JSer.info 번역 현황&gt;</figcaption>
+    </figure>
+  
+
+<p>2021년에는 2019년의 실패를 모범 삼아 다시 한번 의지를 두텁게 갖기 위해 자신을 다독였다. 현재 11월 30일까지의 소식지가 발행됐는데 총 48개 중 43개를 번역하고 공유했다. 지나간 소식이라 큰 의미는 없지만, 미번역한 과거 5개의 소식지도 모두 번역하여 채울 생각이다.</p>
+<p>물론 매주 정해진 시간에 규칙적으로 공유하진 못했기 때문에 활동이 완벽했다고 평가할 순 없다. 한 주 밀려서 두 주 소식을 한 번에 PR 하거나 몇 주 잊고 있다가 다시 챙기는 등 다소 불규칙적으로 활동했다. </p>
+<p>그럼에도 JSer.info를 공유하기 시작한 2014년 이후 가장 많은 소식을 그나마 꾸준하게 나눠왔음은 분명하다. 더 훌륭한 내년을 위해 스스로 희망 섞인 칭찬을 해주고 싶다.  </p>
+<h2 id="더-나은-내년을-위해"><a href="#더-나은-내년을-위해" class="headerlink" title="더 나은 내년을 위해"></a>더 나은 내년을 위해</h2><p>내년에는 더 꾸준하고 규칙적인 JSer.info 활동을 다짐해본다. 한주도 빠짐없이 매주 목요일에 소식을 나눌 수 있기를 희망한다(물론 힘들 거라고 장담한다. 하지만 목표는 세워보자). </p>
+<p>이 글을 빌어 꾸준히 위클리를 취합하고 발행하고 계신 azu님의 노고에도 감사하다는 말을 전한다(앞으로도 잘 부탁 합니다). 아! 참고로 <a href="jserinfo.slack.com">JSer.info 슬랙 채널</a>이 있다. 일본 쪽 커뮤니티라 언어가 아쉽긴 하지만 관심 있는 분은 참고하길 바란다.</p>
+<p>혹시 JSer.info를 가끔이라도 살펴보는 독자분. 혹은 소식을 기다리는 독자분이 있다면 응원의 메시지와 관심을 부탁한다.</p>
+<p>코로나 시국 2021년 모두 고생 많았고 더 나은 2022년이 되길 희망하며 내년에도 잘 부탁한다고 인사 올려본다.</p>
+<h2 id="덧붙임"><a href="#덧붙임" class="headerlink" title="덧붙임"></a>덧붙임</h2>
+    <figure title="네이버웹툰 W FE TECH팀의 Slack 기술 뉴스 채널">
+      <a href="/images/jserinfo_translation_story/jserinfo.06.jpg" target="_blank">
+        <img 
+          src="/images/jserinfo_translation_story/jserinfo.06.jpg" 
+          alt="네이버웹툰 W FE TECH팀의 Slack 기술 뉴스 채널" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;네이버웹툰 W FE TECH팀의 Slack 기술 뉴스 채널&gt;</figcaption>
+    </figure>
+  
+
+<p>팀 내에서는 <a target="_blank" rel="noopener" href="https://realtime.jser.info/">Realtime JSer.info</a>를 구독하여 실시간으로 소식을 공유하고 있으며 좋은 동료 덕분에 함께 토론하고 기술 이해도를 높이는데 도움을 받고 있다. 우리와 함께하고 싶은 분은 언제든지 환영! 네이버웹툰의 <a target="_blank" rel="noopener" href="https://recruit.webtoonscorp.com/webtoon/ko/job/detail?annoId=20007007&classId=170&jobId=&classNm=developer&entTypeCd=&searchTxt=&jobKeyword=">W FE TECH</a> 팀도 관심있게 봐주길 바란다.</p>
+<p>끝!</p>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2023/02/27/hands_on_react_making_it_cohesive/" class="navigation__link">
+        <p class="navigation__title ellipsis">실전! 리액트, 응집성 있게 가자!</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2023-02-27T00:00:00+09:00">
+      2023.02.27
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        React.js에서 로직을 어떻게 응집성 있게 관리할 수 있는지 간단한 송금 예제와 함께 소개한다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2021/11/17/a-strong-and-maintainable-test-strategy/" class="navigation__link">
+        <p class="navigation__title ellipsis">힘세고 오래가는 테스트 전략</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2021-11-17T00:00:00+09:00">
+      2021.11.17
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        웹 애플리케이션에서 무엇을 테스트 해야 할지 또, 어떤 관점에서 코드를 바라봐야 장기적으로도 유용한 결과물을 만들 수 있는지 이야기합니다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2021/12/07/jserinfo_translation_story/';
+      this.page.identifier = '2021/12/07/jserinfo_translation_story/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

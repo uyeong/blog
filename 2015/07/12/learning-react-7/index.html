@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React.js를 이해하다(7) | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 마지막 편입니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,React">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 마지막 편입니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React.js를 이해하다(7)">
+<meta property="og:url" content="http://blog.coderifleman.com/2015/07/12/learning-react-7/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 마지막 편입니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="http://blog.coderifleman.com/images/learning-react-7/react_debugging_tool.01.png">
+<meta property="article:published_time" content="2015-07-11T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.013Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.coderifleman.com/images/learning-react-7/react_debugging_tool.01.png">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2015/07/12/learning-react-7/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">React.js를 이해하다(7)</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-07-12T00:00:00+09:00">
+      2015.07.12
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/React/" >
+            #React
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js-CSS"><span class="toc-number">1.</span> <span class="toc-text">React.js + CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS%EB%A5%BC-%ED%99%95%EC%9E%A5%ED%95%A0-%EB%95%8C%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90"><span class="toc-number">1.1.</span> <span class="toc-text">CSS를 확장할 때의 문제점</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Global-Namespace"><span class="toc-number">1.1.1.</span> <span class="toc-text">Global Namespace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dependencies"><span class="toc-number">1.1.2.</span> <span class="toc-text">Dependencies</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dead-Code-Elimination"><span class="toc-number">1.1.3.</span> <span class="toc-text">Dead Code Elimination</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Minification"><span class="toc-number">1.1.4.</span> <span class="toc-text">Minification</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Sharing-Constantsn"><span class="toc-number">1.1.5.</span> <span class="toc-text">Sharing Constantsn</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Non-deterministic-Resolution"><span class="toc-number">1.1.6.</span> <span class="toc-text">Non-deterministic Resolution</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Isolation"><span class="toc-number">1.1.7.</span> <span class="toc-text">Isolation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B7%B8%EB%A0%87%EB%8B%A4%EB%A9%B4-CSS-in-JS"><span class="toc-number">1.2.</span> <span class="toc-text">그렇다면 CSS in JS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js-in-future"><span class="toc-number">2.</span> <span class="toc-text">React.js in future</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%A7%80%EA%B8%88%EA%B9%8C%EC%A7%80%EC%9D%98-React-js"><span class="toc-number">2.1.</span> <span class="toc-text">지금까지의 React.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0%EA%B3%BC-%EA%B7%B8-%EC%95%9E"><span class="toc-number">2.2.</span> <span class="toc-text">1.0과 그 앞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React-js%EC%9D%98-%EB%AF%B8%EB%9E%98"><span class="toc-number">2.3.</span> <span class="toc-text">React.js의 미래</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Class"><span class="toc-number">2.3.1.</span> <span class="toc-text">Class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mixin"><span class="toc-number">2.3.2.</span> <span class="toc-text">mixin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Stateless-Functions"><span class="toc-number">2.3.3.</span> <span class="toc-text">Stateless Functions</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Elements"><span class="toc-number">2.3.4.</span> <span class="toc-text">Elements</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Object-%EB%A6%AC%ED%84%B0%EB%9F%B4"><span class="toc-number">2.3.4.1.</span> <span class="toc-text">Object 리터럴</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Native-Components"><span class="toc-number">2.3.4.2.</span> <span class="toc-text">Native Components</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Template-Strings"><span class="toc-number">2.3.4.3.</span> <span class="toc-text">Template Strings</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%97%90-%EA%B4%80%ED%95%9C-%EB%A6%AC%EC%86%8C%EC%8A%A4-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EC%A0%95%EB%A6%AC"><span class="toc-number">3.</span> <span class="toc-text">React.js에 관한 리소스, 그리고 정리</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%A6%AC%EC%86%8C%EC%8A%A4-%EC%A0%95%EB%A6%AC"><span class="toc-number">3.1.</span> <span class="toc-text">리소스 정리</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EA%B3%B5%EC%8B%9D-%EC%82%AC%EC%9D%B4%ED%8A%B8"><span class="toc-number">3.1.1.</span> <span class="toc-text">공식 사이트</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%83%98%ED%94%8C-%EB%AA%A8%EC%9D%8C%EC%A7%91"><span class="toc-number">3.1.2.</span> <span class="toc-text">컴포넌트, 샘플 모음집</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%9E%85%EB%AC%B8"><span class="toc-number">3.1.3.</span> <span class="toc-text">입문</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Virtual-DOM"><span class="toc-number">3.1.4.</span> <span class="toc-text">Virtual DOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flux"><span class="toc-number">3.1.5.</span> <span class="toc-text">Flux</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Developer-tool"><span class="toc-number">3.1.6.</span> <span class="toc-text">Developer tool</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">4.</span> <span class="toc-text">정리</span></a></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        
+    <div class="alert alert--info">
+      
+        <strong class="alert__title">
+          읽기전에...
+        </strong>
+      
+      <div class="alert__body">
+        <p>이 문서는 <a target="_blank" rel="noopener" href="http://qiita.com/koba04">koba04</a>님이 작성한 <a target="_blank" rel="noopener" href="http://qiita.com/advent-calendar/2014/reactjs">React.js Advent Calendar</a>를 번역한 것입니다. 본래 원문서는 캘린더 형식으로 소개하지만 여기에서는 회를 나눠 작성할 생각입니다. 또한, React 버전 0.12.1 때 작성된 문서이기 때문에 현 버전과 다른 점이 있을 수 있습니다. 최대한 다른 부분을 노트로 작성할 생각이지만, 만약 생략된 부분이 있다면 댓글로 알려주시면 감사하겠습니다.</p>
+
+      </div>
+    </div>
+  
+
+<h2 id="React-js-CSS"><a href="#React-js-CSS" class="headerlink" title="React.js + CSS"></a>React.js + CSS</h2><p>React.js 개발자인 <a target="_blank" rel="noopener" href="https://twitter.com/vjeux">vjeux</a>가 「<a target="_blank" rel="noopener" href="https://speakerdeck.com/vjeux/react-css-in-js">React:CSS in JS</a>」 라는 주제로 발표를 했는데 그 내용이 꽤 흥미있고 React.js와도 관계가 있는 것이기 때문에 소개하고자 합니다. 또다른 React.js 개발자 zpao의 「<a target="_blank" rel="noopener" href="https://speakerdeck.com/zpao/react-through-the-ages">React Through the Ages</a>」 라는 발표에서도 이 관점에 관해 언급하고 있습니다.</p>
+<h3 id="CSS를-확장할-때의-문제점"><a href="#CSS를-확장할-때의-문제점" class="headerlink" title="CSS를 확장할 때의 문제점"></a>CSS를 확장할 때의 문제점</h3><ol>
+<li>Global Namespace</li>
+<li>Dependencies</li>
+<li>Dead Code Elimination</li>
+<li>Minification</li>
+<li>Sharing Constantsn</li>
+<li>Non-deterministic Resolution</li>
+<li>Isolation</li>
+</ol>
+<p>여기에서 말하는 확장은 페이스북 정도의 규모에서 확장을 말하는 것 같습니다.</p>
+<h4 id="Global-Namespace"><a href="#Global-Namespace" class="headerlink" title="Global Namespace"></a>Global Namespace</h4><p>CSS에서 모든 것은 글로벌 공간에 선언되기 때문에 명명 규칙 등으로 분할할 필요가 있습니다.(부트스트랩은 600개의 전역 이름을 정의하고 있습니다.)</p>
+<h4 id="Dependencies"><a href="#Dependencies" class="headerlink" title="Dependencies"></a>Dependencies</h4><p>컴포넌트와의 의존 관계를 관리하기 힘듭니다. 컴포넌트 내에서 requireCSS 처럼 CSS를 읽어 들이도록 했다고 하더라도 다른 곳에서 이미 그 CSS를 require 했다면 이미 동작하게 됩니다.</p>
+<h4 id="Dead-Code-Elimination"><a href="#Dead-Code-Elimination" class="headerlink" title="Dead Code Elimination"></a>Dead Code Elimination</h4><p>미사용 코드를 검출하기 어렵습니다.</p>
+<h4 id="Minification"><a href="#Minification" class="headerlink" title="Minification"></a>Minification</h4><p>class 명의 minification에 관한 것입니다. (저자: 할 필요가 있는지 의문입니다) 이것도 템플릿(HTML or JS)과 CSS를 대응하여 개발할 필요가 있습니다.</p>
+<h4 id="Sharing-Constantsn"><a href="#Sharing-Constantsn" class="headerlink" title="Sharing Constantsn"></a>Sharing Constantsn</h4><p>CSS와 JS 측에서 변수를 공유하기 어렵습니다.</p>
+<h4 id="Non-deterministic-Resolution"><a href="#Non-deterministic-Resolution" class="headerlink" title="Non-deterministic Resolution"></a>Non-deterministic Resolution</h4><p>CSS에서는 상세한 속성이 같은 경우 나중에 작성한 것이 우선됩니다. 그래서 requireCSS 등의 구조를 사용해 컴포넌트와 같이 비동기로 CSS를 읽을 경우 읽는 순서에 따라 다르게 출력돼 의도하지 않는 결과가 발생할 수 있습니다.</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>foo bar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>xxx<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">.foo</span> <span class="token punctuation">&#123;</span><span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">&#125;</span>
+<span class="token selector">.bar</span> <span class="token punctuation">&#123;</span><span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* or */</span>
+
+<span class="token selector">.bar</span> <span class="token punctuation">&#123;</span><span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">&#125;</span>
+<span class="token selector">.foo</span> <span class="token punctuation">&#123;</span><span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">&#125;</span></code></pre>
+
+<p>이를 회피하기 위해서 상세한 속성을 수정하는 등의 작업이 필요할 수 있습니다.</p>
+<h4 id="Isolation"><a href="#Isolation" class="headerlink" title="Isolation"></a>Isolation</h4><p>React.js에서 Button 컴포넌트를 만들었을 때 이 button 태그의 스타일을 지정하려면 Button 컴포넌트가 어떤 태그 구조로 구현돼 있는지를 알아야 할 필요가 있어 컴포넌트를 잘 분리 할 수 없습니다.</p>
+<pre class="language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>foo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span><span class="token punctuation">/></span></span> <span class="token comment">&lt;!-- &lt;div>&lt;button>xxx&lt;/button>&lt;/div> --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">.foo > div</span> <span class="token punctuation">&#123;</span>
+  ...
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="그렇다면-CSS-in-JS"><a href="#그렇다면-CSS-in-JS" class="headerlink" title="그렇다면 CSS in JS"></a>그렇다면 CSS in JS</h3><p>위와 같은 문제는 Sass 같은 CSS Preprocessor 등을 사용하거나 설계 레벨에서 해결 가능한 것도 있지만, CSS를 JavaScript의 Object 형태로 컴포넌트의 스타일을 지정하는데 사용하면 문제를 해결할 수 있지 않을까 하는 접근법입니다. 즉, 템플릿(HTML)을 JS의 안에 가지고 온 것(JSX)처럼 CSS도 JS 안으로 가지고 오겠다는 뜻입니다.</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> style <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  container<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    backgroundColor<span class="token operator">:</span> <span class="token string">'#ddd'</span><span class="token punctuation">,</span>
+    width<span class="token operator">:</span> <span class="token number">900</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">var</span> Container <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token operator">&lt;</span>div style<span class="token operator">=</span><span class="token punctuation">&#123;</span>style<span class="token punctuation">.</span>container<span class="token punctuation">&#125;</span><span class="token operator">></span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>children<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>아래와 같은 함수를 이용하면 조금 더 유연하게 스타일을 지정할 수 있습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">function</span> <span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> res <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arguments<span class="token punctuation">.</span>length<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>arguments<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token function">assign</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> arguments<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token function">m</span><span class="token punctuation">(</span>
+  style<span class="token punctuation">.</span>container<span class="token punctuation">,</span>
+  <span class="token punctuation">&#123;</span> marginTop<span class="token operator">:</span> <span class="token number">10</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>isWarning <span class="token operator">&amp;&amp;</span> <span class="token punctuation">&#123;</span>color<span class="token operator">:</span> <span class="token string">'red'</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">xxx</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+
+<p>또, Prop을 공개해 밖에서 스타일을 지정하도록 할 수 있습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">propTypes<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  style<span class="token operator">:</span> React<span class="token punctuation">.</span>PropTypes<span class="token punctuation">.</span>object
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token function">m</span><span class="token punctuation">(</span>style<span class="token punctuation">.</span>container<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>style<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">xxx</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>스타일의 우선 순위는 순서를 조절하는 것으로 간단히 변경할 수 있습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx">propTypes<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  style<span class="token operator">:</span> React<span class="token punctuation">.</span>PropTypes<span class="token punctuation">.</span>object
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token function">m</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>style<span class="token punctuation">,</span> style<span class="token punctuation">.</span>container<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">xxx</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>이처럼 컴포넌트에 직접 지정하는 것으로 상세한 속성 등은 알 필요 없어지고 JavaScript에 가져오는 것으로 프로그래밍적으로 처리 가능하며 공통화나 상속 등도 간단히 실현할 수 있어 그 결과 처음에 언급한 여러가지 문제를 해결할 수 있습니다. 예에서는 스타일을 컴포넌트의 안에 작성했지만 다른 파일에 작성하고 require 해서 사용할 수도 있습니다. </p>
+<p>JavaScript 쪽으로 마크업을 가지고 온 JSX 처럼 CSS도 JavaScript로 가져오자는 이 접근에 관해 어떻게 생각하시나요? 여기까지 CSS in JS를 소개했습니다.</p>
+<h2 id="React-js-in-future"><a href="#React-js-in-future" class="headerlink" title="React.js in future"></a>React.js in future</h2><p>React.js의 향후라는 주제로 이번 절을 작성할까 합니다. React.js의 로드맵은 facebook/react와는 다른 저장소 인 <a target="_blank" rel="noopener" href="https://github.com/reactjs/react-future">react-future</a>에서 논의되고 있습니다. 여기에 있는 것은 어디까지나 아이디어 수준이지만 구체적인 코드로 설명돼 있어서 어떤 모습일지 예측하기 쉽습니다.</p>
+<p>또, 이전 절에서도 소개했던 「React Through the Ages」 슬라이드에서도 React.js의 현재와 미래에 대해서 이야기하고 있으므로 참고하세요.</p>
+<h3 id="지금까지의-React-js"><a href="#지금까지의-React-js" class="headerlink" title="지금까지의 React.js"></a>지금까지의 React.js</h3><p>React.js는 원래 페이스북이 PHP + XML로 만든 <a target="_blank" rel="noopener" href="https://github.com/facebook/xhp-lib">XHP</a> 프로젝트에서 시작됐습니다. 이를 JavaScript에 가져온 것이 React.js입니다. 애플리케이션 전체적으로 rerender 하는 구조는 서버 측의 rendering 방식과 비슷하다는 점에서도 이런 흐름을 예측할 수 있습니다. 또, React.js는 최초엔 <a target="_blank" rel="noopener" href="https://ja.wikipedia.org/wiki/Standard_ML">Standard ML</a>로 만들어졌다가 그 뒤 Haxe가 되어 지금의 Pure한  JavaScript가 됐습니다.</p>
+<h3 id="1-0과-그-앞"><a href="#1-0과-그-앞" class="headerlink" title="1.0과 그 앞"></a>1.0과 그 앞</h3><p>「React Through the Ages」를 보면 API의 안정화와 삭제 그리고 ES6, 7 사양을 따르려고 하는 의도를 느낄 수 있습니다. ES6, 7에서 사용할 수 있는 기능을 최대한 활용하여 React.js 자체에서는 부가적인 처리를 하지 않겠다는 방향성을 엿볼 수 있습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">class</span> <span class="token class-name">Button</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">getInitialState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>count<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>count<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<ul>
+<li><strong>CSS in JS</strong> : 이는 이전 절에서 소개한 CSS의 문제를 해결하기 위한 접근 방식입니다.</li>
+<li><strong>Web Workers</strong> : VirtualDOM 계산을 WebWorkers에서 하는 것으로 UI 단에 좋은 영향을 줄 수 있다면 도입하고 싶다고 합니다.</li>
+<li><strong>Layout &amp; Animation</strong> : 어떠한 방식으로 정의하도록 하느냐가 어려운 문제이지만 중요한 기능이기 때문에 지원하고 싶다고 합니다.</li>
+<li><strong>M(V)C</strong> : 자신(페이스북)은 필요하지 않지만 많은 개발자가 React.js를 사용했을 때의 MVC의 M과 C에 대해 논의하거나 개발하고 있는 것을 보고 이에 대한 지원도 중요한 사항으로 여기는 것 같습니다. React.js가 풀-프레임워크가 되는 일은 없을 것 같습니다만…</li>
+<li><strong>Other</strong> : 이 외에도 새로운 테스트 지원이나 문서, Immutable Data 등 다양한 아이디어가 있는 것 같습니다.</li>
+</ul>
+<h3 id="React-js의-미래"><a href="#React-js의-미래" class="headerlink" title="React.js의 미래"></a>React.js의 미래</h3><p>react-future의 저장소를 보면 ES6, 7의 기능을 도입할 경우의 형태를 볼 수 있습니다. 단, 여기에서 소개하는 기능은 아직 구현돼 있지 않고 합의된 것도 아니기 때문에 이렇게 지원된다고 장담할 순 없습니다.</p>
+
+    <div class="alert alert--info">
+      
+        <strong class="alert__title">
+          역자노트
+        </strong>
+      
+      <div class="alert__body">
+        <p>일부 기능은 이미 사용할 수 있습니다. 원문이 2014년 12월에 작성됐다는 사실을 감안해주세요.</p>
+
+      </div>
+    </div>
+  
+
+<h4 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h4><pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span>Component<span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Button</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">&#123;</span>
+  props <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    width<span class="token operator">:</span> number
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">static</span> defaultProps <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    width<span class="token operator">:</span> <span class="token number">100</span>
+  <span class="token punctuation">&#125;</span>
+  state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    counter<span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>width <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function-variable function">handleClick</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    event<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>counter<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>counter <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token parameter">props<span class="token punctuation">,</span> state</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        This button has been clicked: </span><span class="token punctuation">&#123;</span>state<span class="token punctuation">.</span>counter<span class="token punctuation">&#125;</span><span class="token plain-text"> times
+        &lt;button onClick=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleClick<span class="token punctuation">&#125;</span><span class="token plain-text"> style=&amp;#123;&amp;#123;width: props.width&#125;&#125;/>
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>ES6의 Module이나 Class, ArrowFunction 등이 사용됐고 React.js 독자적인 부분이 적어졌습니다. 또 props의 형 지정 방식도 변경 됐는데 이는 facebook/flow와 연계될 수도 있을 것 같습니다. (댓글에는 TypeScript compatible syntax로 작성돼 있지만) 또, render에 props와 state를 인자로 전달하는 것 같은 형태로 돼 있습니다.</p>
+<h4 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h4><pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> mixin <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react-utils'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token constant">A</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'A'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">mixin</span><span class="token punctuation">(</span><span class="token constant">A</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'B'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">new</span> <span class="token class-name">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// B, A</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> Component <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Component</span> <span class="token keyword">extends</span> <span class="token class-name">mixin</span><span class="token punctuation">(</span>Component<span class="token punctuation">,</span> <span class="token constant">C</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">/></span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>mixin은 util로써 준비하고, super로 부모의 것을 호출하는 식으로 디자인돼 있습니다. state의 merge 방식에 관한 문제가 있는 것 같습니다.</p>
+<h4 id="Stateless-Functions"><a href="#Stateless-Functions" class="headerlink" title="Stateless Functions"></a>Stateless Functions</h4><pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">Button</span><span class="token punctuation">(</span>props <span class="token operator">:</span> <span class="token punctuation">&#123;</span>width<span class="token operator">:</span> number<span class="token punctuation">,</span> <span class="token function-variable function">onClick</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+      Fancy button
+      &lt;button onClick=</span><span class="token punctuation">&#123;</span>props<span class="token punctuation">.</span>onClick<span class="token punctuation">&#125;</span><span class="token plain-text"> style=&amp;#123;&amp;#123;width: props.width&#125;&#125;/>
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>Prop 만을 갖는 Stateless한 컴포넌트는 Prop을 전달받는 함수로써 정의할 수 있도록 돼 있습니다.</p>
+<h4 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h4><p>JavaScript 객체 문법이나 JSX 이외에도 여러가지 방법으로 React Element를 작성할 수 있도록 하고자 하는 바램이 있는 것 같습니다.</p>
+<h5 id="Object-리터럴"><a href="#Object-리터럴" class="headerlink" title="Object 리터럴"></a>Object 리터럴</h5><pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token punctuation">&#123;</span>
+  type<span class="token operator">:</span> Button<span class="token punctuation">,</span>
+  props<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    foo<span class="token operator">:</span> bar<span class="token punctuation">,</span>
+    children<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">&#123;</span> type<span class="token operator">:</span> <span class="token string">'span'</span><span class="token punctuation">,</span> props<span class="token operator">:</span> <span class="token punctuation">&#123;</span> children<span class="token operator">:</span> a <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#123;</span> type<span class="token operator">:</span> <span class="token string">'span'</span><span class="token punctuation">,</span> props<span class="token operator">:</span> <span class="token punctuation">&#123;</span> children<span class="token operator">:</span> b <span class="token punctuation">&#125;</span> <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token comment">// optional</span>
+  key<span class="token operator">:</span> <span class="token string">'mybutton'</span><span class="token punctuation">,</span>
+  ref<span class="token operator">:</span> myButtonRef
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h5 id="Native-Components"><a href="#Native-Components" class="headerlink" title="Native Components"></a>Native Components</h5><p>React.DOM 이하의 API는 없어지고 단순한 문자열로 정의할 수 있도록 돼 있습니다. 또 Web Components의 커스텀 태그에도 호환성을 지니게 돼 있습니다.</p>
+<h5 id="Template-Strings"><a href="#Template-Strings" class="headerlink" title="Template Strings"></a>Template Strings</h5><p>ES6의 Template Strings을 이용해 정의할 수 있도록 돼 있습니다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token constant">X</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+ &lt;my-button foo=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>bar<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> key="mybutton" ref=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>myButtonRef<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">>
+   &lt;span></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>a<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">&lt;/span>
+   &lt;span></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>b<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">&lt;/span>
+ &lt;/my-button>
+</span><span class="token template-punctuation string">`</span></span></code></pre>
+
+<p>이외에도 여러가지 소개하고 있으므로 흥미가 있다면 꼭 한번 읽어보시길 바랍니다.</p>
+<h2 id="React-js에-관한-리소스-그리고-정리"><a href="#React-js에-관한-리소스-그리고-정리" class="headerlink" title="React.js에 관한 리소스, 그리고 정리"></a>React.js에 관한 리소스, 그리고 정리</h2><p>여기까지 React.js를 소개했습니만, 조금이라도 사용하는데 참고가 됐다면 좋겠습니다. React.js는 facebook, instagram이나 Github의 AtomEditor 물론, 「Atlassian」, 「Netflix」, 「Reddit」, 「The New York Times」, 「Yahoo」 등 많은 곳에서 사용하고 있는 것 같습니다(<a target="_blank" rel="noopener" href="https://github.com/facebook/react/wiki/Sites-Using-React">참고</a>).</p>
+<p>또, 내년 1월말에는 <a target="_blank" rel="noopener" href="http://conf.reactjs.com/">React.js Conf</a>가 있으므로 여러가지 소식이 공유되고 점점 분위기도 무르익을 것으로 생각됩니다. 내년도 즐거운 한해가 될 것 같습니다.</p>
+<p>React.js의 <a target="_blank" rel="noopener" href="http://facebook.github.io/react/blog/">공식 블로그</a>나 <a target="_blank" rel="noopener" href="https://twitter.com/hashtag/reactjs?f=realtime&src=hash">#reactjs</a> 해쉬 태그를 구독하면 여러가지 정보를 모을 수 있습니다.</p>
+<h3 id="리소스-정리"><a href="#리소스-정리" class="headerlink" title="리소스 정리"></a>리소스 정리</h3><p>개인적으로 읽고 재미있었던 것이나 공식적인 사이트를 정리해봤습니다.</p>
+<h4 id="공식-사이트"><a href="#공식-사이트" class="headerlink" title="공식 사이트"></a>공식 사이트</h4><ul>
+<li><a target="_blank" rel="noopener" href="http://facebook.github.io/react/">공식 홈페이지</a>(<a target="_blank" rel="noopener" href="http://reactkr.github.io/react/index.html">한국어</a>)</li>
+<li><a target="_blank" rel="noopener" href="http://facebook.github.io/flux/">Flux</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/facebook/react/wiki/Complementary-Tools">Complementary Tools</a></li>
+<li><a target="_blank" rel="noopener" href="http://facebook.github.io/immutable-js/">Immutable.js</a></li>
+<li><a target="_blank" rel="noopener" href="http://facebook.github.io/jest/">Jest</a></li>
+</ul>
+<h4 id="컴포넌트-샘플-모음집"><a href="#컴포넌트-샘플-모음집" class="headerlink" title="컴포넌트, 샘플 모음집"></a>컴포넌트, 샘플 모음집</h4><ul>
+<li><a target="_blank" rel="noopener" href="http://react-components.com/">React Coponents</a>: 공개된 React.js 컴포넌트가 정리돼 있습니다.</li>
+<li><a target="_blank" rel="noopener" href="http://react.rocks/">React Rocks</a>: React.js의 샘플이나 데모가 모여있습니다.</li>
+</ul>
+<h4 id="입문"><a href="#입문" class="headerlink" title="입문"></a>입문</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://scotch.io/tutorials/learning-react-getting-started-and-concepts">Learning React.js: Getting Started and Concepts</a>: React.js를 사용하여 앱을 만드는 과정을 순차적으로 쉽게 설명하고 있습니다.</li>
+<li><a target="_blank" rel="noopener" href="http://www.slideshare.net/AndrewHull/react-js-and-why-its-awesome">React JS and why it’s awesome</a>: React.js의 장점이 잘 설명돼 있습니다.</li>
+</ul>
+<h4 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://speakerdeck.com/vjeux/oscon-react-architecture">OSCON - React Architecture</a>: 페이스북 개발자가 설명하는 React.js의 VirualDOM 구현 단의 이야기 입니다.</li>
+<li><a target="_blank" rel="noopener" href="http://slides.com/danabramov/components-react-flux-wip#/">Components, React and Flux</a>: React.js와 Flux를 코드와 함께 이해하기 쉽게 설명하고 있습니다.</li>
+</ul>
+<h4 id="Flux"><a href="#Flux" class="headerlink" title="Flux"></a>Flux</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://speakerdeck.com/mridgway/isomorphic-flux">Isomorphic Flux</a>: Yahoo가 Isomorphic한 Flux 애플리케이션을 만든 이야기입니다.</li>
+<li><a target="_blank" rel="noopener" href="https://speakerdeck.com/fisherwebdev/flux-meetup">flux-meetup</a>: 페이스북의 개발자가 하는 React.js와 Flux에 관한 설명입니다.</li>
+</ul>
+<h4 id="Developer-tool"><a href="#Developer-tool" class="headerlink" title="Developer tool"></a>Developer tool</h4><p>소개하는 것을 깜빡 잊고 있었습니다. React.js 개발을 할 때에 편리하게 사용할 수 있는 크롬 확장 도구인 <a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi">React Developer Tools</a>도 있습니다.</p>
+<p>아래 그림과 같이 React.js를 사용하는 페이지에 가면 개발자 도구에 React탭이 표시되고 거기서 HTML의 태그가 아니라 Component로 볼 수 있습니다. 또, Prop과 State및 EventListener와 Component의 값도 확인 할 수 있어 편리하게 디버깅할 수 있습니다.</p>
+
+    <figure title="React Developer Tools">
+      <a href="/images/learning-react-7/react_debugging_tool.01.png" target="_blank">
+        <img 
+          src="/images/learning-react-7/react_debugging_tool.01.png" 
+          alt="React Developer Tools" 
+          style=""
+        >
+      </a>
+      <figcaption>&lt;그림 1 React Developer Tools&gt;</figcaption>
+    </figure>
+  
+
+<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>역시 읽을 때와 번역해서 공유할 때 느낌은 많이 다르네요. 알아서 이해했던 것들도 신경 써야 하니 시간이 좀 걸렸습니다.  koba04님의 React.js Advent Calendar는 제가 처음 React.js를 학습할때 도움을 받았던 문서였기 때문에 무엇부터 차근차근 봐야 할지 모르시는 분들이 있을 것 같아서 일본어 문서를 번역했습니다. React.js를 이해하는데 많은 도움이 되길 간절히 바라면서 이만 마치도록 하겠습니다.</p>
+<p>여기까지 React.js를 소개했습니다. 끝까지 읽어주셔서 감사합니다!</p>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2015/08/16/react-and-immutable/" class="navigation__link">
+        <p class="navigation__title ellipsis">React와 불변객체</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-08-16T00:00:00+09:00">
+      2015.08.16
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        불변객체(Immutable Object)의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개합니다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2015/07/11/learning-react-6/" class="navigation__link">
+        <p class="navigation__title ellipsis">React.js를 이해하다(6)</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-07-11T00:00:00+09:00">
+      2015.07.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 여섯번째 편입니다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2015/07/12/learning-react-7/';
+      this.page.identifier = '2015/07/12/learning-react-7/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

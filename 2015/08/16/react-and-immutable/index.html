@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React와 불변객체 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="불변객체(Immutable Object)의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개합니다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,React,Immutable Object">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="불변객체(Immutable Object)의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개합니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React와 불변객체">
+<meta property="og:url" content="http://blog.coderifleman.com/2015/08/16/react-and-immutable/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="불변객체(Immutable Object)의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개합니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2015-08-15T15:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T05:45:21.013Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Immutable Object">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2015/08/16/react-and-immutable/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">React와 불변객체</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-08-16T00:00:00+09:00">
+      2015.08.16
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/React/" >
+            #React
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Immutable-Object/" >
+            #Immutable Object
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+        <aside class="post__toc">
+          <h2>목차</h2>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4%EB%9E%80"><span class="toc-number">1.</span> <span class="toc-text">불변객체란?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%92-%EA%B0%9D%EC%B2%B4"><span class="toc-number">1.1.</span> <span class="toc-text">값 객체</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%99%80-%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4"><span class="toc-number">2.</span> <span class="toc-text">React.js와 불변객체</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%80%EB%B3%80-%EA%B0%9D%EC%B2%B4%EC%9D%BC-%EB%95%8C"><span class="toc-number">2.1.</span> <span class="toc-text">가변 객체일 때</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B6%88%EB%B3%80-%EA%B0%9D%EC%B2%B4%EC%9D%BC-%EB%95%8C"><span class="toc-number">2.2.</span> <span class="toc-text">불변 객체일 때</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">3.</span> <span class="toc-text">정리</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
+        </aside>
+      
+      <div class="post__contents">
+        <p>이번에는 불변객체의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개하고자 합니다.</p>
+<h2 id="불변객체란"><a href="#불변객체란" class="headerlink" title="불변객체란?"></a>불변객체란?</h2><p>객체 지향 프로그래밍에 있어서 불변객체(Immutable object)는 생성 후 그 상태를 변경할 수 없는 객체를 말합니다. 불변객체의 반대말은 가변객체로 자바스크립트의 배열과 같이 객체 내에서 관리하는 값이나 상태를 변경할 수 있는 것을 말합니다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> greeting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">'Hello World!!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+greeting<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'World'</span><span class="token punctuation">,</span> <span class="token string">'Gil-dong'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+greeting<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Hello World!!</span></code></pre>
+
+<p>위 예에서 <code>greeting</code> 변수에 문자열 객체를 생성해 대입했습니다. 그리고 문자열 객체의 <code>replace</code> 메서드를 이용해 ‘World’라는 문자열을 ‘Gil-dong’으로 변경했습니다. 하지만 여전히 <code>greeting</code>의 값은 ‘Hello World’ 입니다.</p>
+<p><code>greeting</code>에 생성한 문자열 객체는 불변 객체이므로 객체 자신이 소유하거나 관리하는 값 또는 상태를 바꿀 수 없습니다. 따라서 <code>replace</code> 메서드는 새로운 상태를 가지는 또 다른 객체를 생성합니다.</p>
+<p>변수에 값을 바꾸기 위해서는 아래 처럼 새로운 객체를 변수에 대입해야 합니다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> greeting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">'Hello World!!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+greeting <span class="token operator">=</span> greeting<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'World'</span><span class="token punctuation">,</span> <span class="token string">'Gil-dong'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+greeting<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Hello Gil-dong!!</span></code></pre>
+
+<h3 id="값-객체"><a href="#값-객체" class="headerlink" title="값 객체"></a>값 객체</h3><p>이러한 불변 객체의 특성은 우리가 밀접히 사용하는 <code>Number</code>, <code>String</code>, <code>Boolean</code>과 같은 값 객체에서 만날 수 있습니다. 값 객체란 비교 연산 시 자신의 상태보다 값(value)을 우선하는 단순한 객체를 말합니다.</p>
+
+    <div class="alert alert--info">
+      
+        <strong class="alert__title">
+          자바스크립트에서 비교 연산
+        </strong>
+      
+      <div class="alert__body">
+        <p>여기에서는 이해를 돕기 위해 생성자를 이용해 문자열이나 정수를 생성하고 있지만, 자바스크립트에서 생성자를 이용해 원시 타입 객체를 생성하면 비교 연산 시 참조를 이용해 비교합니다. 따라서 항상 리터럴 표기법으로 값을 다루기 바랍니다.</p>
+<pre style='display:block'>
+<code class='language-javascript'>
+    new String('Hello') === new String('Hello'); // false
+    new Number(5) === new Number(5); // false
+</code>
+</pre>
+      </div>
+    </div>
+  
+
+<p>값 객체는 값을 이용해 새로운 값을 만들어 낼 수 있지만 값 자체를 변경할 수 없습니다. 즉, 불변입니다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> num <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Number</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+num <span class="token operator">=</span> num <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">Number</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+num<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 5</span></code></pre>
+
+<p>위에서 숫자 <code>2</code>를 생성한 후 숫자 <code>3</code>을 더해 숫자 <code>5</code>를 얻고 있습니다. 숫자 <code>2</code>에 숫자 <code>3</code>을 더하는 것은 값 자체를 바꾸는 것이 아니라 새로운 값을 생성하는 것입니다. 이러한 특징은 상태를 변화시키지 않으며 새로운 값을 생성하는 함수형 스타일(functional style)과 닮았습니다.</p>
+<h2 id="React-js와-불변객체"><a href="#React-js와-불변객체" class="headerlink" title="React.js와 불변객체"></a>React.js와 불변객체</h2><p>React 컴포넌트의 라이프 사이클 메서드 중에는 <code>shouldComponentUpdate</code> 메서드가 있습니다. 이 메서드는 컴포넌트가 다시 그려지기 전에 호출되며 만약 <code>false</code>를 반환하면 컴포넌트의 VirtualDOM을 비교하지 않습니다.</p>
+<p>다량으로 엘리먼트를 출력하는 리스트나 피드와 같은 컴포넌트는 매번 VirtualDOM을 비교하게 되면 성능 문제가 발생할 수 있으므로 필수로 사용해야 하는 메서드입니다(대도록이면 모든 컴포넌트에 작성하는 습관을 들이는게 좋습니다).</p>
+<h3 id="가변-객체일-때"><a href="#가변-객체일-때" class="headerlink" title="가변 객체일 때"></a>가변 객체일 때</h3><p>잘 알려진 TodoMVC를 예를 들어 설명하겠습니다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// todoItem.js</span>
+<span class="token function">shouldComponentUpdate</span><span class="token punctuation">(</span><span class="token parameter">nextProps<span class="token punctuation">,</span> nextState</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    nextProps<span class="token punctuation">.</span>todo <span class="token operator">!==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>todo <span class="token operator">||</span>
+    nextState<span class="token punctuation">.</span>label <span class="token operator">!==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>label
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>todoItem 컴포넌트의 <code>shouldComponentUpdate</code> 메서드는 prop 속성으로 전달된 todo 객체를 비교하여 VirtualDOM을 비교할지 말지 결정하고 있습니다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// todoHome.js</span>
+<span class="token function">onUpdate</span><span class="token punctuation">(</span><span class="token parameter">todoId<span class="token punctuation">,</span> label</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>todoId<span class="token punctuation">,</span> label<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// todos.js</span>
+<span class="token function">update</span><span class="token punctuation">(</span><span class="token parameter">todoId<span class="token punctuation">,</span> label</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> todo <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_todos<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">todo</span><span class="token punctuation">)</span> <span class="token operator">=></span> todo<span class="token punctuation">.</span>id <span class="token operator">===</span> todoId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    todo<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>label<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'update'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>특정 todo의 label 값을 변경하라고 todos 모델 객체에 요청하고 있습니다. todos 모델 객체는 자신이 관리하는 todo 객체들 중 하나를 찾아서 값을 변경하고 변경 사실을 통지합니다. 하지만 todoItem 컴포넌트의 단순한 비교문으로는 todo 객체의 값이 변경됐는지 알 수 없습니다.</p>
+<p>todos 모델 객체에서 관리하는 todo 객체와 prop 속성으로 전달된 todo 객체의 참조가 동일하기 때문에 항상 참이되므로 의도한 결과를 얻을 수 없는 것입니다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// todoItem.js</span>
+<span class="token function">shouldComponentUpdate</span><span class="token punctuation">(</span><span class="token parameter">nextProps<span class="token punctuation">,</span> nextState</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    nextProps<span class="token punctuation">.</span>todo<span class="token punctuation">.</span><span class="token function">label</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>todo<span class="token punctuation">.</span><span class="token function">label</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+    nextProps<span class="token punctuation">.</span>todo<span class="token punctuation">.</span><span class="token function">completed</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>todo<span class="token punctuation">.</span><span class="token function">completed</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+    nextState<span class="token punctuation">.</span>label <span class="token operator">!==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>label
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><code>shouldComponentUpdate</code> 메서드의 비교문을 변경했습니다. 조금 복잡해졌습니다. 만약 하나의 객체에서 관리하고 있는 상태가 많을수록 이 비교문은 아주 복잡해질 것입니다.</p>
+<p>하지만 여전히 이 코드는 동작하지 않습니다. todos 모델 객체에서 특정 todo 객체의 상태를 변경하면 같은 todo 객체를 참조하는 todoItem 컴포넌트에도 동일하게 반영돼 상태가 변경됐는지 알 수 없습니다. 이처럼 가변 객체의 참조를 가지고 있는 어떤 장소에서 객체를 변경하면 참조를 공유하는 모든 장소에서 그 영향을 받기 때문에 객체를 참조로 다루기란 쉽지 않습니다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// todoHome.js</span>
+<span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> todos <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>todos<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">todo</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>TodoItem key<span class="token operator">=</span><span class="token punctuation">&#123;</span>todo<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> todo<span class="token operator">=</span><span class="token punctuation">&#123;</span>todo<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span> <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span>ul<span class="token operator">></span><span class="token punctuation">&#123;</span>todos<span class="token punctuation">&#125;</span><span class="token operator">&amp;</span>lt<span class="token punctuation">;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>이번엔 <code>clone</code> 메서드를 이용해서 todo의 객체 상태를 전부 복사하여 새로운 todo 객체를 만들어 todoItem 컴포넌트에 전달하고 있습니다. 이러한 방법을 방어적 복사(defensive copy)라고 합니다.</p>
+<p>드디어 코드는 의도한대로 동작하겠지만, 비교문은 여전히 복잡하며 매번 객체를 전체적으로 복사하는건 성능면에서 좋지 않습니다. 또, 객체의 전달 방식이나 사용 방식을 예의주시해야하는 번거로움도 수반됩니다.</p>
+<h3 id="불변-객체일-때"><a href="#불변-객체일-때" class="headerlink" title="불변 객체일 때"></a>불변 객체일 때</h3><p>이제 todos 모델 객체의 update 메서드를 <a target="_blank" rel="noopener" href="https://facebook.github.io/immutable-js/">Immutable.js</a>를 이용해 불변 객체로 관리하도록 변경해보겠습니다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// todos.js</span>
+<span class="token keyword">class</span> <span class="token class-name">Todos</span> <span class="token keyword">extends</span> <span class="token class-name">events<span class="token punctuation">.</span>EventEmitter</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_todos <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Immutable<span class="token punctuation">.</span>List</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// ... 생략 ...</span>
+
+    <span class="token function">update</span><span class="token punctuation">(</span><span class="token parameter">id<span class="token punctuation">,</span> label</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 새로운 List 객체를 생성한다.</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>_todos <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_todos<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>_todos<span class="token punctuation">.</span><span class="token function">findIndex</span><span class="token punctuation">(</span><span class="token parameter">t</span> <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">)</span> <span class="token operator">===</span> id<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token parameter">t</span> <span class="token operator">=></span> t<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'label'</span><span class="token punctuation">,</span> label<span class="token punctuation">)</span> <span class="token comment">// 새로운 todo 객체를 생성한다.</span>
+        <span class="token punctuation">)</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'update'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>todos 객체의 생성자 메서드를 통해 Immutable.js의 List 객체를 생성하고 있습니다. 특정 todo 객체의 값을 변경할 때는 List 객체의 update 메서드를 이용해 새로운 상태를 갖는 todo 객체와 List 객체를 다시 생성하여 설정합니다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// todoItem.js</span>
+<span class="token function">shouldComponentUpdate</span><span class="token punctuation">(</span><span class="token parameter">nextProps<span class="token punctuation">,</span> nextState</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        nextProps<span class="token punctuation">.</span>todo <span class="token operator">!==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props <span class="token operator">||</span>
+        nextState<span class="token punctuation">.</span>label <span class="token operator">!==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>label
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>이제 비교문이 다시 단순해졌습니다. 객체의 상태가 변하지 않는 한 참조는 항상 같을 것이고, 객체의 상태가 변경될때만 새로운 객체가 생성되므로 참조가 달라집니다. 따라서 단순히 참조만 비교하는 것 만으로도 객체의 상태가 변경됐는지 판단할 수 있습니다.</p>
+<p>매번 객체를 새로 생성하면 메모리 관리 시스템에 부담을 줄 수 있다고 생각할 수 있지만 이 점이 시스템 전체적인 병목을 일으키진 않습니다. 오히려 객체의 값을 전체적으로 복사하는 방어적 복사가 더 부담이 될 수 있습니다.</p>
+<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>불변 객체는 값을 복사할 필요 없습니다. 객체를 복사할 때는 항상 같은 객체를 참조하는 주소만 반환하면 됩니다. 즉, 객체를 하나 생성하고 이를 지속적으로 재사용할 수 있습니다(Intern) 이처럼 불변 객체는 복사를 단순화할 수 있어 성능적으로 유리할 수 있습니다. 동일한 값을 여러번 복사해도 참조를 위한 포인터 크기 만큼만 메모리가 늘어날 뿐입니다.</p>
+<p>또한 React.js의 <code>shouldComponentUpdate</code> 메서드를 통해 알 수 있듯이 비교문을 크게 단순화할 수 있습니다. 이 점이 React.js에서 불변 객체를 사용했을때 가장 피부로 체감할 수 있는 부분입니다. 단순한 비교문은 코드를 관리하기 쉽게 만들어줍니다. 반면, 가변 객체를 여러 뷰 컴포넌트에서 의존하면 이를 추적하고 관리하기 쉽지 않을 뿐더러 비교문도 작성하기 어렵습니다.</p>
+<p><a target="_blank" rel="noopener" href="https://facebook.github.io/flux">Flux 아키텍처</a>에서 말하는 단방향 데이터 흐름과 Immutable.js의 불변 객체, 그리고 수동적인 뷰 특징을 가진 리액트 컴포넌트가 한데 어울어지면 보다 단순하고 사고하기 쉬운 프로그램을 작성할 수 있습니다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4">위키피디아:불변객체(한글)</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/String_interning">위키피디아:인턴(영어)</a></li>
+<li><a target="_blank" rel="noopener" href="http://wit.nts-corp.com/2015/03/04/3118">7 Patterns to Refactor JavaScript Applications(한글)</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.yes24.com/24/Goods/2824034?Acode=101">켄트 벡의 구현 패턴</a></li>
+</ul>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/2016/04/26/read-the-thinking-about-react/" class="navigation__link">
+        <p class="navigation__title ellipsis">React에 대한 여러가지 생각을 읽고</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2016-04-26T00:00:00+09:00">
+      2016.04.26
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        Youngrok Pak님의 「React에 대한 여러 가지 생각」을 읽고 해당 글에 대한 개인적인 의견과 React에 관해 평소에 이야기하고 싶었던 내용을 함께 이야기합니다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2015/07/12/learning-react-7/" class="navigation__link">
+        <p class="navigation__title ellipsis">React.js를 이해하다(7)</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2015-07-12T00:00:00+09:00">
+      2015.07.12
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 마지막 편입니다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2015/08/16/react-and-immutable/';
+      this.page.identifier = '2015/08/16/react-and-immutable/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+

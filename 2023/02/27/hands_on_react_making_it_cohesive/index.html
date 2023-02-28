@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>실전! 리액트, 응집성 있게 가자! | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="React.js에서 로직을 어떻게 응집성 있게 관리할 수 있는지 간단한 송금 예제와 함께 소개한다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,Architecture,React,Design">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <meta name="description" content="React.js에서 로직을 어떻게 응집성 있게 관리할 수 있는지 간단한 송금 예제와 함께 소개한다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="실전! 리액트, 응집성 있게 가자!">
+<meta property="og:url" content="http://blog.coderifleman.com/2023/02/27/hands_on_react_making_it_cohesive/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="React.js에서 로직을 어떻게 응집성 있게 관리할 수 있는지 간단한 송금 예제와 함께 소개한다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="http://blog.coderifleman.com/images/hands_on_react_making_it_cohesive/react_cohesive.01.jpg">
+<meta property="og:image" content="http://blog.coderifleman.com/images/hands_on_react_making_it_cohesive/react_cohesive.02.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/hands_on_react_making_it_cohesive/react_cohesive.03.png">
+<meta property="og:image" content="http://blog.coderifleman.com/images/hands_on_react_making_it_cohesive/react_cohesive.04.png">
+<meta property="article:published_time" content="2023-02-26T15:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-28T04:47:57.006Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Architecture">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Design">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.coderifleman.com/images/hands_on_react_making_it_cohesive/react_cohesive.01.jpg">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="http://blog.coderifleman.com/2023/02/27/hands_on_react_making_it_cohesive/index.html">
+  
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="/style.css">
+
+  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/">
+      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post">
+  <div class="post__inner">
+    <article class="post__body">
+      <div class="post__header">
+        <h1 class="post__title">실전! 리액트, 응집성 있게 가자!</h1>
+        <div class="post__meta">
+          <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2023-02-27T00:00:00+09:00">
+      2023.02.27
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Architecture/" >
+            #Architecture
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/React/" >
+            #React
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/tags/Design/" >
+            #Design
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      </div>
+      
+      
+      <div class="post__contents">
+        
+    <figure title="undefined">
+      <a href="/images/hands_on_react_making_it_cohesive/react_cohesive.01.jpg" target="_blank">
+        <img 
+          src="/images/hands_on_react_making_it_cohesive/react_cohesive.01.jpg" 
+          alt="" 
+          style=""
+        >
+      </a>
+      
+    </figure>
+  
+
+<p>React, 아니 근래의 대부분 프레임워크는 컴포넌트를 지향한다. 문제를 작은 단위로 나누고 그것을 블랙박스 형태로 잘 포장, 조합하여 더 큰 문제를 해결하는 방법은 모든 공학 분야에서 공통적으로 애용하는 문제 해결 접근법이다.</p>
+<p>하지만 소프트웨어 세계에서는 이런 접근법이 꽤 자주 지켜지지 않을 때가 있다. 가령 여러분이 은행 서비스의 주요 기능 중 하나인 송금 기능을 만들어야 한다고 해보자. 송금 기능에서 우리는 다양한 애플리케이션 비즈니스 로직을 도출할 수 있는데 여기에서는 간단히 송금액을 입력하는 과정만 생각해보자.</p>
+<ol>
+<li>송금액 입력 시 대상 계좌의 잔여금을 초과하지 않아야 한다.</li>
+<li>송금액 입력 시 일회 이체 한도를 초과하지 않아야 한다.</li>
+<li>송금액 입력 시 일일 이체 한도를 초과하지 않아야 한다.</li>
+<li>초과 입력 시 송금이 가능한 최대 금액으로 자동 조정하고, 사용자에게 상황을 인지시켜야 한다.</li>
+</ol>
+<p>여러분은 유지보수성, 재사용성 등을 위해 송금액 입력 UI 요소와 관련 애플리케이션 비즈니스 로직을 하나의 컴포넌트 단위로 잘 포장하고 싶을 것이다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">interface</span> <span class="token class-name">Props</span> <span class="token punctuation">&#123;</span>
+  account<span class="token operator">:</span> Account<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">function</span> <span class="token function">RemittanceInput</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span> account <span class="token punctuation">&#125;</span><span class="token operator">:</span> Props</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>amount<span class="token punctuation">,</span> setAmount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>message<span class="token punctuation">,</span> setMessage<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> handleChange <span class="token operator">=</span> <span class="token function">useCallback</span><span class="token punctuation">(</span><span class="token punctuation">(</span>event<span class="token operator">:</span> ChangeEvent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">HTMLInputElement</span></span><span class="token punctuation">></span></span><span class="token plain-text">) => </span><span class="token punctuation">&#123;</span>
+    <span class="token comment">// 송금액 입력시 필요한 여러가지 검증 처리</span>
+  <span class="token punctuation">&#125;</span><span class="token plain-text">, []);
+  return (
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">송금액 : </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+          <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>remittance<span class="token punctuation">"</span></span>
+          <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>string<span class="token punctuation">"</span></span>
+          <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>amount <span class="token operator">||</span> <span class="token string">''</span><span class="token punctuation">&#125;</span></span>
+          <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>송금액을 입력해 주세요.<span class="token punctuation">"</span></span>
+          <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>handleChange<span class="token punctuation">&#125;</span></span>
+        <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>message<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  );
+&#125;</span></code></pre>  
+
+<p>UML 다이어그램으로 표현해보면 다음과 같다(문법은 함수지만 상태를 갖게 된 이상 객체와 다를 게 없기 때문에 UML 다이어그램으로 표현할 수 있다).</p>
+
+    <figure title="컴포넌트 내에 모두 위치 시켰을 경우의 UML 다이어그램">
+      <a href="/images/hands_on_react_making_it_cohesive/react_cohesive.02.png" target="_blank">
+        <img 
+          src="/images/hands_on_react_making_it_cohesive/react_cohesive.02.png" 
+          alt="컴포넌트 내에 모두 위치 시켰을 경우의 UML 다이어그램" 
+          style=""
+        >
+      </a>
+      
+    </figure>
+  
+
+<p>이 컴포넌트만으로 문제를 해결 할 수 있다면 다행이지만 실제 세계는 좀 더 복잡하다. 예를 들어 컴포넌트 내에서 관리하는 송금액(<code>amount</code>) 상태를 외부에 배치해야 하는 경우라면 어떨까? 사용자가 송금 버튼을 클릭하면 송금액을 알아야 하기 때문에 <code>RemittanceInput</code> 컴포넌트 내부에 감출 수 없다. 이 문제를 해결하는 방법은 실로 다양하지만 일단 다음과 같이 간단하게 풀어보자.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>account<span class="token punctuation">,</span> setAccount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>amount<span class="token punctuation">,</span> setAmount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>message<span class="token punctuation">,</span> setMessage<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> handleChangeAccount <span class="token operator">=</span> <span class="token function">useCallback</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 계좌 선택 시 필요한 여러가지 검증 처리</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> handleChangeRemittance <span class="token operator">=</span> <span class="token function">useCallback</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 송금액 입력시 필요한 여러가지 검증 처리</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">AccountSelecor</span></span> <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>account<span class="token punctuation">&#125;</span></span> <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>handleChangeAccount<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemittanceInput</span></span> <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>amount<span class="token punctuation">&#125;</span></span> <span class="token attr-name">message</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>message<span class="token punctuation">&#125;</span></span>  <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>handleChangeRemittance<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemitButton</span></span> <span class="token attr-name">account</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>account<span class="token punctuation">&#125;</span></span> <span class="token attr-name">amount</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>amount<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span></span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>  
+
+<p>송금액 상태와 관련된 애플리케이션 비즈니스 로직을 상위 컴포넌트로 모두 옮겼다. 이제 상태는 상위 컴포넌트에서 관리되므로 송금액 데이터가 필요한 다른 기능을 다루기 쉬워졌다. <code>RemittanceInput</code>은 수동적인 컴포넌트로 요소의 스타일만 결정할 뿐 송금액 입력과 관련한 어떠한 결정도 하지 않는다.</p>
+<p>이러한 구현은 때에 따라서 충분할 수 있지만 유지보수성, 재사용성에 그다지 좋은 편은 아니다. 만약 다른 페이지에서도 <code>RemittanceInput</code>이 필요하다면 <code>App</code> 파일을 열어서 관련한 로직이 무엇인지 진중하게 살펴보며 살을 발라 복사해야 한다. 코드 중복은 두말 할 것 없고 중요한 로직을 누락하는 실수를 하기에도 좋다. 또, 추후 송금 정책이 변경된다면 송금액 입력 UI 요소가 있는 모든 페이지를 뒤져 빠짐없이 수정해야한다.</p>
+<p>이번엔 송금액과 관련된 로직을 별도 훅스로 추출하고 <code>RemittanceInput</code> 가까이에 위치시켜보자. 그러면 테스트용이성도 높일 수 있으며 코드 중복이나 구현 누락도 피할 수 있다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">interface</span> <span class="token class-name">Remittance</span> <span class="token punctuation">&#123;</span>
+  amount<span class="token operator">:</span> number<span class="token punctuation">;</span>
+  message<span class="token operator">:</span> string<span class="token punctuation">;</span>
+  <span class="token function-variable function">change</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">amount<span class="token operator">:</span> number</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">function</span> <span class="token function">useRemittance</span><span class="token punctuation">(</span><span class="token parameter">account<span class="token operator">:</span> Account</span><span class="token punctuation">)</span><span class="token operator">:</span> Remittance <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>amount<span class="token punctuation">,</span> setAmount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>message<span class="token punctuation">,</span> setMessage<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> change <span class="token operator">=</span> <span class="token function">useCallback</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">amount<span class="token operator">:</span> number</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 송금액 입력시 필요한 여러가지 검증 처리</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>account<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">&#123;</span> 
+    amount<span class="token punctuation">,</span> 
+    message<span class="token punctuation">,</span> 
+    change 
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><code>useRemittance</code>는 <code>Account</code>의 데이터를 기준으로 송금액 입력을 검증한다. 표현 로직이 없어 테스트하기 쉬우므로 테스트용이성을 높인다.</p>
+<p><code>App</code>은 다음과 같이 수정할 수 있다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>account<span class="token punctuation">,</span> setAccount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> remittance <span class="token operator">=</span> <span class="token function">useRemittance</span><span class="token punctuation">(</span>account<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> handleChangeAccount <span class="token operator">=</span> <span class="token function">useCallback</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 계좌 선택 시 필요한 여러가지 검증 처리</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">AccountSelecor</span></span> <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>account<span class="token punctuation">&#125;</span></span> <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>handleChangeAccount<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemittanceInput</span></span> <span class="token attr-name">remittacne</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>remittance<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemitButton</span></span> <span class="token attr-name">account</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>account<span class="token punctuation">&#125;</span></span> <span class="token attr-name">amount</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>remittance<span class="token punctuation">.</span>amount<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span></span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>다이어그램으로 표현하면 다음과 같다.</p>
+
+    <figure title="훅스를 분리한 경우의 다이어그램">
+      <a href="/images/hands_on_react_making_it_cohesive/react_cohesive.03.png" target="_blank">
+        <img 
+          src="/images/hands_on_react_making_it_cohesive/react_cohesive.03.png" 
+          alt="훅스를 분리한 경우의 다이어그램" 
+          style=""
+        >
+      </a>
+      
+    </figure>
+  
+
+<p>하나의 논리적인 패키지 단위를 만들고 그곳에 <code>RemittanceInput</code>, <code>useRemittance</code>를 함께 뒀다. <code>RemittanceInput</code>과 <code>useRemittance</code>는 <code>Remittance</code> 객체를 통해 소통한다. 서로 연관있는 것을 가까이 배치하여 관계에 대한 착오를 줄여 유지보수성을 높인다.</p>
+<p>아직 아쉬운 부분이 있는데 논리적인 패키지 단위로 나눴으나 여전히 <code>RemittanceInput</code>과 <code>useRemittance</code>의 관계를 코드 상에서 알기 어렵다는 것이다. 그렇다고 <code>useRemittance</code>를 <code>RemittanceInput</code> 내부로 옮기면 송금액 데이터를 다른 컴포넌트가 참조할 수 없기 때문에 옳지 않다. 문제를 해결하기 위해 컨텍스트를 추가하여 <code>Remittance</code> 패키지를 좀 더 보강해보자.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">const</span> RemittanceContext <span class="token operator">=</span> createContext<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Remittance</span></span><span class="token punctuation">></span></span><span class="token plain-text">(</span><span class="token punctuation">&#123;</span>
+  amount<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  message<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">change</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">undefined</span>
+<span class="token punctuation">&#125;</span><span class="token plain-text">);
+
+const RemittanceProvider = (
+  </span><span class="token punctuation">&#123;</span> children<span class="token punctuation">,</span> <span class="token operator">...</span>account <span class="token punctuation">&#125;</span><span class="token plain-text">: PropsWithChildren</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Account</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+) => </span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> remittance <span class="token operator">=</span> <span class="token function">useRemittance</span><span class="token punctuation">(</span>account<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemittanceContext.Provider</span></span> <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>remittance<span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token punctuation">&#123;</span>children<span class="token punctuation">&#125;</span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RemittanceContext.Provider</span></span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token plain-text">;</span></code></pre>
+
+<p><code>Remittace</code> 객체를 컨텐스트 내에서 접근할 수 있도록 <code>RemittaceContext</code>와 <code>RemittanceProvider</code>를 추가했다. <code>RemittanceProvider</code>는 <code>useRemittance</code>의 반환값인 <code>Remittance</code> 객체를 <code>RemittaceContext.Provider</code>로 전달한다.</p>
+<p>이제 <code>RemittacneContext</code>와 <code>RemittanceInput</code>을 연결하는 간단한 브릿지 컴포넌트를 작성해보자.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">const</span> <span class="token function-variable function">RemittanceInputWithContext</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> remittance <span class="token operator">=</span> <span class="token function">useContext</span><span class="token punctuation">(</span>RemittanceContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemittanceInput</span></span> <span class="token attr-name">remittance</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>remittance<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><code>App</code>은 다음과 같다.</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">function</span> <span class="token function">App</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>account<span class="token punctuation">,</span> setAccount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useAccount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> handleChangeAccount <span class="token operator">=</span> <span class="token function">useCallback</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 계좌 선택 시 필요한 여러가지 검증 처리</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">AccountSelecor</span></span> 
+         <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>account<span class="token punctuation">&#125;</span></span> 
+         <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>handleChangeAccount<span class="token punctuation">&#125;</span></span> 
+       <span class="token punctuation">/></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemittacneProvider</span></span> <span class="token attr-name">account</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>account<span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemittanceInputWithContext</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemittacneContext.Consumer</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+          </span><span class="token punctuation">&#123;</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">&#123;</span> amount <span class="token punctuation">&#125;</span></span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemitButton</span></span> <span class="token attr-name">account</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>account<span class="token punctuation">&#125;</span></span> <span class="token attr-name">amount</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>amount<span class="token punctuation">&#125;</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RemittacneContext.Consumer</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RemittacneContext</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  );
+&#125;</span></code></pre>
+
+<p><code>RemittanceInputWithContext</code>의 이름을 통해 특정 컨텍스트가 필요하다는 사실을 알 수 있다. <code>RemittanceProvider</code> 내부로 <code>useRemittance</code>를 감추고 <code>RemittanceInput</code>과의 관계를 맺어주므로 더이상 클라이언트가 신경쓸 필요 없다. 이제 적절한 위치에 <code>RemittacneContext</code>를 배치하여 송금액 상태를 보존하고 필요시 다른 컴포넌트에서도 활용할 수 있도록 한다. 이제 송금액 UI 요소를 관련 애플리케이션 비즈니스 로직과 함께 재활용 할 수 있고, 때로는 <code>RemiitanceInput</code>을 직접 사용할 수도 있어 확장성도 달성한다.</p>
+<p>다이어그램으로 표현하면 다음과 같다.</p>
+
+    <figure title="컨텍스트를 활용한 경우의 다이어그램">
+      <a href="/images/hands_on_react_making_it_cohesive/react_cohesive.04.png" target="_blank">
+        <img 
+          src="/images/hands_on_react_making_it_cohesive/react_cohesive.04.png" 
+          alt="컨텍스트를 활용한 경우의 다이어그램" 
+          style=""
+        >
+      </a>
+      
+    </figure>
+  
+
+<p>중요한 건 관심사다. 기능 단위로 분리하는 게 아닌 관심사 단위로, 이곳 저곳에서 필요로 하는 로직이라는 점에 초점을 맞추지 말고 응집성 있게 관리하면 유지보수성, 재사용성을 높일 수 있다.</p>
+
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/2021/12/07/jserinfo_translation_story/" class="navigation__link">
+        <p class="navigation__title ellipsis">꾸준히 하기가 제일 어려워! JSer.info 번역 이야기</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2021-12-07T00:00:00+09:00">
+      2021.12.07
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/categories/Test/" class="meta__category-list-item">
+            <span>Test</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        일본 프런트엔드 기술 위클리 JSer.info를 번역하고 공유해 온 이야기. 2021년 12월을 맞이하여 작성한 회고와 자기 반성글.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://blog.coderifleman.com/2023/02/27/hands_on_react_making_it_cohesive/';
+      this.page.identifier = '2023/02/27/hands_on_react_making_it_cohesive/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
+
+
+<script src="/script.js"></script>
+
+</body>
+</html>
+
