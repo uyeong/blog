@@ -10,9 +10,8 @@ tags:
 - React
 - Design
 - Architecture
+cover: react_cohesive.01.jpg
 ---
-
-{% figure react_cohesive.01.jpg '' '' %}
 
 React, 아니 근래의 대부분 프레임워크는 컴포넌트를 지향한다. 문제를 작은 단위로 나누고 그것을 블랙박스 형태로 잘 포장, 조합하여 더 큰 문제를 해결하는 방법은 모든 공학 분야에서 공통적으로 애용하는 문제 해결 접근법이다.
 

@@ -16,10 +16,8 @@ tags:
 - DesignPattern
 - Test
 - UnitTest
-
+cover: hooks.00.jpg
 ---
-
-{% figure hooks.00.jpg '' '' %}
 
 UI를 개발하는 프런트엔드 개발자라면 누구나 빠질 수 있는 함정이 있다. UI 개발 특성상 무엇보다 뷰가 중요해 보이기 때문에 너무나 쉽게 뷰부터 시작한다는 것. 
 

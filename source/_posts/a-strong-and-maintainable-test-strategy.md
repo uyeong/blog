@@ -8,9 +8,8 @@ tags:
     - Development
     - Test
     - UnitTest
+cover: test.01.png
 ---
-
-{% figure test.01.png '' '' %}
 
 소위 프런트엔드 그러니까 웹 애플리케이션은 왜 테스트하기 힘들까? 복잡하게 생각 할 필요 없다. 허구헌날 바뀌기 때문이다.
 

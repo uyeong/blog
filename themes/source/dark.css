@@ -4,22 +4,25 @@
 
 html,
 body {
-    color: #f5f5f5; /* grey-3 */
-    background: #262626; /* grey-9 */
+  color: #e2e8f0;
+  background: #0f172a;
+}
+
+::selection {
+  background: #1e3a5f;
+  color: #e2e8f0;
 }
 
 a {
-    color: #91d5ff; /* blue-3 */
-    text-decoration: none;
+  color: #60a5fa;
+}
+
+a:hover {
+  color: #93c5fd;
 }
 
 a:active {
-    color: #40a9ff; /* blue-5 */
-}
-
-img {
-    -webkit-filter: grayscale(60%);
-    filter: grayscale(60%);
+  color: #3b82f6;
 }
 
 /*************************************************************/
@@ -27,7 +30,11 @@ img {
 /*************************************************************/
 
 .header__title a {
-    color: #f5f5f5;
+  color: #f1f5f9;
+}
+
+.header__subtitle {
+  color: #94a3b8;
 }
 
 /*************************************************************/
@@ -35,68 +42,119 @@ img {
 /*************************************************************/
 
 .posts__classify strong {
-    color: #36cfc9; /* cyan-5 */
+  color: #60a5fa;
 }
 
 .posts__title a {
-    color: #f5f5f5;
+  color: #f1f5f9;
+}
+
+.posts__title a:hover {
+  color: #60a5fa;
 }
 
 .posts__desc {
-    color: #d9d9d9; /* grey-5 */
+  color: #94a3b8;
 }
 
 .posts__picture {
-    background-color: #bfbfbf; /* grey-5 */
-    -webkit-filter: grayscale(60%);
-    filter: grayscale(60%);
+  background-color: #1e293b;
 }
 
 /*************************************************************/
 /*************************** Post ****************************/
 /*************************************************************/
 
-.post {
-    color: #d9d9d9; /* grey-5 */
+.post__title {
+  color: #f1f5f9;
 }
 
-.post__title {
-    color: #f5f5f5; /* grey-3 */
+.post__contents {
+  color: #cbd5e1;
+}
+
+.post__contents h2,
+.post__contents h3,
+.post__contents h4,
+.post__contents h5 {
+  color: #f1f5f9;
+}
+
+.post__contents h6 {
+  color: #94a3b8;
+}
+
+.post__contents h2 {
+  border-bottom-color: #1e293b;
 }
 
 .post__contents code {
-    border-color: #787878; /* manual */
-    background: #595959; /* grey-8 */
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
 }
 
 .post__contents pre[class*=language] {
-    background: #383838; /* manual */
-    border: 1px solid #4d4d4d; /* manual */
+  background: #1e293b;
+  border-color: #334155;
 }
 
 .post__contents figure figcaption {
-    color: #d9d9d9; /* grey-5 */
+  color: #64748b;
 }
 
 .post__contents blockquote {
-    color: #13c2c2; /* cyan-6 */
+  border-left-color: #3b82f6;
+  color: #94a3b8;
 }
 
 .post__contents blockquote a {
-    color: #91d5ff; /* geekblue-5 */
+  color: #60a5fa;
 }
 
-.post__contents blockquote a:active {
-    color: #40a9ff; /* geeblue-7 */
+.post__toc h2 {
+  color: #e2e8f0;
+}
+
+.post__toc a {
+  color: #94a3b8;
+}
+
+.post__toc a:hover {
+  color: #60a5fa;
+}
+
+.post__toc a.is-active {
+  color: #60a5fa;
+}
+
+/*************************************************************/
+/************************** Footer ***************************/
+/*************************************************************/
+
+.footer {
+  border-top-color: #1e293b;
+  color: #64748b;
+}
+
+.footer a {
+  color: #94a3b8;
+}
+
+.footer a:hover {
+  color: #60a5fa;
 }
 
 /*************************************************************/
 /*************************** Media ***************************/
 /*************************************************************/
 
-.media__medium a,
-.media__medium a:active {
-    color: #bfbfbf; /* grey-6 */
+.media__medium a {
+  color: #64748b;
+}
+
+.media__medium a:hover {
+  color: #60a5fa;
 }
 
 /*************************************************************/
@@ -104,11 +162,15 @@ img {
 /*************************************************************/
 
 .meta {
-    color: #bfbfbf; /* grey-6 */
+  color: #64748b;
 }
 
 .meta__categories a {
-    color: #bfbfbf;
+  color: #64748b;
+}
+
+.meta__categories a:hover {
+  color: #60a5fa;
 }
 
 /*************************************************************/
@@ -116,8 +178,13 @@ img {
 /*************************************************************/
 
 .tags__link {
-    background: #595959; /* grey-8 */
-    color: #f5f5f5;
+  background: #1e293b;
+  color: #94a3b8;
+}
+
+.tags__link:hover {
+  background: #1e3a5f;
+  color: #60a5fa;
 }
 
 /*************************************************************/
@@ -125,17 +192,18 @@ img {
 /*************************************************************/
 
 .alert--info {
-    background: #006d75; /* cyan-8 */
-    border-color: #08979c; /* cyan-7 */
-    color: #87e8de; /* cyan-3 */
+  background: #0c1d3a;
+  border-color: #1e3a5f;
+  color: #93c5fd;
 }
 
 .alert--info a {
-    color: #adc6ff; /* geekblue-3 */
+  color: #60a5fa;
+  text-decoration-color: #1e3a5f;
 }
 
-.alert--info a:active {
-    color: #85a5ff; /* geekblue-4 */
+.alert--info a:hover {
+  text-decoration-color: #60a5fa;
 }
 
 /*************************************************************/
@@ -143,7 +211,19 @@ img {
 /*************************************************************/
 
 .navigation__link {
-    color: #f5f5f5; /* grey-3 */
+  color: #f1f5f9;
+}
+
+.navigation__link:hover {
+  color: #60a5fa;
+}
+
+.navigation__desc {
+  color: #94a3b8;
+}
+
+.navigation__guide {
+  color: #64748b;
 }
 
 /*************************************************************/
@@ -151,12 +231,19 @@ img {
 /*************************************************************/
 
 .pagination__pick {
-    color: #bfbfbf;
-    /*fill: #f5f5f5;*/
+  color: #94a3b8;
 }
 
-.pagination__pick.on,
 .pagination__pick:hover {
-    color: #f5f5f5;
-    /*fill: #f5f5f5;*/
+  background: #1e293b;
+  color: #f1f5f9;
+}
+
+.pagination__pick.on {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.pagination__pick.on:hover {
+  background: #f1f5f9;
 }

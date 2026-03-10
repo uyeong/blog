@@ -10,9 +10,8 @@ tags:
 - Translate
 - JSer
 - Jser.info
+cover: jserinfo.01.jpg
 ---
-
-{% figure jserinfo.01.jpg '' '' %}
 
 위클리의 홍수에 살고 있다. 다양한 위클리를 구독하고 메일을 통해서 받아보지만, 그 많은 양을 매일 처리하긴 여간 힘든일이 아니다. 결국에는 쌓이고 쌓여 산적한 소식지로 인해 메일함을 여는 것조차 부담을 느끼게 된다. 
 

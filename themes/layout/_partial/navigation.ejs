@@ -5,7 +5,7 @@
     <% if (page.prev) { %>
       <span class="navigation__guide">Next Post</span>
       <a href="<%= url_for(prev.path) %>" class="navigation__link">
-        <p class="navigation__title ellipsis"><%= prev.title %></p>
+        <p class="navigation__title"><%= prev.title %></p>
       </a>
       <div class="navigation__meta">
         <%- partial('_partial/meta', {writeAt: prev.date, categories: prev.categories}) %>
@@ -19,7 +19,7 @@
     <% if (page.next) { %>
       <span class="navigation__guide">Previous Post</span>
       <a href="<%= url_for(next.path) %>" class="navigation__link">
-        <p class="navigation__title ellipsis"><%= next.title %></p>
+        <p class="navigation__title"><%= next.title %></p>
       </a>
       <div class="navigation__meta">
         <%- partial('_partial/meta', {writeAt: next.date, categories: next.categories}) %>

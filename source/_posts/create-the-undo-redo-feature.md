@@ -10,9 +10,8 @@ tags:
     - Development
     - Architecture
     - Undo/Redo
+cover: undo-redo.00.jpg
 ---
-
-{% figure undo-redo.00.jpg %}
 
 이 문서는 자바스크립트 라이브러리 [serializr](https://github.com/mobxjs/serializr)를 사용하여 실행 취소 / 다시 실행 구현 방법을 소개한다. 이와 같은 기능을 구현하는 데 있어 적게나마 도움이 되길 바란다.
 
@@ -303,13 +302,10 @@ class History {
 
 {% alert info '메멘토 패턴' %}
 <figure title="메멘토 패턴">
-  <a href="/images/2019/create-the-undo-redo-feature/undo-redo.02.png" target="_blank">
-    <img 
-      src="/images/2019/create-the-undo-redo-feature/undo-redo.02.png" 
-      alt="메멘토 패턴" 
-      style=""
-    >
+  <a href="/blog/images/create-the-undo-redo-feature/undo-redo.02.png" target="_blank">
+    <img src="/blog/images/create-the-undo-redo-feature/undo-redo.02.png" alt="메멘토 패턴">
   </a>
+  <figcaption>&lt;메멘토 패턴&gt;</figcaption>
 </figure>
 
 이미 눈치챈 사람도 있겠지만 이것은 메멘토 패턴이다. 메멘토 패턴은 `Originator`에서 `Memento`(상태)를 가져와 `Cretaker`에 저장하고 추후 다시 꺼내 `Originator`에 전달하여 상태를 되돌리는 패턴을 말한다([참고](https://ko.wikipedia.org/wiki/%EB%A9%94%EB%A9%98%ED%86%A0_%ED%8C%A8%ED%84%B4)).
