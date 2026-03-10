@@ -1,8 +1,8 @@
 # Header Menu
 menu:
-  Home: /
+  Home: /blog/
   # Archives: /archives
-rss: /atom.xml
+rss: /blog/atom.xml
 
 # Integrations
 email: uyeong21c@gmail.com
@@ -11,7 +11,7 @@ facebook: coderifleman
 github: uyeong
 
 # Miscellaneous
-favicon: /favicon.png
+favicon: /blog/favicon.png
 google_analytics: UA-55659240-1
 disqus_shortname: coderifleman
 # gauges_analytics:
