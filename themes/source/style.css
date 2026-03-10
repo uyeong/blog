@@ -956,15 +956,3 @@ a:active {
   color: #262626;
   text-decoration: underline !important;
 }
-
-#cp_embed_RzZBdX,
-#cp_embed_VJMOxp {
-  height: 420px;
-}
-
-@media (max-width: 420px) {
-  #cp_embed_RzZBdX,
-  #cp_embed_VJMOxp {
-    height: 504px;
-  }
-}

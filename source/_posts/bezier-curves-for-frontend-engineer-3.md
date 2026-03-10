@@ -91,7 +91,7 @@ interpolateBtn.addEventListener(\'click\', function() {
 
 아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 2차 베지에 곡선이라고 한다.
 
-{% codepen "Uyeong Ju|uyeong" qrpYwj default result %}
+{% codepen uyeong qrpYwj result %}
 
 ### 수식 정리
 
@@ -205,7 +205,7 @@ P = (s * Q) + (t * R)
 
 아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 3차 베지에 곡선이라고 한다.
 
-{% codepen "Uyeong Ju|uyeong" EmOPJr default result %}
+{% codepen uyeong EmOPJr result %}
 
 ### 수식정리
 

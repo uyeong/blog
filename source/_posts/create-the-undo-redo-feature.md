@@ -18,7 +18,7 @@ tags:
 
 ## 예제 소개
 
-{% codepen "Uyeong Ju|uyeong" RzZBdX default result %}
+{% codepen uyeong RzZBdX result %}
 
 이해를 돕기 위해 원, 사각형, 삼각형 중 하나를 생성하고, 끌어다 놓거나 삭제할 수 있는 간단한 애플리케이션을 준비했다. 여기에 실행 취소 / 다시 실행 기능을 추가하고자 한다. 하지만 그 전에 애플리케이션의 구조를 모델, 표현(presentation), 이벤트 핸들러로 나눠 간단히 살펴보고 넘어가자.
 
@@ -380,7 +380,7 @@ redo.addEventListener('click', () => history.redo());
 
 처음에 소개한 예제를 기반으로 차근차근 코드를 수정했다면 다음과 같이 실행 취소 / 다시 실행 기능이 적용된 애플리케이션이 완성될 것이다.
 
-{% codepen "Uyeong Ju|uyeong" VJMOxp default result %}
+{% codepen uyeong VJMOxp result %}
 
 
 ## 끝으로

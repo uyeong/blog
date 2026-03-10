@@ -84,7 +84,7 @@ stepper.start({
 });
 {% endcodeblock %}
 
-{% codepen "Uyeong Ju|uyeong" yVpNLo default result %}
+{% codepen uyeong yVpNLo result %}
 
 개인적으로 생각했을 때 raf를 곧바로 사용하는 것보다 더 직관적이고 편해 보인다(물론 다른 의견을 가진 사람이 있을 수도 있다). 이제 Stepper 객체를 어떻게 테스트할 수 있을지 살펴보자.
 
@@ -147,7 +147,7 @@ test('The user should be able to know the current progress through the start met
 });
 {% endcodeblock %}
 
-{% codepen "Uyeong Ju|uyeong" PbEaMp default result %}
+{% codepen uyeong PbEaMp result %}
 
 당연한 얘기겠지만 `TypeError`가 발생한다. raf는 시간이 아닌 `repaint` 시점을 기준으로 호출되며 독자적으로 타임스템프를 계산해 콜백에 전달하므로 sinon의 FakeTimer로 조작할 수 없다. 따라서 동기적으로 호출한 `args` 프로퍼티에 쌓인 값이 없으므로 에러가 발생하는 것이다.
 
@@ -180,7 +180,7 @@ test('The user should be able to know the current progress through the start met
 });
 {% endcodeblock %}
 
-{% codepen "Uyeong Ju|uyeong" LbeJZz default result %}
+{% codepen uyeong LbeJZz result %}
 
 테스트가 통과한다. raf를 사용해 작성한 코드를 테스트하려고 할 때 다소 막막할 수 있다. 하지만 sinon과 Stub을 적절히 사용한다면 손쉽게 테스트할 수 있다.
 

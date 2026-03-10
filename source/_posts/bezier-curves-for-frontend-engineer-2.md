@@ -127,7 +127,7 @@ console.log(blend(.8)); // 162.4
 console.log(blend(1));  // 198
 {% endcodeblock %}
 
-{% codepen "Uyeong Ju|uyeong" qRBdvb default result %}
+{% codepen uyeong qRBdvb result %}
 
 ## 복합 데이터 블렌딩
 
@@ -168,7 +168,7 @@ const blendY = blender.bind(null, Ay, By);
 // P = { blendX(t), blendY(t) }
 {% endcodeblock %}
 
-{% codepen "Uyeong Ju|uyeong" EZxVVV default result %}
+{% codepen uyeong EZxVVV result %}
 
 ## 보간
 
@@ -215,7 +215,7 @@ interpolate(function(nx, ny) {
 
 우선 requestAnimationFrame()를 사용해 지정한 시간 만큼 흐르게 한다. 그리고 현재 시각에 해당하는 진행 값 즉, t를 구한 후 이 값을 근거해 블렌딩한다.
 
-{% codepen "Uyeong Ju|uyeong" dNbgQp default result %}
+{% codepen uyeong dNbgQp result %}
 
 보간은 페이드인, 아웃 같은 애니메이션 처리나 3D 게임에서의 객체 움직임 그리고 오디오 크로스페이드 처리 등에 유용하게 사용된다.
 
