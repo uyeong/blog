@@ -2,14 +2,14 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://blog.coderifleman.com/</loc>
+        <loc>https://uyeong.github.io/blog/</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
 
 
     <url>
-        <loc>http://blog.coderifleman.com/2023/02/27/hands_on_react_making_it_cohesive/</loc>
+        <loc>https://uyeong.github.io/blog/2023/02/27/hands_on_react_making_it_cohesive/</loc>
         <lastmod>2023-02-28T04:47:57.006Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -17,7 +17,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2014/12/05/what-is-iojs/</loc>
+        <loc>https://uyeong.github.io/blog/2014/12/05/what-is-iojs/</loc>
         <lastmod>2022-11-09T05:45:21.015Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -25,7 +25,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2016/04/26/read-the-thinking-about-react/</loc>
+        <loc>https://uyeong.github.io/blog/2016/04/26/read-the-thinking-about-react/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -33,7 +33,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2017/05/30/tabnabbing_attack_and_noopener/</loc>
+        <loc>https://uyeong.github.io/blog/2016/11/28/scroll-restoration-property-of-history/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -41,7 +41,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/04/04/text-files-end-with-a-newline/</loc>
+        <loc>https://uyeong.github.io/blog/2017/12/18/the-clean-architecture/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -49,7 +49,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2016/11/28/scroll-restoration-property-of-history/</loc>
+        <loc>https://uyeong.github.io/blog/2015/04/04/using-korean-web-fonts/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -57,7 +57,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2017/12/18/the-clean-architecture/</loc>
+        <loc>https://uyeong.github.io/blog/2018/03/03/two-ways-to-work-with-backend-developer/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -65,7 +65,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2018/03/03/two-ways-to-work-with-backend-developer/</loc>
+        <loc>https://uyeong.github.io/blog/2017/05/30/tabnabbing_attack_and_noopener/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -73,7 +73,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/04/04/using-korean-web-fonts/</loc>
+        <loc>https://uyeong.github.io/blog/2015/04/04/text-files-end-with-a-newline/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -81,7 +81,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/07/12/learning-react-7/</loc>
+        <loc>https://uyeong.github.io/blog/2015/07/12/learning-react-7/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -89,7 +89,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/06/19/mvc-does-not-scale-use-flux-instead/</loc>
+        <loc>https://uyeong.github.io/blog/2015/06/19/mvc-does-not-scale-use-flux-instead/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -97,7 +97,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/08/16/react-and-immutable/</loc>
+        <loc>https://uyeong.github.io/blog/2015/08/16/react-and-immutable/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -105,7 +105,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2019/07/19/prototype-pollution-attacks-in-nodejs/</loc>
+        <loc>https://uyeong.github.io/blog/2019/07/19/prototype-pollution-attacks-in-nodejs/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -113,7 +113,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2021/04/21/react-hooks-and-humble-object-pattern-and-tests/</loc>
+        <loc>https://uyeong.github.io/blog/2021/04/21/react-hooks-and-humble-object-pattern-and-tests/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -121,7 +121,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2016/10/11/read-the-engineering-technology-and-society/</loc>
+        <loc>https://uyeong.github.io/blog/2016/10/11/read-the-engineering-technology-and-society/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -129,7 +129,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/06/27/learning-react-3/</loc>
+        <loc>https://uyeong.github.io/blog/2015/06/24/learning-react-2/</loc>
         <lastmod>2022-11-09T05:45:21.012Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -137,7 +137,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/06/29/learning-react-4/</loc>
+        <loc>https://uyeong.github.io/blog/2015/07/09/learning-react-5/</loc>
         <lastmod>2022-11-09T05:45:21.012Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -145,7 +145,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/07/09/learning-react-5/</loc>
+        <loc>https://uyeong.github.io/blog/2015/06/27/learning-react-3/</loc>
         <lastmod>2022-11-09T05:45:21.012Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -153,7 +153,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/06/24/learning-react-2/</loc>
+        <loc>https://uyeong.github.io/blog/2015/06/29/learning-react-4/</loc>
         <lastmod>2022-11-09T05:45:21.012Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -161,7 +161,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/07/11/learning-react-6/</loc>
+        <loc>https://uyeong.github.io/blog/2015/07/11/learning-react-6/</loc>
         <lastmod>2022-11-09T05:45:21.012Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -169,7 +169,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2014/11/15/javascript-and-async-error/</loc>
+        <loc>https://uyeong.github.io/blog/2016/10/31/good-first-impression-testcafe/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -177,7 +177,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2016/12/02/how-to-test-request-animation-frame/</loc>
+        <loc>https://uyeong.github.io/blog/2021/12/07/jserinfo_translation_story/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -185,7 +185,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2021/12/07/jserinfo_translation_story/</loc>
+        <loc>https://uyeong.github.io/blog/2014/11/15/javascript-and-async-error/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -193,7 +193,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2015/06/23/learning-react-1/</loc>
+        <loc>https://uyeong.github.io/blog/2016/12/02/how-to-test-request-animation-frame/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -201,7 +201,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2016/10/31/good-first-impression-testcafe/</loc>
+        <loc>https://uyeong.github.io/blog/2015/06/23/learning-react-1/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -209,7 +209,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2021/11/17/a-strong-and-maintainable-test-strategy/</loc>
+        <loc>https://uyeong.github.io/blog/2017/01/02/bezier-curves-for-frontend-engineer-1/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -217,7 +217,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2017/01/03/bezier-curves-for-frontend-engineer-2/</loc>
+        <loc>https://uyeong.github.io/blog/2017/01/03/bezier-curves-for-frontend-engineer-2/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -225,7 +225,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2017/03/19/bezier-curves-for-frontend-engineer-3/</loc>
+        <loc>https://uyeong.github.io/blog/2017/03/19/bezier-curves-for-frontend-engineer-3/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -233,7 +233,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2019/06/29/create-the-undo-redo-feature/</loc>
+        <loc>https://uyeong.github.io/blog/2016/12/30/bezier-curves/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -241,7 +241,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2017/01/02/bezier-curves-for-frontend-engineer-1/</loc>
+        <loc>https://uyeong.github.io/blog/2019/06/29/create-the-undo-redo-feature/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -249,7 +249,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2016/12/30/bezier-curves/</loc>
+        <loc>https://uyeong.github.io/blog/2021/11/17/a-strong-and-maintainable-test-strategy/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -257,7 +257,7 @@
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/2016/06/17/e2e-test-and-nightwatch/</loc>
+        <loc>https://uyeong.github.io/blog/2016/06/17/e2e-test-and-nightwatch/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

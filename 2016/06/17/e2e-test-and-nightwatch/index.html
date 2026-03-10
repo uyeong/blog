@@ -16,23 +16,23 @@
     <meta name="author" content="Coderifleman">
   
   
-    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/blog/favicon.png">
   
   <meta name="description" content="E2E의 정의와 E2E 테스트 프레임워크의 역사 그리고 나이트왓치를 소개하며 설치하는 방법과 사용하는 방법까지 폭 넓게 설명합니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="E2E 테스트와 나이트왓치">
-<meta property="og:url" content="http://blog.coderifleman.com/2016/06/17/e2e-test-and-nightwatch/index.html">
+<meta property="og:url" content="https://uyeong.github.io/blog/2016/06/17/e2e-test-and-nightwatch/index.html">
 <meta property="og:site_name" content="Coderifleman&#39;s blog">
 <meta property="og:description" content="E2E의 정의와 E2E 테스트 프레임워크의 역사 그리고 나이트왓치를 소개하며 설치하는 방법과 사용하는 방법까지 폭 넓게 설명합니다.">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png">
-<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.02.png">
-<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.03.png">
-<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.04.png">
-<meta property="og:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.05.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.02.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.03.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.04.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.05.png">
 <meta property="article:published_time" content="2016-06-16T15:00:00.000Z">
 <meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
 <meta property="article:author" content="Coderifleman">
@@ -41,9 +41,9 @@
 <meta property="article:tag" content="E2E Test">
 <meta property="article:tag" content="Nightwatch">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.coderifleman.com/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png">
+<meta name="twitter:image" content="https://uyeong.github.io/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png">
 <meta name="twitter:creator" content="@coderifleman">
-<meta name="twitter:site" content="http://blog.coderifleman.com/2016/06/17/e2e-test-and-nightwatch/index.html">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2016/06/17/e2e-test-and-nightwatch/index.html">
   
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
 
@@ -56,22 +56,22 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/blog/style.css">
 
-  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body>
 
 <div class="root">
   <header class="header">
   <div class="header__picture">
-    <a href="/">
-      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
     </a>
   </div>
   <div class="header__detail">
     <h1 class="header__title">
-      <a href="/">
+      <a href="/blog/">
         Coderifleman&#39;s blog
       </a>
     </h1>
@@ -126,7 +126,7 @@
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -158,14 +158,14 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/Test/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/Test/" class="meta__category-list-item">
             <span>Test</span>
           </a>
           
@@ -182,25 +182,25 @@
     
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/Test/" >
+          <a class="tags__link" href="/blog/tags/Test/" >
             #Test
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/E2E/" >
+          <a class="tags__link" href="/blog/tags/E2E/" >
             #E2E
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/E2E-Test/" >
+          <a class="tags__link" href="/blog/tags/E2E-Test/" >
             #E2E Test
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/Nightwatch/" >
+          <a class="tags__link" href="/blog/tags/Nightwatch/" >
             #Nightwatch
           </a>
         </li>
@@ -231,9 +231,9 @@
 <p>웹드라이버는 셀레니움의 단점을 보완하고자 구글의 엔지니어들이 개발하고 사용한 브라우저 자동 테스트 도구이다. 2006년 경 구글에서 근무 중이던 <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/sistewart">시몬 스튜어트(Simon Stewart)</a>가 주도해 프로젝트를 시작하고 2009년에 처음으로 공식 발표했다.</p>
 
     <figure title="Selenium Projects">
-      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png" target="_blank">
+      <a href="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png" target="_blank">
         <img 
-          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png" 
+          src="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png" 
           alt="Selenium Projects" 
           style=""
         >
@@ -247,9 +247,9 @@
 <p>그에 반해 웹드라이버는 브라우저의 확장 기능과 OS의 기본 기능 등을 이용하여 브라우저를 조작하는 구조였다. 이는 셀레니움 RC의 단점을 충족해줄 수 있는 방식이었다.</p>
 
     <figure title="Selenium webdriver high level block diagram">
-      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.02.png" target="_blank">
+      <a href="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.02.png" target="_blank">
         <img 
-          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.02.png" 
+          src="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.02.png" 
           alt="Selenium webdriver high level block diagram" 
           style=""
         >
@@ -354,9 +354,9 @@ $ <span class="token builtin class-name">source</span> ~/.zshrc</code></pre>
 <p>이제 다시 실행해보면 파이어폭스 브라우저에서 정상적으로 테스트가 진행될 것이다.</p>
 
     <figure title="데모 테스트 실행 결과">
-      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.03.png" target="_blank">
+      <a href="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.03.png" target="_blank">
         <img 
-          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.03.png" 
+          src="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.03.png" 
           alt="데모 테스트 실행 결과" 
           style=""
         >
@@ -427,9 +427,9 @@ $ ./node_modules/.bin/webdriver-manager update
 <p>사파리 브라우저에서 테스트하고자 한다면 사파리 웹드라이버를 확장 기능으로 설치해야한다. 자세한 내용은 나이트왓치 위치의 <a target="_blank" rel="noopener" href="https://github.com/nightwatchjs/nightwatch/wiki/Running-tests-in-Safari">Running tests in Safari</a> 문서를 참고한다.</p>
 
     <figure title="사파리의 웹드라이버 확장프로그램">
-      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.04.png" target="_blank">
+      <a href="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.04.png" target="_blank">
         <img 
-          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.04.png" 
+          src="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.04.png" 
           alt="사파리의 웹드라이버 확장프로그램" 
           style=""
         >
@@ -478,9 +478,9 @@ $ ./node_modules/.bin/webdriver-manager update
 <p>다시 실행해 보면 모카 기반으로 테스트 코드가 동작하는 것을 볼 수 있다.</p>
 
     <figure title="모카 테스트 실행 결과">
-      <a href="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.05.png" target="_blank">
+      <a href="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.05.png" target="_blank">
         <img 
-          src="/images/e2e-test-and-nightwatch/e2e_and_nightwatch.05.png" 
+          src="/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.05.png" 
           alt="모카 테스트 실행 결과" 
           style=""
         >
@@ -553,7 +553,7 @@ $ ./node_modules/.bin/webdriver-manager update
   <div class="navigation__prev">
     
       <span class="navigation__guide">Next Post</span>
-      <a href="/2016/10/11/read-the-engineering-technology-and-society/" class="navigation__link">
+      <a href="/blog/2016/10/11/read-the-engineering-technology-and-society/" class="navigation__link">
         <p class="navigation__title ellipsis">공학기술과 사회를 읽고</p>
       </a>
       <div class="navigation__meta">
@@ -569,7 +569,7 @@ $ ./node_modules/.bin/webdriver-manager update
     
       <div class="meta__category-list">
         
-          <a href="/categories/Book/" class="meta__category-list-item">
+          <a href="/blog/categories/Book/" class="meta__category-list-item">
             <span>Book</span>
           </a>
           
@@ -588,7 +588,7 @@ $ ./node_modules/.bin/webdriver-manager update
   <div class="navigation__next">
     
       <span class="navigation__guide">Previous Post</span>
-      <a href="/2016/04/26/read-the-thinking-about-react/" class="navigation__link">
+      <a href="/blog/2016/04/26/read-the-thinking-about-react/" class="navigation__link">
         <p class="navigation__title ellipsis">React에 대한 여러가지 생각을 읽고</p>
       </a>
       <div class="navigation__meta">
@@ -604,14 +604,14 @@ $ ./node_modules/.bin/webdriver-manager update
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/React/" class="meta__category-list-item">
             <span>React</span>
           </a>
           
@@ -692,7 +692,7 @@ $ ./node_modules/.bin/webdriver-manager update
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -704,7 +704,7 @@ $ ./node_modules/.bin/webdriver-manager update
 
   </div>
   <div class="footer__copyright">
-    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
     All rights reserved.
   </div>
 </footer>
@@ -713,7 +713,7 @@ $ ./node_modules/.bin/webdriver-manager update
 
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://blog.coderifleman.com/2016/06/17/e2e-test-and-nightwatch/';
+      this.page.url = 'https://uyeong.github.io/blog/2016/06/17/e2e-test-and-nightwatch/';
       this.page.identifier = '2016/06/17/e2e-test-and-nightwatch/';
     };
     (function () {
@@ -745,7 +745,7 @@ $ ./node_modules/.bin/webdriver-manager update
 <script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
-<script src="/script.js"></script>
+<script src="/blog/script.js"></script>
 
 </body>
 </html>

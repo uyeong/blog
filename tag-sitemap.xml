@@ -3,371 +3,371 @@
 
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Design/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Design/</loc>
         <lastmod>2023-02-28T04:47:57.006Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/React/</loc>
+        <loc>https://uyeong.github.io/blog/tags/React/</loc>
         <lastmod>2023-02-28T04:47:57.006Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Architecture/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Architecture/</loc>
         <lastmod>2023-02-28T04:47:57.006Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/JavaScript/</loc>
+        <loc>https://uyeong.github.io/blog/tags/JavaScript/</loc>
         <lastmod>2023-02-28T04:47:57.006Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/io-js/</loc>
+        <loc>https://uyeong.github.io/blog/tags/io-js/</loc>
         <lastmod>2022-11-09T05:45:21.015Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Node-js/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Node-js/</loc>
         <lastmod>2022-11-09T05:45:21.015Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Noto-Sans-CJK/</loc>
+        <loc>https://uyeong.github.io/blog/tags/WebStorm/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Fonts/</loc>
+        <loc>https://uyeong.github.io/blog/tags/UNIX/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Web-Fonts/</loc>
+        <loc>https://uyeong.github.io/blog/tags/POSIX/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/TypeScript/</loc>
+        <loc>https://uyeong.github.io/blog/tags/FileSystem/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Sinon-js/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Hacking/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/scrollRestoration/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Attack/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/history/</loc>
+        <loc>https://uyeong.github.io/blog/tags/TypeScript/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/WebStorm/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Sinon-js/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/UNIX/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Noto-Sans-CJK/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/POSIX/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Fonts/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/FileSystem/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Web-Fonts/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Hacking/</loc>
+        <loc>https://uyeong.github.io/blog/tags/scrollRestoration/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Attack/</loc>
+        <loc>https://uyeong.github.io/blog/tags/history/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Security/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Security/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/MVC/</loc>
+        <loc>https://uyeong.github.io/blog/tags/MVC/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Development/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Development/</loc>
         <lastmod>2022-11-09T05:45:21.014Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Review/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Review/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Society/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Society/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Technology/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Technology/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Engineering/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Engineering/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/DesignPattern/</loc>
+        <loc>https://uyeong.github.io/blog/tags/DesignPattern/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/HumbleObjectPattern/</loc>
+        <loc>https://uyeong.github.io/blog/tags/HumbleObjectPattern/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/ReactHooks/</loc>
+        <loc>https://uyeong.github.io/blog/tags/ReactHooks/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Hooks/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Hooks/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/ECMAScript/</loc>
+        <loc>https://uyeong.github.io/blog/tags/ECMAScript/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Node/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Node/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Immutable-Object/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Immutable-Object/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Flux/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Flux/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/UnitTest/</loc>
+        <loc>https://uyeong.github.io/blog/tags/UnitTest/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Test/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Test/</loc>
         <lastmod>2022-11-09T05:45:21.013Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/TestCafe/</loc>
+        <loc>https://uyeong.github.io/blog/tags/requestAnimationFrame/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Jser-info/</loc>
+        <loc>https://uyeong.github.io/blog/tags/ECMAScript-6/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/JSer/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Jser-info/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Translate/</loc>
+        <loc>https://uyeong.github.io/blog/tags/JSer/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/FrontEnd/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Translate/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Weekly/</loc>
+        <loc>https://uyeong.github.io/blog/tags/FrontEnd/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/requestAnimationFrame/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Weekly/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/E2E-Test/</loc>
+        <loc>https://uyeong.github.io/blog/tags/TestCafe/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/E2E/</loc>
+        <loc>https://uyeong.github.io/blog/tags/E2E-Test/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/ECMAScript-6/</loc>
+        <loc>https://uyeong.github.io/blog/tags/E2E/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Animation/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Animation/</loc>
         <lastmod>2022-11-09T05:45:21.011Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Nightwatch/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Nightwatch/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Undo-Redo/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Undo-Redo/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Math/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Math/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Spline/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Spline/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/BezierCurves/</loc>
+        <loc>https://uyeong.github.io/blog/tags/BezierCurves/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://blog.coderifleman.com/tags/Algorithm/</loc>
+        <loc>https://uyeong.github.io/blog/tags/Algorithm/</loc>
         <lastmod>2022-11-09T05:45:21.010Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

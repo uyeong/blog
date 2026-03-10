@@ -10,35 +10,35 @@
     <meta name="description" content="requestAnimationFrame을 사용해 작성한 코드를 어떻게 유닛 테스트(Unit Test)할 수 있는지 단계별로 자세히 소개합니다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Test,UnitTest,Animation,JavaScript,requestAnimationFrame">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Animation,JavaScript,Test,UnitTest,requestAnimationFrame">
   
   
     <meta name="author" content="Coderifleman">
   
   
-    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/blog/favicon.png">
   
   <meta name="description" content="requestAnimationFrame을 사용해 작성한 코드를 어떻게 유닛 테스트(Unit Test)할 수 있는지 단계별로 자세히 소개합니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="requestAnimationFrame을 어떻게 테스트 할 수 있을까?">
-<meta property="og:url" content="http://blog.coderifleman.com/2016/12/02/how-to-test-request-animation-frame/index.html">
+<meta property="og:url" content="https://uyeong.github.io/blog/2016/12/02/how-to-test-request-animation-frame/index.html">
 <meta property="og:site_name" content="Coderifleman&#39;s blog">
 <meta property="og:description" content="requestAnimationFrame을 사용해 작성한 코드를 어떻게 유닛 테스트(Unit Test)할 수 있는지 단계별로 자세히 소개합니다.">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2016-12-01T15:00:00.000Z">
 <meta property="article:modified_time" content="2022-11-09T05:45:21.011Z">
 <meta property="article:author" content="Coderifleman">
-<meta property="article:tag" content="Test">
-<meta property="article:tag" content="UnitTest">
 <meta property="article:tag" content="Animation">
 <meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Test">
+<meta property="article:tag" content="UnitTest">
 <meta property="article:tag" content="requestAnimationFrame">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@coderifleman">
-<meta name="twitter:site" content="http://blog.coderifleman.com/2016/12/02/how-to-test-request-animation-frame/index.html">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2016/12/02/how-to-test-request-animation-frame/index.html">
   
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
 
@@ -51,22 +51,22 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/blog/style.css">
 
-  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body>
 
 <div class="root">
   <header class="header">
   <div class="header__picture">
-    <a href="/">
-      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
     </a>
   </div>
   <div class="header__detail">
     <h1 class="header__title">
-      <a href="/">
+      <a href="/blog/">
         Coderifleman&#39;s blog
       </a>
     </h1>
@@ -121,7 +121,7 @@
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -153,14 +153,14 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/Test/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/Test/" class="meta__category-list-item">
             <span>Test</span>
           </a>
           
@@ -177,31 +177,31 @@
     
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/Test/" >
-            #Test
-          </a>
-        </li>
-      
-        <li class="tags__item">
-          <a class="tags__link" href="/tags/UnitTest/" >
-            #UnitTest
-          </a>
-        </li>
-      
-        <li class="tags__item">
-          <a class="tags__link" href="/tags/Animation/" >
+          <a class="tags__link" href="/blog/tags/Animation/" >
             #Animation
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/JavaScript/" >
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
             #JavaScript
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/requestAnimationFrame/" >
+          <a class="tags__link" href="/blog/tags/Test/" >
+            #Test
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/UnitTest/" >
+            #UnitTest
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/requestAnimationFrame/" >
             #requestAnimationFrame
           </a>
         </li>
@@ -388,7 +388,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
   <div class="navigation__prev">
     
       <span class="navigation__guide">Next Post</span>
-      <a href="/2016/12/30/bezier-curves/" class="navigation__link">
+      <a href="/blog/2016/12/30/bezier-curves/" class="navigation__link">
         <p class="navigation__title ellipsis">중학생도 알 수 있는 베지에 곡선(Bezier Curves)</p>
       </a>
       <div class="navigation__meta">
@@ -404,7 +404,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
     
       <div class="meta__category-list">
         
-          <a href="/categories/Algorithm/" class="meta__category-list-item">
+          <a href="/blog/categories/Algorithm/" class="meta__category-list-item">
             <span>Algorithm</span>
           </a>
           
@@ -423,7 +423,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
   <div class="navigation__next">
     
       <span class="navigation__guide">Previous Post</span>
-      <a href="/2016/11/28/scroll-restoration-property-of-history/" class="navigation__link">
+      <a href="/blog/2016/11/28/scroll-restoration-property-of-history/" class="navigation__link">
         <p class="navigation__title ellipsis">history 객체의 scrollRestoration 속성</p>
       </a>
       <div class="navigation__meta">
@@ -439,14 +439,14 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/Etc/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/Etc/" class="meta__category-list-item">
             <span>Etc</span>
           </a>
           
@@ -527,7 +527,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -539,7 +539,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
 
   </div>
   <div class="footer__copyright">
-    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
     All rights reserved.
   </div>
 </footer>
@@ -548,7 +548,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
 
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://blog.coderifleman.com/2016/12/02/how-to-test-request-animation-frame/';
+      this.page.url = 'https://uyeong.github.io/blog/2016/12/02/how-to-test-request-animation-frame/';
       this.page.identifier = '2016/12/02/how-to-test-request-animation-frame/';
     };
     (function () {
@@ -580,7 +580,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
 <script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
-<script src="/script.js"></script>
+<script src="/blog/script.js"></script>
 
 </body>
 </html>

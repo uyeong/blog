@@ -16,31 +16,31 @@
     <meta name="author" content="Coderifleman">
   
   
-    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/blog/favicon.png">
   
   <meta name="description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 네번째 편입니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React.js를 이해하다(4)">
-<meta property="og:url" content="http://blog.coderifleman.com/2015/06/29/learning-react-4/index.html">
+<meta property="og:url" content="https://uyeong.github.io/blog/2015/06/29/learning-react-4/index.html">
 <meta property="og:site_name" content="Coderifleman&#39;s blog">
 <meta property="og:description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 네번째 편입니다.">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:image" content="http://blog.coderifleman.com/images/learning-react-4/react_perf.01.png">
-<meta property="og:image" content="http://blog.coderifleman.com/images/learning-react-4/react_perf.02.png">
-<meta property="og:image" content="http://blog.coderifleman.com/images/learning-react-4/react_perf.03.png">
-<meta property="og:image" content="http://blog.coderifleman.com/images/learning-react-4/react_perf.04.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/learning-react-4/react_perf.01.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/learning-react-4/react_perf.02.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/learning-react-4/react_perf.03.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/learning-react-4/react_perf.04.png">
 <meta property="article:published_time" content="2015-06-28T15:00:00.000Z">
 <meta property="article:modified_time" content="2022-11-09T05:45:21.012Z">
 <meta property="article:author" content="Coderifleman">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="React">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.coderifleman.com/images/learning-react-4/react_perf.01.png">
+<meta name="twitter:image" content="https://uyeong.github.io/blog/images/learning-react-4/react_perf.01.png">
 <meta name="twitter:creator" content="@coderifleman">
-<meta name="twitter:site" content="http://blog.coderifleman.com/2015/06/29/learning-react-4/index.html">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2015/06/29/learning-react-4/index.html">
   
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
 
@@ -53,22 +53,22 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/blog/style.css">
 
-  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body>
 
 <div class="root">
   <header class="header">
   <div class="header__picture">
-    <a href="/">
-      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
     </a>
   </div>
   <div class="header__detail">
     <h1 class="header__title">
-      <a href="/">
+      <a href="/blog/">
         Coderifleman&#39;s blog
       </a>
     </h1>
@@ -123,7 +123,7 @@
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -155,14 +155,14 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/React/" class="meta__category-list-item">
             <span>React</span>
           </a>
           
@@ -179,13 +179,13 @@
     
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/JavaScript/" >
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
             #JavaScript
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/React/" >
+          <a class="tags__link" href="/blog/tags/React/" >
             #React
           </a>
         </li>
@@ -601,9 +601,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <h5 id="printInclusive"><a href="#printInclusive" class="headerlink" title="printInclusive"></a>printInclusive</h5><p>측정 중인 컴포넌트 처리에 걸린 시간을 알기 쉽게 출력합니다.</p>
 
     <figure title="printInclusive의 성능 측정 결과">
-      <a href="/images/learning-react-4/react_perf.01.png" target="_blank">
+      <a href="/blog/images/learning-react-4/react_perf.01.png" target="_blank">
         <img 
-          src="/images/learning-react-4/react_perf.01.png" 
+          src="/blog/images/learning-react-4/react_perf.01.png" 
           alt="printInclusive의 성능 측정 결과" 
           style=""
         >
@@ -615,9 +615,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <h5 id="printExclusive"><a href="#printExclusive" class="headerlink" title="printExclusive"></a>printExclusive</h5><p>컴포넌트 처리에 걸린 시간을 더 상세히 출력합니다.</p>
 
     <figure title="printExclusive의 성능 측정 결과의 성능 측정 결과">
-      <a href="/images/learning-react-4/react_perf.02.png" target="_blank">
+      <a href="/blog/images/learning-react-4/react_perf.02.png" target="_blank">
         <img 
-          src="/images/learning-react-4/react_perf.02.png" 
+          src="/blog/images/learning-react-4/react_perf.02.png" 
           alt="printExclusive의 성능 측정 결과의 성능 측정 결과" 
           style=""
         >
@@ -629,9 +629,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <h5 id="printWasted"><a href="#printWasted" class="headerlink" title="printWasted"></a>printWasted</h5><p>실제 렌더링 처리 이외에 걸린 시간을 출력합니다. shouldComponenetUpdate()를 적용하는 타이밍을 찾기 위한 단서로 사용합니다.</p>
 
     <figure title="printWasted의 성능 측정 결과의 성능 측정 결과">
-      <a href="/images/learning-react-4/react_perf.03.png" target="_blank">
+      <a href="/blog/images/learning-react-4/react_perf.03.png" target="_blank">
         <img 
-          src="/images/learning-react-4/react_perf.03.png" 
+          src="/blog/images/learning-react-4/react_perf.03.png" 
           alt="printWasted의 성능 측정 결과의 성능 측정 결과" 
           style=""
         >
@@ -643,9 +643,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <h5 id="printDOM-measurements"><a href="#printDOM-measurements" class="headerlink" title="printDOM(measurements)"></a>printDOM(measurements)</h5><p>돔을 추가하거나 삭제한 내역을 출력합니다.</p>
 
     <figure title="printDOM의 성능 측정 결과의 성능 측정 결과">
-      <a href="/images/learning-react-4/react_perf.04.png" target="_blank">
+      <a href="/blog/images/learning-react-4/react_perf.04.png" target="_blank">
         <img 
-          src="/images/learning-react-4/react_perf.04.png" 
+          src="/blog/images/learning-react-4/react_perf.04.png" 
           alt="printDOM의 성능 측정 결과의 성능 측정 결과" 
           style=""
         >
@@ -797,7 +797,7 @@ React<span class="token punctuation">.</span><span class="token function">render
   <div class="navigation__prev">
     
       <span class="navigation__guide">Next Post</span>
-      <a href="/2015/07/09/learning-react-5/" class="navigation__link">
+      <a href="/blog/2015/07/09/learning-react-5/" class="navigation__link">
         <p class="navigation__title ellipsis">React.js를 이해하다(5)</p>
       </a>
       <div class="navigation__meta">
@@ -813,14 +813,14 @@ React<span class="token punctuation">.</span><span class="token function">render
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/React/" class="meta__category-list-item">
             <span>React</span>
           </a>
           
@@ -839,7 +839,7 @@ React<span class="token punctuation">.</span><span class="token function">render
   <div class="navigation__next">
     
       <span class="navigation__guide">Previous Post</span>
-      <a href="/2015/06/27/learning-react-3/" class="navigation__link">
+      <a href="/blog/2015/06/27/learning-react-3/" class="navigation__link">
         <p class="navigation__title ellipsis">React.js를 이해하다(3)</p>
       </a>
       <div class="navigation__meta">
@@ -855,14 +855,14 @@ React<span class="token punctuation">.</span><span class="token function">render
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/React/" class="meta__category-list-item">
             <span>React</span>
           </a>
           
@@ -943,7 +943,7 @@ React<span class="token punctuation">.</span><span class="token function">render
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -955,7 +955,7 @@ React<span class="token punctuation">.</span><span class="token function">render
 
   </div>
   <div class="footer__copyright">
-    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
     All rights reserved.
   </div>
 </footer>
@@ -964,7 +964,7 @@ React<span class="token punctuation">.</span><span class="token function">render
 
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://blog.coderifleman.com/2015/06/29/learning-react-4/';
+      this.page.url = 'https://uyeong.github.io/blog/2015/06/29/learning-react-4/';
       this.page.identifier = '2015/06/29/learning-react-4/';
     };
     (function () {
@@ -996,7 +996,7 @@ React<span class="token punctuation">.</span><span class="token function">render
 <script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
-<script src="/script.js"></script>
+<script src="/blog/script.js"></script>
 
 </body>
 </html>

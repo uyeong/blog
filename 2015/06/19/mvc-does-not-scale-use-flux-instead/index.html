@@ -16,20 +16,20 @@
     <meta name="author" content="Coderifleman">
   
   
-    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/blog/favicon.png">
   
   <meta name="description" content="이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead」를 번역한 글이며, 페이스북이 Flux 아키텍처를 디자인한 이유와 그것이 무엇인지 설명하고 있습니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="페이스북의 결정: MVC는 확장에 용이하지 않다. 그렇다면 Flux다.">
-<meta property="og:url" content="http://blog.coderifleman.com/2015/06/19/mvc-does-not-scale-use-flux-instead/index.html">
+<meta property="og:url" content="https://uyeong.github.io/blog/2015/06/19/mvc-does-not-scale-use-flux-instead/index.html">
 <meta property="og:site_name" content="Coderifleman&#39;s blog">
 <meta property="og:description" content="이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead」를 번역한 글이며, 페이스북이 Flux 아키텍처를 디자인한 이유와 그것이 무엇인지 설명하고 있습니다.">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:image" content="http://blog.coderifleman.com/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png">
-<meta property="og:image" content="http://blog.coderifleman.com/images/mvc-does-not-scale-use-flux-instead/flux_architecture.02.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.02.png">
 <meta property="article:published_time" content="2015-06-18T15:00:00.000Z">
 <meta property="article:modified_time" content="2022-11-09T05:45:21.013Z">
 <meta property="article:author" content="Coderifleman">
@@ -39,9 +39,9 @@
 <meta property="article:tag" content="Flux">
 <meta property="article:tag" content="MVC">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.coderifleman.com/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png">
+<meta name="twitter:image" content="https://uyeong.github.io/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png">
 <meta name="twitter:creator" content="@coderifleman">
-<meta name="twitter:site" content="http://blog.coderifleman.com/2015/06/19/mvc-does-not-scale-use-flux-instead/index.html">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2015/06/19/mvc-does-not-scale-use-flux-instead/index.html">
   
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
 
@@ -54,22 +54,22 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/blog/style.css">
 
-  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body>
 
 <div class="root">
   <header class="header">
   <div class="header__picture">
-    <a href="/">
-      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
     </a>
   </div>
   <div class="header__detail">
     <h1 class="header__title">
-      <a href="/">
+      <a href="/blog/">
         Coderifleman&#39;s blog
       </a>
     </h1>
@@ -124,7 +124,7 @@
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -156,14 +156,14 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/Flux/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/Flux/" class="meta__category-list-item">
             <span>Flux</span>
           </a>
           
@@ -180,31 +180,31 @@
     
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/JavaScript/" >
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
             #JavaScript
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/Architecture/" >
+          <a class="tags__link" href="/blog/tags/Architecture/" >
             #Architecture
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/React/" >
+          <a class="tags__link" href="/blog/tags/React/" >
             #React
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/Flux/" >
+          <a class="tags__link" href="/blog/tags/Flux/" >
             #Flux
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/MVC/" >
+          <a class="tags__link" href="/blog/tags/MVC/" >
             #MVC
           </a>
         </li>
@@ -239,9 +239,9 @@
 <p>Jing Chen씨는 이어서 MVC는 소규모 애플리케이션에는 적합하지만 아래 이미지처럼 Model이나 Model과 관련한 View가 대량으로 시스템에 추가되면 복잡도가 폭발적으로 증가한다고 말했다.</p>
 
     <figure title="MVC의 데이터 흐름">
-      <a href="/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png" target="_blank">
+      <a href="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png" target="_blank">
         <img 
-          src="/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png" 
+          src="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png" 
           alt="MVC의 데이터 흐름" 
           style=""
         >
@@ -253,9 +253,9 @@
 <p>이러한 애플리케이션은 Model과 View 사이의 데이터를 양방향(bidirectional data flow)으로 흐르게 할 가능성이 있고, 따라서 이해하고 디버깅하기 어렵다고 말하면서 대신 아래 Flux와 같은 설계를 제안했다.</p>
 
     <figure title="Flux의 데이터 흐름">
-      <a href="/images/mvc-does-not-scale-use-flux-instead/flux_architecture.02.png" target="_blank">
+      <a href="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.02.png" target="_blank">
         <img 
-          src="/images/mvc-does-not-scale-use-flux-instead/flux_architecture.02.png" 
+          src="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.02.png" 
           alt="Flux의 데이터 흐름" 
           style=""
         >
@@ -330,7 +330,7 @@
   <div class="navigation__prev">
     
       <span class="navigation__guide">Next Post</span>
-      <a href="/2015/06/23/learning-react-1/" class="navigation__link">
+      <a href="/blog/2015/06/23/learning-react-1/" class="navigation__link">
         <p class="navigation__title ellipsis">React.js를 이해하다(1)</p>
       </a>
       <div class="navigation__meta">
@@ -346,14 +346,14 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/React/" class="meta__category-list-item">
             <span>React</span>
           </a>
           
@@ -372,8 +372,8 @@
   <div class="navigation__next">
     
       <span class="navigation__guide">Previous Post</span>
-      <a href="/2015/04/04/text-files-end-with-a-newline/" class="navigation__link">
-        <p class="navigation__title ellipsis">파일 끝에 개행을 추가해야 하는 이유</p>
+      <a href="/blog/2015/04/04/using-korean-web-fonts/" class="navigation__link">
+        <p class="navigation__title ellipsis">한글 웹 폰트 경량화해 사용하기</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -388,15 +388,8 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/IDE/" class="meta__category-list-item">
-            <span>IDE</span>
-          </a>
-          
-            <span>&nbsp/ </span>
-          
-        
-          <a href="/categories/IDE/WebStorm/" class="meta__category-list-item">
-            <span>WebStorm</span>
+          <a href="/blog/categories/Fonts/" class="meta__category-list-item">
+            <span>Fonts</span>
           </a>
           
         
@@ -407,7 +400,7 @@
 
       </div>
       <p class="navigation__desc">
-        POSIX 명세를 근거로 파일 끝에 개행을 추가해야하는 이유를 알아보고 WebStorm IDE에서 자동으로 개행을 추가하는 방법을 소개합니다.
+        폰트의 서브셋 개념을 소개하고 한글 웹 폰트 Note Sans CJK를 이용해 폰트를 경량화하는 이유와 그 방법을 소개합니다.
       </p>
     
   </div>
@@ -476,7 +469,7 @@
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -488,7 +481,7 @@
 
   </div>
   <div class="footer__copyright">
-    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
     All rights reserved.
   </div>
 </footer>
@@ -497,7 +490,7 @@
 
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://blog.coderifleman.com/2015/06/19/mvc-does-not-scale-use-flux-instead/';
+      this.page.url = 'https://uyeong.github.io/blog/2015/06/19/mvc-does-not-scale-use-flux-instead/';
       this.page.identifier = '2015/06/19/mvc-does-not-scale-use-flux-instead/';
     };
     (function () {
@@ -529,7 +522,7 @@
 <script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
-<script src="/script.js"></script>
+<script src="/blog/script.js"></script>
 
 </body>
 </html>

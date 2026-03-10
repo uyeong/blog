@@ -16,29 +16,29 @@
     <meta name="author" content="Coderifleman">
   
   
-    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/blog/favicon.png">
   
   <meta name="description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 여섯번째 편입니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React.js를 이해하다(6)">
-<meta property="og:url" content="http://blog.coderifleman.com/2015/07/11/learning-react-6/index.html">
+<meta property="og:url" content="https://uyeong.github.io/blog/2015/07/11/learning-react-6/index.html">
 <meta property="og:site_name" content="Coderifleman&#39;s blog">
 <meta property="og:description" content="일본의 개발자 koba04님이 작성한 React.js Advent Calendar를 번역한 글로, React.js를 보다 쉽게 접근하고 이해하기 쉽게 설명합니다. 이 글은 시리즈로 작성됐으며 이 문서는 그 중 여섯번째 편입니다.">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:image" content="http://blog.coderifleman.com/images/learning-react-6/react_test.01.gif">
-<meta property="og:image" content="http://blog.coderifleman.com/images/learning-react-6/react_flux.01.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/learning-react-6/react_test.01.gif">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/learning-react-6/react_flux.01.png">
 <meta property="article:published_time" content="2015-07-10T15:00:00.000Z">
 <meta property="article:modified_time" content="2022-11-09T05:45:21.012Z">
 <meta property="article:author" content="Coderifleman">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="React">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.coderifleman.com/images/learning-react-6/react_test.01.gif">
+<meta name="twitter:image" content="https://uyeong.github.io/blog/images/learning-react-6/react_test.01.gif">
 <meta name="twitter:creator" content="@coderifleman">
-<meta name="twitter:site" content="http://blog.coderifleman.com/2015/07/11/learning-react-6/index.html">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2015/07/11/learning-react-6/index.html">
   
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
 
@@ -51,22 +51,22 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/blog/style.css">
 
-  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body>
 
 <div class="root">
   <header class="header">
   <div class="header__picture">
-    <a href="/">
-      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
     </a>
   </div>
   <div class="header__detail">
     <h1 class="header__title">
-      <a href="/">
+      <a href="/blog/">
         Coderifleman&#39;s blog
       </a>
     </h1>
@@ -121,7 +121,7 @@
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -153,14 +153,14 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/React/" class="meta__category-list-item">
             <span>React</span>
           </a>
           
@@ -177,13 +177,13 @@
     
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/JavaScript/" >
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
             #JavaScript
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/React/" >
+          <a class="tags__link" href="/blog/tags/React/" >
             #React
           </a>
         </li>
@@ -486,9 +486,9 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 
 
     <figure title="Jest 동작 테스트">
-      <a href="/images/learning-react-6/react_test.01.gif" target="_blank">
+      <a href="/blog/images/learning-react-6/react_test.01.gif" target="_blank">
         <img 
-          src="/images/learning-react-6/react_test.01.gif" 
+          src="/blog/images/learning-react-6/react_test.01.gif" 
           alt="Jest 동작 테스트" 
           style=""
         >
@@ -548,9 +548,9 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 <h2 id="React-js와-Flux"><a href="#React-js와-Flux" class="headerlink" title="React.js와 Flux"></a>React.js와 Flux</h2><p>이번에는 React.js와 관계가 깊은 <a target="_blank" rel="noopener" href="http://facebook.github.io/flux/">Flux</a>를 소개하겠습니다.</p>
 <h3 id="Flux-is-Architecture"><a href="#Flux-is-Architecture" class="headerlink" title="Flux is Architecture"></a>Flux is Architecture</h3>
     <figure title="Flux 아키텍처">
-      <a href="/images/learning-react-6/react_flux.01.png" target="_blank">
+      <a href="/blog/images/learning-react-6/react_flux.01.png" target="_blank">
         <img 
-          src="/images/learning-react-6/react_flux.01.png" 
+          src="/blog/images/learning-react-6/react_flux.01.png" 
           alt="Flux 아키텍처" 
           style=""
         >
@@ -849,7 +849,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <div class="navigation__prev">
     
       <span class="navigation__guide">Next Post</span>
-      <a href="/2015/07/12/learning-react-7/" class="navigation__link">
+      <a href="/blog/2015/07/12/learning-react-7/" class="navigation__link">
         <p class="navigation__title ellipsis">React.js를 이해하다(7)</p>
       </a>
       <div class="navigation__meta">
@@ -865,14 +865,14 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/React/" class="meta__category-list-item">
             <span>React</span>
           </a>
           
@@ -891,7 +891,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <div class="navigation__next">
     
       <span class="navigation__guide">Previous Post</span>
-      <a href="/2015/07/09/learning-react-5/" class="navigation__link">
+      <a href="/blog/2015/07/09/learning-react-5/" class="navigation__link">
         <p class="navigation__title ellipsis">React.js를 이해하다(5)</p>
       </a>
       <div class="navigation__meta">
@@ -907,14 +907,14 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/React/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/React/" class="meta__category-list-item">
             <span>React</span>
           </a>
           
@@ -995,7 +995,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -1007,7 +1007,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 
   </div>
   <div class="footer__copyright">
-    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
     All rights reserved.
   </div>
 </footer>
@@ -1016,7 +1016,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://blog.coderifleman.com/2015/07/11/learning-react-6/';
+      this.page.url = 'https://uyeong.github.io/blog/2015/07/11/learning-react-6/';
       this.page.identifier = '2015/07/11/learning-react-6/';
     };
     (function () {
@@ -1048,7 +1048,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 <script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
-<script src="/script.js"></script>
+<script src="/blog/script.js"></script>
 
 </body>
 </html>

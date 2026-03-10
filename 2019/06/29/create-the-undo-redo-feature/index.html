@@ -10,38 +10,38 @@
     <meta name="description" content="실행 취소 / 다시 실행(Undo/Redo) 기능을 어떻게 구현할 수 있는지 자바스크립트 라이브러리 serializr와 함께 단계별로 자세히 설명합니다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Development,JavaScript,Architecture,Undo/Redo">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,Development,Architecture,Undo/Redo">
   
   
     <meta name="author" content="Coderifleman">
   
   
-    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/blog/favicon.png">
   
   <meta name="description" content="실행 취소 &#x2F; 다시 실행(Undo&#x2F;Redo) 기능을 어떻게 구현할 수 있는지 자바스크립트 라이브러리 serializr와 함께 단계별로 자세히 설명합니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="실행 취소 &#x2F; 다시 실행 기능 구현하기(feat. serializr)">
-<meta property="og:url" content="http://blog.coderifleman.com/2019/06/29/create-the-undo-redo-feature/index.html">
+<meta property="og:url" content="https://uyeong.github.io/blog/2019/06/29/create-the-undo-redo-feature/index.html">
 <meta property="og:site_name" content="Coderifleman&#39;s blog">
 <meta property="og:description" content="실행 취소 &#x2F; 다시 실행(Undo&#x2F;Redo) 기능을 어떻게 구현할 수 있는지 자바스크립트 라이브러리 serializr와 함께 단계별로 자세히 설명합니다.">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:image" content="http://blog.coderifleman.com/images/create-the-undo-redo-feature/undo-redo.00.jpg">
-<meta property="og:image" content="http://blog.coderifleman.com/images/create-the-undo-redo-feature/undo-redo.01.png">
-<meta property="og:image" content="http://blog.coderifleman.com/images/2019/create-the-undo-redo-feature/undo-redo.02.png">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/create-the-undo-redo-feature/undo-redo.00.jpg">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/create-the-undo-redo-feature/undo-redo.01.png">
+<meta property="og:image" content="https://uyeong.github.io/images/2019/create-the-undo-redo-feature/undo-redo.02.png">
 <meta property="article:published_time" content="2019-06-28T15:00:00.000Z">
 <meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
 <meta property="article:author" content="Coderifleman">
-<meta property="article:tag" content="Development">
 <meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Development">
 <meta property="article:tag" content="Architecture">
 <meta property="article:tag" content="Undo&#x2F;Redo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.coderifleman.com/images/create-the-undo-redo-feature/undo-redo.00.jpg">
+<meta name="twitter:image" content="https://uyeong.github.io/blog/images/create-the-undo-redo-feature/undo-redo.00.jpg">
 <meta name="twitter:creator" content="@coderifleman">
-<meta name="twitter:site" content="http://blog.coderifleman.com/2019/06/29/create-the-undo-redo-feature/index.html">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2019/06/29/create-the-undo-redo-feature/index.html">
   
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
 
@@ -54,22 +54,22 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/blog/style.css">
 
-  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body>
 
 <div class="root">
   <header class="header">
   <div class="header__picture">
-    <a href="/">
-      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
     </a>
   </div>
   <div class="header__detail">
     <h1 class="header__title">
-      <a href="/">
+      <a href="/blog/">
         Coderifleman&#39;s blog
       </a>
     </h1>
@@ -124,7 +124,7 @@
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -156,14 +156,14 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/Implementation/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/Implementation/" class="meta__category-list-item">
             <span>Implementation</span>
           </a>
           
@@ -180,25 +180,25 @@
     
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/Development/" >
-            #Development
-          </a>
-        </li>
-      
-        <li class="tags__item">
-          <a class="tags__link" href="/tags/JavaScript/" >
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
             #JavaScript
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/Architecture/" >
+          <a class="tags__link" href="/blog/tags/Development/" >
+            #Development
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Architecture/" >
             #Architecture
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/Undo-Redo/" >
+          <a class="tags__link" href="/blog/tags/Undo-Redo/" >
             #Undo/Redo
           </a>
         </li>
@@ -219,9 +219,9 @@
       <div class="post__contents">
         
     <figure title="undefined">
-      <a href="/images/create-the-undo-redo-feature/undo-redo.00.jpg" target="_blank">
+      <a href="/blog/images/create-the-undo-redo-feature/undo-redo.00.jpg" target="_blank">
         <img 
-          src="/images/create-the-undo-redo-feature/undo-redo.00.jpg" 
+          src="/blog/images/create-the-undo-redo-feature/undo-redo.00.jpg" 
           alt="" 
           style=""
         >
@@ -240,9 +240,9 @@
 <p>이해를 돕기 위해 원, 사각형, 삼각형 중 하나를 생성하고, 끌어다 놓거나 삭제할 수 있는 간단한 애플리케이션을 준비했다. 여기에 실행 취소 / 다시 실행 기능을 추가하고자 한다. 하지만 그 전에 애플리케이션의 구조를 모델, 표현(presentation), 이벤트 핸들러로 나눠 간단히 살펴보고 넘어가자.</p>
 <h3 id="모델"><a href="#모델" class="headerlink" title="모델"></a>모델</h3>
     <figure title="모델 구조와 표현 관계">
-      <a href="/images/create-the-undo-redo-feature/undo-redo.01.png" target="_blank">
+      <a href="/blog/images/create-the-undo-redo-feature/undo-redo.01.png" target="_blank">
         <img 
-          src="/images/create-the-undo-redo-feature/undo-redo.01.png" 
+          src="/blog/images/create-the-undo-redo-feature/undo-redo.01.png" 
           alt="모델 구조와 표현 관계" 
           style=""
         >
@@ -559,7 +559,7 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
   <div class="navigation__prev">
     
       <span class="navigation__guide">Next Post</span>
-      <a href="/2019/07/19/prototype-pollution-attacks-in-nodejs/" class="navigation__link">
+      <a href="/blog/2019/07/19/prototype-pollution-attacks-in-nodejs/" class="navigation__link">
         <p class="navigation__title ellipsis">Node.js에서의 프로토타입 오염 공격이란 무엇인가</p>
       </a>
       <div class="navigation__meta">
@@ -575,14 +575,14 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/Security/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/Security/" class="meta__category-list-item">
             <span>Security</span>
           </a>
           
@@ -601,7 +601,7 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
   <div class="navigation__next">
     
       <span class="navigation__guide">Previous Post</span>
-      <a href="/2018/03/03/two-ways-to-work-with-backend-developer/" class="navigation__link">
+      <a href="/blog/2018/03/03/two-ways-to-work-with-backend-developer/" class="navigation__link">
         <p class="navigation__title ellipsis">백엔드 개발자와 협업하는 두 가지 방법</p>
       </a>
       <div class="navigation__meta">
@@ -617,7 +617,7 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
     
       <div class="meta__category-list">
         
-          <a href="/categories/Development/" class="meta__category-list-item">
+          <a href="/blog/categories/Development/" class="meta__category-list-item">
             <span>Development</span>
           </a>
           
@@ -698,7 +698,7 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -710,7 +710,7 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
 
   </div>
   <div class="footer__copyright">
-    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
     All rights reserved.
   </div>
 </footer>
@@ -719,7 +719,7 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
 
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://blog.coderifleman.com/2019/06/29/create-the-undo-redo-feature/';
+      this.page.url = 'https://uyeong.github.io/blog/2019/06/29/create-the-undo-redo-feature/';
       this.page.identifier = '2019/06/29/create-the-undo-redo-feature/';
     };
     (function () {
@@ -751,7 +751,7 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
 <script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
-<script src="/script.js"></script>
+<script src="/blog/script.js"></script>
 
 </body>
 </html>

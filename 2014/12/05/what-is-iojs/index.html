@@ -16,15 +16,15 @@
     <meta name="author" content="Coderifleman">
   
   
-    <link rel="alternate" href="/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/blog/favicon.png">
   
   <meta name="description" content="2014년 12월 경 Node Forward가 Node.js를 fork하고 자신들의 운영 규칙을 작성하기 시작했고, io.js라는 프로젝트를 시작했습니다. 이 문서에서는 io.js가 무엇인지 그리고 왜 새로운 프로젝트를 시작할 수 밖에 없었는지 살펴봅니다.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="io.js란 무엇인가?">
-<meta property="og:url" content="http://blog.coderifleman.com/2014/12/05/what-is-iojs/index.html">
+<meta property="og:url" content="https://uyeong.github.io/blog/2014/12/05/what-is-iojs/index.html">
 <meta property="og:site_name" content="Coderifleman&#39;s blog">
 <meta property="og:description" content="2014년 12월 경 Node Forward가 Node.js를 fork하고 자신들의 운영 규칙을 작성하기 시작했고, io.js라는 프로젝트를 시작했습니다. 이 문서에서는 io.js가 무엇인지 그리고 왜 새로운 프로젝트를 시작할 수 밖에 없었는지 살펴봅니다.">
 <meta property="og:locale" content="ko_KR">
@@ -35,7 +35,7 @@
 <meta property="article:tag" content="io.js">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@coderifleman">
-<meta name="twitter:site" content="http://blog.coderifleman.com/2014/12/05/what-is-iojs/index.html">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2014/12/05/what-is-iojs/index.html">
   
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
 
@@ -48,22 +48,22 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/blog/style.css">
 
-  <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
 <meta name="generator" content="Hexo 5.4.0"></head>
 <body>
 
 <div class="root">
   <header class="header">
   <div class="header__picture">
-    <a href="/">
-      <img src="/images/common/author.png" alt="Coderifleman's Picture"/>
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
     </a>
   </div>
   <div class="header__detail">
     <h1 class="header__title">
-      <a href="/">
+      <a href="/blog/">
         Coderifleman&#39;s blog
       </a>
     </h1>
@@ -118,7 +118,7 @@
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -150,14 +150,14 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/Node-js/" class="meta__category-list-item">
+          <a href="/blog/categories/Node-js/" class="meta__category-list-item">
             <span>Node.js</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/Node-js/Etc/" class="meta__category-list-item">
+          <a href="/blog/categories/Node-js/Etc/" class="meta__category-list-item">
             <span>Etc</span>
           </a>
           
@@ -174,13 +174,13 @@
     
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/Node-js/" >
+          <a class="tags__link" href="/blog/tags/Node-js/" >
             #Node.js
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/tags/io-js/" >
+          <a class="tags__link" href="/blog/tags/io-js/" >
             #io.js
           </a>
         </li>
@@ -245,8 +245,8 @@
   <div class="navigation__prev">
     
       <span class="navigation__guide">Next Post</span>
-      <a href="/2015/04/04/using-korean-web-fonts/" class="navigation__link">
-        <p class="navigation__title ellipsis">한글 웹 폰트 경량화해 사용하기</p>
+      <a href="/blog/2015/04/04/text-files-end-with-a-newline/" class="navigation__link">
+        <p class="navigation__title ellipsis">파일 끝에 개행을 추가해야 하는 이유</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -261,8 +261,15 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/Fonts/" class="meta__category-list-item">
-            <span>Fonts</span>
+          <a href="/blog/categories/IDE/" class="meta__category-list-item">
+            <span>IDE</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/IDE/WebStorm/" class="meta__category-list-item">
+            <span>WebStorm</span>
           </a>
           
         
@@ -273,14 +280,14 @@
 
       </div>
       <p class="navigation__desc">
-        폰트의 서브셋 개념을 소개하고 한글 웹 폰트 Note Sans CJK를 이용해 폰트를 경량화하는 이유와 그 방법을 소개합니다.
+        POSIX 명세를 근거로 파일 끝에 개행을 추가해야하는 이유를 알아보고 WebStorm IDE에서 자동으로 개행을 추가하는 방법을 소개합니다.
       </p>
     
   </div>
   <div class="navigation__next">
     
       <span class="navigation__guide">Previous Post</span>
-      <a href="/2014/11/15/javascript-and-async-error/" class="navigation__link">
+      <a href="/blog/2014/11/15/javascript-and-async-error/" class="navigation__link">
         <p class="navigation__title ellipsis">자바스크립트와 비동기 오류 처리</p>
       </a>
       <div class="navigation__meta">
@@ -296,14 +303,14 @@
     
       <div class="meta__category-list">
         
-          <a href="/categories/JavaScript/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
             <span>JavaScript</span>
           </a>
           
             <span>&nbsp/ </span>
           
         
-          <a href="/categories/JavaScript/Etc/" class="meta__category-list-item">
+          <a href="/blog/categories/JavaScript/Etc/" class="meta__category-list-item">
             <span>Etc</span>
           </a>
           
@@ -384,7 +391,7 @@
     
       <li class="media__medium">
         
-          <a href="/atom.xml" target="_blank">
+          <a href="/blog/atom.xml" target="_blank">
             <i class="fa fa-rss" aria-hidden="true"></i>
             <span class="blind">RSS</span>
           </a>
@@ -396,7 +403,7 @@
 
   </div>
   <div class="footer__copyright">
-    © 2014–2023 Copyright by <a href="/">Coderifleman</a>.<br />
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
     All rights reserved.
   </div>
 </footer>
@@ -405,7 +412,7 @@
 
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://blog.coderifleman.com/2014/12/05/what-is-iojs/';
+      this.page.url = 'https://uyeong.github.io/blog/2014/12/05/what-is-iojs/';
       this.page.identifier = '2014/12/05/what-is-iojs/';
     };
     (function () {
@@ -437,7 +444,7 @@
 <script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
-<script src="/script.js"></script>
+<script src="/blog/script.js"></script>
 
 </body>
 </html>

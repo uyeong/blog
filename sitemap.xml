@@ -3,17 +3,17 @@
 
 
     <sitemap>
-        <loc>http://blog.coderifleman.com/post-sitemap.xml</loc>
+        <loc>https://uyeong.github.io/blog/post-sitemap.xml</loc>
         <lastmod>2023-02-28T04:47:57.006Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://blog.coderifleman.com/category-sitemap.xml</loc>
+        <loc>https://uyeong.github.io/blog/category-sitemap.xml</loc>
         <lastmod>2023-02-28T04:47:57.006Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://blog.coderifleman.com/tag-sitemap.xml</loc>
+        <loc>https://uyeong.github.io/blog/tag-sitemap.xml</loc>
         <lastmod>2023-02-28T04:47:57.006Z</lastmod>
     </sitemap>
 
