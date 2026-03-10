@@ -10,7 +10,7 @@
     <meta name="description" content="React.js에서 로직을 어떻게 응집성 있게 관리할 수 있는지 간단한 송금 예제와 함께 소개한다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,React,Design,Architecture">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,Architecture,React,Design">
   
   
     <meta name="author" content="Coderifleman">
@@ -54,6 +54,9 @@
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+
   
 <link rel="stylesheet" href="/blog/style.css">
 
@@ -187,6 +190,12 @@
         </li>
       
         <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Architecture/" >
+            #Architecture
+          </a>
+        </li>
+      
+        <li class="tags__item">
           <a class="tags__link" href="/blog/tags/React/" >
             #React
           </a>
@@ -195,12 +204,6 @@
         <li class="tags__item">
           <a class="tags__link" href="/blog/tags/Design/" >
             #Design
-          </a>
-        </li>
-      
-        <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/Architecture/" >
-            #Architecture
           </a>
         </li>
       
@@ -559,6 +562,8 @@ const RemittanceProvider = (
     })();
   </script>
 
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
 
 <script src="/blog/script.js"></script>
 

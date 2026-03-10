@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://uyeong.github.io/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.04.png">
 <meta property="og:image" content="https://uyeong.github.io/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.05.png">
 <meta property="article:published_time" content="2017-03-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-10T02:27:58.137Z">
+<meta property="article:modified_time" content="2026-03-10T02:39:13.144Z">
 <meta property="article:author" content="Coderifleman">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="Animation">
@@ -56,6 +56,9 @@
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+
   
 <link rel="stylesheet" href="/blog/style.css">
 
@@ -244,12 +247,14 @@
 
 <p>3개의 조절점 A, B, C를 이용해 그린 두 개의 직선 즉, 두 개의 1차 베지에 곡선이 있다. 그리고 이 곡선에서 보간되는 점 E와 F도 있다. 이때 점 E와 F를 이용해 또 다른 직선을 그릴 수 있고 이 직선에서 보간되는 점 P도 추가할 수 있다. 이제 점 E와 F 그리고 P를 보간하면 P의 행적이 곡선을 만들어 낸다(이해가 되지 않는다면 「<a href="/2016/12/30/bezier-curves/">중학생도 알 수 있는 베지에 곡선</a>」을 참고한다).</p>
 <p>그럼 이제 2차 베지에 곡선을 직접 그려보도록 하자. 선분에서 블렌딩 되는 점 P를 구하는 공식은 다음과 같다(자세한 내용은 「<a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/">프런트엔드 엔지니어를 위한 베지에 곡선(Bézier Curves) - 2편</a>」을 참고). 이때 <code>s = 1 - t</code>다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P = (s * A) + (t * B)</code></pre>
+<p>$$P = (s \times A) + (t \times B)$$</p>
 
 <p>그림 2를 보면 알 수 있듯이 2차 베지에 곡선을 그리기 위해서는 점 E와 F 그리고 P를 보간해야 한다. 점 E는 조절점 A와 B를 이용해 구할 수 있고, 점 F는 조절점 B와 C를 이용해 구할 수 있다. 그리고 점 P는 다시 점 E와 F를 이용해 구할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">E = (s * A) + (t * B)
-F = (s * B) + (t * C)
-P = (s * E) + (t * F)</code></pre>
+<p>$$\begin{aligned}
+E &= (s \times A) + (t \times B) \\
+F &= (s \times B) + (t \times C) \\
+P &= (s \times E) + (t \times F)
+\end{aligned}$$</p>
 
 <p>이 공식을 자바스크립트 코드로 옮겨보자. 여기에서는 구현에 있어 몇 가지 중요한 함수만 소개한다. 전체 코드는 코드펜(CodePen)에 작성해 놓은 <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/qrpYwj">예제</a>를 참고한다.</p>
 <p>먼저 blender()는 점 A와 점 B 그리고 가중치 t를 전달받아 블랜딩한 결괏값을 반환하는 함수다.</p>
@@ -287,7 +292,7 @@ P = (s * E) + (t * F)</code></pre>
 <p>아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 2차 베지에 곡선이라고 한다.</p>
 
     <iframe
-      height="300"
+      height="340"
       style="width: 100%;"
       scrolling="no"
       title="CodePen Embed"
@@ -300,33 +305,43 @@ P = (s * E) + (t * F)</code></pre>
   
 
 <h3 id="수식-정리"><a href="#수식-정리" class="headerlink" title="수식 정리"></a>수식 정리</h3><p>우리가 2차 베지에 곡선을 위해 사용한 수식은 다음과 같다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">E = (s * A) + (t * B)
-F = (s * B) + (t * C)
-P = (s * E) + (t * F)</code></pre>
+<p>$$\begin{aligned}
+E &= (s \times A) + (t \times B) \\
+F &= (s \times B) + (t \times C) \\
+P &= (s \times E) + (t \times F)
+\end{aligned}$$</p>
 
 <p>하지만 이 수식은 조금 장황하며 자바스크립트 코드상에서도 함수 호출이 빈번한 상태다. 이 수식을 방정식으로  좀더 간결하고 효율적으로 표현할 수 있다. 일단 연산식에 있는 괄호를 없애고 좀더 간략하게 수식을 표현한다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">E(t) = sA + tB
-F(t) = sB + tC
-P(t) = sE(t) + tF(t)</code></pre>
+<p>$$\begin{aligned}
+E(t) &= sA + tB \\
+F(t) &= sB + tC \\
+P(t) &= sE(t) + tF(t)
+\end{aligned}$$</p>
 
 <p>이번엔 중학생 때 배워본 몇 가지 <a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EA%B3%B1%EC%85%88_%EA%B3%B5%EC%8B%9D">곱셈 공식</a> 사용하여 세 줄로 표현한 수식을 한 줄로 작성하고 이차방정식으로 정리한다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P(t) = s(sA + tB) + t(sB + tC)
-P(t) = (s²)A + (st)B + (st)B + (t²)C
-P(t) = (s²)A + 2(st)B + (t²)C</code></pre>
+<p>$$\begin{aligned}
+P(t) &= s(sA + tB) + t(sB + tC) \\
+P(t) &= s^2A + stB + stB + t^2C \\
+P(t) &= s^2A + 2stB + t^2C
+\end{aligned}$$</p>
 
 <p>자, 몇 가지 규칙을 더 추가하자. t가 0이라면 P는 항상 A와 같으며 다음과 같이 증명할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P(t) = (s²)A + 2(st)B + (t²)C
-P(t) = (1²)A + 2(1 * 0)B + (0²)C
-P(t) = (1)A + 2(0)B + (0)C
-P(t) = (1)A
-P(t) = A</code></pre>
+<p>$$\begin{aligned}
+P(t) &= s^2A + 2stB + t^2C \\
+P(t) &= 1^2 \cdot A + 2(1 \times 0)B + 0^2 \cdot C \\
+P(t) &= 1 \cdot A + 2(0)B + 0 \cdot C \\
+P(t) &= 1 \cdot A \\
+P(t) &= A
+\end{aligned}$$</p>
 
 <p>다시 t가 1이라면 P는 항상 C와 같으며 다음과 같이 증명할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P(t) = (s²)A + 2(st)B + (t²)C
-P(t) = (0²)A + 2(0 * 1)B + (1²)C
-P(t) = (0)A + 2(0)B + (1)C
-P(t) = (1)C
-P(t) = C</code></pre>
+<p>$$\begin{aligned}
+P(t) &= s^2A + 2stB + t^2C \\
+P(t) &= 0^2 \cdot A + 2(0 \times 1)B + 1^2 \cdot C \\
+P(t) &= 0 \cdot A + 2(0)B + 1 \cdot C \\
+P(t) &= 1 \cdot C \\
+P(t) &= C
+\end{aligned}$$</p>
 
 <p>이제 정리한 수식을 자바스크립트로 작성해보자. 함수명은 <code>quadBezier</code>로 짓고 2차 베지에 곡선임을 나타낸다.</p>
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">quadBezier</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -366,23 +381,27 @@ P(t) = C</code></pre>
 
 <p>조절점 A, B, C를 이용해 그린 2차 베지에 곡선과 조절점 B, C, D를 이용해 그린 2차 베지에 곡선이 있다. 그리고 각 2차 베지에 곡선에서 보간되는 점 Q와 R이 있다. 이때 점 Q와 R를 이용해 또 다른 직선을 그릴 수 있고 이 직선에서 보간되는 점 P도 추가할 수 있다. 이제 점 Q와 R 그리고 P를 보간하면 P의 행적이 곡선을 만들어 낸다.</p>
 <p>이제 3차 베지에 곡선을 직접 그려보자. 3차 베지에 곡선을 그리기 위해서는 보간되는 점 Q와 R 그리고 P를 구해야 한다. 점 Q는 다음과 같이 구할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">E = (s * A) + (t * B)
-F = (s * B) + (t * C)
-Q = (s * E) + (t * F)</code></pre>
+<p>$$\begin{aligned}
+E &= (s \times A) + (t \times B) \\
+F &= (s \times B) + (t \times C) \\
+Q &= (s \times E) + (t \times F)
+\end{aligned}$$</p>
 
 <p>다시 점 R은 다음과 같이 구할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">F = (s * B) + (t * C)
-G = (s * C) + (t * D)
-R = (s * F) + (t * G)</code></pre>
+<p>$$\begin{aligned}
+F &= (s \times B) + (t \times C) \\
+G &= (s \times C) + (t \times D) \\
+R &= (s \times F) + (t \times G)
+\end{aligned}$$</p>
 
 <p>이제 점 Q와 R을 이용해 점 P를 구할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P = (s * Q) + (t * R)</code></pre>
+<p>$$P = (s \times Q) + (t \times R)$$</p>
 
 <p>이제 2차 베지에 곡선을 그릴 때 작성한 blend, blender 함수를 활용해 3차 베지에 곡선을 그려보자. 간단하게 새로운 점을 추가한 후 위에서 설명한 것처럼 점 Q, R, P를 구해 보간하면 된다.</p>
 <p>아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 3차 베지에 곡선이라고 한다.</p>
 
     <iframe
-      height="300"
+      height="340"
       style="width: 100%;"
       scrolling="no"
       title="CodePen Embed"
@@ -395,14 +414,18 @@ R = (s * F) + (t * G)</code></pre>
   
 
 <h3 id="수식정리"><a href="#수식정리" class="headerlink" title="수식정리"></a>수식정리</h3><p>점 Q와 P는 각각 2차 베지에 곡선에서 구해지는 점이므로 2차 베지에 곡선의 수식으로 표현할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">Q(t) = (s²)A + 2(st)B + (t²)C
-R(t) = (s²)B + 2(st)C + (t²)D
-P(t) = sQ(t) + tR(t)</code></pre>
+<p>$$\begin{aligned}
+Q(t) &= s^2A + 2stB + t^2C \\
+R(t) &= s^2B + 2stC + t^2D \\
+P(t) &= sQ(t) + tR(t)
+\end{aligned}$$</p>
 
 <p>위 수식을 조금 더 풀어서 다음과 같이 정리할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P(t) = s((s²)A + 2(st)B + (t²)C) + t((s²)B + 2(st)C + (t²)D)
-P(t) = s³A + 2(s²t)B + st²C + s²tB + 2(st²)C + t³D
-P(t) = s³A + 3(s²t)B + 3(st²)C + t³D</code></pre>
+<p>$$\begin{aligned}
+P(t) &= s(s^2A + 2stB + t^2C) + t(s^2B + 2stC + t^2D) \\
+P(t) &= s^3A + 2s^2tB + st^2C + s^2tB + 2st^2C + t^3D \\
+P(t) &= s^3A + 3s^2tB + 3st^2C + t^3D
+\end{aligned}$$</p>
 
 <p>이제 정리한 수식을 자바스크립트로 작성해보자. 함수명은 <code>cubicBezier</code>로 짓고 3차 베지에 곡선임을 나타낸다.</p>
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">cubicBezier</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span><span class="token punctuation">,</span> <span class="token constant">D</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -654,6 +677,8 @@ P(t) = s³A + 3(s²t)B + 3(st²)C + t³D</code></pre>
     })();
   </script>
 
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
 
 <script src="/blog/script.js"></script>
 

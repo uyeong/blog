@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://uyeong.github.io/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.04.png">
 <meta property="og:image" content="https://uyeong.github.io/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.05.png">
 <meta property="article:published_time" content="2017-01-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-10T02:28:00.740Z">
+<meta property="article:modified_time" content="2026-03-10T02:38:21.412Z">
 <meta property="article:author" content="Coderifleman">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="Animation">
@@ -56,6 +56,9 @@
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+
   
 <link rel="stylesheet" href="/blog/style.css">
 
@@ -245,14 +248,16 @@
   
 
 <p>자, 위 그림 2와 같이 서로 떨어져 있는 점 A와 점 B가 있다고 해보자. 이때 점 P를 이 두 점 사이의 평균 즉,  <a target="_blank" rel="noopener" href="http://dic.daum.net/word/view.do?wordid=kkw000140374&supid=kku000175471">선분</a>의 중앙에 두고 싶다면 어떻게 해야 할까?</p>
-<pre class="language-text" data-language="text"><code class="language-text">P = (A + B) / 2</code></pre>
+<p>$$P = \frac{A + B}{2}$$</p>
 
 <p>위처럼 간단히 평균을 구해 중앙에 둘 수 있다. 이 수식을 조금 다르게 전개해보자.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P = (A + B) / 2
-  = (A + B) * ½
-  = ½A + ½B
-  = .5A + .5B
-  = (.5 * A) + (.5 * B)</code></pre>
+<p>$$\begin{aligned}
+P &= \frac{A + B}{2} \\
+  &= (A + B) \times \frac{1}{2} \\
+  &= \frac{1}{2}A + \frac{1}{2}B \\
+  &= 0.5A + 0.5B \\
+  &= (0.5 \times A) + (0.5 \times B)
+\end{aligned}$$</p>
 
 <p>위 수식을 이용한 연산을 블렌딩(Blending)이라고 표현한다. 지정된 각각의 비율에 맞춰 적절히 혼합하는 것이다. 자, 이제 같은 값이 아닌 가중치(Weights)를 줘서 블렌딩해보자.</p>
 
@@ -264,33 +269,39 @@
     </figure>
   
 
-<pre class="language-text" data-language="text"><code class="language-text">P = (.35 * A) + (.65 * B)' </code></pre>
+<p>$$P = (0.35 \times A) + (0.65 \times B)$$</p>
 
 <p>이번엔 A는 0.35(35%), B는 0.65(65%)로 비율을 조정해 블렌딩했다. 이때 두 비율의 합은 당연하겠지만 1(100%)이 돼야 한다. 이것은 반드시 지켜져야 할 필수 조건이다. 이어서 비율 값을 다음과 같이 일반화해보자.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P = (s * A) + (t * B)' </code></pre>
+<p>$$P = (s \times A) + (t \times B)$$</p>
 
 <p>s는 A의 비율을, t는 B의 비율을 나타낸다. 만약 s가 높으면 t는 낮아지고 반대로 t가 높으면 s는 낮아질 것이다. 잠깐, s와 t는 서로 영향을 주며 두 수의 합은 항상 1이 돼야 한다. 그렇다면 s는 <code>1 - t</code>와 같다고 할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P = ((1-t) * A) + (t * B)' </code></pre>
+<p>$$P = ((1 - t) \times A) + (t \times B)$$</p>
 
 <p>이제 변수 t 하나만으로 비율을 조정해 블렌딩할 수 있다. 이 수식은 다음과 같이 표현될 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P = ((1 - t) * A) + (t * B)
-  = (1 - t) * A + t * B
-  = A - tA + tB
-  = A + t(-A + B)
-  = A + t(B - A)</code></pre>
+<p>$$\begin{aligned}
+P &= ((1 - t) \times A) + (t \times B) \\
+  &= (1 - t) \times A + t \times B \\
+  &= A - tA + tB \\
+  &= A + t(-A + B) \\
+  &= A + t(B - A)
+\end{aligned}$$</p>
 
 <p>이 글에서는 수식 <code>P = (s * A) + (t * B)</code>를 사용해 설명을 이어가겠다. 다시 한번 말하지만 <code>s = 1 - t</code>다. 여기에 몇 가지 규칙이 추가된다. 만약 변수 t가 0이라면 P는 항상 A와 같으므로 다음과 같이 표현될 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P = ((1 - t) * A) + (t * B)
-  = ((1 - 0) * A) + (0 * B)
-  = (1 * A) + (0 * B)
-  = A</code></pre>
+<p>$$\begin{aligned}
+P &= ((1 - t) \times A) + (t \times B) \\
+  &= ((1 - 0) \times A) + (0 \times B) \\
+  &= (1 \times A) + (0 \times B) \\
+  &= A
+\end{aligned}$$</p>
 
 <p>또 변수 t가 1이라면 P는 항상 B와 같으므로 다음과 같이 표현될 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P = ((1 - t) * A) + (t * B)
-  = ((1 - 1) * A) + (1 * B)
-  = (0 * A) + (1 * B)
-  = A + B - A
-  = B</code></pre>
+<p>$$\begin{aligned}
+P &= ((1 - t) \times A) + (t \times B) \\
+  &= ((1 - 1) \times A) + (1 \times B) \\
+  &= (0 \times A) + (1 \times B) \\
+  &= A + B - A \\
+  &= B
+\end{aligned}$$</p>
 
 <p>이제 수식과 몇 가지 규칙을 참고하여 블렌딩하는 자바스크립트 함수를 작성해보자.</p>
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token constant">A</span> <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
@@ -319,7 +330,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 
     <iframe
-      height="300"
+      height="340"
       style="width: 100%;"
       scrolling="no"
       title="CodePen Embed"
@@ -332,9 +343,11 @@ console<span class="token punctuation">.</span><span class="token function">log<
   
 
 <h2 id="복합-데이터-블렌딩"><a href="#복합-데이터-블렌딩" class="headerlink" title="복합 데이터 블렌딩"></a>복합 데이터 블렌딩</h2><p>이번에는 「에버리징과 블렌딩」 절에서 이해한 수식을 이용해 복합 데이터(Compound data)를 블렌딩해보자. 블렌딩 수식만 잘 활용하면 2차원 또는 3차원 같은 복합적인 데이터도 쉽게 블렌딩할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">Px = (s * Ax) + (t * Bx)
-Py = (s * Ay) + (t * By)
-Pz = (s * Az) + (t * Bz)</code></pre>
+<p>$$\begin{aligned}
+P_x &= (s \times A_x) + (t \times B_x) \\
+P_y &= (s \times A_y) + (t \times B_y) \\
+P_z &= (s \times A_z) + (t \times B_z)
+\end{aligned}$$</p>
 
 <p>3차원인 경우 위처럼 개별적으로 블렌딩한 후 연산된 값을 조합해 사용한다.</p>
 
@@ -356,9 +369,11 @@ Pz = (s * Az) + (t * Bz)</code></pre>
     </figure>
   
 
-<pre class="language-text" data-language="text"><code class="language-text">Px = (s * Ax) + (t * Bx)
-Py = (s * Ay) + (t * By)
-P = &#123;Px, Py&#125;</code></pre>
+<p>$$\begin{aligned}
+P_x &= (s \times A_x) + (t \times B_x) \\
+P_y &= (s \times A_y) + (t \times B_y) \\
+P &= \{P_x,\; P_y\}
+\end{aligned}$$</p>
 
 <p>위 수식은 자바스크립트 코드로 다음과 같이 표현할 수 있다.</p>
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> Ax <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
@@ -374,7 +389,7 @@ P = &#123;Px, Py&#125;</code></pre>
 
 
     <iframe
-      height="300"
+      height="340"
       style="width: 100%;"
       scrolling="no"
       title="CodePen Embed"
@@ -426,7 +441,7 @@ P = &#123;Px, Py&#125;</code></pre>
 <p>우선 requestAnimationFrame()를 사용해 지정한 시간 만큼 흐르게 한다. 그리고 현재 시각에 해당하는 진행 값 즉, t를 구한 후 이 값을 근거해 블렌딩한다.</p>
 
     <iframe
-      height="300"
+      height="340"
       style="width: 100%;"
       scrolling="no"
       title="CodePen Embed"
@@ -641,6 +656,8 @@ P = &#123;Px, Py&#125;</code></pre>
     })();
   </script>
 
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
 
 <script src="/blog/script.js"></script>
 
