@@ -10,7 +10,7 @@
     <meta name="description" content="requestAnimationFrame을 사용해 작성한 코드를 어떻게 유닛 테스트(Unit Test)할 수 있는지 단계별로 자세히 소개합니다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Animation,JavaScript,Test,UnitTest,requestAnimationFrame">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Test,UnitTest,Animation,JavaScript,requestAnimationFrame">
   
   
     <meta name="author" content="Coderifleman">
@@ -54,7 +54,7 @@
 <link rel="stylesheet" href="/blog/style.css">
 
   <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 <body>
 
 <div class="root">
@@ -177,18 +177,6 @@
     
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/Animation/" >
-            #Animation
-          </a>
-        </li>
-      
-        <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/JavaScript/" >
-            #JavaScript
-          </a>
-        </li>
-      
-        <li class="tags__item">
           <a class="tags__link" href="/blog/tags/Test/" >
             #Test
           </a>
@@ -197,6 +185,18 @@
         <li class="tags__item">
           <a class="tags__link" href="/blog/tags/UnitTest/" >
             #UnitTest
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Animation/" >
+            #Animation
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
+            #JavaScript
           </a>
         </li>
       
@@ -216,7 +216,7 @@
       
       <div class="post__contents">
         <p>얼마전에 기능 개발을 하다가 애니메이션을 다룰 일이 생겼다. 처음엔 CSS를 이용했지만, IE8을 지원하고자 “<a target="_blank" rel="noopener" href="https://github.com/chrisdickinson/raf">raf</a>“라는 폴리필 라이브러리를 이용해 <code>requestAnimationFrame</code>(이하 raf)으로 개발했다. raf의 대략적인 형태는 다음과 같다(API의 자세한 설명은 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">MDN의 window.requestAnimationFrame()</a>을 참고).</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> start <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> start <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
 
 <span class="token keyword">function</span> <span class="token function">step</span><span class="token punctuation">(</span><span class="token parameter">timestamp</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>start<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -235,7 +235,7 @@
 window<span class="token punctuation">.</span><span class="token function">requestAnimationFrame</span><span class="token punctuation">(</span>step<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
 <p>코드를 보면 알겠지만 그렇게 직관적인 편은 아니다. raf를 쓸 때마다 이런 식으로 코드를 작성하긴 싫었다. 그래서 사용하기 편하게 raf를 랩핑한 객체 하나를 만들었다(여기서 시작한 작은 프로젝트가 있다 - <a target="_blank" rel="noopener" href="https://github.com/UYEONG/stepperjs">StepperJS</a>).</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">Stepper</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Stepper</span> <span class="token punctuation">&#123;</span>
   <span class="token function">start</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">const</span> <span class="token punctuation">&#123;</span>
       duration <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
@@ -268,10 +268,10 @@ window<span class="token punctuation">.</span><span class="token function">reque
 <span class="token punctuation">&#125;</span></code></pre>
 
 <p>이렇게 작성한 Stepper 객체는 다음과 같이 사용할 수 있다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> stepper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stepper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> stepper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stepper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 stepper<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-  duration<span class="token operator">:</span> <span class="token number">1500</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">duration</span><span class="token operator">:</span> <span class="token number">1500</span><span class="token punctuation">,</span>
   <span class="token function-variable function">step</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
     element<span class="token punctuation">.</span>style<span class="token punctuation">.</span>left <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token number">150</span> <span class="token operator">*</span> n<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">px</span><span class="token template-punctuation string">`</span></span>
   <span class="token punctuation">&#125;</span>
@@ -293,7 +293,7 @@ stepper<span class="token punctuation">.</span><span class="token function">star
 <p>The user should be able to know the current progress through the start method of Stepper</p>
 </blockquote>
 <p>이를 어떻게 검증할 수 있을까? 필요한 값을 설정하고 start 메서드를 호출한 후 특정 시간으로 옮긴(tick) 다음 “n”이 기대하는 값과 일치하는지 확인하면 될 것 같다. 한번 테스트 코드로 옮겨보자.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">'The user should be able to know the current progress through the start method of Stepper'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">assert</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">'The user should be able to know the current progress through the start method of Stepper'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">assert</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// Given</span>
   <span class="token keyword">const</span> stepper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stepper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> duration <span class="token operator">=</span> <span class="token number">300</span><span class="token punctuation">;</span>
@@ -313,7 +313,7 @@ stepper<span class="token punctuation">.</span><span class="token function">star
 
 <p>다른 조건들은 어려울 게 없지만, 특정 시간으로 옮기는 행위는 그렇지 않다. 함수를 호출하는 순간 시간은 흘러 버리므로 특정 시간에 해당하는 progress 값을 비교할 수 없다.</p>
 <p>이처럼 테스트 환경에서 시간을 조작하고 싶을 때 사용할 수 있는 테스트 더블 라이브러리가 있다. 바로 “<a target="_blank" rel="noopener" href="http://sinonjs.org/docs/">sinon</a>“이다. <a target="_blank" rel="noopener" href="http://sinonjs.org/docs/#clock">sinon의 FakeTimer</a>는 <code>setTimeout</code>과 <code>Date</code> 객체 등을 덮어써서 동기적으로 시간을 조작할 수 있는 수단을 제공한다. 이것을 사용해보자.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> clock <span class="token operator">=</span> sinon<span class="token punctuation">.</span><span class="token function">useFakeTimers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> clock <span class="token operator">=</span> sinon<span class="token punctuation">.</span><span class="token function">useFakeTimers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token function">test</span><span class="token punctuation">(</span><span class="token string">'The user should be able to know the current progress through the start method of Stepper'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">assert</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// Given</span>
@@ -344,7 +344,7 @@ stepper<span class="token punctuation">.</span><span class="token function">star
 
 <p>당연한 얘기겠지만 <code>TypeError</code>가 발생한다. raf는 시간이 아닌 <code>repaint</code> 시점을 기준으로 호출되며 독자적으로 타임스템프를 계산해 콜백에 전달하므로 sinon의 FakeTimer로 조작할 수 없다. 따라서 동기적으로 호출한 <code>args</code> 프로퍼티에 쌓인 값이 없으므로 에러가 발생하는 것이다.</p>
 <p>그렇다면 어떻게 해야 할까. 고맙게도 누군가 raf를 Stub한 “<a target="_blank" rel="noopener" href="https://github.com/alexreardon/raf-stub">raf-stub</a>“을 개발해 배포해놨다. 이 Stub을 사용해 테스트를 다시 작성해보자.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> stub <span class="token operator">=</span> <span class="token function">createStub</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> stub <span class="token operator">=</span> <span class="token function">createStub</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 sinon<span class="token punctuation">.</span><span class="token function">stub</span><span class="token punctuation">(</span>window<span class="token punctuation">,</span> <span class="token string">'requestAnimationFrame'</span><span class="token punctuation">,</span> stub<span class="token punctuation">.</span>add<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -376,7 +376,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
   
 
 <p>테스트가 통과한다. raf를 사용해 작성한 코드를 테스트하려고 할 때 다소 막막할 수 있다. 하지만 sinon과 Stub을 적절히 사용한다면 손쉽게 테스트할 수 있다.</p>
-<p>여기까지 raf를 테스트하는 방법을 소개했다. 비슷한 고민을 하는 사람에게 작은 팁으로나마 도움이 되길 바라며 예제 코드는 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/request-animation-frame-test">UYEONG/request-animation-frame-test</a>에 올려놓았으니 참고하길 바란다.</p>
+<p>여기까지 raf를 테스트하는 방법을 소개했다. 비슷한 고민을 하는 사람에게 작은 팁으로나마 도움이 되길 바라며 예제 코드는 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/request-animation-frame-test">UYEONG&#x2F;request-animation-frame-test</a>에 올려놓았으니 참고하길 바란다.</p>
 
       </div>
     </article>

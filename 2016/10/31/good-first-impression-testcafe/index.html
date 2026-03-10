@@ -35,9 +35,9 @@
 <meta property="article:published_time" content="2016-10-30T15:00:00.000Z">
 <meta property="article:modified_time" content="2022-11-09T05:45:21.011Z">
 <meta property="article:author" content="Coderifleman">
-<meta property="article:tag" content="Test">
 <meta property="article:tag" content="E2E">
 <meta property="article:tag" content="E2E Test">
+<meta property="article:tag" content="Test">
 <meta property="article:tag" content="TestCafe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://uyeong.github.io/blog/images/good-first-impression-testcafe/testcafe.01.gif">
@@ -58,7 +58,7 @@
 <link rel="stylesheet" href="/blog/style.css">
 
   <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 <body>
 
 <div class="root">
@@ -224,8 +224,8 @@
 <p>TestCafe는 <a target="_blank" rel="noopener" href="http://webdriver.io/">webdriber.io</a>나 <a target="_blank" rel="noopener" href="http://nightwatchjs.org/">나이트왓치</a>와는 다르게 테스트 관련 스크립트를 주입해 동작하는 셀레니움 RC(Selenium RC)와 흡사한 방식으로 개발됐다. 사실 셀레니움 RC가 가진 한계를 극복하고자 셀레니움 웹드라이버(Selenium WebDriver)를 개발했는데 다시 셀레니움 RC와 비슷한 구조로 테스트 프레임워크를 만들었다고 해서 “그렇다면 과거에 경험했던 한계를 그대로 답습하는 게 아닌가?”하고 조금 의아했다. </p>
 <p>TestCafe의 개발자 <a target="_blank" rel="noopener" href="https://github.com/inikulin">이반 니쿨린(Ivan Nikulin)</a>은 <a target="_blank" rel="noopener" href="https://testcafe-discuss.devexpress.com/t/why-not-use-selenium/47">Why not use Selenium?</a>에서 그 이유를 밝혔는데 간단히 말해서 테스트 환경에 대한 복잡한 설정 없이 실행할 수 있고, 모바일 기기에서도 원격 접속해 테스트할 수 있는 도구를 만들고 싶어 했던 거 같다. 또, 웹드라이버의 호환성 문제를 회피하기 위한 목적도 있는 것 같다.</p>
 <p>셀레니움은 분명 훌륭한 도구지만 설정이 복잡하고 웹드라이버 자체의 버그로 인해 테스트 작성에 종종 걸림돌이 되는 경우가 있다. 또 테스트 코드 자체를 디버깅하기가 까다로워 복잡한 테스트 케이스를 작성하는데 어려운 면도 가지고 있다. 과거 셀레니움 RC 방식에 한계가 있어 셀레니움을 만들었지만 새로운 문제들이 나타났다. 이러한 상황에서 TestCafe의 지향점이 좋은 해결책이 될 수 있을까?</p>
-<h2 id="좋은-인상"><a href="#좋은-인상" class="headerlink" title="좋은 인상"></a>좋은 인상</h2><p>필자는 유료 웹툰을 서비스하고 있는 <a target="_blank" rel="noopener" href="http://www.lezhin.com/">레진(Lezhin)</a>을 이용해 로그인 테스트를 작성해 봤다. 예제 코드는 저장소 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/demo-testcafe">UYEONG/demo-testcafe</a>를 참고한다. 이번 절에서는 이 예제를 이용해 필자가 받은 몇 가지 좋은 인상을 소개하겠다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">'사용자는 GNB 메뉴에서 로그인할 수 있다.'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">t</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+<h2 id="좋은-인상"><a href="#좋은-인상" class="headerlink" title="좋은 인상"></a>좋은 인상</h2><p>필자는 유료 웹툰을 서비스하고 있는 <a target="_blank" rel="noopener" href="http://www.lezhin.com/">레진(Lezhin)</a>을 이용해 로그인 테스트를 작성해 봤다. 예제 코드는 저장소 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/demo-testcafe">UYEONG&#x2F;demo-testcafe</a>를 참고한다. 이번 절에서는 이 예제를 이용해 필자가 받은 몇 가지 좋은 인상을 소개하겠다.</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">'사용자는 GNB 메뉴에서 로그인할 수 있다.'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">t</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// Given</span>
     <span class="token keyword">const</span> popupAttendanceLogin <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PopupAttendanceLogin</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -294,12 +294,12 @@ $ <span class="token function">npm</span> run <span class="token builtin class-n
 <li><a target="_blank" rel="noopener" href="http://www.lezhin.com/">www.lezhin.com</a> 페이지에 접근한다. </li>
 <li>최초에 출력된 팝업이 있다면 닫는다.</li>
 <li>우측 상단의 메뉴 버튼을 클릭한다.</li>
-<li>이메일 / 패스워드를 입력하고 로그인 버튼을 선택한다.</li>
+<li>이메일 &#x2F; 패스워드를 입력하고 로그인 버튼을 선택한다.</li>
 <li>페이지가 갱신되면 다시 우측 상단의 메뉴 버튼을 클릭한다.</li>
 <li>로그인이 정상적으로 완료 됐는지 확인한다.</li>
 </ol>
 <p>특정 절차에서 다음 절차로 넘어가기 위해선 지연 시간(Delay time)이 필요하다. 예를 들어 최초 페이지에 접근할 때는 콘텐츠가 모두 출력되는 시점을 기다려야 하고 팝업을 닫을 때는 애니메이션(FadeOut)이 종료되는 시간을 기다려야 한다. 나이트왓치에서는 이런 지연 시간을 직접 명시해줘야 한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// 페이지에 최초 접근 시 body 엘리먼트가 보일 때까지 5000ms 기다린다.</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 페이지에 최초 접근 시 body 엘리먼트가 보일 때까지 5000ms 기다린다.</span>
 <span class="token keyword">this</span><span class="token punctuation">.</span>_header
     <span class="token punctuation">.</span><span class="token function">navigate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">waitForElementVisible</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -309,7 +309,7 @@ $ <span class="token function">npm</span> run <span class="token builtin class-n
 <span class="token keyword">this</span><span class="token punctuation">.</span>api<span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
 <p>하지만 TestCafe를 이용할 땐 지연 시간을 직접 입력할 일이 상대적으로 적다. TestCafe는 지연 시간을 직접 계산하고 관리한다. 실제로 위 로그인 테스트 코드를 보면 지연 시간을 명시한 지점은 로그인 버튼을 클릭한 시점 즉, 폼을 서브밋하고 갱신되기를 기다리는 딱 한 곳뿐이다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">await</span> t
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">await</span> t
     <span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token string">'form.login-form button[type=submit]'</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">wait</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
@@ -353,15 +353,15 @@ $ <span class="token function">npm</span> run <span class="token builtin class-n
 
 <p>왼쪽 부터 차례대로 TestCafe, 나이트왓치, webdriver.io 가 제공하고 있는 액션 및 API 목록이다. 기본적인 액션은 제공하지만, 모바일에 특화된 액션이나 스크립트 권한 밖의 액션 등은 이용하기 힘들다. 시간이 지나면서 제공될 수 있는 API도 있지만 TestCafe가 가지고 있는 구조적 한계로 인해 아예 불가능한 API도 있다.</p>
 <p>또, E2E 테스트를 할 때 좋은 패턴들이 있는데 그중 하나가 <code>PageObject</code>다. 테스트에 필요한 반복적인 행위나 엘리먼트 셀렉터 등을 밖으로 노출 시키지 않고 페이지 단위(혹은 컴포넌트 단위)로 추상화해 제공할 수 있다(<a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide#page-objects">참고</a>). <code>PageObject</code>는 테스트 코드의 가독성이나 유지 보수 측면에서 훌륭한 패턴이지만 TestCafe에서는 제공하지 않는다. </p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token comment">// page-objects/popup-attendance-login.js</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// page-objects/popup-attendance-login.js</span>
 <span class="token keyword">import</span> <span class="token punctuation">&#123;</span>Selector<span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'testcafe'</span><span class="token punctuation">;</span>
  
 <span class="token keyword">const</span> querySelector <span class="token operator">=</span> <span class="token function">Selector</span><span class="token punctuation">(</span><span class="token parameter">q</span> <span class="token operator">=></span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
  
 <span class="token keyword">class</span> <span class="token class-name">PopupAttendanceLogin</span> <span class="token punctuation">&#123;</span>
     elements <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-        wrapper<span class="token operator">:</span> <span class="token string">'#popup-attendance-login'</span><span class="token punctuation">,</span>
-        closeBtn<span class="token operator">:</span> <span class="token string">'#popup-attendance-login .attlogin__close'</span>
+        <span class="token literal-property property">wrapper</span><span class="token operator">:</span> <span class="token string">'#popup-attendance-login'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">closeBtn</span><span class="token operator">:</span> <span class="token string">'#popup-attendance-login .attlogin__close'</span>
     <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">testController</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>

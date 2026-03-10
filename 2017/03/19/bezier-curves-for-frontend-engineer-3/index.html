@@ -37,10 +37,10 @@
 <meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
 <meta property="article:author" content="Coderifleman">
 <meta property="article:tag" content="Algorithm">
-<meta property="article:tag" content="BezierCurves">
-<meta property="article:tag" content="Spline">
 <meta property="article:tag" content="Animation">
+<meta property="article:tag" content="BezierCurves">
 <meta property="article:tag" content="Math">
+<meta property="article:tag" content="Spline">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://uyeong.github.io/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.01.png">
 <meta name="twitter:creator" content="@coderifleman">
@@ -60,7 +60,7 @@
 <link rel="stylesheet" href="/blog/style.css">
 
   <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 <body>
 
 <div class="root">
@@ -252,16 +252,16 @@
 
 <p>3개의 조절점 A, B, C를 이용해 그린 두 개의 직선 즉, 두 개의 1차 베지에 곡선이 있다. 그리고 이 곡선에서 보간되는 점 E와 F도 있다. 이때 점 E와 F를 이용해 또 다른 직선을 그릴 수 있고 이 직선에서 보간되는 점 P도 추가할 수 있다. 이제 점 E와 F 그리고 P를 보간하면 P의 행적이 곡선을 만들어 낸다(이해가 되지 않는다면 「<a href="/2016/12/30/bezier-curves/">중학생도 알 수 있는 베지에 곡선</a>」을 참고한다).</p>
 <p>그럼 이제 2차 베지에 곡선을 직접 그려보도록 하자. 선분에서 블렌딩 되는 점 P를 구하는 공식은 다음과 같다(자세한 내용은 「<a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/">프런트엔드 엔지니어를 위한 베지에 곡선(Bézier Curves) - 2편</a>」을 참고). 이때 <code>s = 1 - t</code>다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P &#x3D; (s * A) + (t * B)</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">P = (s * A) + (t * B)</code></pre>
 
 <p>그림 2를 보면 알 수 있듯이 2차 베지에 곡선을 그리기 위해서는 점 E와 F 그리고 P를 보간해야 한다. 점 E는 조절점 A와 B를 이용해 구할 수 있고, 점 F는 조절점 B와 C를 이용해 구할 수 있다. 그리고 점 P는 다시 점 E와 F를 이용해 구할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">E &#x3D; (s * A) + (t * B)
-F &#x3D; (s * B) + (t * C)
-P &#x3D; (s * E) + (t * F)</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">E = (s * A) + (t * B)
+F = (s * B) + (t * C)
+P = (s * E) + (t * F)</code></pre>
 
 <p>이 공식을 자바스크립트 코드로 옮겨보자. 여기에서는 구현에 있어 몇 가지 중요한 함수만 소개한다. 전체 코드는 코드펜(CodePen)에 작성해 놓은 <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/qrpYwj">예제</a>를 참고한다.</p>
 <p>먼저 blender()는 점 A와 점 B 그리고 가중치 t를 전달받아 블랜딩한 결괏값을 반환하는 함수다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">blender</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">blender</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token constant">A</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
@@ -274,7 +274,7 @@ P &#x3D; (s * E) + (t * F)</code></pre>
 <span class="token punctuation">&#125;</span></code></pre>
 
 <p>이때 blender()는 좌표 하나에 대한 연산만 책임지므로 x, y 좌표를 연산하기 위해 blend()를 작성한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">blend</span><span class="token punctuation">(</span><span class="token parameter">x1<span class="token punctuation">,</span> x2<span class="token punctuation">,</span> y1<span class="token punctuation">,</span> y2<span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">blend</span><span class="token punctuation">(</span><span class="token parameter">x1<span class="token punctuation">,</span> x2<span class="token punctuation">,</span> y1<span class="token punctuation">,</span> y2<span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token function">blender</span><span class="token punctuation">(</span>x1<span class="token punctuation">,</span> x2<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> y <span class="token operator">=</span> <span class="token function">blender</span><span class="token punctuation">(</span>y1<span class="token punctuation">,</span> y2<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -282,7 +282,7 @@ P &#x3D; (s * E) + (t * F)</code></pre>
 <span class="token punctuation">&#125;</span></code></pre>
 
 <p>다음으로 blend()를 이용해 점 A와 점 B의 좌표를 전달해 점 E의 좌푯값을 구하고 점 B와 점 C의 좌표를 전달해 점 F의 좌표를 구한다. 그리고 다시 점 E와 점 F의 좌표를 전달해 점 P의 좌표를 구하는 방식으로 공식을 구현한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js">interpolateBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>\'click\'<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript">interpolateBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>\'click\'<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// Start the interpolation.</span>
   <span class="token function">raf</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">const</span> posE <span class="token operator">=</span> <span class="token function">blend</span><span class="token punctuation">(</span>posA<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posA<span class="token punctuation">.</span>y<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>y<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -300,36 +300,36 @@ P &#x3D; (s * E) + (t * F)</code></pre>
   
 
 <h3 id="수식-정리"><a href="#수식-정리" class="headerlink" title="수식 정리"></a>수식 정리</h3><p>우리가 2차 베지에 곡선을 위해 사용한 수식은 다음과 같다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">E &#x3D; (s * A) + (t * B)
-F &#x3D; (s * B) + (t * C)
-P &#x3D; (s * E) + (t * F)</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">E = (s * A) + (t * B)
+F = (s * B) + (t * C)
+P = (s * E) + (t * F)</code></pre>
 
 <p>하지만 이 수식은 조금 장황하며 자바스크립트 코드상에서도 함수 호출이 빈번한 상태다. 이 수식을 방정식으로  좀더 간결하고 효율적으로 표현할 수 있다. 일단 연산식에 있는 괄호를 없애고 좀더 간략하게 수식을 표현한다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">E(t) &#x3D; sA + tB
-F(t) &#x3D; sB + tC
-P(t) &#x3D; sE(t) + tF(t)</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">E(t) = sA + tB
+F(t) = sB + tC
+P(t) = sE(t) + tF(t)</code></pre>
 
 <p>이번엔 중학생 때 배워본 몇 가지 <a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EA%B3%B1%EC%85%88_%EA%B3%B5%EC%8B%9D">곱셈 공식</a> 사용하여 세 줄로 표현한 수식을 한 줄로 작성하고 이차방정식으로 정리한다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P(t) &#x3D; s(sA + tB) + t(sB + tC)
-P(t) &#x3D; (s²)A + (st)B + (st)B + (t²)C
-P(t) &#x3D; (s²)A + 2(st)B + (t²)C</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">P(t) = s(sA + tB) + t(sB + tC)
+P(t) = (s²)A + (st)B + (st)B + (t²)C
+P(t) = (s²)A + 2(st)B + (t²)C</code></pre>
 
 <p>자, 몇 가지 규칙을 더 추가하자. t가 0이라면 P는 항상 A와 같으며 다음과 같이 증명할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P(t) &#x3D; (s²)A + 2(st)B + (t²)C
-P(t) &#x3D; (1²)A + 2(1 * 0)B + (0²)C
-P(t) &#x3D; (1)A + 2(0)B + (0)C
-P(t) &#x3D; (1)A
-P(t) &#x3D; A</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">P(t) = (s²)A + 2(st)B + (t²)C
+P(t) = (1²)A + 2(1 * 0)B + (0²)C
+P(t) = (1)A + 2(0)B + (0)C
+P(t) = (1)A
+P(t) = A</code></pre>
 
 <p>다시 t가 1이라면 P는 항상 C와 같으며 다음과 같이 증명할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P(t) &#x3D; (s²)A + 2(st)B + (t²)C
-P(t) &#x3D; (0²)A + 2(0 * 1)B + (1²)C
-P(t) &#x3D; (0)A + 2(0)B + (1)C
-P(t) &#x3D; (1)C
-P(t) &#x3D; C</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">P(t) = (s²)A + 2(st)B + (t²)C
+P(t) = (0²)A + 2(0 * 1)B + (1²)C
+P(t) = (0)A + 2(0)B + (1)C
+P(t) = (1)C
+P(t) = C</code></pre>
 
 <p>이제 정리한 수식을 자바스크립트로 작성해보자. 함수명은 <code>quadBezier</code>로 짓고 2차 베지에 곡선임을 나타낸다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">quadBezier</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">quadBezier</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token constant">A</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
@@ -345,7 +345,7 @@ P(t) &#x3D; C</code></pre>
 <span class="token punctuation">&#125;</span></code></pre>
 
 <p>이렇게 작성한 함수는 다음과 같이 사용할 수 있다.</p>
-<pre class="language-js" data-language="js"><code class="language-js">interpolateBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>\'click\'<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript">interpolateBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>\'click\'<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// Start the interpolation.</span>
   <span class="token function">raf</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token function">quadBezier</span><span class="token punctuation">(</span>posA<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posC<span class="token punctuation">.</span>x<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -370,17 +370,17 @@ P(t) &#x3D; C</code></pre>
 
 <p>조절점 A, B, C를 이용해 그린 2차 베지에 곡선과 조절점 B, C, D를 이용해 그린 2차 베지에 곡선이 있다. 그리고 각 2차 베지에 곡선에서 보간되는 점 Q와 R이 있다. 이때 점 Q와 R를 이용해 또 다른 직선을 그릴 수 있고 이 직선에서 보간되는 점 P도 추가할 수 있다. 이제 점 Q와 R 그리고 P를 보간하면 P의 행적이 곡선을 만들어 낸다.</p>
 <p>이제 3차 베지에 곡선을 직접 그려보자. 3차 베지에 곡선을 그리기 위해서는 보간되는 점 Q와 R 그리고 P를 구해야 한다. 점 Q는 다음과 같이 구할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">E &#x3D; (s * A) + (t * B)
-F &#x3D; (s * B) + (t * C)
-Q &#x3D; (s * E) + (t * F)</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">E = (s * A) + (t * B)
+F = (s * B) + (t * C)
+Q = (s * E) + (t * F)</code></pre>
 
 <p>다시 점 R은 다음과 같이 구할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">F &#x3D; (s * B) + (t * C)
-G &#x3D; (s * C) + (t * D)
-R &#x3D; (s * F) + (t * G)</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">F = (s * B) + (t * C)
+G = (s * C) + (t * D)
+R = (s * F) + (t * G)</code></pre>
 
 <p>이제 점 Q와 R을 이용해 점 P를 구할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P &#x3D; (s * Q) + (t * R)</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">P = (s * Q) + (t * R)</code></pre>
 
 <p>이제 2차 베지에 곡선을 그릴 때 작성한 blend, blender 함수를 활용해 3차 베지에 곡선을 그려보자. 간단하게 새로운 점을 추가한 후 위에서 설명한 것처럼 점 Q, R, P를 구해 보간하면 된다.</p>
 <p>아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 3차 베지에 곡선이라고 한다.</p>
@@ -391,17 +391,17 @@ R &#x3D; (s * F) + (t * G)</code></pre>
   
 
 <h3 id="수식정리"><a href="#수식정리" class="headerlink" title="수식정리"></a>수식정리</h3><p>점 Q와 P는 각각 2차 베지에 곡선에서 구해지는 점이므로 2차 베지에 곡선의 수식으로 표현할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">Q(t) &#x3D; (s²)A + 2(st)B + (t²)C
-R(t) &#x3D; (s²)B + 2(st)C + (t²)D
-P(t) &#x3D; sQ(t) + tR(t)</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">Q(t) = (s²)A + 2(st)B + (t²)C
+R(t) = (s²)B + 2(st)C + (t²)D
+P(t) = sQ(t) + tR(t)</code></pre>
 
 <p>위 수식을 조금 더 풀어서 다음과 같이 정리할 수 있다.</p>
-<pre class="language-text" data-language="text"><code class="language-text">P(t) &#x3D; s((s²)A + 2(st)B + (t²)C) + t((s²)B + 2(st)C + (t²)D)
-P(t) &#x3D; s³A + 2(s²t)B + st²C + s²tB + 2(st²)C + t³D
-P(t) &#x3D; s³A + 3(s²t)B + 3(st²)C + t³D</code></pre>
+<pre class="language-text" data-language="text"><code class="language-text">P(t) = s((s²)A + 2(st)B + (t²)C) + t((s²)B + 2(st)C + (t²)D)
+P(t) = s³A + 2(s²t)B + st²C + s²tB + 2(st²)C + t³D
+P(t) = s³A + 3(s²t)B + 3(st²)C + t³D</code></pre>
 
 <p>이제 정리한 수식을 자바스크립트로 작성해보자. 함수명은 <code>cubicBezier</code>로 짓고 3차 베지에 곡선임을 나타낸다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">cubicBezier</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span><span class="token punctuation">,</span> <span class="token constant">D</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">cubicBezier</span><span class="token punctuation">(</span><span class="token parameter"><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">B</span><span class="token punctuation">,</span> <span class="token constant">C</span><span class="token punctuation">,</span> <span class="token constant">D</span><span class="token punctuation">,</span> t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>t <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token constant">A</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
@@ -422,7 +422,7 @@ P(t) &#x3D; s³A + 3(s²t)B + 3(st²)C + t³D</code></pre>
 <span class="token punctuation">&#125;</span></code></pre>
 
 <p>이렇게 작성한 함수는 다음과 같이 사용할 수 있다.</p>
-<pre class="language-js" data-language="js"><code class="language-js">interpolateBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>\'click\'<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript">interpolateBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>\'click\'<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// Start the interpolation.</span>
   <span class="token function">raf</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">t</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token function">cubicBezier</span><span class="token punctuation">(</span>posA<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posB<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posC<span class="token punctuation">.</span>x<span class="token punctuation">,</span> posD<span class="token punctuation">.</span>x<span class="token punctuation">,</span> t<span class="token punctuation">)</span><span class="token punctuation">;</span>

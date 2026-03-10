@@ -51,7 +51,7 @@
 <link rel="stylesheet" href="/blog/style.css">
 
   <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 <body>
 
 <div class="root">
@@ -313,12 +313,12 @@ React<span class="token punctuation">.</span><span class="token function">render
 
 <span class="token keyword">var</span> Hello <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
   <span class="token function-variable function">render</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> React<span class="token punctuation">.</span><span class="token constant">DOM</span><span class="token punctuation">.</span><span class="token function">div</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>className<span class="token operator">:</span> <span class="token string">'container'</span><span class="token punctuation">,</span> <span class="token string">'Hello '</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> React<span class="token punctuation">.</span><span class="token constant">DOM</span><span class="token punctuation">.</span><span class="token function">div</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">className</span><span class="token operator">:</span> <span class="token string">'container'</span><span class="token punctuation">,</span> <span class="token string">'Hello '</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 
 React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
-  React<span class="token punctuation">.</span><span class="token function">createFactory</span><span class="token punctuation">(</span>Hello<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>name<span class="token operator">:</span> <span class="token string">'React'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span>\"app\"<span class="token punctuation">)</span>
+  React<span class="token punctuation">.</span><span class="token function">createFactory</span><span class="token punctuation">(</span>Hello<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'React'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span>\"app\"<span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>  
 
 <p>이 Advent Calendar에서 소개하는 코드는 JSX에서 harmony 옵션을 켠 상태에서 작성했음을 알려드립니다. 그럼, 다음 절에서 JSX에 관해 조금 더 넓게 설명하도록 하겠습니다.</p>
@@ -337,12 +337,12 @@ React<span class="token punctuation">.</span><span class="token function">render
 <pre class="language-bash" data-language="bash"><code class="language-bash">$ jsx src/build/</code></pre> 
 
 <p>파일을 감시하는 것도 가능합니다.</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ jsx --watch src/build/</code></pre> 
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ jsx <span class="token parameter variable">--watch</span> src/build/</code></pre> 
 
 <h4 id="browserify나-webpack으로-변환"><a href="#browserify나-webpack으로-변환" class="headerlink" title="browserify나 webpack으로 변환"></a>browserify나 webpack으로 변환</h4><p>browserify와 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/reactify">reactify</a>를 사용하여 변환할 수 있습니다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token string">"browserify"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-  <span class="token string">"transform"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">[</span><span class="token string">"reactify"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"harmony"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">&#125;</span> <span class="token punctuation">]</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token string-property property">"browserify"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token string-property property">"transform"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">"reactify"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string-property property">"harmony"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">&#125;</span> <span class="token punctuation">]</span>
   <span class="token punctuation">]</span>
 <span class="token punctuation">&#125;</span></code></pre> 
 
@@ -355,7 +355,7 @@ React<span class="token punctuation">.</span><span class="token function">render
         </strong>
       
       <div class="alert__body">
-        <p>Browserify와 <a target="_blank" rel="noopener" href="https://github.com/babel/babelify">babelify</a>(<a target="_blank" rel="noopener" href="https://babeljs.io">babel</a>)를 조합하면 ES6는 물론 React.js의 JSX 문법을 사용할 수 있습니다. <a target="_blank" rel="noopener" href="http://kangax.github.io/compat-table/es6/">ECMAScript 6 compatibility table</a>의 core.js + babel 항목을 보면 사용할 수 있는 ES6 문법을 확인할 수 있습니다. 여기에 Grunt를 이용해 자동화하면 조금 더 안락한 개발 환경을 구성할 수 있습니다.</p>
+        <p>Browserify와 <a target="_blank" rel="noopener" href="https://github.com/babel/babelify">babelify</a>(<a target="_blank" rel="noopener" href="https://babeljs.io/">babel</a>)를 조합하면 ES6는 물론 React.js의 JSX 문법을 사용할 수 있습니다. <a target="_blank" rel="noopener" href="http://kangax.github.io/compat-table/es6/">ECMAScript 6 compatibility table</a>의 core.js + babel 항목을 보면 사용할 수 있는 ES6 문법을 확인할 수 있습니다. 여기에 Grunt를 이용해 자동화하면 조금 더 안락한 개발 환경을 구성할 수 있습니다.</p>
 
       </div>
     </div>
@@ -438,7 +438,7 @@ React<span class="token punctuation">.</span><span class="token function">render
     </div>
    
 
-<h3 id="컴포넌트-간의-상호작용"><a href="#컴포넌트-간의-상호작용" class="headerlink" title="컴포넌트 간의 상호작용"></a>컴포넌트 간의 상호작용</h3><p>Prop을 I/F로써 외부와 주고 받을 수 있습니다. <code>&lt;Hello name=&quot;foo&quot;/&gt;</code> 처럼 작성하면, <code>this.props.name</code> 으로 참조할 수 있습니다.</p>
+<h3 id="컴포넌트-간의-상호작용"><a href="#컴포넌트-간의-상호작용" class="headerlink" title="컴포넌트 간의 상호작용"></a>컴포넌트 간의 상호작용</h3><p>Prop을 I&#x2F;F로써 외부와 주고 받을 수 있습니다. <code>&lt;Hello name=&quot;foo&quot;/&gt;</code> 처럼 작성하면, <code>this.props.name</code> 으로 참조할 수 있습니다.</p>
 <pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> Hello <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
   <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token punctuation">(</span>
@@ -455,11 +455,11 @@ React<span class="token punctuation">.</span><span class="token function">render
 <pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">var</span> Counter <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
   <span class="token function">getInitialState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
-      count<span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token number">0</span>
     <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
   <span class="token function">onClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>count<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">count</span><span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
   <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token punctuation">(</span>
@@ -479,9 +479,9 @@ React<span class="token punctuation">.</span><span class="token function">render
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
  
-React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>Hello<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>name<span class="token operator">:</span> \"foo\"<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>React<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span>Hello<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">name</span><span class="token operator">:</span> \"foo\"<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">// or</span>
-React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>React<span class="token punctuation">.</span><span class="token function">createFactory</span><span class="token punctuation">(</span>Hello<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>name<span class="token operator">:</span> \"foo\"<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>React<span class="token punctuation">.</span><span class="token function">createFactory</span><span class="token punctuation">(</span>Hello<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">name</span><span class="token operator">:</span> \"foo\"<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment">// JSX는 이전과 같은 방식</span>
 React<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>Hello name<span class="token operator">=</span>\"foo\" <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> 

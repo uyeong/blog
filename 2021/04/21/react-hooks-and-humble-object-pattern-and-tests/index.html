@@ -10,7 +10,7 @@
     <meta name="description" content="훅스 관점에서 어떻게 테스트 용이성과 유지보수성 높은 애플리케이션을 일관된 루틴으로 개발하고 설계할 수 있는지 소개한다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,Development,Test,UnitTest,React,Design,Hooks,ReactHooks,HumbleObjectPattern,DesignPattern">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Development,Test,UnitTest,JavaScript,React,Design,Hooks,ReactHooks,HumbleObjectPattern,DesignPattern">
   
   
     <meta name="author" content="Coderifleman">
@@ -32,16 +32,16 @@
 <meta property="article:published_time" content="2021-04-20T15:00:00.000Z">
 <meta property="article:modified_time" content="2022-11-09T05:45:21.013Z">
 <meta property="article:author" content="Coderifleman">
-<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Design">
+<meta property="article:tag" content="DesignPattern">
 <meta property="article:tag" content="Development">
+<meta property="article:tag" content="Hooks">
+<meta property="article:tag" content="HumbleObjectPattern">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="ReactHooks">
 <meta property="article:tag" content="Test">
 <meta property="article:tag" content="UnitTest">
-<meta property="article:tag" content="React">
-<meta property="article:tag" content="Design">
-<meta property="article:tag" content="Hooks">
-<meta property="article:tag" content="ReactHooks">
-<meta property="article:tag" content="HumbleObjectPattern">
-<meta property="article:tag" content="DesignPattern">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://uyeong.github.io/blog/images/react-hooks-and-humble-object-pattern-and-tests/hooks.00.jpg">
 <meta name="twitter:creator" content="@coderifleman">
@@ -61,7 +61,7 @@
 <link rel="stylesheet" href="/blog/style.css">
 
   <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 <body>
 
 <div class="root">
@@ -184,12 +184,6 @@
     
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/JavaScript/" >
-            #JavaScript
-          </a>
-        </li>
-      
-        <li class="tags__item">
           <a class="tags__link" href="/blog/tags/Development/" >
             #Development
           </a>
@@ -204,6 +198,12 @@
         <li class="tags__item">
           <a class="tags__link" href="/blog/tags/UnitTest/" >
             #UnitTest
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
+            #JavaScript
           </a>
         </li>
       
@@ -272,10 +272,10 @@
 
 <p>UI를 개발하는 프런트엔드 개발자라면 누구나 빠질 수 있는 함정이 있다. UI 개발 특성상 무엇보다 뷰가 중요해 보이기 때문에 너무나 쉽게 뷰부터 시작한다는 것. </p>
 <p>컴포넌트를 작성하다가 필요한 데이터가 있으면 선언하고, 이어서 작성하다가 장황한 로직이 생기면 커스텀 훅스로 분리하는 등 일정한 규칙 없이 산발적으로 이뤄진다. 자연스럽게 중요한 모델 정보와 그 모델을 조작하는 로직도 산발적으로 흩뿌려지는데 결과적으로 테스트하기 매우 불편한 코드가 작성되고 결국엔 테스트를 포기하게 한다.</p>
-<p>중 / 대규모 프로젝트에 참여해 본 사람은 알 것이다. 낮은 응집성이나 관심사 파편화도 큰 문제지만 무엇보다 테스트 코드 없는 영역을 수정해야 할 때만큼 불안감을 가져다주는 경우는 없다. UI 개발에서 테스트가 어렵다는 건 충분히 공감한다. 하지만 중요한 비즈니스 로직은 가능한한 테스트를 작성해야만 한다.</p>
+<p>중 &#x2F; 대규모 프로젝트에 참여해 본 사람은 알 것이다. 낮은 응집성이나 관심사 파편화도 큰 문제지만 무엇보다 테스트 코드 없는 영역을 수정해야 할 때만큼 불안감을 가져다주는 경우는 없다. UI 개발에서 테스트가 어렵다는 건 충분히 공감한다. 하지만 중요한 비즈니스 로직은 가능한한 테스트를 작성해야만 한다.</p>
 <h2 id="험블-객체-패턴"><a href="#험블-객체-패턴" class="headerlink" title="험블 객체 패턴"></a>험블 객체 패턴</h2><blockquote>
 <p>험블 객체 패턴은 디자인 패턴으로, 테스트하기 어려운 행위와 테스트하기 쉬운 행위를 단위 테스트 작성자가 분리하기 쉽게하는 방법으로 … 중략 … 가장 기본적인 본질은 남기고, 테스트하기 어려운 행위를 모두 험블 객체로 옮긴다. 나머지 모듈에는 험블 객체에 속하지 않은, 테스트하기 쉬운 행위를 모두 옮긴다.</p>
-<p>Clean Architecture, 로버트 C. 마틴 저 / 송준이 역 | 인사이트(insight) 출판</p>
+<p>Clean Architecture, 로버트 C. 마틴 저 &#x2F; 송준이 역 | 인사이트(insight) 출판</p>
 </blockquote>
 <p>뷰 그러니까 리액트 컴포넌트는 험블 객체다. 테스트하기 어렵고 불편하다. 이곳에 중요한 로직을 두면 자연스럽게 그 로직도 테스트하기 어려워진다. 중요한 로직은 컴포넌트에서 분리하고 테스트하기 쉬운 곳에 두어야 한다. 그럼 테스트하기 쉬운 공간이 어딜까?</p>
 <h2 id="건강한-개발-루틴"><a href="#건강한-개발-루틴" class="headerlink" title="건강한 개발 루틴"></a>건강한 개발 루틴</h2><p>그 공간을 이야기 하기에 앞서 건강한 개발 루틴을 이야기해보자. 필자가 말하는 건강한 개발 루틴이란 개발의 순서가 일정하며 그 과정에 생산된 코드가 충분히 검증될 수 있는 순서와 방법을 말한다. </p>
@@ -328,7 +328,7 @@
 <p>현재는 애플리케이션 규모에 따라 훅스를 여러 가지 용도로 정의하고 활용한다. 훅스를 뷰만을 위한 단순한 기능이 아니라 뷰보다 저수준인 다른 계층으로써 활용하면 개발 간 만나는 많은 문제를 해결할 수 있다.</p>
 <p>이해를 돕기 위해 할 일 관리 애플리케이션을 작성했다. 관심 있는 분은 참고하길 바란다. 해당 예제는 요구사항 규모에 맞춰 작성했으므로 구현 형태, 디렉터리 구조 등이 다른 애플리케이션에는 잘 어울리지 않을 수 있다는 점을 인지해주길 바란다.</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/uyeong/todomvc-with-hooks">uyeong/todomvc-with-hooks</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/uyeong/todomvc-with-hooks">uyeong&#x2F;todomvc-with-hooks</a></li>
 </ul>
 <p>예제를 보면 <code>hooks</code> 디렉터리와 <code>sources</code> 디렉터리에 모두 훅스가 존재한다. 단순한 유틸리티 성 훅스를 하나의 디렉터리에 두게 되면 중요한 훅스가 파일 구조 내에서 드러나지 않기 때문에 <code>sources</code> 라는 별도의 디렉터리로 분리했다.</p>
 <p>필자가 작성한 <a target="_blank" rel="noopener" href="https://github.com/uyeong/todomvc-with-hooks/blob/main/src/sources/useTodos.ts">useTodos</a>와 클래스로 구현한 <a target="_blank" rel="noopener" href="https://github.com/tastejs/todomvc/blob/gh-pages/examples/typescript-react/js/todoModel.ts">todoModel</a>를 함께 비교해보면 뭔가 아하! 하는 게 있지 않을까 기대한다.</p>

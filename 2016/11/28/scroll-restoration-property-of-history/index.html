@@ -56,7 +56,7 @@
 <link rel="stylesheet" href="/blog/style.css">
 
   <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 <body>
 
 <div class="root">
@@ -212,7 +212,7 @@
       <div class="post__contents">
         <p>특정 목록 페이지에 접근할 때 사용자가 마지막으로 클릭했던 아이템이 보이도록 자동 스크롤링 해달라는 요청이 들어왔다. 개인적으로 <code>onload</code> 타임에 특정 목록으로 자동 스크롤링하는 기능은 지양해 왔기 때문에 웹이 가진 한계점을 설명하면서 간단히 프로토타이핑해본 후 판단하자고 의견을 냈다.</p>
 <p>그런데 프로토타이핑하던 도중 예전엔 경험하지 못했던 이상한 현상이 발견됐다. 아래는 사용자가 마지막으로 클릭한 아이템이 “product30” 이라고 보고 해당하는 엘리먼트의 위치로 스크롤링하는 간단한 코드다.</p>
-<pre class="language-js" data-language="js"><code class="language-js">window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript">window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'onloaded'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword">const</span> product30 <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByClassName</span><span class="token punctuation">(</span><span class="token string">'product-item'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">29</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -239,7 +239,7 @@
 
 <p>간단한 코드로 재현하긴 힘들지만, 실제 서비스 페이지에서는 <code>setTimeout(() =&gt; ..., 0)</code>으로 지정해도 금세 원래의 위치로 크롬이 재보정한다.</p>
 <p> 이렇게 동작하는 이유는 크롬이 사용자가 보고 있던 스크롤 위치를 저장하고 있다가 해당 페이지에 다시 접근하면 브라우저 레벨에서 자동으로 스크롤링하기 때문인데 어떻게 해야 이를 회피할 수 있을지 고민됐다. 이때 <a target="_blank" rel="noopener" href="http://sculove.github.io/blog/">찬욱</a>님에게 여쭤보니 아래와 같은 코드로 이를 무력화할 수 있다는 답변을 받았다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">'scrollRestoration'</span> <span class="token keyword">in</span> history<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">'scrollRestoration'</span> <span class="token keyword">in</span> history<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// Back off, browser, I got this...</span>
     history<span class="token punctuation">.</span>scrollRestoration <span class="token operator">=</span> <span class="token string">'manual'</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
@@ -276,7 +276,7 @@
   
 
 <p>위와 같은 구현 방식은 사용자가 정확히 어느 경로를 통해 목록 페이지로 접근하는지 알기 어려워 자칫 잘못된 경험을 제공(검색을 통해 접근했는데 스크롤 위치를 조절하는 등)하기도 하는데 <code>scrollRestoration</code>은 history navigation을 기반으로 동작하기 때문에 이러한 부분을 해소할 수 있을 것으로 보인다. 하지만 처음에 이야기한 것처럼 자동 스크롤링 기능이 오히려 특정 기능 구현에 방해가 될 수도 있는데 세심하게 개발자에게 조절할 수 있도록 속성을 열어줘서 고마울 따름.</p>
-<p>테스트 코드는 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/scroll-restoration-test">UYEONG/scroll-restoration-test</a>에 올려놓았으니 참고하길 바란다.</p>
+<p>테스트 코드는 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/scroll-restoration-test">UYEONG&#x2F;scroll-restoration-test</a>에 올려놓았으니 참고하길 바란다.</p>
 <h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/History">History - Web APIs</a></li>
 <li><a target="_blank" rel="noopener" href="https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration">History API: Scroll Restoration</a></li>

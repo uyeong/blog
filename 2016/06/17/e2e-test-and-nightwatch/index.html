@@ -36,10 +36,10 @@
 <meta property="article:published_time" content="2016-06-16T15:00:00.000Z">
 <meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
 <meta property="article:author" content="Coderifleman">
-<meta property="article:tag" content="Test">
 <meta property="article:tag" content="E2E">
 <meta property="article:tag" content="E2E Test">
 <meta property="article:tag" content="Nightwatch">
+<meta property="article:tag" content="Test">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://uyeong.github.io/blog/images/e2e-test-and-nightwatch/e2e_and_nightwatch.01.png">
 <meta name="twitter:creator" content="@coderifleman">
@@ -59,7 +59,7 @@
 <link rel="stylesheet" href="/blog/style.css">
 
   <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 <body>
 
 <div class="root">
@@ -269,48 +269,48 @@
 
 <p>웹드라이버로 브라우저와 통신하기 위해서는 셀레니움 서버를 실행시켜야한다. <a target="_blank" rel="noopener" href="http://selenium-release.storage.googleapis.com/index.html">셀레니움 서버 다운로드 사이트</a>에서 파일을 다운 받고 아래와 같이 서버를 실행한다. 이 글을 작성하는 현재 기준 가장 최신 버전은 2.53.0 이다.</p>
 <p>프로젝트 디렉터리에서 nightwatch.json을 생성하고 다음과 같이 작성한다. 옵션의 자세한 설명은 개발자 가이드 <a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide##settings-file">Configuration</a> 절을 참고한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span>
-  <span class="token string">"src_folders"</span> <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"tests"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// 테스트할 디렉터리, 배열로 지정</span>
-  <span class="token string">"output_folder"</span> <span class="token operator">:</span> <span class="token string">"tests/reports"</span><span class="token punctuation">,</span> <span class="token comment">// JUnit XML 리포트 파일이 저장될 위치</span>
-  <span class="token string">"custom_commands_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 커스텀 커맨드가 있는 위치</span>
-  <span class="token string">"custom_assertions_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 커스텀 어썰트가 있는 위치</span>
-  <span class="token string">"page_objects_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 페이지 객체가 있는 위치</span>
-  <span class="token string">"globals_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 외부 글로벌 모듈이 있는 위치</span>
-  <span class="token string">"selenium"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>   <span class="token comment">// 셀레니움 서버 환경 설정</span>
-    <span class="token string">"start_process"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 테스트 시작시 셀레니움 프로세스를 자동으로 실행할 것 인지 여부</span>
-    <span class="token string">"server_path"</span> <span class="token operator">:</span> <span class="token string">"./selenium-server-standalone-2.53.0.jar"</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움 서버 jar 파일의 경로, start_process가 false면 지정하지 않아도 된다.</span>
-    <span class="token string">"log_path"</span> <span class="token operator">:</span> <span class="token string">"tests/logs"</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움의 output.log 파일이 저장될 경로</span>
-    <span class="token string">"host"</span> <span class="token operator">:</span> <span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움 서버의 listen ip</span>
-    <span class="token string">"port"</span> <span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움 서버의 listen port</span>
-    <span class="token string">"cli_args"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 셀레니움 프로세스로 넘겨질 cli 인자 목록</span>
-      <span class="token string">"webdriver.chrome.driver"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
-      <span class="token string">"webdriver.ie.driver"</span> <span class="token operator">:</span> <span class="token string">""</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">&#123;</span>
+  <span class="token string-property property">"src_folders"</span> <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"tests"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// 테스트할 디렉터리, 배열로 지정</span>
+  <span class="token string-property property">"output_folder"</span> <span class="token operator">:</span> <span class="token string">"tests/reports"</span><span class="token punctuation">,</span> <span class="token comment">// JUnit XML 리포트 파일이 저장될 위치</span>
+  <span class="token string-property property">"custom_commands_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 커스텀 커맨드가 있는 위치</span>
+  <span class="token string-property property">"custom_assertions_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 커스텀 어썰트가 있는 위치</span>
+  <span class="token string-property property">"page_objects_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 페이지 객체가 있는 위치</span>
+  <span class="token string-property property">"globals_path"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 불러올 외부 글로벌 모듈이 있는 위치</span>
+  <span class="token string-property property">"selenium"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>   <span class="token comment">// 셀레니움 서버 환경 설정</span>
+    <span class="token string-property property">"start_process"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 테스트 시작시 셀레니움 프로세스를 자동으로 실행할 것 인지 여부</span>
+    <span class="token string-property property">"server_path"</span> <span class="token operator">:</span> <span class="token string">"./selenium-server-standalone-2.53.0.jar"</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움 서버 jar 파일의 경로, start_process가 false면 지정하지 않아도 된다.</span>
+    <span class="token string-property property">"log_path"</span> <span class="token operator">:</span> <span class="token string">"tests/logs"</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움의 output.log 파일이 저장될 경로</span>
+    <span class="token string-property property">"host"</span> <span class="token operator">:</span> <span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움 서버의 listen ip</span>
+    <span class="token string-property property">"port"</span> <span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움 서버의 listen port</span>
+    <span class="token string-property property">"cli_args"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 셀레니움 프로세스로 넘겨질 cli 인자 목록</span>
+      <span class="token string-property property">"webdriver.chrome.driver"</span> <span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"webdriver.ie.driver"</span> <span class="token operator">:</span> <span class="token string">""</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token string">"test_settings"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 테스트 브라우저 별 환경 설정</span>
-    <span class="token string">"default"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 모든 브라우저에 적용 될 공통 설정</span>
-      <span class="token string">"launch_url"</span> <span class="token operator">:</span> <span class="token string">"http://localhost"</span><span class="token punctuation">,</span>
-      <span class="token string">"selenium_port"</span>  <span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span>
-      <span class="token string">"selenium_host"</span>  <span class="token operator">:</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
-      <span class="token string">"silent"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움의 로그를 숨길지 여부</span>
-      <span class="token string">"screenshots"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 테스트가 실패 했을 때 촬영 될 스크린샷 설정</span>
-        <span class="token string">"enabled"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"on_failure"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"on_error"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-        <span class="token string">"path"</span> <span class="token operator">:</span> <span class="token string">"tests/screenshots"</span>
+  <span class="token string-property property">"test_settings"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 테스트 브라우저 별 환경 설정</span>
+    <span class="token string-property property">"default"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 모든 브라우저에 적용 될 공통 설정</span>
+      <span class="token string-property property">"launch_url"</span> <span class="token operator">:</span> <span class="token string">"http://localhost"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"selenium_port"</span>  <span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"selenium_host"</span>  <span class="token operator">:</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"silent"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 셀레니움의 로그를 숨길지 여부</span>
+      <span class="token string-property property">"screenshots"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 테스트가 실패 했을 때 촬영 될 스크린샷 설정</span>
+        <span class="token string-property property">"enabled"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"on_failure"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"on_error"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"path"</span> <span class="token operator">:</span> <span class="token string">"tests/screenshots"</span>
       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-      <span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 셀레니움 웹드라이버로 전달할 브라우저 이름과 기능 지정</span>
-        <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
-        <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token string-property property">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 셀레니움 웹드라이버로 전달할 브라우저 이름과 기능 지정</span>
+        <span class="token string-property property">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
       <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
 <p>tests 디렉터리 하위에 demo.js를 생성하고 간단한 테스트 코드를 한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">'사용자는 검색어를 입력 후 검색어가 포함된 자동 완성 리스트를 볼 수 있다.'</span> <span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">browser</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string-property property">'사용자는 검색어를 입력 후 검색어가 포함된 자동 완성 리스트를 볼 수 있다.'</span> <span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">browser</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         browser
             <span class="token punctuation">.</span><span class="token function">url</span><span class="token punctuation">(</span><span class="token string">'http://www.google.com'</span><span class="token punctuation">)</span>
             <span class="token punctuation">.</span><span class="token function">waitForElementVisible</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
@@ -325,7 +325,7 @@
 <pre class="language-bash" data-language="bash"><code class="language-bash">$ ./node_modules/nightwatch/bin/nightwatch</code></pre>
 
 <p>하지만 현재 파이어폭스 버전 47에 문제가 있어 테스트가 실행되지 않을것이다. 파이어폭스에서 테스트 하고 싶다면 예전 버전(<a target="_blank" rel="noopener" href="https://support.mozilla.org/en-US/kb/install-older-version-of-firefox">Install an older version of Firefox</a>)으로 다운그레이드 하거나 GeckoDriver를 사용해야한다(<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver##Setting_up_the_Marionette_executable">Setting up the Marionette executable</a>). 여기에서는 GeckoDriver를 이용하는 방법을 소개(OSX 기준)하겠다.</p>
-<p>먼저 <a target="_blank" rel="noopener" href="https://github.com/mozilla/geckodriver/releases">mozilla/geckodriver</a>에서  GeckoDriver를 다운로드한다.</p>
+<p>먼저 <a target="_blank" rel="noopener" href="https://github.com/mozilla/geckodriver/releases">mozilla&#x2F;geckodriver</a>에서  GeckoDriver를 다운로드한다.</p>
 <pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ~/Downloads
 $ <span class="token function">wget</span> https://github.com/mozilla/geckodriver/releases/download/v0.8.0/geckodriver-0.8.0-OSX.gz</code></pre>
 
@@ -344,11 +344,11 @@ $ <span class="token function">chmod</span> <span class="token number">755</span
 $ <span class="token builtin class-name">source</span> ~/.zshrc</code></pre>
 
 <p>마지막으로 nightwatch.json파일에서 desiredCapabilities 속성을 다음과 같이 변경한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-  <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
-  <span class="token string">"marionette"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 추가</span>
-  <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-  <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token string-property property">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token string-property property">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"marionette"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 추가</span>
+  <span class="token string-property property">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
 <p>이제 다시 실행해보면 파이어폭스 브라우저에서 정상적으로 테스트가 진행될 것이다.</p>
@@ -375,47 +375,47 @@ $ ./node_modules/.bin/webdriver-manager update
 <span class="token comment"># ./node_modules/.bin/webdriver-manager update --chrome</span></code></pre>
 
 <p>이제 nightwatch.json에 셀레니움 서버 경로와 크롬 웹드라이버 서버 경로를 수정한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token string">"selenium"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-  <span class="token string">"start_process"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-  <span class="token string">"server_path"</span><span class="token operator">:</span> <span class="token string">"./selenium-server-standalone-2.53.0.jar"</span><span class="token punctuation">,</span>
-  <span class="token string">"log_path"</span><span class="token operator">:</span> <span class="token string">"tests/logs"</span><span class="token punctuation">,</span>
-  <span class="token string">"host"</span><span class="token operator">:</span> <span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span>
-  <span class="token string">"port"</span><span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span>
-  <span class="token string">"cli_args"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">"webdriver.chrome.driver"</span> <span class="token operator">:</span> <span class="token string">"node_modules/webdriver-manager/selenium/chromedriver_2.21"</span><span class="token punctuation">,</span> <span class="token comment">// 추가</span>
-    <span class="token string">"webdriver.ie.driver"</span><span class="token operator">:</span> <span class="token string">""</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token string-property property">"selenium"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token string-property property">"start_process"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"server_path"</span><span class="token operator">:</span> <span class="token string">"./selenium-server-standalone-2.53.0.jar"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"log_path"</span><span class="token operator">:</span> <span class="token string">"tests/logs"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"host"</span><span class="token operator">:</span> <span class="token string">"127.0.0.1"</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"port"</span><span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span>
+  <span class="token string-property property">"cli_args"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string-property property">"webdriver.chrome.driver"</span> <span class="token operator">:</span> <span class="token string">"node_modules/webdriver-manager/selenium/chromedriver_2.21"</span><span class="token punctuation">,</span> <span class="token comment">// 추가</span>
+    <span class="token string-property property">"webdriver.ie.driver"</span><span class="token operator">:</span> <span class="token string">""</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></code></pre>
 
 <p>다음으로 default 속성에 작성했던 파이어폭스 브라우저 설정을 test_settings 속성 하위로 옮기고 크롬 브라우저 설정도 함께 추가 작성한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">&#123;</span>
   <span class="token comment">// ... 생략 ...</span>
-  <span class="token string">"test_settings"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">"default"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token string">"launch_url"</span><span class="token operator">:</span> <span class="token string">"http://localhost"</span><span class="token punctuation">,</span>
-      <span class="token string">"selenium_port"</span><span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span>
-      <span class="token string">"selenium_host"</span><span class="token operator">:</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
-      <span class="token string">"silent"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      <span class="token string">"screenshots"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-        <span class="token string">"enabled"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"on_failure"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"on_error"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-        <span class="token string">"path"</span> <span class="token operator">:</span> <span class="token string">"tests/screenshots"</span>
+  <span class="token string-property property">"test_settings"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string-property property">"default"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string-property property">"launch_url"</span><span class="token operator">:</span> <span class="token string">"http://localhost"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"selenium_port"</span><span class="token operator">:</span> <span class="token number">4444</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"selenium_host"</span><span class="token operator">:</span> <span class="token string">"localhost"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"silent"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"screenshots"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string-property property">"enabled"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"on_failure"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"on_error"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"path"</span> <span class="token operator">:</span> <span class="token string">"tests/screenshots"</span>
       <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token string">"firefox"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-        <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
-        <span class="token string">"marionette"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token string-property property">"firefox"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string-property property">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string-property property">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"marionette"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
       <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token string">"chrome"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-        <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"chrome"</span><span class="token punctuation">,</span>
-        <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token string-property property">"chrome"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string-property property">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string-property property">"browserName"</span><span class="token operator">:</span> <span class="token string">"chrome"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span>
       <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span>
@@ -440,19 +440,19 @@ $ ./node_modules/.bin/webdriver-manager update
 
 <h3 id="모카-사용하기"><a href="#모카-사용하기" class="headerlink" title="모카 사용하기"></a>모카 사용하기</h3><p>이번엔 테스트 코드를 모카 기반으로 작성할 수 있는 환경을 만들어보겠다. 나이트왓치는 어썰트로 챠이(chai)를 내장하고 있지만 모카는 별도로 설정해 사용해야한다. 모카를 설정하는 자세한 내용은 개발자 가이드 <a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide##using-mocha">Using Mocha</a> 절을 참고한다. 모카를 굳이 사용하려는 이유는 JUnit XML로 리포팅 하는 기본 러너와는 달리 다양하고 보기 쉬운 리포팅을 지원하기 때문이다.</p>
 <p>먼저 nightwatch.json 파일에 다음과 같이 test_runner 속성을 추가한다. 옵션에 관한 자세한 설명은 모카 위키의 <a target="_blank" rel="noopener" href="https://github.com/mochajs/mocha/wiki/Using-mocha-programmatically##set-options">Set options</a> 절을 참고한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span>
-  <span class="token string">"test_runner"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">"type"</span> <span class="token operator">:</span> <span class="token string">"mocha"</span><span class="token punctuation">,</span>
-    <span class="token string">"options"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token string">"ui"</span><span class="token operator">:</span> <span class="token string">"bdd"</span><span class="token punctuation">,</span>
-      <span class="token string">"reporter"</span><span class="token operator">:</span> <span class="token string">"spec"</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">&#123;</span>
+  <span class="token string-property property">"test_runner"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string-property property">"type"</span> <span class="token operator">:</span> <span class="token string">"mocha"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"options"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string-property property">"ui"</span><span class="token operator">:</span> <span class="token string">"bdd"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"reporter"</span><span class="token operator">:</span> <span class="token string">"spec"</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
   <span class="token comment">// ... 생략 ...</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
 <p>테스트 코드를 모카 기반으로 재작성한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'구글 메인 페이지'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'구글 메인 페이지'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
  
     <span class="token function">before</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">client<span class="token punctuation">,</span> done</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -491,30 +491,30 @@ $ ./node_modules/.bin/webdriver-manager update
 
 <h3 id="브라우저-스택"><a href="#브라우저-스택" class="headerlink" title="브라우저 스택"></a>브라우저 스택</h3><p>크로스 브라우징 테스트를 할 수 있도록 해주는 웹 서비스인 브라우저 스택은 다양한 플랫폼과 웹 브라우저를 지원한다. 또한, 셀레니움 서버도 제공하고 있는데 이를 이용하면 나이트왓치와 연동해 테스트를 자동화할 수 있다.</p>
 <p>먼저 browserstack.json 파일을 작성한다.</p>
-<pre class="language-js" data-language="js"><code class="language-js"><span class="token punctuation">&#123;</span>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">&#123;</span>
   <span class="token comment">// ... 생략 ...</span>
-  <span class="token string">"selenium"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">"start_process"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+  <span class="token string-property property">"selenium"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string-property property">"start_process"</span><span class="token operator">:</span> <span class="token boolean">false</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token string">"test_settings"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">"default"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-      <span class="token string">"launch_url"</span> <span class="token operator">:</span> <span class="token string">"http://hub.browserstack.com"</span><span class="token punctuation">,</span>
-      <span class="token string">"selenium_host"</span> <span class="token operator">:</span> <span class="token string">"hub.browserstack.com"</span><span class="token punctuation">,</span>
-      <span class="token string">"selenium_port"</span> <span class="token operator">:</span> <span class="token number">80</span><span class="token punctuation">,</span>
-      <span class="token string">"silent"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-      <span class="token string">"screenshots"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-        <span class="token string">"enabled"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"on_failure"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"on_error"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-        <span class="token string">"path"</span> <span class="token operator">:</span> <span class="token string">"tests/screenshots"</span>
+  <span class="token string-property property">"test_settings"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token string-property property">"default"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token string-property property">"launch_url"</span> <span class="token operator">:</span> <span class="token string">"http://hub.browserstack.com"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"selenium_host"</span> <span class="token operator">:</span> <span class="token string">"hub.browserstack.com"</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"selenium_port"</span> <span class="token operator">:</span> <span class="token number">80</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"silent"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string-property property">"screenshots"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string-property property">"enabled"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"on_failure"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"on_error"</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"path"</span> <span class="token operator">:</span> <span class="token string">"tests/screenshots"</span>
       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-      <span class="token string">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
-        <span class="token string">"platform"</span><span class="token operator">:</span> <span class="token string">"xp"</span><span class="token punctuation">,</span>
-        <span class="token string">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
-        <span class="token string">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-        <span class="token string">"browserstack.user"</span> <span class="token operator">:</span> <span class="token string">"user_id"</span><span class="token punctuation">,</span> <span class="token comment">// 브라우저 스택 아이디</span>
-        <span class="token string">"browserstack.key"</span> <span class="token operator">:</span> <span class="token string">"user_key"</span> <span class="token comment">// 브라우저 스택 키</span>
+      <span class="token string-property property">"desiredCapabilities"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string-property property">"platform"</span><span class="token operator">:</span> <span class="token string">"xp"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"browserName"</span><span class="token operator">:</span> <span class="token string">"firefox"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"javascriptEnabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"acceptSslCerts"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"browserstack.user"</span> <span class="token operator">:</span> <span class="token string">"user_id"</span><span class="token punctuation">,</span> <span class="token comment">// 브라우저 스택 아이디</span>
+        <span class="token string-property property">"browserstack.key"</span> <span class="token operator">:</span> <span class="token string">"user_key"</span> <span class="token comment">// 브라우저 스택 키</span>
       <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span>
@@ -522,12 +522,12 @@ $ ./node_modules/.bin/webdriver-manager update
 
 <p>platform 속성엔 XP를 browserName 속성엔 파이어폭스를 지정했고 로컬 환경에서 셀레니움 서버를 실행시킬 필요가 없기 때문에 start_process은 false로 지정했다. 이제 브라우저 스택은 윈도우즈 XP 환경의 파이어폭스 브라우저에서 테스트를 진행할 것이다. 브라우저 스택에서 지원하는 플랫폼과 브라우저는 공식 홈페이지의 <a target="_blank" rel="noopener" href="https://www.browserstack.com/automate/capabilities">Capabilities</a> 페이지를 참고하면 알 수 있다.</p>
 <p>아래 명령어를 참고해 실행해본다.</p>
-<pre class="language-js" data-language="js"><code class="language-js">$ <span class="token punctuation">.</span><span class="token operator">/</span>node_modules<span class="token operator">/</span>nightwatch<span class="token operator">/</span>bin<span class="token operator">/</span>nightwatch <span class="token operator">--</span>config browserstack<span class="token punctuation">.</span>json</code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript">$ <span class="token punctuation">.</span><span class="token operator">/</span>node_modules<span class="token operator">/</span>nightwatch<span class="token operator">/</span>bin<span class="token operator">/</span>nightwatch <span class="token operator">--</span>config browserstack<span class="token punctuation">.</span>json</code></pre>
 
 <p>다양한 플랫폼과 브라우저에서 E2E 테스트를 할 수 있다는 점은 큰 장점이지만 통신이나 테스트를 구동하는 속도가 아주 느리다. 따라서 테스트 배치 혹은 정기 배포 전에만 사용하기 적합해 보인다.</p>
 <h3 id="웹스톰-디버깅"><a href="#웹스톰-디버깅" class="headerlink" title="웹스톰 디버깅"></a>웹스톰 디버깅</h3><p>웹스톰에서 노드 디버깅 도구를 사용해 나이트왓치를 디버깅할 수 있다. 자세한 내용은 Debugging <a target="_blank" rel="noopener" href="https://github.com/nightwatchjs/nightwatch/wiki/Debugging-Nightwatch-tests-in-WebStorm">Nightwatch tests in WebStorm</a>을 참고한다. 다만, 파이프라인 방식이다 보니 브레이크 포인트를 활용한 디버깅이 다소 무의미한 느낌은 있다.</p>
 <h2 id="끝으로"><a href="#끝으로" class="headerlink" title="끝으로"></a>끝으로</h2><p>여기까지 다양한 사전 지식을 설명하고 나이트왓치에 관해서 이해해봤다. E2E 테스트 특성 상 프로젝트 저장소에 테스트를 작성하고 유지하기 보단 별도의 E2E 테스트 저장소를 만들어 테스트를 작성하고 유지하는게 더 효율적이지 않을까 생각한다. 또, 나이트왓치에는 <a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide##page-objects">페이지 오브젝트</a>, <a target="_blank" rel="noopener" href="http://nightwatchjs.org/guide##extending">커스텀 커맨드</a> 등 테스트를 작성할 때 유용한 개념을 제공한다. 이 두 개념을 적절히 잘 사용하면 생각보다 더 관리하기 쉬운 테스트 코드를 작성할 수 있다. </p>
-<p>위에서 진행한 설치 및 설정 과정은 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/hello-nightwatch">UYEONG/hello-nightwatch</a>에 올려놓았으니 참고하길 바란다.</p>
+<p>위에서 진행한 설치 및 설정 과정은 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/hello-nightwatch">UYEONG&#x2F;hello-nightwatch</a>에 올려놓았으니 참고하길 바란다.</p>
 <h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://docs.seleniumhq.org/about/history.jsp">http://docs.seleniumhq.org/about/history.jsp</a></li>
 <li><a target="_blank" rel="noopener" href="http://google-opensource.blogspot.kr/2009/05/introducing-webdriver.html">http://google-opensource.blogspot.kr/2009/05/introducing-webdriver.html</a></li>
