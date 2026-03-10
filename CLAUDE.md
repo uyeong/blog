@@ -115,6 +115,13 @@ hexo.extend.tag.register('tagname', function(args, content) {
 
 # 포스트 작성/수정 가이드
 
+## 언어 및 문체
+
+- 모든 포스트는 **한국어**로 작성한다.
+- 기술 블로그이지만 **편안한 구어체** 톤이다. 딱딱한 논문체가 아니라 독자에게 말하듯이 쓴다.
+- 예: "~해보자", "~이다", "~한다", "~생각했다", "~마련이다"
+- 전문 용어는 영어 원문을 병기하기도 한다: "실행 취소 / 다시 실행(Undo/Redo)"
+
 ## 파일 생성
 
 - 포스트 파일: `source/_posts/{slug}.md`
@@ -129,14 +136,22 @@ title: 포스트 제목
 description: 1~2문장 요약 (목록 페이지 및 SEO meta에 사용됨)
 date: YYYY-MM-DD
 category:
-  - 카테고리명
+    - 카테고리명
 tags:
-  - 태그1
-  - 태그2
+    - 태그1
+    - 태그2
 cover: filename.jpg   # 선택. 커버 이미지 파일명
 comments: true        # 선택. Disqus 댓글 활성화
 ---
 ```
+
+들여쓰기는 **4칸 스페이스**를 사용한다.
+
+### 기존 카테고리 목록
+
+새 카테고리를 만들기 전에 기존 것을 우선 사용한다:
+
+Algorithm, Architecture, Book, Development, Etc, Flux, Fonts, IDE, Implementation, JavaScript, Node.js, React, Security, Test, WebStorm
 
 ## 이미지
 
@@ -245,3 +260,73 @@ npm run deploy    # gh-pages 브랜치에 배포 (hexo generate + git push)
 ```
 
 배포 전 `npm run server`로 로컬에서 먼저 확인할 것. 스타일 수정 후에는 브라우저 캐시 주의.
+
+---
+
+## 포스트 예시 (레퍼런스)
+
+아래는 커스텀 태그를 활용한 포스트의 전체 흐름 예시다:
+
+```markdown
+---
+title: 실행 취소 / 다시 실행 기능 구현하기(feat. serializr)
+description: 실행 취소 / 다시 실행(Undo/Redo) 기능을 어떻게 구현할 수 있는지 자바스크립트 라이브러리 serializr와 함께 단계별로 자세히 설명합니다.
+date: 2019-06-29
+category:
+    - JavaScript
+    - Implementation
+tags:
+    - JavaScript
+    - Development
+    - Architecture
+    - Undo/Redo
+cover: undo-redo.00.jpg
+---
+
+이 문서는 자바스크립트 라이브러리 [serializr](https://github.com/mobxjs/serializr)를 사용하여 실행 취소 / 다시 실행 구현 방법을 소개한다.
+
+## 예제 소개
+
+{% codepen uyeong RzZBdX result %}
+
+이해를 돕기 위해 간단한 애플리케이션을 준비했다.
+
+### 모델
+
+{% figure undo-redo.01.png '모델 구조와 표현 관계' '모델 구조와 표현 관계' %}
+
+모델은 `Shape`와 이를 상속받는 `Circle`, `Square`, `Triangle`이 있다.
+
+### 표현
+
+{% codeblock lang:js %}
+import { bind, wire } from 'hyperhtml';
+
+const shapes = new Shapes();
+
+function update() {
+  render`<svg viewBox="0 0 100 100">...</svg>`;
+}
+{% endcodeblock %}
+
+## 핵심 개념
+
+{% alert info '메멘토 패턴' %}
+<figure title="메멘토 패턴">
+  <a href="/blog/images/create-the-undo-redo-feature/undo-redo.02.png" target="_blank">
+    <img src="/blog/images/create-the-undo-redo-feature/undo-redo.02.png" alt="메멘토 패턴">
+  </a>
+  <figcaption>&lt;메멘토 패턴&gt;</figcaption>
+</figure>
+
+이것은 메멘토 패턴이다. `Originator`에서 `Memento`(상태)를 가져와 `Caretaker`에 저장하고 추후 다시 꺼내 상태를 되돌리는 패턴을 말한다.
+{% endalert %}
+
+## 수학적 배경
+
+{% math %}
+P = \frac{A + B}{2}
+{% endmath %}
+
+끝.
+```
