@@ -36,68 +36,76 @@ tags:
 
 자, 위 그림 2와 같이 서로 떨어져 있는 점 A와 점 B가 있다고 해보자. 이때 점 P를 이 두 점 사이의 평균 즉,  [선분](http://dic.daum.net/word/view.do?wordid=kkw000140374&supid=kku000175471)의 중앙에 두고 싶다면 어떻게 해야 할까?
 
-{% codeblock lang:text %}
-P = (A + B) / 2
-{% endcodeblock %}
+{% math %}
+P = \frac{A + B}{2}
+{% endmath %}
 
 위처럼 간단히 평균을 구해 중앙에 둘 수 있다. 이 수식을 조금 다르게 전개해보자.
 
-{% codeblock lang:text %}
-P = (A + B) / 2
-  = (A + B) * ½
-  = ½A + ½B
-  = .5A + .5B
-  = (.5 * A) + (.5 * B)
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P &= \frac{A + B}{2} \\
+  &= (A + B) \times \frac{1}{2} \\
+  &= \frac{1}{2}A + \frac{1}{2}B \\
+  &= 0.5A + 0.5B \\
+  &= (0.5 \times A) + (0.5 \times B)
+\end{aligned}
+{% endmath %}
 
 위 수식을 이용한 연산을 블렌딩(Blending)이라고 표현한다. 지정된 각각의 비율에 맞춰 적절히 혼합하는 것이다. 자, 이제 같은 값이 아닌 가중치(Weights)를 줘서 블렌딩해보자.
 
 {% figure bezier-for-frontend.03.png '점 A와 점 B의 블렌딩 비율 조절' '그림 3. 점 A와 점 B의 블렌딩 비율 조절' %}
 
-{% codeblock lang:text %}
-P = (.35 * A) + (.65 * B)' 
-{% endcodeblock %}
+{% math %}
+P = (0.35 \times A) + (0.65 \times B)
+{% endmath %}
 
 이번엔 A는 0.35(35%), B는 0.65(65%)로 비율을 조정해 블렌딩했다. 이때 두 비율의 합은 당연하겠지만 1(100%)이 돼야 한다. 이것은 반드시 지켜져야 할 필수 조건이다. 이어서 비율 값을 다음과 같이 일반화해보자.
 
-{% codeblock lang:text %}
-P = (s * A) + (t * B)' 
-{% endcodeblock %}
+{% math %}
+P = (s \times A) + (t \times B)
+{% endmath %}
 
 s는 A의 비율을, t는 B의 비율을 나타낸다. 만약 s가 높으면 t는 낮아지고 반대로 t가 높으면 s는 낮아질 것이다. 잠깐, s와 t는 서로 영향을 주며 두 수의 합은 항상 1이 돼야 한다. 그렇다면 s는 `1 - t`와 같다고 할 수 있다.
 
-{% codeblock lang:text %}
-P = ((1-t) * A) + (t * B)' 
-{% endcodeblock %}
+{% math %}
+P = ((1 - t) \times A) + (t \times B)
+{% endmath %}
 
 이제 변수 t 하나만으로 비율을 조정해 블렌딩할 수 있다. 이 수식은 다음과 같이 표현될 수 있다.
 
-{% codeblock lang:text %}
-P = ((1 - t) * A) + (t * B)
-  = (1 - t) * A + t * B
-  = A - tA + tB
-  = A + t(-A + B)
-  = A + t(B - A)
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P &= ((1 - t) \times A) + (t \times B) \\
+  &= (1 - t) \times A + t \times B \\
+  &= A - tA + tB \\
+  &= A + t(-A + B) \\
+  &= A + t(B - A)
+\end{aligned}
+{% endmath %}
 
 이 글에서는 수식 `P = (s * A) + (t * B)`를 사용해 설명을 이어가겠다. 다시 한번 말하지만 `s = 1 - t`다. 여기에 몇 가지 규칙이 추가된다. 만약 변수 t가 0이라면 P는 항상 A와 같으므로 다음과 같이 표현될 수 있다.
 
-{% codeblock lang:text %}
-P = ((1 - t) * A) + (t * B)
-  = ((1 - 0) * A) + (0 * B)
-  = (1 * A) + (0 * B)
-  = A
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P &= ((1 - t) \times A) + (t \times B) \\
+  &= ((1 - 0) \times A) + (0 \times B) \\
+  &= (1 \times A) + (0 \times B) \\
+  &= A
+\end{aligned}
+{% endmath %}
 
 또 변수 t가 1이라면 P는 항상 B와 같으므로 다음과 같이 표현될 수 있다.
 
-{% codeblock lang:text %}
-P = ((1 - t) * A) + (t * B)
-  = ((1 - 1) * A) + (1 * B)
-  = (0 * A) + (1 * B)
-  = A + B - A
-  = B
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P &= ((1 - t) \times A) + (t \times B) \\
+  &= ((1 - 1) \times A) + (1 \times B) \\
+  &= (0 \times A) + (1 \times B) \\
+  &= A + B - A \\
+  &= B
+\end{aligned}
+{% endmath %}
 
 이제 수식과 몇 가지 규칙을 참고하여 블렌딩하는 자바스크립트 함수를 작성해보자.
 
@@ -133,11 +141,13 @@ console.log(blend(1));  // 198
 
 이번에는 「에버리징과 블렌딩」 절에서 이해한 수식을 이용해 복합 데이터(Compound data)를 블렌딩해보자. 블렌딩 수식만 잘 활용하면 2차원 또는 3차원 같은 복합적인 데이터도 쉽게 블렌딩할 수 있다.
 
-{% codeblock lang:text %}
-Px = (s * Ax) + (t * Bx)
-Py = (s * Ay) + (t * By)
-Pz = (s * Az) + (t * Bz)
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P_x &= (s \times A_x) + (t \times B_x) \\
+P_y &= (s \times A_y) + (t \times B_y) \\
+P_z &= (s \times A_z) + (t \times B_z)
+\end{aligned}
+{% endmath %}
 
 3차원인 경우 위처럼 개별적으로 블렌딩한 후 연산된 값을 조합해 사용한다.
 
@@ -147,11 +157,13 @@ Pz = (s * Az) + (t * Bz)
 
 {% figure bezier-for-frontend.05.png '2차원에서 점 P의 위치 구하기' '그림 5. 2차원에서 점 P의 위치 구하기' %}
 
-{% codeblock lang:text %}
-Px = (s * Ax) + (t * Bx)
-Py = (s * Ay) + (t * By)
-P = {Px, Py}
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P_x &= (s \times A_x) + (t \times B_x) \\
+P_y &= (s \times A_y) + (t \times B_y) \\
+P &= \{P_x,\; P_y\}
+\end{aligned}
+{% endmath %}
 
 위 수식은 자바스크립트 코드로 다음과 같이 표현할 수 있다.
 

@@ -34,17 +34,19 @@ tags:
 
 그럼 이제 2차 베지에 곡선을 직접 그려보도록 하자. 선분에서 블렌딩 되는 점 P를 구하는 공식은 다음과 같다(자세한 내용은 「[프런트엔드 엔지니어를 위한 베지에 곡선(Bézier Curves) - 2편](/2017/01/03/bezier-curves-for-frontend-engineer-2/)」을 참고). 이때 `s = 1 - t`다.
 
-{% codeblock lang:text %}
-P = (s * A) + (t * B)
-{% endcodeblock %}
+{% math %}
+P = (s \times A) + (t \times B)
+{% endmath %}
 
 그림 2를 보면 알 수 있듯이 2차 베지에 곡선을 그리기 위해서는 점 E와 F 그리고 P를 보간해야 한다. 점 E는 조절점 A와 B를 이용해 구할 수 있고, 점 F는 조절점 B와 C를 이용해 구할 수 있다. 그리고 점 P는 다시 점 E와 F를 이용해 구할 수 있다.
 
-{% codeblock lang:text %}
-E = (s * A) + (t * B)
-F = (s * B) + (t * C)
-P = (s * E) + (t * F)
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+E &= (s \times A) + (t \times B) \\
+F &= (s \times B) + (t \times C) \\
+P &= (s \times E) + (t \times F)
+\end{aligned}
+{% endmath %}
 
 이 공식을 자바스크립트 코드로 옮겨보자. 여기에서는 구현에 있어 몇 가지 중요한 함수만 소개한다. 전체 코드는 코드펜(CodePen)에 작성해 놓은 [예제](http://codepen.io/uyeong/pen/qrpYwj)를 참고한다.
 
@@ -97,47 +99,57 @@ interpolateBtn.addEventListener(\'click\', function() {
 
 우리가 2차 베지에 곡선을 위해 사용한 수식은 다음과 같다.
 
-{% codeblock lang:text %}
-E = (s * A) + (t * B)
-F = (s * B) + (t * C)
-P = (s * E) + (t * F)
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+E &= (s \times A) + (t \times B) \\
+F &= (s \times B) + (t \times C) \\
+P &= (s \times E) + (t \times F)
+\end{aligned}
+{% endmath %}
 
 하지만 이 수식은 조금 장황하며 자바스크립트 코드상에서도 함수 호출이 빈번한 상태다. 이 수식을 방정식으로  좀더 간결하고 효율적으로 표현할 수 있다. 일단 연산식에 있는 괄호를 없애고 좀더 간략하게 수식을 표현한다.
 
-{% codeblock lang:text %}
-E(t) = sA + tB
-F(t) = sB + tC
-P(t) = sE(t) + tF(t)
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+E(t) &= sA + tB \\
+F(t) &= sB + tC \\
+P(t) &= sE(t) + tF(t)
+\end{aligned}
+{% endmath %}
 
 이번엔 중학생 때 배워본 몇 가지 [곱셈 공식](https://ko.wikipedia.org/wiki/%EA%B3%B1%EC%85%88_%EA%B3%B5%EC%8B%9D) 사용하여 세 줄로 표현한 수식을 한 줄로 작성하고 이차방정식으로 정리한다.
 
-{% codeblock lang:text %}
-P(t) = s(sA + tB) + t(sB + tC)
-P(t) = (s²)A + (st)B + (st)B + (t²)C
-P(t) = (s²)A + 2(st)B + (t²)C
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P(t) &= s(sA + tB) + t(sB + tC) \\
+P(t) &= s^2A + stB + stB + t^2C \\
+P(t) &= s^2A + 2stB + t^2C
+\end{aligned}
+{% endmath %}
 
 자, 몇 가지 규칙을 더 추가하자. t가 0이라면 P는 항상 A와 같으며 다음과 같이 증명할 수 있다.
 
-{% codeblock lang:text %}
-P(t) = (s²)A + 2(st)B + (t²)C
-P(t) = (1²)A + 2(1 * 0)B + (0²)C
-P(t) = (1)A + 2(0)B + (0)C
-P(t) = (1)A
-P(t) = A
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P(t) &= s^2A + 2stB + t^2C \\
+P(t) &= 1^2 \cdot A + 2(1 \times 0)B + 0^2 \cdot C \\
+P(t) &= 1 \cdot A + 2(0)B + 0 \cdot C \\
+P(t) &= 1 \cdot A \\
+P(t) &= A
+\end{aligned}
+{% endmath %}
 
 다시 t가 1이라면 P는 항상 C와 같으며 다음과 같이 증명할 수 있다.
 
-{% codeblock lang:text %}
-P(t) = (s²)A + 2(st)B + (t²)C
-P(t) = (0²)A + 2(0 * 1)B + (1²)C
-P(t) = (0)A + 2(0)B + (1)C
-P(t) = (1)C
-P(t) = C
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P(t) &= s^2A + 2stB + t^2C \\
+P(t) &= 0^2 \cdot A + 2(0 \times 1)B + 1^2 \cdot C \\
+P(t) &= 0 \cdot A + 2(0)B + 1 \cdot C \\
+P(t) &= 1 \cdot C \\
+P(t) &= C
+\end{aligned}
+{% endmath %}
 
 이제 정리한 수식을 자바스크립트로 작성해보자. 함수명은 `quadBezier`로 짓고 2차 베지에 곡선임을 나타낸다.
 
@@ -181,25 +193,29 @@ interpolateBtn.addEventListener(\'click\', function() {
 
 이제 3차 베지에 곡선을 직접 그려보자. 3차 베지에 곡선을 그리기 위해서는 보간되는 점 Q와 R 그리고 P를 구해야 한다. 점 Q는 다음과 같이 구할 수 있다.
 
-{% codeblock lang:text %}
-E = (s * A) + (t * B)
-F = (s * B) + (t * C)
-Q = (s * E) + (t * F)
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+E &= (s \times A) + (t \times B) \\
+F &= (s \times B) + (t \times C) \\
+Q &= (s \times E) + (t \times F)
+\end{aligned}
+{% endmath %}
 
 다시 점 R은 다음과 같이 구할 수 있다.
 
-{% codeblock lang:text %}
-F = (s * B) + (t * C)
-G = (s * C) + (t * D)
-R = (s * F) + (t * G)
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+F &= (s \times B) + (t \times C) \\
+G &= (s \times C) + (t \times D) \\
+R &= (s \times F) + (t \times G)
+\end{aligned}
+{% endmath %}
 
 이제 점 Q와 R을 이용해 점 P를 구할 수 있다.
 
-{% codeblock lang:text %}
-P = (s * Q) + (t * R)
-{% endcodeblock %}
+{% math %}
+P = (s \times Q) + (t \times R)
+{% endmath %}
 
 이제 2차 베지에 곡선을 그릴 때 작성한 blend, blender 함수를 활용해 3차 베지에 곡선을 그려보자. 간단하게 새로운 점을 추가한 후 위에서 설명한 것처럼 점 Q, R, P를 구해 보간하면 된다.
 
@@ -211,19 +227,23 @@ P = (s * Q) + (t * R)
 
 점 Q와 P는 각각 2차 베지에 곡선에서 구해지는 점이므로 2차 베지에 곡선의 수식으로 표현할 수 있다.
 
-{% codeblock lang:text %}
-Q(t) = (s²)A + 2(st)B + (t²)C
-R(t) = (s²)B + 2(st)C + (t²)D
-P(t) = sQ(t) + tR(t)
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+Q(t) &= s^2A + 2stB + t^2C \\
+R(t) &= s^2B + 2stC + t^2D \\
+P(t) &= sQ(t) + tR(t)
+\end{aligned}
+{% endmath %}
 
 위 수식을 조금 더 풀어서 다음과 같이 정리할 수 있다.
 
-{% codeblock lang:text %}
-P(t) = s((s²)A + 2(st)B + (t²)C) + t((s²)B + 2(st)C + (t²)D)
-P(t) = s³A + 2(s²t)B + st²C + s²tB + 2(st²)C + t³D
-P(t) = s³A + 3(s²t)B + 3(st²)C + t³D
-{% endcodeblock %}
+{% math %}
+\begin{aligned}
+P(t) &= s(s^2A + 2stB + t^2C) + t(s^2B + 2stC + t^2D) \\
+P(t) &= s^3A + 2s^2tB + st^2C + s^2tB + 2st^2C + t^3D \\
+P(t) &= s^3A + 3s^2tB + 3st^2C + t^3D
+\end{aligned}
+{% endmath %}
 
 이제 정리한 수식을 자바스크립트로 작성해보자. 함수명은 `cubicBezier`로 짓고 3차 베지에 곡선임을 나타낸다.
 
