@@ -37,7 +37,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2015/06/24/learning-react-2/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -45,8 +45,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -138,10 +138,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">React.js를 이해하다(2)</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">React.js를 이해하다(2)</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2015-06-24T00:00:00+09:00">
@@ -170,9 +171,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -192,17 +193,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-Prop"><span class="toc-number">1.</span> <span class="toc-text">React.js의 Prop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95"><span class="toc-number">1.1.</span> <span class="toc-text">기본 사용법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I-F-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EB%A1%9C%EC%8D%A8%EC%9D%98-Prop"><span class="toc-number">1.2.</span> <span class="toc-text">I&#x2F;F(인터페이스)로써의 Prop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PropTypes"><span class="toc-number">1.3.</span> <span class="toc-text">PropTypes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B8%B0%EB%B3%B8%EA%B0%92-%EC%A7%80%EC%A0%95"><span class="toc-number">1.4.</span> <span class="toc-text">기본값 지정</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setProps-replaceProps"><span class="toc-number">1.5.</span> <span class="toc-text">setProps &amp; replaceProps</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-State"><span class="toc-number">2.</span> <span class="toc-text">React.js의 State</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95-1"><span class="toc-number">2.1.</span> <span class="toc-text">기본 사용법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-UI"><span class="toc-number">2.2.</span> <span class="toc-text">State를 사용한 UI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90"><span class="toc-number">2.3.</span> <span class="toc-text">주의할 점</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State%EB%8A%94-%EC%B5%9C%EC%86%8C%ED%99%94"><span class="toc-number">2.4.</span> <span class="toc-text">State는 최소화</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prop%EA%B3%BC-State%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%83%81%ED%98%B8%EC%9E%91%EC%9A%A9"><span class="toc-number">3.</span> <span class="toc-text">Prop과 State를 사용한 컴포넌트 상호작용</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B6%80%EB%AA%A8%EC%9D%98-State%EB%A5%BC-%EC%9E%90%EC%8B%9D%EC%9D%98-Prop%EC%9C%BC%EB%A1%9C-%EC%A0%84%EB%8B%AC"><span class="toc-number">3.1.</span> <span class="toc-text">부모의 State를 자식의 Prop으로 전달</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9E%90%EC%8B%9D%EC%9D%98-%EC%9D%B4%EB%B2%A4%ED%8A%B8%EB%A5%BC-%EB%B6%80%EB%AA%A8%EC%97%90%EC%84%9C-%EC%B2%98%EB%A6%AC"><span class="toc-number">3.2.</span> <span class="toc-text">자식의 이벤트를 부모에서 처리</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State-%EC%B4%88%EA%B8%B0%EA%B0%92%EC%9D%84-Prop%EC%97%90%EC%84%9C-%EC%A0%84%EB%8B%AC"><span class="toc-number">3.3.</span> <span class="toc-text">State 초기값을 Prop에서 전달</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ref"><span class="toc-number">3.4.</span> <span class="toc-text">ref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getDOMNode"><span class="toc-number">3.5.</span> <span class="toc-text">getDOMNode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Props-children"><span class="toc-number">3.6.</span> <span class="toc-text">Props.children</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">4.</span> <span class="toc-text">정리</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
+      <div class="post__main">
         
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-Prop"><span class="toc-number">1.</span> <span class="toc-text">React.js의 Prop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95"><span class="toc-number">1.1.</span> <span class="toc-text">기본 사용법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I-F-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-%EB%A1%9C%EC%8D%A8%EC%9D%98-Prop"><span class="toc-number">1.2.</span> <span class="toc-text">I&#x2F;F(인터페이스)로써의 Prop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PropTypes"><span class="toc-number">1.3.</span> <span class="toc-text">PropTypes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B8%B0%EB%B3%B8%EA%B0%92-%EC%A7%80%EC%A0%95"><span class="toc-number">1.4.</span> <span class="toc-text">기본값 지정</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setProps-replaceProps"><span class="toc-number">1.5.</span> <span class="toc-text">setProps &amp; replaceProps</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-State"><span class="toc-number">2.</span> <span class="toc-text">React.js의 State</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95-1"><span class="toc-number">2.1.</span> <span class="toc-text">기본 사용법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-UI"><span class="toc-number">2.2.</span> <span class="toc-text">State를 사용한 UI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90"><span class="toc-number">2.3.</span> <span class="toc-text">주의할 점</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State%EB%8A%94-%EC%B5%9C%EC%86%8C%ED%99%94"><span class="toc-number">2.4.</span> <span class="toc-text">State는 최소화</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prop%EA%B3%BC-State%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%83%81%ED%98%B8%EC%9E%91%EC%9A%A9"><span class="toc-number">3.</span> <span class="toc-text">Prop과 State를 사용한 컴포넌트 상호작용</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B6%80%EB%AA%A8%EC%9D%98-State%EB%A5%BC-%EC%9E%90%EC%8B%9D%EC%9D%98-Prop%EC%9C%BC%EB%A1%9C-%EC%A0%84%EB%8B%AC"><span class="toc-number">3.1.</span> <span class="toc-text">부모의 State를 자식의 Prop으로 전달</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9E%90%EC%8B%9D%EC%9D%98-%EC%9D%B4%EB%B2%A4%ED%8A%B8%EB%A5%BC-%EB%B6%80%EB%AA%A8%EC%97%90%EC%84%9C-%EC%B2%98%EB%A6%AC"><span class="toc-number">3.2.</span> <span class="toc-text">자식의 이벤트를 부모에서 처리</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State-%EC%B4%88%EA%B8%B0%EA%B0%92%EC%9D%84-Prop%EC%97%90%EC%84%9C-%EC%A0%84%EB%8B%AC"><span class="toc-number">3.3.</span> <span class="toc-text">State 초기값을 Prop에서 전달</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ref"><span class="toc-number">3.4.</span> <span class="toc-text">ref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getDOMNode"><span class="toc-number">3.5.</span> <span class="toc-text">getDOMNode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Props-children"><span class="toc-number">3.6.</span> <span class="toc-text">Props.children</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">4.</span> <span class="toc-text">정리</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          
     <div class="alert alert--info">
       <strong class="alert__title">읽기전에...</strong>
       <div class="alert__body">
@@ -696,6 +699,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>위 예제를 보면 알 수 있듯이 React.Children의 메서드를 사용하여 배열과 문자열의 문제를 해결하고 있습니다. 참고로 React.Children.only는 children의 React.element가 하나 이상일 때 오류를 발생시키는 함수입니다.</p>
 <h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>여기까지 Prop과 State를 알아보고 그 속성을 사용해 컴포넌트에서 상호작용하는 방법도 알아봤습니다. prop과 state는 컴포넌트에서 데이터와 상태를 관리하는 데 중요한 속성이므로 꼭 기억해두시길 바랍니다. 다음편에서는 React 컴포넌트 작성 시 유용하게 사용할 수 있는 Lifecycle와 이벤트 등을 소개하겠습니다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -707,7 +711,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2015/06/27/learning-react-3/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(3)</p>
+        <p class="navigation__title">React.js를 이해하다(3)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -749,7 +753,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2015/06/23/learning-react-1/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(1)</p>
+        <p class="navigation__title">React.js를 이해하다(1)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

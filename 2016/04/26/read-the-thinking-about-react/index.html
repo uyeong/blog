@@ -40,7 +40,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2016/04/26/read-the-thinking-about-react/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -48,8 +48,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -141,10 +141,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">React에 대한 여러가지 생각을 읽고</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">React에 대한 여러가지 생각을 읽고</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2016-04-26T00:00:00+09:00">
@@ -173,9 +174,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -195,12 +196,14 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-      <div class="post__contents">
-        <p>「<a target="_blank" rel="noopener" href="http://youngrok.com/React%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%97%AC%EB%9F%AC%20%EA%B0%80%EC%A7%80%20%EC%83%9D%EA%B0%81#_=_">React에 대한 여러 가지 생각</a>」이라는 글에 직접 코멘트를 달까 생각했지만, 쓰다 보니 글이 길어져서 포스팅한다. 해당 글과는 다른 개인적인 의견에 평소 이야기하고 싶었던 내용을 약간 첨부해 글을 작성했다.</p>
+      <div class="post__main">
+        
+        
+        <div class="post__contents">
+          <p>「<a target="_blank" rel="noopener" href="http://youngrok.com/React%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%97%AC%EB%9F%AC%20%EA%B0%80%EC%A7%80%20%EC%83%9D%EA%B0%81#_=_">React에 대한 여러 가지 생각</a>」이라는 글에 직접 코멘트를 달까 생각했지만, 쓰다 보니 글이 길어져서 포스팅한다. 해당 글과는 다른 개인적인 의견에 평소 이야기하고 싶었던 내용을 약간 첨부해 글을 작성했다.</p>
 <p>개인적으로 느꼈던 리액트의 가장 큰 장점은 사고의 단순함을 끌어내는데 있다고 생각한다(물론 애플리케이션의 성격이나 상황에 따라 다르다). 성능는 부차적인 것으로 앵귤러1 보다 빠른 메커니즘을 제공하지만, 당연 순수 자바스크립트보단 느리다.</p>
 <p>보통 자바스크립트 개발 시에는 일일이 변경을 검사해 해당하는 DOM을 가져와서 값을 대입해줘야 하는 번거로움(혹은 고통스러운)이 있다. 그래서 몇십 밀리세컨드는 신경쓰지 않고 처음부터 다시 그리는 방법을 택한 적도 있었지만 그것만으로 만족하긴 찜찜하다.</p>
 <p>HTTP의 Stateless 성을 기반으로 개발된 웹 MVC 프레임워크를 사용할 때는 요청이 들어오면 요청에 맞는 HTML을 생성해 응답해주면 끝나는 단순한 구조이기 때문인데 이런 고통스러운 부분이 적었다. 이때의 단순함을 리액트로 개발할 때 느꼈다.</p>
@@ -249,6 +252,7 @@
 <p>하나의 라이브러리만으로 서비스 개발 전체를 보완하긴 힘들다. 리액트가 서비스 개발 전체에 정답이 돼 줄 것으로 생각해선 안된다. 그렇다고 특정 부분에 한계가 있다고 다시 전체를 보완할 만한 프레임워크를 찾는 것도 무리다.</p>
 <p>React의 본질은 성능이 아니다. 장점은 개인마다 느끼는 바가 다르겠지만, 개인적으로는 성능이라는 것에 너무 집중할 필요는 없다고 생각한다. React의 철학이 무엇이고 어떤 고통을 해결해주며 또, 어떤 고통은 해결해주지 못하는지 잘 이해하여 프로젝트 성격과 팀의 역량 등을 고려해 시기적절하게 사용하면 된다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -260,7 +264,7 @@
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2016/06/17/e2e-test-and-nightwatch/" class="navigation__link">
-        <p class="navigation__title ellipsis">E2E 테스트와 나이트왓치</p>
+        <p class="navigation__title">E2E 테스트와 나이트왓치</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -302,7 +306,7 @@
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2015/08/16/react-and-immutable/" class="navigation__link">
-        <p class="navigation__title ellipsis">React와 불변객체</p>
+        <p class="navigation__title">React와 불변객체</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

@@ -10,7 +10,7 @@
     <meta name="description" content="이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead」를 번역한 글이며, 페이스북이 Flux 아키텍처를 디자인한 이유와 그것이 무엇인지 설명하고 있습니다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,Architecture,React,Flux,MVC">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,React,Architecture,Flux,MVC">
   
   
     <meta name="author" content="Coderifleman">
@@ -43,7 +43,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2015/06/19/mvc-does-not-scale-use-flux-instead/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -51,8 +51,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -144,10 +144,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">페이스북의 결정: MVC는 확장에 용이하지 않다. 그렇다면 Flux다.</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">페이스북의 결정: MVC는 확장에 용이하지 않다. 그렇다면 Flux다.</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2015-06-19T00:00:00+09:00">
@@ -176,9 +177,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -189,14 +190,14 @@
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/Architecture/" >
-            #Architecture
+          <a class="tags__link" href="/blog/tags/React/" >
+            #React
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/React/" >
-            #React
+          <a class="tags__link" href="/blog/tags/Architecture/" >
+            #Architecture
           </a>
         </li>
       
@@ -216,12 +217,14 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-      <div class="post__contents">
+      <div class="post__main">
         
+        
+        <div class="post__contents">
+          
     <div class="alert alert--info">
       <strong class="alert__title">읽기전에...</strong>
       <div class="alert__body">
@@ -307,6 +310,7 @@
 </li>
 </ol>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -318,7 +322,7 @@
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2015/06/23/learning-react-1/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(1)</p>
+        <p class="navigation__title">React.js를 이해하다(1)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -360,7 +364,7 @@
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2015/04/04/text-files-end-with-a-newline/" class="navigation__link">
-        <p class="navigation__title ellipsis">파일 끝에 개행을 추가해야 하는 이유</p>
+        <p class="navigation__title">파일 끝에 개행을 추가해야 하는 이유</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

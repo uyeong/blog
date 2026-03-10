@@ -44,7 +44,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2016/12/30/bezier-curves/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -52,8 +52,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -145,10 +145,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">중학생도 알 수 있는 베지에 곡선(Bezier Curves)</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">중학생도 알 수 있는 베지에 곡선(Bezier Curves)</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2016-12-30T00:00:00+09:00">
@@ -170,9 +171,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -210,12 +211,14 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-      <div class="post__contents">
+      <div class="post__main">
         
+        
+        <div class="post__contents">
+          
     <div class="alert alert--info">
       <strong class="alert__title">읽기전에...</strong>
       <div class="alert__body">
@@ -264,6 +267,7 @@
 <p>여기에서 끝이 아니다. 조절점을 한 개 더 늘려 <code>P0</code>, <code>P1</code>, <code>P2</code>, <code>P3</code> 조합과 <code>P1</code>, <code>P2</code>, <code>P3</code>, <code>P4</code> 조합으로 결정되는 선과 그 선을 일정 속도로 이동하는 점 <code>B2</code>를 추가하고 <code>B1</code>과 <code>B2</code>를 잇는 선을 놓고 그 위를 지나가는 또 다른 점을 추가한 후 그 점이 그리는 궤적을 살펴볼 수 있다. 이런 식으로 곡선은 얼마든지 복잡하고 다양하게 만들 수 있다. <code>P0</code>부터 <code>P4</code>로 정해지는 곡선은 **4차 베지에 곡선(Quartic Bezier Curve)**이라고 부른다. 하지만 조절점을 5개 이상 늘려도 실용적인 측면에서 특별한 이점이 없으므로 일반적으로 3차 베지에 곡선까지 사용된다.</p>
 <p>여기까지 간단하게 “베지에 곡선”에 관해 이야기했다. 한마디로 “베지에 곡선”이란 선분 위를 일정 속도로 움직이는 점과 그러한 점과 점을 잇는 또 다른 선분, 그리고 그 위를 일정 속도로 이동하는 또 다른 점 등을 조합해 최종적으로 특정 점이 그리는 궤적을 이용해 곡선을 그려내는 방법을 뜻한다. 이해하는 데 도움이 됐으리라 기대한다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -275,7 +279,7 @@
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2017/01/02/bezier-curves-for-frontend-engineer-1/" class="navigation__link">
-        <p class="navigation__title ellipsis">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 1편</p>
+        <p class="navigation__title">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 1편</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -310,7 +314,7 @@
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2016/12/02/how-to-test-request-animation-frame/" class="navigation__link">
-        <p class="navigation__title ellipsis">requestAnimationFrame을 어떻게 테스트 할 수 있을까?</p>
+        <p class="navigation__title">requestAnimationFrame을 어떻게 테스트 할 수 있을까?</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

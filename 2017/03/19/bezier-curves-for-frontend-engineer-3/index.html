@@ -46,7 +46,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2017/03/19/bezier-curves-for-frontend-engineer-3/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -54,8 +54,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -147,10 +147,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 3편</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 3편</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2017-03-19T00:00:00+09:00">
@@ -172,9 +173,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -212,17 +213,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">1.</span> <span class="toc-text">1차 베지에 곡선</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">2.</span> <span class="toc-text">2차 베지에 곡선</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%88%98%EC%8B%9D-%EC%A0%95%EB%A6%AC"><span class="toc-number">2.1.</span> <span class="toc-text">수식 정리</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">3.</span> <span class="toc-text">3차 베지에 곡선</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%88%98%EC%8B%9D%EC%A0%95%EB%A6%AC"><span class="toc-number">3.1.</span> <span class="toc-text">수식정리</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98"><span class="toc-number">3.2.</span> <span class="toc-text">애니메이션</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">4.</span> <span class="toc-text">끝으로</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">5.</span> <span class="toc-text">참고</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
-        <p>「<a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/">프런트엔드 엔지니어를 위한 베지에 곡선(Bézier Curves) - 2편</a>」을 포스팅한 후 시간이 꽤 지났다. 어디까지 이야기했더라? 기억도 가물가물하다. 최근에 강의를 시작하면서 여유가 없었다는 핑계를 대보지만, 뭐가 됐든 게을러서 그렇다. 3편을 기다리신 분이 있었다면 죄송할 따름이다.</p>
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">1.</span> <span class="toc-text">1차 베지에 곡선</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">2.</span> <span class="toc-text">2차 베지에 곡선</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%88%98%EC%8B%9D-%EC%A0%95%EB%A6%AC"><span class="toc-number">2.1.</span> <span class="toc-text">수식 정리</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%EC%B0%A8-%EB%B2%A0%EC%A7%80%EC%97%90-%EA%B3%A1%EC%84%A0"><span class="toc-number">3.</span> <span class="toc-text">3차 베지에 곡선</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%88%98%EC%8B%9D%EC%A0%95%EB%A6%AC"><span class="toc-number">3.1.</span> <span class="toc-text">수식정리</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98"><span class="toc-number">3.2.</span> <span class="toc-text">애니메이션</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">4.</span> <span class="toc-text">끝으로</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">5.</span> <span class="toc-text">참고</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <p>「<a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/">프런트엔드 엔지니어를 위한 베지에 곡선(Bézier Curves) - 2편</a>」을 포스팅한 후 시간이 꽤 지났다. 어디까지 이야기했더라? 기억도 가물가물하다. 최근에 강의를 시작하면서 여유가 없었다는 핑계를 대보지만, 뭐가 됐든 게을러서 그렇다. 3편을 기다리신 분이 있었다면 죄송할 따름이다.</p>
 <p>글과 관련 없는 얘기는 이쯤 하자. 2편에서는 <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/#%EC%97%90%EB%B2%84%EB%A6%AC%EC%A7%95%EA%B3%BC-%EB%B8%94%EB%A0%8C%EB%94%A9">에버리징과 블렌딩</a> 그리고 인터폴레이션(Interpolation)이라고 부르는 <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/#%EB%B3%B4%EA%B0%84">보간</a>을 소개했다. 베지에 곡선을 이해하기 위한 기초 지식이었으며 이 개념만 이해하고 있으면 나머지는 쉽게 이해할 수 있다.</p>
 <h2 id="1차-베지에-곡선"><a href="#1차-베지에-곡선" class="headerlink" title="1차 베지에 곡선"></a>1차 베지에 곡선</h2><p>우리는 이미 1차 베지에 곡선(Linear Bezier Cuvers)을 경험했다. 2편의 <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/#%EB%B3%B5%ED%95%A9-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B8%94%EB%A0%8C%EB%94%A9">복합 데이터 블렌딩</a>과 <a href="/2017/01/03/bezier-curves-for-frontend-engineer-2/#%EB%B3%B4%EA%B0%84">보간</a> 절에서 보여준 예제가 바로 1차 베지에 곡선이다. 차이점이 있다면 단순히 평면상에서 곡선을 그리는 게 아니라 <a target="_blank" rel="noopener" href="https://ko.wikipedia.org/wiki/%EC%A7%81%EA%B5%90_%EC%A2%8C%ED%91%9C%EA%B3%84">직교좌표계</a> 상에서 그린다는 것이다.</p>
 
@@ -486,6 +489,7 @@ P(t) &= s^3A + 3s^2tB + 3st^2C + t^3D
 <li><a target="_blank" rel="noopener" href="https://www.tsplines.com/resources/class_notes/Bezier_curves.pdf">BEZIER CURVES</a></li>
 </ul>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -497,7 +501,7 @@ P(t) &= s^3A + 3s^2tB + 3st^2C + t^3D
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2017/05/30/tabnabbing_attack_and_noopener/" class="navigation__link">
-        <p class="navigation__title ellipsis">Tabnabbing 공격과 rel=noopener 속성</p>
+        <p class="navigation__title">Tabnabbing 공격과 rel=noopener 속성</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -532,7 +536,7 @@ P(t) &= s^3A + 3s^2tB + 3st^2C + t^3D
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2017/01/03/bezier-curves-for-frontend-engineer-2/" class="navigation__link">
-        <p class="navigation__title ellipsis">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 2편</p>
+        <p class="navigation__title">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 2편</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

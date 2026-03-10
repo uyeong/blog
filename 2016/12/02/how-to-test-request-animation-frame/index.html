@@ -10,7 +10,7 @@
     <meta name="description" content="requestAnimationFrame을 사용해 작성한 코드를 어떻게 유닛 테스트(Unit Test)할 수 있는지 단계별로 자세히 소개합니다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Animation,Test,UnitTest,JavaScript,requestAnimationFrame">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Test,UnitTest,Animation,JavaScript,requestAnimationFrame">
   
   
     <meta name="author" content="Coderifleman">
@@ -40,7 +40,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2016/12/02/how-to-test-request-animation-frame/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -48,8 +48,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -141,10 +141,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">requestAnimationFrame을 어떻게 테스트 할 수 있을까?</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">requestAnimationFrame을 어떻게 테스트 할 수 있을까?</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2016-12-02T00:00:00+09:00">
@@ -173,17 +174,11 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
-      
-        <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/Animation/" >
-            #Animation
-          </a>
-        </li>
       
         <li class="tags__item">
           <a class="tags__link" href="/blog/tags/Test/" >
@@ -194,6 +189,12 @@
         <li class="tags__item">
           <a class="tags__link" href="/blog/tags/UnitTest/" >
             #UnitTest
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Animation/" >
+            #Animation
           </a>
         </li>
       
@@ -213,12 +214,14 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-      <div class="post__contents">
-        <p>얼마전에 기능 개발을 하다가 애니메이션을 다룰 일이 생겼다. 처음엔 CSS를 이용했지만, IE8을 지원하고자 “<a target="_blank" rel="noopener" href="https://github.com/chrisdickinson/raf">raf</a>“라는 폴리필 라이브러리를 이용해 <code>requestAnimationFrame</code>(이하 raf)으로 개발했다. raf의 대략적인 형태는 다음과 같다(API의 자세한 설명은 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">MDN의 window.requestAnimationFrame()</a>을 참고).</p>
+      <div class="post__main">
+        
+        
+        <div class="post__contents">
+          <p>얼마전에 기능 개발을 하다가 애니메이션을 다룰 일이 생겼다. 처음엔 CSS를 이용했지만, IE8을 지원하고자 “<a target="_blank" rel="noopener" href="https://github.com/chrisdickinson/raf">raf</a>“라는 폴리필 라이브러리를 이용해 <code>requestAnimationFrame</code>(이하 raf)으로 개발했다. raf의 대략적인 형태는 다음과 같다(API의 자세한 설명은 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">MDN의 window.requestAnimationFrame()</a>을 참고).</p>
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> start <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
 
 <span class="token keyword">function</span> <span class="token function">step</span><span class="token punctuation">(</span><span class="token parameter">timestamp</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -405,6 +408,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
 <p>테스트가 통과한다. raf를 사용해 작성한 코드를 테스트하려고 할 때 다소 막막할 수 있다. 하지만 sinon과 Stub을 적절히 사용한다면 손쉽게 테스트할 수 있다.</p>
 <p>여기까지 raf를 테스트하는 방법을 소개했다. 비슷한 고민을 하는 사람에게 작은 팁으로나마 도움이 되길 바라며 예제 코드는 <a target="_blank" rel="noopener" href="https://github.com/UYEONG/request-animation-frame-test">UYEONG&#x2F;request-animation-frame-test</a>에 올려놓았으니 참고하길 바란다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -416,7 +420,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2016/12/30/bezier-curves/" class="navigation__link">
-        <p class="navigation__title ellipsis">중학생도 알 수 있는 베지에 곡선(Bezier Curves)</p>
+        <p class="navigation__title">중학생도 알 수 있는 베지에 곡선(Bezier Curves)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -451,7 +455,7 @@ sinon<span class="token punctuation">.</span><span class="token function">stub</
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2016/11/28/scroll-restoration-property-of-history/" class="navigation__link">
-        <p class="navigation__title ellipsis">history 객체의 scrollRestoration 속성</p>
+        <p class="navigation__title">history 객체의 scrollRestoration 속성</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

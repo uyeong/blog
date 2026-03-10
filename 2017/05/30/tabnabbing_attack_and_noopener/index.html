@@ -10,7 +10,7 @@
     <meta name="description" content="이 문서는 Tabnabbing 공격과 이를 막을 수 있는 rel=noopener 속성에 대해 소개합니다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,Attack,Security,Hacking">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,Security,Attack,Hacking">
   
   
     <meta name="author" content="Coderifleman">
@@ -44,7 +44,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2017/05/30/tabnabbing_attack_and_noopener/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -52,8 +52,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -145,10 +145,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">Tabnabbing 공격과 rel=noopener 속성</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">Tabnabbing 공격과 rel=noopener 속성</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2017-05-30T00:00:00+09:00">
@@ -170,9 +171,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -183,14 +184,14 @@
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/Attack/" >
-            #Attack
+          <a class="tags__link" href="/blog/tags/Security/" >
+            #Security
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/Security/" >
-            #Security
+          <a class="tags__link" href="/blog/tags/Attack/" >
+            #Attack
           </a>
         </li>
       
@@ -204,17 +205,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tabnabbing"><span class="toc-number">1.</span> <span class="toc-text">Tabnabbing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NAVER-%EB%A9%94%EC%9D%BC%EA%B3%BC-Gmail"><span class="toc-number">2.</span> <span class="toc-text">NAVER 메일과 Gmail</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rel-noopener-%EC%86%8D%EC%84%B1"><span class="toc-number">3.</span> <span class="toc-text">rel&#x3D;noopener 속성</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0%EC%9E%90%EB%A3%8C"><span class="toc-number">4.</span> <span class="toc-text">참고자료</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
-        <h2 id="Tabnabbing"><a href="#Tabnabbing" class="headerlink" title="Tabnabbing"></a>Tabnabbing</h2><p>Tabnabbing이란 HTML 문서 내에서 링크(target이 _blank인 Anchor 태그)를 클릭 했을 때 새롭게 열린 탭(또는 페이지)에서 기존의 문서의 location을 피싱 사이트로 변경해 정보를 탈취하는 공격 기술을 뜻한다. 이 공격은 메일이나 오픈 커뮤니티에서 쉽게 사용될 수 있다.</p>
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tabnabbing"><span class="toc-number">1.</span> <span class="toc-text">Tabnabbing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NAVER-%EB%A9%94%EC%9D%BC%EA%B3%BC-Gmail"><span class="toc-number">2.</span> <span class="toc-text">NAVER 메일과 Gmail</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rel-noopener-%EC%86%8D%EC%84%B1"><span class="toc-number">3.</span> <span class="toc-text">rel&#x3D;noopener 속성</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0%EC%9E%90%EB%A3%8C"><span class="toc-number">4.</span> <span class="toc-text">참고자료</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <h2 id="Tabnabbing"><a href="#Tabnabbing" class="headerlink" title="Tabnabbing"></a>Tabnabbing</h2><p>Tabnabbing이란 HTML 문서 내에서 링크(target이 _blank인 Anchor 태그)를 클릭 했을 때 새롭게 열린 탭(또는 페이지)에서 기존의 문서의 location을 피싱 사이트로 변경해 정보를 탈취하는 공격 기술을 뜻한다. 이 공격은 메일이나 오픈 커뮤니티에서 쉽게 사용될 수 있다.</p>
 
     <figure title="Tabnabbing 공격 흐름">
       <a href="/blog/images/tabnabbing_attack_and_noopener/tab-nabbing.01.svg" target="_blank">
@@ -298,6 +301,7 @@
 <li><a target="_blank" rel="noopener" href="https://jakearchibald.com/2016/performance-benefits-of-rel-noopener/">The performance benefits of rel&#x3D;noopener</a></li>
 </ul>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -309,7 +313,7 @@
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2017/12/18/the-clean-architecture/" class="navigation__link">
-        <p class="navigation__title ellipsis">The Clean Architecture</p>
+        <p class="navigation__title">The Clean Architecture</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -344,7 +348,7 @@
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2017/03/19/bezier-curves-for-frontend-engineer-3/" class="navigation__link">
-        <p class="navigation__title ellipsis">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 3편</p>
+        <p class="navigation__title">프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 3편</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

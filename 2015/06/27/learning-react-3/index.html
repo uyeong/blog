@@ -37,7 +37,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2015/06/27/learning-react-3/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -45,8 +45,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -138,10 +138,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">React.js를 이해하다(3)</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">React.js를 이해하다(3)</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2015-06-27T00:00:00+09:00">
@@ -170,9 +171,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -192,17 +193,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Component-Lifecycle"><span class="toc-number">1.</span> <span class="toc-text">Component Lifecycle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillMount"><span class="toc-number">1.1.</span> <span class="toc-text">componentWillMount()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentDidMount"><span class="toc-number">1.2.</span> <span class="toc-text">componentDidMount()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillReceiveProps-nextProps"><span class="toc-number">1.3.</span> <span class="toc-text">componentWillReceiveProps(nextProps)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shouldComponentUpdate"><span class="toc-number">1.4.</span> <span class="toc-text">shouldComponentUpdate()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillUpdate-nextProps-nextState"><span class="toc-number">1.5.</span> <span class="toc-text">componentWillUpdate(nextProps, nextState)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentDidUpdate-prevProps-prevState"><span class="toc-number">1.6.</span> <span class="toc-text">componentDidUpdate(prevProps, prevState)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillUnmount"><span class="toc-number">1.7.</span> <span class="toc-text">componentWillUnmount()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%B6%94%EA%B0%80"><span class="toc-number">1.8.</span> <span class="toc-text">추가</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#isMounted"><span class="toc-number">1.8.1.</span> <span class="toc-text">isMounted()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-%EC%9D%B4%EB%B2%A4%ED%8A%B8"><span class="toc-number">2.</span> <span class="toc-text">React.js의 이벤트</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SyntheticEvent"><span class="toc-number">2.1.</span> <span class="toc-text">SyntheticEvent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%95%B8%EB%93%A4%EB%9F%AC"><span class="toc-number">2.2.</span> <span class="toc-text">이벤트 핸들러</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-delegation"><span class="toc-number">2.3.</span> <span class="toc-text">Event delegation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Not-provided-event"><span class="toc-number">2.4.</span> <span class="toc-text">Not provided event</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#touch-event"><span class="toc-number">2.5.</span> <span class="toc-text">touch event</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%97%90%EC%84%9C-%ED%8F%BC-%EB%8B%A4%EB%A3%A8%EA%B8%B0"><span class="toc-number">3.</span> <span class="toc-text">React.js에서 폼 다루기</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Controlled-Component"><span class="toc-number">3.1.</span> <span class="toc-text">Controlled Component</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnControlled-Component"><span class="toc-number">3.2.</span> <span class="toc-text">UnControlled Component</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#textarea"><span class="toc-number">3.3.</span> <span class="toc-text">textarea</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%85%80%EB%A0%89%ED%8A%B8-%EB%B0%95%EC%8A%A4"><span class="toc-number">3.4.</span> <span class="toc-text">셀렉트 박스</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LinkedStateMixin"><span class="toc-number">3.5.</span> <span class="toc-text">LinkedStateMixin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LinkedStateMixin%EC%9D%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D"><span class="toc-number">3.5.1.</span> <span class="toc-text">LinkedStateMixin의 동작 방식</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%97%90%EC%84%9C-%EC%A4%91%EC%9A%94%ED%95%9C-key"><span class="toc-number">4.</span> <span class="toc-text">React.js에서 중요한 key</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#key-must-by-unique"><span class="toc-number">4.1.</span> <span class="toc-text">key must by unique</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReactCSSTransitionGroup"><span class="toc-number">4.2.</span> <span class="toc-text">ReactCSSTransitionGroup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%B6%94%EA%B0%80-%EB%82%B4%EC%9A%A9"><span class="toc-number">4.3.</span> <span class="toc-text">추가 내용</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">5.</span> <span class="toc-text">정리</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
+      <div class="post__main">
         
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Component-Lifecycle"><span class="toc-number">1.</span> <span class="toc-text">Component Lifecycle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillMount"><span class="toc-number">1.1.</span> <span class="toc-text">componentWillMount()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentDidMount"><span class="toc-number">1.2.</span> <span class="toc-text">componentDidMount()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillReceiveProps-nextProps"><span class="toc-number">1.3.</span> <span class="toc-text">componentWillReceiveProps(nextProps)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shouldComponentUpdate"><span class="toc-number">1.4.</span> <span class="toc-text">shouldComponentUpdate()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillUpdate-nextProps-nextState"><span class="toc-number">1.5.</span> <span class="toc-text">componentWillUpdate(nextProps, nextState)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentDidUpdate-prevProps-prevState"><span class="toc-number">1.6.</span> <span class="toc-text">componentDidUpdate(prevProps, prevState)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillUnmount"><span class="toc-number">1.7.</span> <span class="toc-text">componentWillUnmount()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%B6%94%EA%B0%80"><span class="toc-number">1.8.</span> <span class="toc-text">추가</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#isMounted"><span class="toc-number">1.8.1.</span> <span class="toc-text">isMounted()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-%EC%9D%B4%EB%B2%A4%ED%8A%B8"><span class="toc-number">2.</span> <span class="toc-text">React.js의 이벤트</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SyntheticEvent"><span class="toc-number">2.1.</span> <span class="toc-text">SyntheticEvent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%95%B8%EB%93%A4%EB%9F%AC"><span class="toc-number">2.2.</span> <span class="toc-text">이벤트 핸들러</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-delegation"><span class="toc-number">2.3.</span> <span class="toc-text">Event delegation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Not-provided-event"><span class="toc-number">2.4.</span> <span class="toc-text">Not provided event</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#touch-event"><span class="toc-number">2.5.</span> <span class="toc-text">touch event</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%97%90%EC%84%9C-%ED%8F%BC-%EB%8B%A4%EB%A3%A8%EA%B8%B0"><span class="toc-number">3.</span> <span class="toc-text">React.js에서 폼 다루기</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Controlled-Component"><span class="toc-number">3.1.</span> <span class="toc-text">Controlled Component</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UnControlled-Component"><span class="toc-number">3.2.</span> <span class="toc-text">UnControlled Component</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#textarea"><span class="toc-number">3.3.</span> <span class="toc-text">textarea</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%85%80%EB%A0%89%ED%8A%B8-%EB%B0%95%EC%8A%A4"><span class="toc-number">3.4.</span> <span class="toc-text">셀렉트 박스</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LinkedStateMixin"><span class="toc-number">3.5.</span> <span class="toc-text">LinkedStateMixin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LinkedStateMixin%EC%9D%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D"><span class="toc-number">3.5.1.</span> <span class="toc-text">LinkedStateMixin의 동작 방식</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%97%90%EC%84%9C-%EC%A4%91%EC%9A%94%ED%95%9C-key"><span class="toc-number">4.</span> <span class="toc-text">React.js에서 중요한 key</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#key-must-by-unique"><span class="toc-number">4.1.</span> <span class="toc-text">key must by unique</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReactCSSTransitionGroup"><span class="toc-number">4.2.</span> <span class="toc-text">ReactCSSTransitionGroup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%B6%94%EA%B0%80-%EB%82%B4%EC%9A%A9"><span class="toc-number">4.3.</span> <span class="toc-text">추가 내용</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">5.</span> <span class="toc-text">정리</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          
     <div class="alert alert--info">
       <strong class="alert__title">읽기전에...</strong>
       <div class="alert__body">
@@ -587,6 +590,7 @@ React<span class="token punctuation">.</span><span class="token function">render
 <p>위 블로그에도 언급돼 있지만 이런 경우엔 TabList 컴포넌트에서 활성화 index를 State로 관리하는게 아니라 ContriesComponent가 관리하고 Prop으로 활성화 index를 TabList 컴포넌트에 전달하는게 더 맞는 방법인 것 같습니다.</p>
 <h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>여기까지 React.js 컴포넌트의 Lifecycle과 이벤트 그리고 폼과 Key를 소개했습니다. 다음 편에서는 VIRTUAL DOM의 장점과 믹스-인 등을 소개하겠습니다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -598,7 +602,7 @@ React<span class="token punctuation">.</span><span class="token function">render
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2015/06/29/learning-react-4/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(4)</p>
+        <p class="navigation__title">React.js를 이해하다(4)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -640,7 +644,7 @@ React<span class="token punctuation">.</span><span class="token function">render
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2015/06/24/learning-react-2/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(2)</p>
+        <p class="navigation__title">React.js를 이해하다(2)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

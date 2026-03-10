@@ -37,7 +37,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2014/12/05/what-is-iojs/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -45,8 +45,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -138,10 +138,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">io.js란 무엇인가?</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">io.js란 무엇인가?</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2014-12-05T00:00:00+09:00">
@@ -170,9 +171,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -192,17 +193,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-Forward%EB%9E%80"><span class="toc-number">1.</span> <span class="toc-text">Node Forward란?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-Forward%EC%9D%98-%EB%B0%98%EB%9E%80"><span class="toc-number">2.</span> <span class="toc-text">Node Forward의 반란?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#io-js"><span class="toc-number">3.</span> <span class="toc-text">io.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">4.</span> <span class="toc-text">끝으로</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
-        <h2 id="Node-Forward란"><a href="#Node-Forward란" class="headerlink" title="Node Forward란?"></a>Node Forward란?</h2><p>io.js를 설명하기 위해 Node Forward 부터 소개하겠습니다. <a target="_blank" rel="noopener" href="http://nodeforward.org/">Node Forward</a>는 Node.js 전문 Technical Committee(기술위원회)입니다. 공식 사이트에 설명된 글을 간추리면 다음과 같습니다.</p>
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-Forward%EB%9E%80"><span class="toc-number">1.</span> <span class="toc-text">Node Forward란?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-Forward%EC%9D%98-%EB%B0%98%EB%9E%80"><span class="toc-number">2.</span> <span class="toc-text">Node Forward의 반란?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#io-js"><span class="toc-number">3.</span> <span class="toc-text">io.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">4.</span> <span class="toc-text">끝으로</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <h2 id="Node-Forward란"><a href="#Node-Forward란" class="headerlink" title="Node Forward란?"></a>Node Forward란?</h2><p>io.js를 설명하기 위해 Node Forward 부터 소개하겠습니다. <a target="_blank" rel="noopener" href="http://nodeforward.org/">Node Forward</a>는 Node.js 전문 Technical Committee(기술위원회)입니다. 공식 사이트에 설명된 글을 간추리면 다음과 같습니다.</p>
 <p>Node Forward는 개방적인 협력을 통해 Node.js와 자바스크립트 등의 생태계를 개선하기 위한 커뮤니티입니다. 컨트리뷰터는 소규모 프로젝트에 분산되어 리더쉽과 자율성을 보장받고 있었습니다. 이 컨트리뷰터가 분산된 문제와 자율성 문제를 해결한 협업을 위한 장소라고 볼 수 있습니다. 현재 아래와 같이 활동하고 있습니다.</p>
 <ul>
 <li><strong><a target="_blank" rel="noopener" href="https://github.com/node-forward/welcome">welcome</a></strong> : Node.js와 자바스크립트를 배우기 위한 좋은 시작점을 만드는 것을 목적으로 하고 있습니다.</li>
@@ -238,6 +241,7 @@
 </blockquote>
 <p>MariaDB는 여전히 MySQL의 인터페이스와 구조가 같고 이미 출시된 MySQL 관련 도구와 호환성을 보장합니다. 거기에 성능도 더욱 좋습니다. Node Forward가 어떤 정책을 가져갈지 그리고 그것을 유지할지 모르지만 생태계에 교란을 일으키지만 않는다면 그들의 반란은 성공적인 마침표를 찍을 수 있을 것입니다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -249,7 +253,7 @@
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2015/04/04/using-korean-web-fonts/" class="navigation__link">
-        <p class="navigation__title ellipsis">한글 웹 폰트 경량화해 사용하기</p>
+        <p class="navigation__title">한글 웹 폰트 경량화해 사용하기</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -284,7 +288,7 @@
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2014/11/15/javascript-and-async-error/" class="navigation__link">
-        <p class="navigation__title ellipsis">자바스크립트와 비동기 오류 처리</p>
+        <p class="navigation__title">자바스크립트와 비동기 오류 처리</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

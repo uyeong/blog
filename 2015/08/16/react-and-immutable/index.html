@@ -38,7 +38,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2015/08/16/react-and-immutable/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -46,8 +46,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -139,10 +139,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">React와 불변객체</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">React와 불변객체</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2015-08-16T00:00:00+09:00">
@@ -171,9 +172,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -199,17 +200,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4%EB%9E%80"><span class="toc-number">1.</span> <span class="toc-text">불변객체란?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%92-%EA%B0%9D%EC%B2%B4"><span class="toc-number">1.1.</span> <span class="toc-text">값 객체</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%99%80-%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4"><span class="toc-number">2.</span> <span class="toc-text">React.js와 불변객체</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%80%EB%B3%80-%EA%B0%9D%EC%B2%B4%EC%9D%BC-%EB%95%8C"><span class="toc-number">2.1.</span> <span class="toc-text">가변 객체일 때</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B6%88%EB%B3%80-%EA%B0%9D%EC%B2%B4%EC%9D%BC-%EB%95%8C"><span class="toc-number">2.2.</span> <span class="toc-text">불변 객체일 때</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">3.</span> <span class="toc-text">정리</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
-        <p>이번에는 불변객체의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개하고자 합니다.</p>
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4%EB%9E%80"><span class="toc-number">1.</span> <span class="toc-text">불변객체란?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%92-%EA%B0%9D%EC%B2%B4"><span class="toc-number">1.1.</span> <span class="toc-text">값 객체</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%99%80-%EB%B6%88%EB%B3%80%EA%B0%9D%EC%B2%B4"><span class="toc-number">2.</span> <span class="toc-text">React.js와 불변객체</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%80%EB%B3%80-%EA%B0%9D%EC%B2%B4%EC%9D%BC-%EB%95%8C"><span class="toc-number">2.1.</span> <span class="toc-text">가변 객체일 때</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B6%88%EB%B3%80-%EA%B0%9D%EC%B2%B4%EC%9D%BC-%EB%95%8C"><span class="toc-number">2.2.</span> <span class="toc-text">불변 객체일 때</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">3.</span> <span class="toc-text">정리</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <p>이번에는 불변객체의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개하고자 합니다.</p>
 <h2 id="불변객체란"><a href="#불변객체란" class="headerlink" title="불변객체란?"></a>불변객체란?</h2><p>객체 지향 프로그래밍에 있어서 불변객체(Immutable object)는 생성 후 그 상태를 변경할 수 없는 객체를 말합니다. 불변객체의 반대말은 가변객체로 자바스크립트의 배열과 같이 객체 내에서 관리하는 값이나 상태를 변경할 수 있는 것을 말합니다.</p>
 <pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> greeting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">'Hello World!!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -339,6 +342,7 @@ num<span class="token punctuation">.</span><span class="token function">valueOf<
 <li><a target="_blank" rel="noopener" href="http://www.yes24.com/24/Goods/2824034?Acode=101">켄트 벡의 구현 패턴</a></li>
 </ul>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -350,7 +354,7 @@ num<span class="token punctuation">.</span><span class="token function">valueOf<
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2016/04/26/read-the-thinking-about-react/" class="navigation__link">
-        <p class="navigation__title ellipsis">React에 대한 여러가지 생각을 읽고</p>
+        <p class="navigation__title">React에 대한 여러가지 생각을 읽고</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -392,7 +396,7 @@ num<span class="token punctuation">.</span><span class="token function">valueOf<
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2015/07/12/learning-react-7/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(7)</p>
+        <p class="navigation__title">React.js를 이해하다(7)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

@@ -37,7 +37,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2015/06/23/learning-react-1/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -45,8 +45,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -138,10 +138,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">React.js를 이해하다(1)</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">React.js를 이해하다(1)</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2015-06-23T00:00:00+09:00">
@@ -170,9 +171,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -192,17 +193,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js-%EB%9E%80"><span class="toc-number">1.</span> <span class="toc-text">React.js 란?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%ED%8A%B9%EC%A7%95"><span class="toc-number">1.1.</span> <span class="toc-text">특징</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JUST-THE-UI"><span class="toc-number">1.1.1.</span> <span class="toc-text">JUST THE UI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VIRTUAL-DOM"><span class="toc-number">1.1.2.</span> <span class="toc-text">VIRTUAL DOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DATA-FLOW"><span class="toc-number">1.1.3.</span> <span class="toc-text">DATA FLOW</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B8%B0%ED%83%80"><span class="toc-number">1.2.</span> <span class="toc-text">기타</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSX"><span class="toc-number">1.2.1.</span> <span class="toc-text">JSX</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flux"><span class="toc-number">1.2.2.</span> <span class="toc-text">Flux</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello-React-js"><span class="toc-number">2.</span> <span class="toc-text">Hello React.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSX-%EC%82%AC%EC%9A%A9"><span class="toc-number">2.1.</span> <span class="toc-text">JSX 사용</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSX-ES6-7%EC%9D%98-%EB%AC%B8%EB%B2%95-%EC%9D%BC%EB%B6%80"><span class="toc-number">2.1.1.</span> <span class="toc-text">JSX + ES6, 7의 문법(일부)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#without-JSX"><span class="toc-number">2.2.</span> <span class="toc-text">without JSX</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-JSX"><span class="toc-number">3.</span> <span class="toc-text">React.js의 JSX</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSX-1"><span class="toc-number">3.1.</span> <span class="toc-text">JSX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9%EB%B2%95"><span class="toc-number">3.2.</span> <span class="toc-text">사용법</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Realtime%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.2.1.</span> <span class="toc-text">Realtime로 변환</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Precompile%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.2.2.</span> <span class="toc-text">Precompile로 변환</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#browserify%EB%82%98-webpack%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.2.3.</span> <span class="toc-text">browserify나 webpack으로 변환</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#node-jsx%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.2.4.</span> <span class="toc-text">node-jsx로 변환</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSX-%EC%82%AC%EC%9A%A9-%EC%9D%98%EB%AF%B8"><span class="toc-number">3.3.</span> <span class="toc-text">JSX 사용 의미</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B3%80%ED%99%98-%EC%BD%94%EB%93%9C-%ED%99%95%EC%9D%B8"><span class="toc-number">3.4.</span> <span class="toc-text">변환 코드 확인</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6-7"><span class="toc-number">3.5.</span> <span class="toc-text">ES6, 7</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="toc-number">4.</span> <span class="toc-text">React.js의 컴포넌트</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#render"><span class="toc-number">4.1.</span> <span class="toc-text">render</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Separation-of-concerns"><span class="toc-number">4.2.</span> <span class="toc-text">Separation of concerns?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B0%84%EC%9D%98-%EC%83%81%ED%98%B8%EC%9E%91%EC%9A%A9"><span class="toc-number">4.3.</span> <span class="toc-text">컴포넌트 간의 상호작용</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%8F%99%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B0%B1%EC%8B%A0"><span class="toc-number">4.4.</span> <span class="toc-text">동적으로 갱신</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React-createClass"><span class="toc-number">4.5.</span> <span class="toc-text">React.createClass</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">5.</span> <span class="toc-text">정리</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
+      <div class="post__main">
         
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js-%EB%9E%80"><span class="toc-number">1.</span> <span class="toc-text">React.js 란?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%ED%8A%B9%EC%A7%95"><span class="toc-number">1.1.</span> <span class="toc-text">특징</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JUST-THE-UI"><span class="toc-number">1.1.1.</span> <span class="toc-text">JUST THE UI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VIRTUAL-DOM"><span class="toc-number">1.1.2.</span> <span class="toc-text">VIRTUAL DOM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DATA-FLOW"><span class="toc-number">1.1.3.</span> <span class="toc-text">DATA FLOW</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B8%B0%ED%83%80"><span class="toc-number">1.2.</span> <span class="toc-text">기타</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSX"><span class="toc-number">1.2.1.</span> <span class="toc-text">JSX</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flux"><span class="toc-number">1.2.2.</span> <span class="toc-text">Flux</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello-React-js"><span class="toc-number">2.</span> <span class="toc-text">Hello React.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSX-%EC%82%AC%EC%9A%A9"><span class="toc-number">2.1.</span> <span class="toc-text">JSX 사용</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JSX-ES6-7%EC%9D%98-%EB%AC%B8%EB%B2%95-%EC%9D%BC%EB%B6%80"><span class="toc-number">2.1.1.</span> <span class="toc-text">JSX + ES6, 7의 문법(일부)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#without-JSX"><span class="toc-number">2.2.</span> <span class="toc-text">without JSX</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-JSX"><span class="toc-number">3.</span> <span class="toc-text">React.js의 JSX</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSX-1"><span class="toc-number">3.1.</span> <span class="toc-text">JSX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9%EB%B2%95"><span class="toc-number">3.2.</span> <span class="toc-text">사용법</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Realtime%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.2.1.</span> <span class="toc-text">Realtime로 변환</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Precompile%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.2.2.</span> <span class="toc-text">Precompile로 변환</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#browserify%EB%82%98-webpack%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.2.3.</span> <span class="toc-text">browserify나 webpack으로 변환</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#node-jsx%EB%A1%9C-%EB%B3%80%ED%99%98"><span class="toc-number">3.2.4.</span> <span class="toc-text">node-jsx로 변환</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSX-%EC%82%AC%EC%9A%A9-%EC%9D%98%EB%AF%B8"><span class="toc-number">3.3.</span> <span class="toc-text">JSX 사용 의미</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B3%80%ED%99%98-%EC%BD%94%EB%93%9C-%ED%99%95%EC%9D%B8"><span class="toc-number">3.4.</span> <span class="toc-text">변환 코드 확인</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6-7"><span class="toc-number">3.5.</span> <span class="toc-text">ES6, 7</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="toc-number">4.</span> <span class="toc-text">React.js의 컴포넌트</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#render"><span class="toc-number">4.1.</span> <span class="toc-text">render</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Separation-of-concerns"><span class="toc-number">4.2.</span> <span class="toc-text">Separation of concerns?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B0%84%EC%9D%98-%EC%83%81%ED%98%B8%EC%9E%91%EC%9A%A9"><span class="toc-number">4.3.</span> <span class="toc-text">컴포넌트 간의 상호작용</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%8F%99%EC%A0%81%EC%9C%BC%EB%A1%9C-%EA%B0%B1%EC%8B%A0"><span class="toc-number">4.4.</span> <span class="toc-text">동적으로 갱신</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React-createClass"><span class="toc-number">4.5.</span> <span class="toc-text">React.createClass</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">5.</span> <span class="toc-text">정리</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          
     <div class="alert alert--info">
       <strong class="alert__title">읽기전에...</strong>
       <div class="alert__body">
@@ -474,6 +477,7 @@ React<span class="token punctuation">.</span><span class="token function">render
 
 <h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>여기까지 React.js의 기본적인 특징과 컴포넌트를 명시적으로 서술하기 위한 JSX 문법 등을 알아봤습니다. 컴포넌트는 이 밖에도 Lifecycle을 이용해 hook을 하는 방법도 있습니다. 그 방법에 대해서는 추후 천천히 소개하도록 하고 다음편에서는 Prop와 State 그리고 이 두 속성을 이용해 컴포넌트를 작성하는 방법을 소개하겠습니다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -485,7 +489,7 @@ React<span class="token punctuation">.</span><span class="token function">render
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2015/06/24/learning-react-2/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(2)</p>
+        <p class="navigation__title">React.js를 이해하다(2)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -527,7 +531,7 @@ React<span class="token punctuation">.</span><span class="token function">render
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2015/06/19/mvc-does-not-scale-use-flux-instead/" class="navigation__link">
-        <p class="navigation__title ellipsis">페이스북의 결정: MVC는 확장에 용이하지 않다. 그렇다면 Flux다.</p>
+        <p class="navigation__title">페이스북의 결정: MVC는 확장에 용이하지 않다. 그렇다면 Flux다.</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

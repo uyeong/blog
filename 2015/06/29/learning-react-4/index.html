@@ -42,7 +42,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2015/06/29/learning-react-4/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -50,8 +50,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -143,10 +143,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">React.js를 이해하다(4)</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">React.js를 이해하다(4)</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2015-06-29T00:00:00+09:00">
@@ -175,9 +176,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -197,17 +198,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EA%B0%80-VIRTUAL-DOM%EC%9D%84-%EC%B1%84%ED%83%9D%ED%95%98%EA%B3%A0-%EC%9E%88%EC%96%B4-%EC%A2%8B%EC%9D%80-%EC%A0%90"><span class="toc-number">1.</span> <span class="toc-text">React.js가 VIRTUAL DOM을 채택하고 있어 좋은 점</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#VIRTUAL-DOM%EC%9D%98-%EC%A2%8B%EC%9D%80-%EC%A0%90"><span class="toc-number">1.1.</span> <span class="toc-text">VIRTUAL DOM의 좋은 점</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shouldComponentUpdate"><span class="toc-number">1.2.</span> <span class="toc-text">shouldComponentUpdate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React-js-%EC%9D%B4-%EC%99%B8%EC%9D%98-VIRTUAL-DOM"><span class="toc-number">1.3.</span> <span class="toc-text">React.js 이 외의 VIRTUAL DOM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spread-Attributes"><span class="toc-number">2.</span> <span class="toc-text">Spread Attributes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%ED%85%8D%EC%8A%A4%ED%8A%B8%EC%99%80-%ED%95%A8%EA%BB%98-%EC%B6%9C%EB%A0%A5%EB%90%98%EB%8A%94-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="toc-number">2.1.</span> <span class="toc-text">텍스트와 함께 출력되는 이미지 컴포넌트</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%ED%81%B4%EB%A6%AD-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EB%B0%9C%EC%83%9D-%EC%8B%9C-Ajax-%EC%9A%94%EC%B2%AD"><span class="toc-number">2.2.</span> <span class="toc-text">클릭 이벤트 발생 시 Ajax 요청</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-%EB%AF%B9%EC%8A%A4-%EC%9D%B8"><span class="toc-number">3.</span> <span class="toc-text">React.js의 믹스-인</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95"><span class="toc-number">3.1.</span> <span class="toc-text">사용 방법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%AF%B9%EC%8A%A4-%EC%9D%B8%EC%9D%B4-%EB%A1%9C%EB%93%9C%EB%90%98%EB%8A%94-%EC%88%9C%EC%84%9C"><span class="toc-number">3.2.</span> <span class="toc-text">믹스-인이 로드되는 순서</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conflict-State-or-Prop"><span class="toc-number">3.3.</span> <span class="toc-text">Conflict State or Prop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#getInitialState"><span class="toc-number">3.3.1.</span> <span class="toc-text">getInitialState</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getDefaultProps"><span class="toc-number">3.3.2.</span> <span class="toc-text">getDefaultProps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getInitialState%EC%97%90%EC%84%9C-%EA%B0%99%EC%9D%80-key%EB%A5%BC-%EC%A7%80%EC%A0%95"><span class="toc-number">3.3.3.</span> <span class="toc-text">getInitialState에서 같은 key를 지정</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EB%A9%94%EC%84%9C%EB%93%9C-%EC%9E%AC%EC%A0%95%EC%9D%98"><span class="toc-number">3.3.4.</span> <span class="toc-text">메서드 재정의</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-%EC%95%A0%EB%93%9C%EC%98%A8"><span class="toc-number">4.</span> <span class="toc-text">React.js의 애드온</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95-1"><span class="toc-number">4.1.</span> <span class="toc-text">사용 방법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%95%A0%EB%93%9C%EC%98%A8"><span class="toc-number">4.2.</span> <span class="toc-text">애드온</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TransitionGroup-and-CSSTransitionGroup"><span class="toc-number">4.2.1.</span> <span class="toc-text">TransitionGroup and CSSTransitionGroup</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LinkedStateMixin"><span class="toc-number">4.2.2.</span> <span class="toc-text">LinkedStateMixin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ClassSet"><span class="toc-number">4.2.3.</span> <span class="toc-text">ClassSet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TestUtils"><span class="toc-number">4.2.4.</span> <span class="toc-text">TestUtils</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cloneWithProps"><span class="toc-number">4.2.5.</span> <span class="toc-text">cloneWithProps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#update"><span class="toc-number">4.2.6.</span> <span class="toc-text">update</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PureRenderMixin"><span class="toc-number">4.2.7.</span> <span class="toc-text">PureRenderMixin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Perf"><span class="toc-number">4.2.8.</span> <span class="toc-text">Perf</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#printInclusive"><span class="toc-number">4.2.8.1.</span> <span class="toc-text">printInclusive</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#printExclusive"><span class="toc-number">4.2.8.2.</span> <span class="toc-text">printExclusive</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#printWasted"><span class="toc-number">4.2.8.3.</span> <span class="toc-text">printWasted</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#printDOM-measurements"><span class="toc-number">4.2.8.4.</span> <span class="toc-text">printDOM(measurements)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#getLastMeasurements"><span class="toc-number">4.2.8.5.</span> <span class="toc-text">getLastMeasurements</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%97%90%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0"><span class="toc-number">5.</span> <span class="toc-text">React.js에서 애니메이션 처리하기</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSSTransitionGroup"><span class="toc-number">5.1.</span> <span class="toc-text">CSSTransitionGroup</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90"><span class="toc-number">5.1.1.</span> <span class="toc-text">주의할 점</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReactTransitionGroup"><span class="toc-number">5.2.</span> <span class="toc-text">ReactTransitionGroup</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90-1"><span class="toc-number">5.2.1.</span> <span class="toc-text">주의할 점</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">6.</span> <span class="toc-text">정리</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
+      <div class="post__main">
         
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EA%B0%80-VIRTUAL-DOM%EC%9D%84-%EC%B1%84%ED%83%9D%ED%95%98%EA%B3%A0-%EC%9E%88%EC%96%B4-%EC%A2%8B%EC%9D%80-%EC%A0%90"><span class="toc-number">1.</span> <span class="toc-text">React.js가 VIRTUAL DOM을 채택하고 있어 좋은 점</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#VIRTUAL-DOM%EC%9D%98-%EC%A2%8B%EC%9D%80-%EC%A0%90"><span class="toc-number">1.1.</span> <span class="toc-text">VIRTUAL DOM의 좋은 점</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shouldComponentUpdate"><span class="toc-number">1.2.</span> <span class="toc-text">shouldComponentUpdate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React-js-%EC%9D%B4-%EC%99%B8%EC%9D%98-VIRTUAL-DOM"><span class="toc-number">1.3.</span> <span class="toc-text">React.js 이 외의 VIRTUAL DOM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spread-Attributes"><span class="toc-number">2.</span> <span class="toc-text">Spread Attributes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%ED%85%8D%EC%8A%A4%ED%8A%B8%EC%99%80-%ED%95%A8%EA%BB%98-%EC%B6%9C%EB%A0%A5%EB%90%98%EB%8A%94-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="toc-number">2.1.</span> <span class="toc-text">텍스트와 함께 출력되는 이미지 컴포넌트</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%ED%81%B4%EB%A6%AD-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EB%B0%9C%EC%83%9D-%EC%8B%9C-Ajax-%EC%9A%94%EC%B2%AD"><span class="toc-number">2.2.</span> <span class="toc-text">클릭 이벤트 발생 시 Ajax 요청</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-%EB%AF%B9%EC%8A%A4-%EC%9D%B8"><span class="toc-number">3.</span> <span class="toc-text">React.js의 믹스-인</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95"><span class="toc-number">3.1.</span> <span class="toc-text">사용 방법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%AF%B9%EC%8A%A4-%EC%9D%B8%EC%9D%B4-%EB%A1%9C%EB%93%9C%EB%90%98%EB%8A%94-%EC%88%9C%EC%84%9C"><span class="toc-number">3.2.</span> <span class="toc-text">믹스-인이 로드되는 순서</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conflict-State-or-Prop"><span class="toc-number">3.3.</span> <span class="toc-text">Conflict State or Prop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#getInitialState"><span class="toc-number">3.3.1.</span> <span class="toc-text">getInitialState</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getDefaultProps"><span class="toc-number">3.3.2.</span> <span class="toc-text">getDefaultProps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#getInitialState%EC%97%90%EC%84%9C-%EA%B0%99%EC%9D%80-key%EB%A5%BC-%EC%A7%80%EC%A0%95"><span class="toc-number">3.3.3.</span> <span class="toc-text">getInitialState에서 같은 key를 지정</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EB%A9%94%EC%84%9C%EB%93%9C-%EC%9E%AC%EC%A0%95%EC%9D%98"><span class="toc-number">3.3.4.</span> <span class="toc-text">메서드 재정의</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%9D%98-%EC%95%A0%EB%93%9C%EC%98%A8"><span class="toc-number">4.</span> <span class="toc-text">React.js의 애드온</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95-1"><span class="toc-number">4.1.</span> <span class="toc-text">사용 방법</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%95%A0%EB%93%9C%EC%98%A8"><span class="toc-number">4.2.</span> <span class="toc-text">애드온</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TransitionGroup-and-CSSTransitionGroup"><span class="toc-number">4.2.1.</span> <span class="toc-text">TransitionGroup and CSSTransitionGroup</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LinkedStateMixin"><span class="toc-number">4.2.2.</span> <span class="toc-text">LinkedStateMixin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ClassSet"><span class="toc-number">4.2.3.</span> <span class="toc-text">ClassSet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TestUtils"><span class="toc-number">4.2.4.</span> <span class="toc-text">TestUtils</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cloneWithProps"><span class="toc-number">4.2.5.</span> <span class="toc-text">cloneWithProps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#update"><span class="toc-number">4.2.6.</span> <span class="toc-text">update</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PureRenderMixin"><span class="toc-number">4.2.7.</span> <span class="toc-text">PureRenderMixin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Perf"><span class="toc-number">4.2.8.</span> <span class="toc-text">Perf</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#printInclusive"><span class="toc-number">4.2.8.1.</span> <span class="toc-text">printInclusive</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#printExclusive"><span class="toc-number">4.2.8.2.</span> <span class="toc-text">printExclusive</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#printWasted"><span class="toc-number">4.2.8.3.</span> <span class="toc-text">printWasted</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#printDOM-measurements"><span class="toc-number">4.2.8.4.</span> <span class="toc-text">printDOM(measurements)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#getLastMeasurements"><span class="toc-number">4.2.8.5.</span> <span class="toc-text">getLastMeasurements</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-js%EC%97%90%EC%84%9C-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0"><span class="toc-number">5.</span> <span class="toc-text">React.js에서 애니메이션 처리하기</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSSTransitionGroup"><span class="toc-number">5.1.</span> <span class="toc-text">CSSTransitionGroup</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90"><span class="toc-number">5.1.1.</span> <span class="toc-text">주의할 점</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReactTransitionGroup"><span class="toc-number">5.2.</span> <span class="toc-text">ReactTransitionGroup</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90-1"><span class="toc-number">5.2.1.</span> <span class="toc-text">주의할 점</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">6.</span> <span class="toc-text">정리</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          
     <div class="alert alert--info">
       <strong class="alert__title">읽기전에...</strong>
       <div class="alert__body">
@@ -766,6 +769,7 @@ React<span class="token punctuation">.</span><span class="token function">render
 <h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>이번 편에서는 React.js에서 VIRTUAL DOM을 채택해서 가능한 메커니즘과 간단하게 Props를 전달할 수 있는 Spread Attribute 그리고 믹스-인과 애드온, 마지막으로 애니메이션을 처리하는 방법을 소개했습니다. 여기까지 기본적인 React.js 사용법은 모두 소개했습니다. React.js를 이해하는 비용은 그리 비싸지 않습니다. 이 정도의 특징만 숙지해도 큰 무리 없이 컴포넌트를 개발할 수 있습니다. React.js 자체를 사용하는 것보다 컴포넌트를 설계하는 것이 더 어렵고 개발자의 역량에 따라 컴포넌트 효율성이나 디자인이 크게 좌우될 수 있습니다. 많이 만들고 고민해서 좋은 컴포넌트를 만들 수 있길 바랍니다.</p>
 <p>다음편에서는 Server-side rendering과 컴포넌트를 테스트하는 방법 등을 소개하겠습니다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -777,7 +781,7 @@ React<span class="token punctuation">.</span><span class="token function">render
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2015/07/09/learning-react-5/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(5)</p>
+        <p class="navigation__title">React.js를 이해하다(5)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -819,7 +823,7 @@ React<span class="token punctuation">.</span><span class="token function">render
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2015/06/27/learning-react-3/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(3)</p>
+        <p class="navigation__title">React.js를 이해하다(3)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

@@ -45,7 +45,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2016/06/17/e2e-test-and-nightwatch/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -53,8 +53,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -146,10 +146,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">E2E 테스트와 나이트왓치</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">E2E 테스트와 나이트왓치</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2016-06-17T00:00:00+09:00">
@@ -178,9 +179,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -212,17 +213,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#E2E-%ED%85%8C%EC%8A%A4%ED%8A%B8"><span class="toc-number">1.</span> <span class="toc-text">E2E 테스트</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%A0%95%EC%9D%98"><span class="toc-number">1.1.</span> <span class="toc-text">정의</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#E2E-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC"><span class="toc-number">1.2.</span> <span class="toc-text">E2E 테스트 프레임워크</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%85%80%EB%A0%88%EB%8B%88%EC%9B%80-%EC%9B%B9%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84"><span class="toc-number">1.3.</span> <span class="toc-text">셀레니움 웹드라이버</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%82%98%EC%9D%B4%ED%8A%B8%EC%99%93%EC%B9%98"><span class="toc-number">2.</span> <span class="toc-text">나이트왓치</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0"><span class="toc-number">2.1.</span> <span class="toc-text">설치하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%97%AC%EB%9F%AC-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%EC%84%9C-%EB%8F%99%EC%8B%9C%EC%97%90-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0"><span class="toc-number">2.2.</span> <span class="toc-text">여러 브라우저에서 동시에 테스트하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%AA%A8%EC%B9%B4-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0"><span class="toc-number">2.3.</span> <span class="toc-text">모카 사용하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80-%EC%8A%A4%ED%83%9D"><span class="toc-number">2.4.</span> <span class="toc-text">브라우저 스택</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9B%B9%EC%8A%A4%ED%86%B0-%EB%94%94%EB%B2%84%EA%B9%85"><span class="toc-number">2.5.</span> <span class="toc-text">웹스톰 디버깅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">3.</span> <span class="toc-text">끝으로</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
-        <p>나이트왓치를 소개하기 전에 E2E 테스트의 정의부터 셀레니움 웹드라이버 등 기본 개념부터 간단히 소개하겠다.</p>
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#E2E-%ED%85%8C%EC%8A%A4%ED%8A%B8"><span class="toc-number">1.</span> <span class="toc-text">E2E 테스트</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%A0%95%EC%9D%98"><span class="toc-number">1.1.</span> <span class="toc-text">정의</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#E2E-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC"><span class="toc-number">1.2.</span> <span class="toc-text">E2E 테스트 프레임워크</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%85%80%EB%A0%88%EB%8B%88%EC%9B%80-%EC%9B%B9%EB%93%9C%EB%9D%BC%EC%9D%B4%EB%B2%84"><span class="toc-number">1.3.</span> <span class="toc-text">셀레니움 웹드라이버</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%82%98%EC%9D%B4%ED%8A%B8%EC%99%93%EC%B9%98"><span class="toc-number">2.</span> <span class="toc-text">나이트왓치</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0"><span class="toc-number">2.1.</span> <span class="toc-text">설치하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%97%AC%EB%9F%AC-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%EC%84%9C-%EB%8F%99%EC%8B%9C%EC%97%90-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0"><span class="toc-number">2.2.</span> <span class="toc-text">여러 브라우저에서 동시에 테스트하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%AA%A8%EC%B9%B4-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0"><span class="toc-number">2.3.</span> <span class="toc-text">모카 사용하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80-%EC%8A%A4%ED%83%9D"><span class="toc-number">2.4.</span> <span class="toc-text">브라우저 스택</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9B%B9%EC%8A%A4%ED%86%B0-%EB%94%94%EB%B2%84%EA%B9%85"><span class="toc-number">2.5.</span> <span class="toc-text">웹스톰 디버깅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">3.</span> <span class="toc-text">끝으로</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <p>나이트왓치를 소개하기 전에 E2E 테스트의 정의부터 셀레니움 웹드라이버 등 기본 개념부터 간단히 소개하겠다.</p>
 <h2 id="E2E-테스트"><a href="#E2E-테스트" class="headerlink" title="E2E 테스트"></a>E2E 테스트</h2><h3 id="정의"><a href="#정의" class="headerlink" title="정의"></a>정의</h3><p>소프트웨어 테스트는 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Software_testing##Testing_levels">테스트의 규모(레벨)</a>에 따라 유닛 테스트, 통합 테스트, 시스템 테스트, 인수 테스트 이렇게 4가지로 분류한다. 여기에서 E2E 테스트는 시스템 테스트에 속한다. </p>
 <p>E2E(End-to-End) 테스트는 전체 시스템이 제대로 작동하는지 확인 하기 위한 테스트로 시나리오 테스트, 기능 테스트, 통합 테스트, GUI 테스트를 하는데 사용한다. API와의 연동도 테스트 항목에 포함되기 때문에 일반적으로 목(Mock)이나 스텁(Stub)과 같은 테스트 더블을 사용하지 않으며 최대한 실제 시스템을 사용하는 사용자 관점에서 시뮬레이션 한다. 그래서 테스트 속도가 서비스 규모에 따라 상당히 느릴 수 있기 때문에 유닛 테스트나 기능 테스트를 위한 일반적인 테스트 자동화와 시스템 테스트를 위한 E2E 테스트 자동화를 함께 구성한다.</p>
 <h3 id="E2E-테스트-프레임워크"><a href="#E2E-테스트-프레임워크" class="headerlink" title="E2E 테스트 프레임워크"></a>E2E 테스트 프레임워크</h3><p>E2E 테스트 프레임워크는 다양한 종류가 있는데, 크게 헤드리스 브라우저를 의존하는 것과 셀레니움 웹드라이버를 의존하는 것으로 나눌 수 있다. 셀레니움 웹드라이버는 다음 절에서 자세히 설명한다.</p>
@@ -526,6 +529,7 @@ $ ./node_modules/.bin/webdriver-manager update
 <li><a target="_blank" rel="noopener" href="http://qiita.com/yssg/items/a054d67bc7c7fc39b276">http://qiita.com/yssg/items/a054d67bc7c7fc39b276</a> (일본어)</li>
 </ul>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -537,7 +541,7 @@ $ ./node_modules/.bin/webdriver-manager update
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2016/10/11/read-the-engineering-technology-and-society/" class="navigation__link">
-        <p class="navigation__title ellipsis">공학기술과 사회를 읽고</p>
+        <p class="navigation__title">공학기술과 사회를 읽고</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -572,7 +576,7 @@ $ ./node_modules/.bin/webdriver-manager update
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2016/04/26/read-the-thinking-about-react/" class="navigation__link">
-        <p class="navigation__title ellipsis">React에 대한 여러가지 생각을 읽고</p>
+        <p class="navigation__title">React에 대한 여러가지 생각을 읽고</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

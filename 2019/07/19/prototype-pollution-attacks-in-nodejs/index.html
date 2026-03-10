@@ -10,7 +10,7 @@
     <meta name="description" content="__proto__을 이용한 프로토타입 오염(prototype pollution) 공격의 원리를 설명하면서 노드 환경에서 실제 공격이 가능한 사례를 함께 소개합니다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Development,JavaScript,Security,Node,ECMAScript">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Development,JavaScript,Node,Security,ECMAScript">
   
   
     <meta name="author" content="Coderifleman">
@@ -40,7 +40,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2019/07/19/prototype-pollution-attacks-in-nodejs/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -48,8 +48,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -141,10 +141,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">Node.js에서의 프로토타입 오염 공격이란 무엇인가</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">Node.js에서의 프로토타입 오염 공격이란 무엇인가</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2019-07-19T00:00:00+09:00">
@@ -173,9 +174,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -192,14 +193,14 @@
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/Security/" >
-            #Security
+          <a class="tags__link" href="/blog/tags/Node/" >
+            #Node
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/Node/" >
-            #Node
+          <a class="tags__link" href="/blog/tags/Security/" >
+            #Security
           </a>
         </li>
       
@@ -213,17 +214,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%8B%9C%EC%9E%91%ED%95%98%EB%A9%B4%EC%84%9C"><span class="toc-number">1.</span> <span class="toc-text">시작하면서</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-number">2.</span> <span class="toc-text">__proto__</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85-%EC%98%A4%EC%97%BC"><span class="toc-number">3.</span> <span class="toc-text">프로토타입 오염</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%86%8D%EC%84%B1-%EC%84%A4%EC%A0%95"><span class="toc-number">3.1.</span> <span class="toc-text">속성 설정</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%9D%EC%B2%B4-%EB%B3%91%ED%95%A9"><span class="toc-number">3.2.</span> <span class="toc-text">객체 병합</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC"><span class="toc-number">3.3.</span> <span class="toc-text">객체 복사</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%8B%A4%EC%A0%9C-%EA%B3%B5%EA%B2%A9"><span class="toc-number">4.</span> <span class="toc-text">실제 공격</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%8C%80%EC%B1%85"><span class="toc-number">5.</span> <span class="toc-text">대책</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">6.</span> <span class="toc-text">정리</span></a></li></ol>
-        </aside>
-      
-      <div class="post__contents">
+      <div class="post__main">
         
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%8B%9C%EC%9E%91%ED%95%98%EB%A9%B4%EC%84%9C"><span class="toc-number">1.</span> <span class="toc-text">시작하면서</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proto"><span class="toc-number">2.</span> <span class="toc-text">__proto__</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85-%EC%98%A4%EC%97%BC"><span class="toc-number">3.</span> <span class="toc-text">프로토타입 오염</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%86%8D%EC%84%B1-%EC%84%A4%EC%A0%95"><span class="toc-number">3.1.</span> <span class="toc-text">속성 설정</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%9D%EC%B2%B4-%EB%B3%91%ED%95%A9"><span class="toc-number">3.2.</span> <span class="toc-text">객체 병합</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC"><span class="toc-number">3.3.</span> <span class="toc-text">객체 복사</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%8B%A4%EC%A0%9C-%EA%B3%B5%EA%B2%A9"><span class="toc-number">4.</span> <span class="toc-text">실제 공격</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%8C%80%EC%B1%85"><span class="toc-number">5.</span> <span class="toc-text">대책</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">6.</span> <span class="toc-text">정리</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          
     <div class="alert alert--info">
       <strong class="alert__title">읽기전에...</strong>
       <div class="alert__body">
@@ -392,6 +395,7 @@ polluted</code></pre>
 found 1 low severity vulnerability in 1 scanned package
   run `npm audit fix` to fix 1 of them.</code></pre>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -403,7 +407,7 @@ found 1 low severity vulnerability in 1 scanned package
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2021/04/21/react-hooks-and-humble-object-pattern-and-tests/" class="navigation__link">
-        <p class="navigation__title ellipsis">리액트 훅스(react hooks)와 험블 객체 패턴(humble object pattern) 그리고 테스트</p>
+        <p class="navigation__title">리액트 훅스(react hooks)와 험블 객체 패턴(humble object pattern) 그리고 테스트</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -445,7 +449,7 @@ found 1 low severity vulnerability in 1 scanned package
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2019/06/29/create-the-undo-redo-feature/" class="navigation__link">
-        <p class="navigation__title ellipsis">실행 취소 / 다시 실행 기능 구현하기(feat. serializr)</p>
+        <p class="navigation__title">실행 취소 / 다시 실행 기능 구현하기(feat. serializr)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

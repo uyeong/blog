@@ -54,7 +54,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2015/04/04/using-korean-web-fonts/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -62,8 +62,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -155,10 +155,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">한글 웹 폰트 경량화해 사용하기</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">한글 웹 폰트 경량화해 사용하기</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2015-04-04T00:00:00+09:00">
@@ -180,9 +181,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -208,17 +209,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9B%B9-%ED%8F%B0%ED%8A%B8%EB%9E%80"><span class="toc-number">1.</span> <span class="toc-text">웹 폰트란?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Noto-Sans-CJK-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C"><span class="toc-number">2.</span> <span class="toc-text">Noto Sans CJK 다운로드</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Subset-and-Subsetting"><span class="toc-number">3.</span> <span class="toc-text">Subset(and Subsetting)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%A7%81%EC%A0%91-Subset-%EC%A7%80%EC%A0%95%ED%95%98%EA%B8%B0"><span class="toc-number">3.1.</span> <span class="toc-text">직접 Subset 지정하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0"><span class="toc-number">3.2.</span> <span class="toc-text">사용해보기</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">4.</span> <span class="toc-text">끝으로</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%B2%84%EA%B7%B8"><span class="toc-number">5.</span> <span class="toc-text">버그</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IE8%EC%97%90%EC%84%9C-%EA%B0%80%EC%A4%91%EC%B9%98-weight-%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C"><span class="toc-number">5.1.</span> <span class="toc-text">IE8에서 가중치(weight)가 동작하지 않는 문제</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IE8%EC%97%90%EC%84%9C-%ED%8A%B9%EC%88%98-%EB%AC%B8%EC%9E%90%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%B6%9C%EB%A0%A5%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C"><span class="toc-number">5.2.</span> <span class="toc-text">IE8에서 특수 문자가 비정상적으로 출력되는 문제</span></a></li></ol></li></ol>
-        </aside>
-      
-      <div class="post__contents">
-        <h2 id="웹-폰트란"><a href="#웹-폰트란" class="headerlink" title="웹 폰트란?"></a>웹 폰트란?</h2><p>웹 폰트란 간단히 말해서 폰트파일(eot, woff 등)을 브라우저가 서버로부터 내려받아 사용하는 폰트를 말합니다. 이용자 컴퓨터에 설치돼 있지 않아도 폰트가 동작하기 때문에 조금 더 미려한 디자인을 가능하게 합니다.</p>
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9B%B9-%ED%8F%B0%ED%8A%B8%EB%9E%80"><span class="toc-number">1.</span> <span class="toc-text">웹 폰트란?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Noto-Sans-CJK-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C"><span class="toc-number">2.</span> <span class="toc-text">Noto Sans CJK 다운로드</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Subset-and-Subsetting"><span class="toc-number">3.</span> <span class="toc-text">Subset(and Subsetting)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%A7%81%EC%A0%91-Subset-%EC%A7%80%EC%A0%95%ED%95%98%EA%B8%B0"><span class="toc-number">3.1.</span> <span class="toc-text">직접 Subset 지정하기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0"><span class="toc-number">3.2.</span> <span class="toc-text">사용해보기</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%81%9D%EC%9C%BC%EB%A1%9C"><span class="toc-number">4.</span> <span class="toc-text">끝으로</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%B2%84%EA%B7%B8"><span class="toc-number">5.</span> <span class="toc-text">버그</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IE8%EC%97%90%EC%84%9C-%EA%B0%80%EC%A4%91%EC%B9%98-weight-%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C"><span class="toc-number">5.1.</span> <span class="toc-text">IE8에서 가중치(weight)가 동작하지 않는 문제</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IE8%EC%97%90%EC%84%9C-%ED%8A%B9%EC%88%98-%EB%AC%B8%EC%9E%90%EA%B0%80-%EB%B9%84%EC%A0%95%EC%83%81%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%B6%9C%EB%A0%A5%EB%90%98%EB%8A%94-%EB%AC%B8%EC%A0%9C"><span class="toc-number">5.2.</span> <span class="toc-text">IE8에서 특수 문자가 비정상적으로 출력되는 문제</span></a></li></ol></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <h2 id="웹-폰트란"><a href="#웹-폰트란" class="headerlink" title="웹 폰트란?"></a>웹 폰트란?</h2><p>웹 폰트란 간단히 말해서 폰트파일(eot, woff 등)을 브라우저가 서버로부터 내려받아 사용하는 폰트를 말합니다. 이용자 컴퓨터에 설치돼 있지 않아도 폰트가 동작하기 때문에 조금 더 미려한 디자인을 가능하게 합니다.</p>
 
     <figure title="Google Fonts">
       <a href="/blog/images/using-korean-web-fonts/web-fonts.01.png" target="_blank">
@@ -477,6 +480,7 @@
 
 <p>새로 추출한 폰트 파일로 변경하고 IE8에서 실행하면 정상적으로 출력됩니다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -488,7 +492,7 @@
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2015/04/04/text-files-end-with-a-newline/" class="navigation__link">
-        <p class="navigation__title ellipsis">파일 끝에 개행을 추가해야 하는 이유</p>
+        <p class="navigation__title">파일 끝에 개행을 추가해야 하는 이유</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -530,7 +534,7 @@
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2014/12/05/what-is-iojs/" class="navigation__link">
-        <p class="navigation__title ellipsis">io.js란 무엇인가?</p>
+        <p class="navigation__title">io.js란 무엇인가?</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">

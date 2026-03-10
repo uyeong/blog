@@ -37,7 +37,7 @@
 <meta name="twitter:creator" content="@coderifleman">
 <meta name="twitter:site" content="https://uyeong.github.io/blog/2015/07/09/learning-react-5/index.html">
   
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Nanum+Myeongjo:400,700&display=swap.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -45,8 +45,8 @@
   
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
 
@@ -138,10 +138,11 @@
   <section class="post">
   <div class="post__inner">
     <article class="post__body">
-      <div class="post__header">
-        <h1 class="post__title">React.js를 이해하다(5)</h1>
-        <div class="post__meta">
-          <div class="meta">
+      
+        <div class="post__header">
+          <h1 class="post__title">React.js를 이해하다(5)</h1>
+          <div class="post__meta">
+            <div class="meta">
   <div class="meta__datetime">
     <i class="fa fa-clock-o" aria-hidden="true"></i>
     <time datetime="2015-07-09T00:00:00+09:00">
@@ -170,9 +171,9 @@
   </div>
 </div>
 
-        </div>
-        <div class="post__tags">
-          <div class="tags">
+          </div>
+          <div class="post__tags">
+            <div class="tags">
   <ul class="tags__list">
     
       
@@ -192,17 +193,19 @@
   </ul>
 </div>
 
+          </div>
         </div>
-      </div>
       
-      
-        <aside class="post__toc">
-          <h2>목차</h2>
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Server-side-rendering"><span class="toc-number">1.</span> <span class="toc-text">Server-side rendering</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#React-js%EC%99%80-Server-Side-Rendering"><span class="toc-number">1.1.</span> <span class="toc-text">React.js와 Server-Side Rendering</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%9B%90%EC%B9%99-renderToString-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">원칙(renderToString()를 사용할 경우)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="toc-number">1.1.2.</span> <span class="toc-text">컴포넌트</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%84%9C%EB%B2%84"><span class="toc-number">1.1.3.</span> <span class="toc-text">서버</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#node-jsx"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">node-jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#renderToString"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">renderToString()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%ED%85%9C%ED%94%8C%EB%A6%BF"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">템플릿</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80"><span class="toc-number">1.1.4.</span> <span class="toc-text">브라우저</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%83%9D%EC%84%B1%EB%90%98%EB%8A%94-%EC%86%8C%EC%8A%A4"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">생성되는 소스</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#renderToString-%EA%B3%BC-renderToStaticMarkup"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">renderToString()과 renderToStaticMarkup()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flux%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%A0-%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90"><span class="toc-number">1.1.5.</span> <span class="toc-text">Flux를 사용할 때 주의할 점</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EB%9D%BC%EC%9A%B0%ED%8C%85"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">라우팅</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#express-react-views"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">express-react-views</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Node-js-%EC%9D%B4%EC%99%B8%EC%9D%98-%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9"><span class="toc-number">1.1.5.3.</span> <span class="toc-text">Node.js 이외의 서버에서 사용</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Server-Side-Rendering%EC%97%90-%EB%8C%80%EC%9D%91%ED%95%9C-Routing"><span class="toc-number">1.2.</span> <span class="toc-text">Server-Side Rendering에 대응한 Routing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#React-Router"><span class="toc-number">1.2.1.</span> <span class="toc-text">React Router</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%A0%95%EC%9D%98"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">정의</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Link"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">Link</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Handler"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">Handler</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#History-API"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">History API</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Server-Side-Rendering"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">Server-Side Rendering</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%98%88%EC%A0%9C-%EC%BD%94%EB%93%9C"><span class="toc-number">1.2.2.</span> <span class="toc-text">예제 코드</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%84%9C%EB%B2%84-1"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">서버</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Browser-entry-point"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">Browser entry point</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Routing"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">Routing</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#App"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">App</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Handler-1"><span class="toc-number">1.2.2.5.</span> <span class="toc-text">Handler</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%B4%88%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%A0%84%EB%B6%80-%EC%A0%84%EB%8B%AC%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0"><span class="toc-number">1.2.2.6.</span> <span class="toc-text">초기 데이터를 전부 전달하지 않는 경우</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EA%B3%B5%EA%B0%9C%EB%90%9C-React-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90"><span class="toc-number">2.</span> <span class="toc-text">공개된 React 컴포넌트를 사용해보자</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B6%80%ED%8A%B8%EC%8A%A4%ED%8A%B8%EB%9E%A9"><span class="toc-number">2.1.</span> <span class="toc-text">부트스트랩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%B0%BE%EA%B8%B0"><span class="toc-number">2.2.</span> <span class="toc-text">컴포넌트 찾기</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#React-Components"><span class="toc-number">2.2.1.</span> <span class="toc-text">React Components</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#React-Rocks"><span class="toc-number">2.2.2.</span> <span class="toc-text">React Rocks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EA%B9%83-%ED%97%88%EB%B8%8C%EC%9D%98-%EC%9C%84%ED%82%A4"><span class="toc-number">2.2.3.</span> <span class="toc-text">깃-허브의 위키</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%8B%A4%EC%A0%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A5%BC-%EC%B0%BE%EC%95%84%EC%84%9C-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">실전, 컴포넌트를 찾아서 사용해보자.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95"><span class="toc-number">2.3.1.</span> <span class="toc-text">사용 방법</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CSS"><span class="toc-number">2.3.2.</span> <span class="toc-text">CSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#I-F-%ED%99%95%EC%9D%B8"><span class="toc-number">2.3.3.</span> <span class="toc-text">I&#x2F;F 확인</span></a></li></ol></li></ol></li></ol>
-        </aside>
-      
-      <div class="post__contents">
+      <div class="post__main">
         
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Server-side-rendering"><span class="toc-number">1.</span> <span class="toc-text">Server-side rendering</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#React-js%EC%99%80-Server-Side-Rendering"><span class="toc-number">1.1.</span> <span class="toc-text">React.js와 Server-Side Rendering</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%9B%90%EC%B9%99-renderToString-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%A0-%EA%B2%BD%EC%9A%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">원칙(renderToString()를 사용할 경우)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8"><span class="toc-number">1.1.2.</span> <span class="toc-text">컴포넌트</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%84%9C%EB%B2%84"><span class="toc-number">1.1.3.</span> <span class="toc-text">서버</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#node-jsx"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">node-jsx</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#renderToString"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">renderToString()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%ED%85%9C%ED%94%8C%EB%A6%BF"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">템플릿</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80"><span class="toc-number">1.1.4.</span> <span class="toc-text">브라우저</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%83%9D%EC%84%B1%EB%90%98%EB%8A%94-%EC%86%8C%EC%8A%A4"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">생성되는 소스</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#renderToString-%EA%B3%BC-renderToStaticMarkup"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">renderToString()과 renderToStaticMarkup()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flux%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%A0-%EB%95%8C-%EC%A3%BC%EC%9D%98%ED%95%A0-%EC%A0%90"><span class="toc-number">1.1.5.</span> <span class="toc-text">Flux를 사용할 때 주의할 점</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EB%9D%BC%EC%9A%B0%ED%8C%85"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">라우팅</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#express-react-views"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">express-react-views</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Node-js-%EC%9D%B4%EC%99%B8%EC%9D%98-%EC%84%9C%EB%B2%84%EC%97%90%EC%84%9C-%EC%82%AC%EC%9A%A9"><span class="toc-number">1.1.5.3.</span> <span class="toc-text">Node.js 이외의 서버에서 사용</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Server-Side-Rendering%EC%97%90-%EB%8C%80%EC%9D%91%ED%95%9C-Routing"><span class="toc-number">1.2.</span> <span class="toc-text">Server-Side Rendering에 대응한 Routing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#React-Router"><span class="toc-number">1.2.1.</span> <span class="toc-text">React Router</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%A0%95%EC%9D%98"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">정의</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Link"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">Link</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Handler"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">Handler</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#History-API"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">History API</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Server-Side-Rendering"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">Server-Side Rendering</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%98%88%EC%A0%9C-%EC%BD%94%EB%93%9C"><span class="toc-number">1.2.2.</span> <span class="toc-text">예제 코드</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%84%9C%EB%B2%84-1"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">서버</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Browser-entry-point"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">Browser entry point</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Routing"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">Routing</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#App"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">App</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Handler-1"><span class="toc-number">1.2.2.5.</span> <span class="toc-text">Handler</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EC%B4%88%EA%B8%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%A0%84%EB%B6%80-%EC%A0%84%EB%8B%AC%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0"><span class="toc-number">1.2.2.6.</span> <span class="toc-text">초기 데이터를 전부 전달하지 않는 경우</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EA%B3%B5%EA%B0%9C%EB%90%9C-React-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90"><span class="toc-number">2.</span> <span class="toc-text">공개된 React 컴포넌트를 사용해보자</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%B6%80%ED%8A%B8%EC%8A%A4%ED%8A%B8%EB%9E%A9"><span class="toc-number">2.1.</span> <span class="toc-text">부트스트랩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%B0%BE%EA%B8%B0"><span class="toc-number">2.2.</span> <span class="toc-text">컴포넌트 찾기</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#React-Components"><span class="toc-number">2.2.1.</span> <span class="toc-text">React Components</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#React-Rocks"><span class="toc-number">2.2.2.</span> <span class="toc-text">React Rocks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EA%B9%83-%ED%97%88%EB%B8%8C%EC%9D%98-%EC%9C%84%ED%82%A4"><span class="toc-number">2.2.3.</span> <span class="toc-text">깃-허브의 위키</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%8B%A4%EC%A0%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A5%BC-%EC%B0%BE%EC%95%84%EC%84%9C-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EC%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">실전, 컴포넌트를 찾아서 사용해보자.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95"><span class="toc-number">2.3.1.</span> <span class="toc-text">사용 방법</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CSS"><span class="toc-number">2.3.2.</span> <span class="toc-text">CSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#I-F-%ED%99%95%EC%9D%B8"><span class="toc-number">2.3.3.</span> <span class="toc-text">I&#x2F;F 확인</span></a></li></ol></li></ol></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          
     <div class="alert alert--info">
       <strong class="alert__title">읽기전에...</strong>
       <div class="alert__body">
@@ -535,6 +538,7 @@ type <span class="token operator">=</span> <span class="token string">'youtube'<
 
 <p>이번 편에서는 React.js의 Server-Side rendering과 Routing 그리고 공개된 React.js의 컴포넌트를 사용하는 방법을 소개했습니다. Server-Side rendering은 최근 Ember(<a target="_blank" rel="noopener" href="http://emberjs.com/blog/2015/06/12/ember-1-13-0-released.html#toc_component-lifecycle-hooks">참고</a>)와 Angular2(<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0wvZ7gakqV4">참고</a>)에서도 지원할 정도로 인기있는 기능입니다. 다음 편에서는 React.js를 테스트하는 방법과 Flux 아키텍처를 소개하겠습니다.</p>
 
+        </div>
       </div>
     </article>
     <div class="post__footer">
@@ -546,7 +550,7 @@ type <span class="token operator">=</span> <span class="token string">'youtube'<
     
       <span class="navigation__guide">Next Post</span>
       <a href="/blog/2015/07/11/learning-react-6/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(6)</p>
+        <p class="navigation__title">React.js를 이해하다(6)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
@@ -588,7 +592,7 @@ type <span class="token operator">=</span> <span class="token string">'youtube'<
     
       <span class="navigation__guide">Previous Post</span>
       <a href="/blog/2015/06/29/learning-react-4/" class="navigation__link">
-        <p class="navigation__title ellipsis">React.js를 이해하다(4)</p>
+        <p class="navigation__title">React.js를 이해하다(4)</p>
       </a>
       <div class="navigation__meta">
         <div class="meta">
