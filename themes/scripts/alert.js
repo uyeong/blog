@@ -1,11 +1,11 @@
-const marked = require('marked');
 const types = [ 'info', 'success', 'warning', 'danger' ];
 
-hexo.extend.tag.register('alert', ([ type, title = '' ], content) => {
+hexo.extend.tag.register('alert', function([ type, title = '' ], content) {
   if (types.indexOf(type) === -1 && type !== undefined) {
     title = type;
     type = undefined;
   }
+  const rendered = hexo.render.renderSync({ text: content, engine: 'markdown' });
   return `
     <div class="alert${type ? ` alert--${type}` : ''}">
       ${title && `
@@ -14,7 +14,7 @@ hexo.extend.tag.register('alert', ([ type, title = '' ], content) => {
         </strong>
       `}
       <div class="alert__body">
-        ${marked(content)}
+        ${rendered}
       </div>
     </div>
   `;

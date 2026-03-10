@@ -44,15 +44,9 @@ render_drafts: false
 post_asset_folder: false
 relative_link: false
 future: true
+syntax_highlighter: prismjs
 highlight:
-  enable: false
-  # line_number: true
-  # auto_detect: false
-  # tab_replace: ''
-  # wrap: true
-  # hljs: false
 prismjs:
-  enable: true
   preprocess: true
   line_number: false
   tab_replace: ''
@@ -118,3 +112,4 @@ feed:
 # Sitemap
 sitemap:
   path: sitemap.xml
+  rel: false
