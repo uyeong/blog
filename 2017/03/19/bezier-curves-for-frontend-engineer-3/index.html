@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://uyeong.github.io/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.04.png">
 <meta property="og:image" content="https://uyeong.github.io/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.05.png">
 <meta property="article:published_time" content="2017-03-18T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
+<meta property="article:modified_time" content="2026-03-10T02:27:58.137Z">
 <meta property="article:author" content="Coderifleman">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="Animation">
@@ -225,11 +225,7 @@
 
     <figure title="1차 베지에 곡선">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.01.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.01.png" 
-          alt="1차 베지에 곡선" 
-          style="max-width:340px"
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.01.png" alt="1차 베지에 곡선" style="max-width:340px">
       </a>
       <figcaption>&lt;그림 1. 1차 베지에 곡선&gt;</figcaption>
     </figure>
@@ -240,11 +236,7 @@
 
     <figure title="2차 베지에 곡선">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.02.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.02.png" 
-          alt="2차 베지에 곡선" 
-          style="max-width:340px"
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.02.png" alt="2차 베지에 곡선" style="max-width:340px">
       </a>
       <figcaption>&lt;그림 2. 2차 베지에 곡선&gt;</figcaption>
     </figure>
@@ -294,9 +286,17 @@ P = (s * E) + (t * F)</code></pre>
 
 <p>아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 2차 베지에 곡선이라고 한다.</p>
 
-    <p data-height="300" data-theme-id="0" data-slug-hash="qrpYwj" data-default-tab="result" data-user="uyeong" data-embed-version="2" data-pen-title="qrpYwj" class="codepen">
-      See the Pen <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/qrpYwj/">qrpYwj</a> by Uyeong Ju (<a target="_blank" rel="noopener" href="http://codepen.io/uyeong">@uyeong</a>) on <a target="_blank" rel="noopener" href="http://codepen.io">CodePen</a>.
-    </p>
+    <iframe
+      height="300"
+      style="width: 100%;"
+      scrolling="no"
+      title="CodePen Embed"
+      src="https://codepen.io/uyeong/embed/qrpYwj?default-tab=result&theme-id=dark"
+      frameborder="no"
+      loading="lazy"
+      allowtransparency="true"
+      allowfullscreen="true">
+    </iframe>
   
 
 <h3 id="수식-정리"><a href="#수식-정리" class="headerlink" title="수식 정리"></a>수식 정리</h3><p>우리가 2차 베지에 곡선을 위해 사용한 수식은 다음과 같다.</p>
@@ -358,11 +358,7 @@ P(t) = C</code></pre>
 
     <figure title="3차 베지에 곡선">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.03.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.03.png" 
-          alt="3차 베지에 곡선" 
-          style="max-width:340px"
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.03.png" alt="3차 베지에 곡선" style="max-width:340px">
       </a>
       <figcaption>&lt;그림 3. 3차 베지에 곡선&gt;</figcaption>
     </figure>
@@ -385,9 +381,17 @@ R = (s * F) + (t * G)</code></pre>
 <p>이제 2차 베지에 곡선을 그릴 때 작성한 blend, blender 함수를 활용해 3차 베지에 곡선을 그려보자. 간단하게 새로운 점을 추가한 후 위에서 설명한 것처럼 점 Q, R, P를 구해 보간하면 된다.</p>
 <p>아래 데모를 실행해 보자. 점 P가 보간되면서 그려진 곡선을 3차 베지에 곡선이라고 한다.</p>
 
-    <p data-height="300" data-theme-id="0" data-slug-hash="EmOPJr" data-default-tab="result" data-user="uyeong" data-embed-version="2" data-pen-title="EmOPJr" class="codepen">
-      See the Pen <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/EmOPJr/">EmOPJr</a> by Uyeong Ju (<a target="_blank" rel="noopener" href="http://codepen.io/uyeong">@uyeong</a>) on <a target="_blank" rel="noopener" href="http://codepen.io">CodePen</a>.
-    </p>
+    <iframe
+      height="300"
+      style="width: 100%;"
+      scrolling="no"
+      title="CodePen Embed"
+      src="https://codepen.io/uyeong/embed/EmOPJr?default-tab=result&theme-id=dark"
+      frameborder="no"
+      loading="lazy"
+      allowtransparency="true"
+      allowfullscreen="true">
+    </iframe>
   
 
 <h3 id="수식정리"><a href="#수식정리" class="headerlink" title="수식정리"></a>수식정리</h3><p>점 Q와 P는 각각 2차 베지에 곡선에서 구해지는 점이므로 2차 베지에 곡선의 수식으로 표현할 수 있다.</p>
@@ -435,11 +439,7 @@ P(t) = s³A + 3(s²t)B + 3(st²)C + t³D</code></pre>
 
     <figure title="3차 베지에 곡선의 보폭">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.04.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.04.png" 
-          alt="3차 베지에 곡선의 보폭" 
-          style="max-width:340px"
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.04.png" alt="3차 베지에 곡선의 보폭" style="max-width:340px">
       </a>
       <figcaption>&lt;그림 4. 3차 베지에 곡선의 보폭&gt;</figcaption>
     </figure>
@@ -449,11 +449,7 @@ P(t) = s³A + 3(s²t)B + 3(st²)C + t³D</code></pre>
 
     <figure title="Easing Functions 치트시트">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.05.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.05.png" 
-          alt="Easing Functions 치트시트" 
-          style="max-width:340px"
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-3/bezier-for-frontend.05.png" alt="Easing Functions 치트시트" style="max-width:340px">
       </a>
       <figcaption>&lt;그림 5. Easing Functions 치트시트&gt;</figcaption>
     </figure>
@@ -657,9 +653,6 @@ P(t) = s³A + 3(s²t)B + 3(st²)C + t³D</code></pre>
       s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
-<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
 <script src="/blog/script.js"></script>

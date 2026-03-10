@@ -10,7 +10,7 @@
     <meta name="description" content="이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead」를 번역한 글이며, 페이스북이 Flux 아키텍처를 디자인한 이유와 그것이 무엇인지 설명하고 있습니다.">
   
   
-    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,Architecture,React,Flux,MVC">
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,React,Architecture,Flux,MVC">
   
   
     <meta name="author" content="Coderifleman">
@@ -186,14 +186,14 @@
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/Architecture/" >
-            #Architecture
+          <a class="tags__link" href="/blog/tags/React/" >
+            #React
           </a>
         </li>
       
         <li class="tags__item">
-          <a class="tags__link" href="/blog/tags/React/" >
-            #React
+          <a class="tags__link" href="/blog/tags/Architecture/" >
+            #Architecture
           </a>
         </li>
       
@@ -220,11 +220,7 @@
       <div class="post__contents">
         
     <div class="alert alert--info">
-      
-        <strong class="alert__title">
-          읽기전에...
-        </strong>
-      
+      <strong class="alert__title">읽기전에...</strong>
       <div class="alert__body">
         <p>이 문서는 InfoQ의 「Facebook: MVC Does Not Scale, Use Flux Instead(<a target="_blank" rel="noopener" href="http://www.infoq.com/jp/news/2014/05/facebook-mvc-flux">일본어</a>, <a target="_blank" rel="noopener" href="http://www.infoq.com/news/2014/05/facebook-mvc-flux">영어</a>)」를 번역한 글입니다. 주로 일본어 문서를 번역했으며 영어 문서는 참고 자료로써 사용했습니다.</p>
 
@@ -240,11 +236,7 @@
 
     <figure title="MVC의 데이터 흐름">
       <a href="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png" target="_blank">
-        <img 
-          src="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png" 
-          alt="MVC의 데이터 흐름" 
-          style=""
-        >
+        <img src="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.01.png" alt="MVC의 데이터 흐름">
       </a>
       <figcaption>&lt;그림 1. MVC의 데이터 흐름&gt;</figcaption>
     </figure>
@@ -254,11 +246,7 @@
 
     <figure title="Flux의 데이터 흐름">
       <a href="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.02.png" target="_blank">
-        <img 
-          src="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.02.png" 
-          alt="Flux의 데이터 흐름" 
-          style=""
-        >
+        <img src="/blog/images/mvc-does-not-scale-use-flux-instead/flux_architecture.02.png" alt="Flux의 데이터 흐름">
       </a>
       <figcaption>&lt;그림 2. Flux의 데이터 흐름&gt;</figcaption>
     </figure>
@@ -268,11 +256,7 @@
 <p>페이스북 깃-허브의 <a target="_blank" rel="noopener" href="https://facebook.github.io/flux/docs/overview.html">Flux Overview 페이지</a>에 Flux나 Dispatcher 그리고 Store에 관해 자세히 작성돼 있다.</p>
 
     <div class="alert alert--info">
-      
-        <strong class="alert__title">
-          Dispatcher와 Store
-        </strong>
-      
+      <strong class="alert__title">Dispatcher와 Store</strong>
       <div class="alert__body">
         <p>Dispatcher는 Flux 아키텍처의 모든 데이터 흐름을 관리하는 중앙 허브다. 이는 본질적으로 Store 내에서 콜백을 등록할 때 사용하는 장소다. 각 Store는 Dispatcher에 등록할 콜백을 제공한다. 이 Dispatcher가 발생시킨 Action에 응답할 때 애플리케이션 내의 모든 Store는 Dispatcher에 등록한 콜백을 통해 Action에 의해 생긴 데이터를 송신한다.<br/><br/>등록된 콜백을 정해진 순서로 실행하여 Store 간의 의존 관계를 관리할 수 있으므로 애플리케이션이 커질수록 더욱 없어선 안 될 존재가 된다. 선언에 따라 Store는 다른 Store의 갱신이 완료될 때까지 기다린 다음 자기 자신을 갱신할 수 있다.<br/><br/>Store는 애플리케이션의 상태나 논리를 포함한다. Store의 역할은 전통적인 MVC의 Model 역할과 조금 비슷하다. 하지만 다수의 객체의 상태를 관리하는 MVC와 달리 단일 객체 인스턴스(싱글-톤)로 관리한다. 또, Backbone 프레임워크의 컬렉션과도 같지 않다. ORM 형식의 객체를 집합으로 관리하기보다 조금 더 단순하게 애플리케이션 내의 한 특정 도메인에 관한 애플리케이션의 상태를 관리한다.</p>
 
@@ -524,9 +508,6 @@
       s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
-<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
 <script src="/blog/script.js"></script>

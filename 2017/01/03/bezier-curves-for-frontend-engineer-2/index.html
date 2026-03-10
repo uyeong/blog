@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://uyeong.github.io/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.04.png">
 <meta property="og:image" content="https://uyeong.github.io/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.05.png">
 <meta property="article:published_time" content="2017-01-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
+<meta property="article:modified_time" content="2026-03-10T02:28:00.740Z">
 <meta property="article:author" content="Coderifleman">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="Animation">
@@ -225,11 +225,7 @@
 
     <figure title="베지에 곡선의 조절점과 가이드 포인트">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.01.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.01.png" 
-          alt="베지에 곡선의 조절점과 가이드 포인트" 
-          style="max-width:340px"
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.01.png" alt="베지에 곡선의 조절점과 가이드 포인트" style="max-width:340px">
       </a>
       <figcaption>&lt;그림 1. 베지에 곡선의 조절점과 가이드 포인트&gt;</figcaption>
     </figure>
@@ -242,11 +238,7 @@
 <h2 id="에버리징과-블렌딩"><a href="#에버리징과-블렌딩" class="headerlink" title="에버리징과 블렌딩"></a>에버리징과 블렌딩</h2>
     <figure title="점 A와 점 B의 중앙">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.02.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.02.png" 
-          alt="점 A와 점 B의 중앙" 
-          style=""
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.02.png" alt="점 A와 점 B의 중앙">
       </a>
       <figcaption>&lt;그림 2. 점 A와 점 B의 중앙&gt;</figcaption>
     </figure>
@@ -266,11 +258,7 @@
 
     <figure title="점 A와 점 B의 블렌딩 비율 조절">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.03.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.03.png" 
-          alt="점 A와 점 B의 블렌딩 비율 조절" 
-          style=""
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.03.png" alt="점 A와 점 B의 블렌딩 비율 조절">
       </a>
       <figcaption>&lt;그림 3. 점 A와 점 B의 블렌딩 비율 조절&gt;</figcaption>
     </figure>
@@ -330,9 +318,17 @@ console<span class="token punctuation">.</span><span class="token function">log<
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">blend</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 198</span></code></pre>
 
 
-    <p data-height="300" data-theme-id="0" data-slug-hash="qRBdvb" data-default-tab="result" data-user="uyeong" data-embed-version="2" data-pen-title="qRBdvb" class="codepen">
-      See the Pen <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/qRBdvb/">qRBdvb</a> by Uyeong Ju (<a target="_blank" rel="noopener" href="http://codepen.io/uyeong">@uyeong</a>) on <a target="_blank" rel="noopener" href="http://codepen.io">CodePen</a>.
-    </p>
+    <iframe
+      height="300"
+      style="width: 100%;"
+      scrolling="no"
+      title="CodePen Embed"
+      src="https://codepen.io/uyeong/embed/qRBdvb?default-tab=result&theme-id=dark"
+      frameborder="no"
+      loading="lazy"
+      allowtransparency="true"
+      allowfullscreen="true">
+    </iframe>
   
 
 <h2 id="복합-데이터-블렌딩"><a href="#복합-데이터-블렌딩" class="headerlink" title="복합 데이터 블렌딩"></a>복합 데이터 블렌딩</h2><p>이번에는 「에버리징과 블렌딩」 절에서 이해한 수식을 이용해 복합 데이터(Compound data)를 블렌딩해보자. 블렌딩 수식만 잘 활용하면 2차원 또는 3차원 같은 복합적인 데이터도 쉽게 블렌딩할 수 있다.</p>
@@ -344,11 +340,7 @@ Pz = (s * Az) + (t * Bz)</code></pre>
 
     <figure title="2차원에서 점 A와 점 B의 중앙">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.04.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.04.png" 
-          alt="2차원에서 점 A와 점 B의 중앙" 
-          style=""
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.04.png" alt="2차원에서 점 A와 점 B의 중앙">
       </a>
       <figcaption>&lt;그림 4. 2차원에서 점 A와 점 B의 중앙&gt;</figcaption>
     </figure>
@@ -358,11 +350,7 @@ Pz = (s * Az) + (t * Bz)</code></pre>
 
     <figure title="2차원에서 점 P의 위치 구하기">
       <a href="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.05.png" target="_blank">
-        <img 
-          src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.05.png" 
-          alt="2차원에서 점 P의 위치 구하기" 
-          style=""
-        >
+        <img src="/blog/images/bezier-curves-for-frontend-engineer-2/bezier-for-frontend.05.png" alt="2차원에서 점 P의 위치 구하기">
       </a>
       <figcaption>&lt;그림 5. 2차원에서 점 P의 위치 구하기&gt;</figcaption>
     </figure>
@@ -385,9 +373,17 @@ P = &#123;Px, Py&#125;</code></pre>
 <span class="token comment">// P = &#123; blendX(t), blendY(t) &#125;</span></code></pre>
 
 
-    <p data-height="300" data-theme-id="0" data-slug-hash="EZxVVV" data-default-tab="result" data-user="uyeong" data-embed-version="2" data-pen-title="EZxVVV" class="codepen">
-      See the Pen <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/EZxVVV/">EZxVVV</a> by Uyeong Ju (<a target="_blank" rel="noopener" href="http://codepen.io/uyeong">@uyeong</a>) on <a target="_blank" rel="noopener" href="http://codepen.io">CodePen</a>.
-    </p>
+    <iframe
+      height="300"
+      style="width: 100%;"
+      scrolling="no"
+      title="CodePen Embed"
+      src="https://codepen.io/uyeong/embed/EZxVVV?default-tab=result&theme-id=dark"
+      frameborder="no"
+      loading="lazy"
+      allowtransparency="true"
+      allowfullscreen="true">
+    </iframe>
   
 
 <h2 id="보간"><a href="#보간" class="headerlink" title="보간"></a>보간</h2><p>마지막으로 보간(Interpolation)의 개념을 짤막하게 소개한다. 러핑(Lerping)이라고도 부르는 보간은 <strong>시간이 지남에 따라 블랜드 가중치를 변경하여 블렌딩을 수행하는 것</strong>을 말한다. 시간은 멈춰있지 않고 지속해서 흐르는 특징이 있으며 블랜드 가중치는 이 흐르는 시간에 의해 결정된다.</p>
@@ -429,9 +425,17 @@ P = &#123;Px, Py&#125;</code></pre>
 
 <p>우선 requestAnimationFrame()를 사용해 지정한 시간 만큼 흐르게 한다. 그리고 현재 시각에 해당하는 진행 값 즉, t를 구한 후 이 값을 근거해 블렌딩한다.</p>
 
-    <p data-height="300" data-theme-id="0" data-slug-hash="dNbgQp" data-default-tab="result" data-user="uyeong" data-embed-version="2" data-pen-title="dNbgQp" class="codepen">
-      See the Pen <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/dNbgQp/">dNbgQp</a> by Uyeong Ju (<a target="_blank" rel="noopener" href="http://codepen.io/uyeong">@uyeong</a>) on <a target="_blank" rel="noopener" href="http://codepen.io">CodePen</a>.
-    </p>
+    <iframe
+      height="300"
+      style="width: 100%;"
+      scrolling="no"
+      title="CodePen Embed"
+      src="https://codepen.io/uyeong/embed/dNbgQp?default-tab=result&theme-id=dark"
+      frameborder="no"
+      loading="lazy"
+      allowtransparency="true"
+      allowfullscreen="true">
+    </iframe>
   
 
 <p>보간은 페이드인, 아웃 같은 애니메이션 처리나 3D 게임에서의 객체 움직임 그리고 오디오 크로스페이드 처리 등에 유용하게 사용된다.</p>
@@ -636,9 +640,6 @@ P = &#123;Px, Py&#125;</code></pre>
       s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
-<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
 <script src="/blog/script.js"></script>

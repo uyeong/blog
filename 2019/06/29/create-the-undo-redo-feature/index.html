@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://uyeong.github.io/blog/images/create-the-undo-redo-feature/undo-redo.01.png">
 <meta property="og:image" content="https://uyeong.github.io/images/2019/create-the-undo-redo-feature/undo-redo.02.png">
 <meta property="article:published_time" content="2019-06-28T15:00:00.000Z">
-<meta property="article:modified_time" content="2022-11-09T05:45:21.010Z">
+<meta property="article:modified_time" content="2026-03-10T02:28:01.776Z">
 <meta property="article:author" content="Coderifleman">
 <meta property="article:tag" content="Architecture">
 <meta property="article:tag" content="Development">
@@ -218,13 +218,9 @@
       
       <div class="post__contents">
         
-    <figure title="undefined">
+    <figure title="">
       <a href="/blog/images/create-the-undo-redo-feature/undo-redo.00.jpg" target="_blank">
-        <img 
-          src="/blog/images/create-the-undo-redo-feature/undo-redo.00.jpg" 
-          alt="" 
-          style=""
-        >
+        <img src="/blog/images/create-the-undo-redo-feature/undo-redo.00.jpg" alt="">
       </a>
       
     </figure>
@@ -232,20 +228,24 @@
 
 <p>이 문서는 자바스크립트 라이브러리 <a target="_blank" rel="noopener" href="https://github.com/mobxjs/serializr">serializr</a>를 사용하여 실행 취소 &#x2F; 다시 실행 구현 방법을 소개한다. 이와 같은 기능을 구현하는 데 있어 적게나마 도움이 되길 바란다.</p>
 <h2 id="예제-소개"><a href="#예제-소개" class="headerlink" title="예제 소개"></a>예제 소개</h2>
-    <p data-height="300" data-theme-id="0" data-slug-hash="RzZBdX" data-default-tab="result" data-user="uyeong" data-embed-version="2" data-pen-title="RzZBdX" class="codepen">
-      See the Pen <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/RzZBdX/">RzZBdX</a> by Uyeong Ju (<a target="_blank" rel="noopener" href="http://codepen.io/uyeong">@uyeong</a>) on <a target="_blank" rel="noopener" href="http://codepen.io">CodePen</a>.
-    </p>
+    <iframe
+      height="300"
+      style="width: 100%;"
+      scrolling="no"
+      title="CodePen Embed"
+      src="https://codepen.io/uyeong/embed/RzZBdX?default-tab=result&theme-id=dark"
+      frameborder="no"
+      loading="lazy"
+      allowtransparency="true"
+      allowfullscreen="true">
+    </iframe>
   
 
 <p>이해를 돕기 위해 원, 사각형, 삼각형 중 하나를 생성하고, 끌어다 놓거나 삭제할 수 있는 간단한 애플리케이션을 준비했다. 여기에 실행 취소 &#x2F; 다시 실행 기능을 추가하고자 한다. 하지만 그 전에 애플리케이션의 구조를 모델, 표현(presentation), 이벤트 핸들러로 나눠 간단히 살펴보고 넘어가자.</p>
 <h3 id="모델"><a href="#모델" class="headerlink" title="모델"></a>모델</h3>
     <figure title="모델 구조와 표현 관계">
       <a href="/blog/images/create-the-undo-redo-feature/undo-redo.01.png" target="_blank">
-        <img 
-          src="/blog/images/create-the-undo-redo-feature/undo-redo.01.png" 
-          alt="모델 구조와 표현 관계" 
-          style=""
-        >
+        <img src="/blog/images/create-the-undo-redo-feature/undo-redo.01.png" alt="모델 구조와 표현 관계">
       </a>
       <figcaption>&lt;모델 구조와 표현 관계&gt;</figcaption>
     </figure>
@@ -326,11 +326,7 @@ remove<span class="token punctuation">.</span><span class="token function">addEv
 <p>직렬화할 속성을 정했으면 serializr의 <code>createModelSchema()</code>를 사용해서 스키마를 정의한다. 이렇게 정의한 스키마는 추후 직렬화 시 사용된다. </p>
 
     <div class="alert alert--info">
-      
-        <strong class="alert__title">
-          스키마를 정의하는 법
-        </strong>
-      
+      <strong class="alert__title">스키마를 정의하는 법</strong>
       <div class="alert__body">
         <p>여기에서는 <code>createModelSchema()</code>를 사용하지만, decorator를 이용해 보다 깔끔하게 스키마를 정의할 수도 있다. 자세한 내용은 serializr 저장소를 참고한다.</p>
 
@@ -475,11 +471,7 @@ Triangle<span class="token punctuation">.</span>shapeType <span class="token ope
 <p><code>redo()</code>는 다시 실행 스택에서 앞 상태를 하나 꺼내오는 동시에 <code>shapes</code>에서 현재 상태를 가져온다. 그리고 실행 취소 스택에 현재 상태를 추가하고 <code>shapes.restore()</code>에 앞 상태를 전달해 상태를 되돌린다.</p>
 
     <div class="alert alert--info">
-      
-        <strong class="alert__title">
-          메멘토 패턴
-        </strong>
-      
+      <strong class="alert__title">메멘토 패턴</strong>
       <div class="alert__body">
         <figure title="메멘토 패턴">
   <a href="/images/2019/create-the-undo-redo-feature/undo-redo.02.png" target="_blank">
@@ -541,9 +533,17 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
 <p>마지막으로 실행 취소 &#x2F; 다시 실행 버튼을 추가하고 각 이벤트 핸들러에 <code>history</code>의 <code>undo()</code>, <code>redo()</code>가 호출되도록 작성한다. </p>
 <h3 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h3><p>처음에 소개한 예제를 기반으로 차근차근 코드를 수정했다면 다음과 같이 실행 취소 &#x2F; 다시 실행 기능이 적용된 애플리케이션이 완성될 것이다.</p>
 
-    <p data-height="300" data-theme-id="0" data-slug-hash="VJMOxp" data-default-tab="result" data-user="uyeong" data-embed-version="2" data-pen-title="VJMOxp" class="codepen">
-      See the Pen <a target="_blank" rel="noopener" href="http://codepen.io/uyeong/pen/VJMOxp/">VJMOxp</a> by Uyeong Ju (<a target="_blank" rel="noopener" href="http://codepen.io/uyeong">@uyeong</a>) on <a target="_blank" rel="noopener" href="http://codepen.io">CodePen</a>.
-    </p>
+    <iframe
+      height="300"
+      style="width: 100%;"
+      scrolling="no"
+      title="CodePen Embed"
+      src="https://codepen.io/uyeong/embed/VJMOxp?default-tab=result&theme-id=dark"
+      frameborder="no"
+      loading="lazy"
+      allowtransparency="true"
+      allowfullscreen="true">
+    </iframe>
   
 
 
@@ -746,9 +746,6 @@ redo<span class="token punctuation">.</span><span class="token function">addEven
       s.parentNode.insertBefore(ga, s);
     })();
   </script>
-
-
-<script src="//production-assets.codepen.io/assets/embed/ei.js"></script>
 
 
 <script src="/blog/script.js"></script>
