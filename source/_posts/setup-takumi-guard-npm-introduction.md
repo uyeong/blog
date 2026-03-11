@@ -22,7 +22,7 @@ cover: cover.png
 
 {% figure branding.png 'Takumi Guard 공식 브랜딩 이미지' '그림 1. npm 설치 앞단에 경비원을 두는 접근' '720px' %}
 
-{% alert info 핵심 요약 %}
+{% alert info '핵심 요약' %}
 - 이 액션은 새 보안 엔진이라기보다, Takumi Guard를 CI 설치 흐름에 붙여주는 연결 레이어에 가깝다.
 - 핵심은 "설치한 뒤 검사"가 아니라 "설치 전에 막기"다.
 - 인증은 OIDC를 쓰기 때문에, 장기 토큰을 배포·보관하는 부담을 줄일 수 있다.
@@ -90,7 +90,7 @@ setup-takumi-guard-npm은 이 지점을 정확히 지목하여 앱 코드를 바
 무게중심은 액션 코드가 아니라 서버 측(Takumi Guard)에 있다.  
 이 분리는 합리적이다. GitHub Action은 "연결"에 집중하고, 위협 인텔리전스는 서버에서 빠르게 갱신하는 편이 운영상 더 유리하다.
 
-{% alert info 핵심 관점 %}
+{% alert info '핵심 관점' %}
 이 저장소를 "npm 스캐너"로 보면 초점이 흐려진다.  
 더 정확히는 "GitHub Actions에서 설치 경로를 선제 차단 체계로 전환하는 온보딩 레이어"로 보는 편이 맞다.
 {% endalert %}
