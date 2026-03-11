@@ -19,6 +19,36 @@
   <% if (config.author) { %>
     <meta name="author" content="<%= config.author %>">
   <% } %>
+  <% const canonicalUrl = full_url_for(page.path || url_for(page.permalink || '/')); %>
+  <link rel="canonical" href="<%= canonicalUrl %>">
+
+  <script type="application/ld+json">
+    <%- JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: config.title,
+      url: full_url_for('/'),
+      inLanguage: config.language || 'ko'
+    }) %>
+  </script>
+
+  <% if (page.layout === 'post') { %>
+    <% const coverUrl = page.cover ? full_url_for(url_for(`images/${page.slug}/${page.cover}`)) : null; %>
+    <script type="application/ld+json">
+      <%- JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: page.title,
+        description: page.description || config.description,
+        datePublished: page.date ? page.date.toISOString() : undefined,
+        dateModified: page.updated ? page.updated.toISOString() : (page.date ? page.date.toISOString() : undefined),
+        author: config.author ? { '@type': 'Person', name: config.author } : undefined,
+        mainEntityOfPage: canonicalUrl,
+        image: coverUrl ? [coverUrl] : undefined
+      }) %>
+    </script>
+  <% } %>
+
   <% if (theme.rss){ %>
     <link rel="alternate" href="<%- theme.rss %>" title="<%= config.title %>" type="application/atom+xml">
   <% } %>
