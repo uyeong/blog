@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Astro 6.0 핵심 정리: 무엇이 달라졌고, 무엇을 준비해야 하나 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="Astro 프로젝트 소개부터 Astro 6.0의 핵심 변화까지 짧고 밀도 있게 정리한다. 개발 서버 개편, Fonts API, Live Content Collections, CSP 안정화, 런타임/패키지 업그레이드, 실험 기능까지 한 번에 훑는다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Astro,JavaScript,Vite,Cloudflare,Release Note">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+  <link rel="canonical" href="https://uyeong.github.io/blog/2026/03/11/astro-6-release-highlights/">
+
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebSite","name":"Coderifleman's blog","url":"https://uyeong.github.io/blog/","inLanguage":"ko"}
+  </script>
+
+  
+    
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BlogPosting","headline":"Astro 6.0 핵심 정리: 무엇이 달라졌고, 무엇을 준비해야 하나","description":"Astro 프로젝트 소개부터 Astro 6.0의 핵심 변화까지 짧고 밀도 있게 정리한다. 개발 서버 개편, Fonts API, Live Content Collections, CSP 안정화, 런타임/패키지 업그레이드, 실험 기능까지 한 번에 훑는다.","datePublished":"2026-03-10T15:00:00.000Z","dateModified":"2026-03-11T09:32:08.198Z","author":{"@type":"Person","name":"Coderifleman"},"mainEntityOfPage":"https://uyeong.github.io/blog/2026/03/11/astro-6-release-highlights/","image":["https://uyeong.github.io/blog/blog/images/astro-6-release-highlights/cover.webp"]}
+    </script>
+  
+
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.png">
+  
+  <meta name="description" content="Astro 프로젝트 소개부터 Astro 6.0의 핵심 변화까지 짧고 밀도 있게 정리한다. 개발 서버 개편, Fonts API, Live Content Collections, CSP 안정화, 런타임&#x2F;패키지 업그레이드, 실험 기능까지 한 번에 훑는다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Astro 6.0 핵심 정리: 무엇이 달라졌고, 무엇을 준비해야 하나">
+<meta property="og:url" content="https://uyeong.github.io/blog/2026/03/11/astro-6-release-highlights/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="Astro 프로젝트 소개부터 Astro 6.0의 핵심 변화까지 짧고 밀도 있게 정리한다. 개발 서버 개편, Fonts API, Live Content Collections, CSP 안정화, 런타임&#x2F;패키지 업그레이드, 실험 기능까지 한 번에 훑는다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2026-03-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-11T09:32:08.198Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Astro">
+<meta property="article:tag" content="Cloudflare">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Release Note">
+<meta property="article:tag" content="Vite">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2026/03/11/astro-6-release-highlights/index.html">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+
+  
+<link rel="stylesheet" href="/blog/style.css">
+
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/blog/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post post--has-cover">
+  <div class="post__inner">
+    <article class="post__body">
+      
+        <div class="post__cover">
+          <img src="/blog/images/astro-6-release-highlights/cover.webp" alt="Astro 6.0 핵심 정리: 무엇이 달라졌고, 무엇을 준비해야 하나">
+          <div class="post__cover-overlay">
+            <h1 class="post__title">Astro 6.0 핵심 정리: 무엇이 달라졌고, 무엇을 준비해야 하나</h1>
+            <div class="post__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-11T00:00:00+09:00">
+      2026.03.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/JavaScript/Development/" class="meta__category-list-item">
+            <span>Development</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Astro/" >
+            #Astro
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Vite/" >
+            #Vite
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Cloudflare/" >
+            #Cloudflare
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Release-Note/" >
+            #Release Note
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Astro-6-0%EC%97%90%EC%84%9C-%EA%B0%80%EC%9E%A5-%EC%A4%91%EC%9A%94%ED%95%9C-%EB%B3%80%ED%99%94"><span class="toc-number">1.</span> <span class="toc-text">Astro 6.0에서 가장 중요한 변화</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%EA%B0%9C%EB%B0%9C-%EC%84%9C%EB%B2%84-%EA%B0%9C%ED%8E%B8-dev-prod-%EA%B0%84-%EB%8F%99%EC%9E%91-%EC%B0%A8%EC%9D%B4-%ED%95%B4%EC%86%8C"><span class="toc-number">1.1.</span> <span class="toc-text">1) 개발 서버 개편: dev&#x2F;prod 간 동작 차이 해소</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Built-in-Fonts-API-%EC%B6%94%EA%B0%80"><span class="toc-number">1.2.</span> <span class="toc-text">2) Built-in Fonts API 추가</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Live-Content-Collections-%EC%95%88%EC%A0%95%ED%99%94"><span class="toc-number">1.3.</span> <span class="toc-text">3) Live Content Collections 안정화</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-CSP-Content-Security-Policy-%EC%A7%80%EC%9B%90-%EC%95%88%EC%A0%95%ED%99%94"><span class="toc-number">1.4.</span> <span class="toc-text">4) CSP(Content Security Policy) 지원 안정화</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%97%85%EA%B7%B8%EB%A0%88%EC%9D%B4%EB%93%9C-%EC%8B%9C-%EB%B0%94%EB%A1%9C-%ED%99%95%EC%9D%B8%ED%95%A0-%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8"><span class="toc-number">2.</span> <span class="toc-text">업그레이드 시 바로 확인할 체크포인트</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EB%9F%B0%ED%83%80%EC%9E%84-%EB%8F%84%EA%B5%AC-%EC%B2%B4%EC%9D%B8-%EB%B3%80%EA%B2%BD"><span class="toc-number">2.1.</span> <span class="toc-text">런타임&#x2F;도구 체인 변경</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cloudflare-Adapter-%EC%82%AC%EC%9A%A9%EC%9E%90%EB%9D%BC%EB%A9%B4"><span class="toc-number">2.2.</span> <span class="toc-text">Cloudflare&#x2F;Adapter 사용자라면</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%8B%A4%ED%97%98-%EA%B8%B0%EB%8A%A5-Experimental-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0"><span class="toc-number">3.</span> <span class="toc-text">실험 기능(Experimental) 살펴보기</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A0%95%EB%A6%AC"><span class="toc-number">4.</span> <span class="toc-text">정리</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0-%EB%A7%81%ED%81%AC"><span class="toc-number">5.</span> <span class="toc-text">참고 링크</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%B6%9C%EC%B2%98"><span class="toc-number">5.1.</span> <span class="toc-text">이미지 출처</span></a></li></ol></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <p>Astro를 아직 모르는 사람을 위해 간단히 소개하자면 이렇다. Astro는 콘텐츠 중심 웹사이트에 맞춘 서버 우선(Server-First) 프레임워크이고, 필요한 곳에만 자바스크립트를 보내는 방식으로 성능과 개발 경험을 같이 잡고자 하는 도구다. 블로그, 마케팅 페이지, 문서 사이트처럼 “읽는 경험”이 중요한 서비스에서 특히 강점을 보인다.</p>
+<p>이번 6.0 릴리스는 단순히 기능을 추가한 버전이 아닌 런타임 호환성과 플랫폼 확장성을 본격적으로 밀어붙인 버전으로 개발 서버 구조를 Vite Environment API 기반으로 재설계해 dev&#x2F;prod 런타임 간 격차를 줄이고, Fonts API·Live Content Collections·CSP 안정화로 실무에서 반복되던 불편함을 크게 개선했다.</p>
+<h2 id="Astro-6-0에서-가장-중요한-변화"><a href="#Astro-6-0에서-가장-중요한-변화" class="headerlink" title="Astro 6.0에서 가장 중요한 변화"></a>Astro 6.0에서 가장 중요한 변화</h2><h3 id="1-개발-서버-개편-dev-prod-간-동작-차이-해소"><a href="#1-개발-서버-개편-dev-prod-간-동작-차이-해소" class="headerlink" title="1) 개발 서버 개편: dev&#x2F;prod 간 동작 차이 해소"></a>1) 개발 서버 개편: dev&#x2F;prod 간 동작 차이 해소</h3><p>이번 릴리스에서 가장 의미 있는 변화는 <code>astro dev</code> 재설계다. 핵심은 Vite의 Environment API를 기반으로 개발 환경에서도 실제 배포 런타임에 더 가깝게 실행할 수 있게 했다는 점이다.</p>
+<p>그동안 Cloudflare Workers, Bun, Deno 같은 non-Node 런타임을 쓰는 팀은 “로컬에선 되는데 배포에서 깨지는” 걸 자주 경험했다. Astro 6은 이 격차를 줄이면서 Cloudflare 지원도 크게 강화했고, Cloudflare 어댑터는 개발&#x2F;프리렌더&#x2F;프로덕션 전 구간에서 workerd 기반 흐름을 더 일관되게 가져가도록 업데이트됐다.</p>
+<h3 id="2-Built-in-Fonts-API-추가"><a href="#2-Built-in-Fonts-API-추가" class="headerlink" title="2) Built-in Fonts API 추가"></a>2) Built-in Fonts API 추가</h3><p>웹 폰트 최적화는 매번 손이 많이 가는 작업인데, Astro 6은 이 부분을 프레임워크 레벨에서 기본 제공한다. 로컬 파일이나 Google&#x2F;Fontsource 같은 공급자를 설정하면 다운로드&#x2F;캐시&#x2F;셀프호스팅&#x2F;프리로드 힌트&#x2F;fallback 생성까지 자동화해준다.</p>
+<h3 id="3-Live-Content-Collections-안정화"><a href="#3-Live-Content-Collections-안정화" class="headerlink" title="3) Live Content Collections 안정화"></a>3) Live Content Collections 안정화</h3><p>Content Collections는 Astro의 핵심 기능 중 하나였지만, 기존에는 콘텐츠 변경 시 재빌드가 필요한 구조였다. Live Content Collections는 요청 시점(request-time)에 CMS&#x2F;API 데이터를 가져와 콘텐츠를 즉시 변경한다.</p>
+<p>또한, 정적 빌드 기반 컬렉션과 라이브 컬렉션을 프로젝트에서 함께 쓸 수 있고, 신선도가 중요한 콘텐츠만 라이브로 분리하는 하이브리드 운영이 가능해졌다.</p>
+<h3 id="4-CSP-Content-Security-Policy-지원-안정화"><a href="#4-CSP-Content-Security-Policy-지원-안정화" class="headerlink" title="4) CSP(Content Security Policy) 지원 안정화"></a>4) CSP(Content Security Policy) 지원 안정화</h3><p>CSP는 중요하지만 구현이 까다로워서 미루기 쉬운 주제인데, Astro 6은 이걸 프레임워크 차원에서 안정화(stable)했다. 정적&#x2F;동적 페이지, 서버&#x2F;서버리스 환경을 아우르는 설정 API를 제공하고, 기본값만 켜도 스크립트&#x2F;스타일 해시 처리를 자동으로 구성해준다.</p>
+<p>이 포인트는 보안팀 규모가 크지 않은 팀에게 특히 실용적이다. 복잡한 수작업을 줄이고, 프로젝트 초기에 보안 기준선을 수립하기 쉬워진다.</p>
+<h2 id="업그레이드-시-바로-확인할-체크포인트"><a href="#업그레이드-시-바로-확인할-체크포인트" class="headerlink" title="업그레이드 시 바로 확인할 체크포인트"></a>업그레이드 시 바로 확인할 체크포인트</h2><h3 id="런타임-도구-체인-변경"><a href="#런타임-도구-체인-변경" class="headerlink" title="런타임&#x2F;도구 체인 변경"></a>런타임&#x2F;도구 체인 변경</h3><ul>
+<li>Node.js <strong>22.12+</strong> 필수 (Node 18&#x2F;20 지원 종료)</li>
+<li>Vite 7 업그레이드</li>
+<li>Shiki 4 업그레이드</li>
+<li>Zod 4 업그레이드 (<code>astro/zod</code> 사용 권장)</li>
+</ul>
+<p>Zod 4에서는 에러 메시지 처리와 <code>transform + default</code> 동작이 바뀐 부분이 있어, 이 패턴을 쓰는 프로젝트는 별도 점검 시간이 필요하다.</p>
+<h3 id="Cloudflare-Adapter-사용자라면"><a href="#Cloudflare-Adapter-사용자라면" class="headerlink" title="Cloudflare&#x2F;Adapter 사용자라면"></a>Cloudflare&#x2F;Adapter 사용자라면</h3><p>공식 어댑터가 major 업데이트됐고, Cloudflare 쪽은 변화폭이 큰 편이다. 기존 어댑터 설정이 있다면 changelog와 업그레이드 가이드를 먼저 확인하고, 런타임 바인딩(KV, D1, R2 등) 개발 흐름이 어떻게 바뀌는지 체크하는 게 좋다.</p>
+<h2 id="실험-기능-Experimental-살펴보기"><a href="#실험-기능-Experimental-살펴보기" class="headerlink" title="실험 기능(Experimental) 살펴보기"></a>실험 기능(Experimental) 살펴보기</h2><ul>
+<li>Rust 기반 새 컴파일러 (<code>@astrojs/compiler-rs</code>)</li>
+<li>Queued Rendering (최대 2배 렌더링 개선 벤치마크 언급)</li>
+<li>Route Caching API (SSR 캐시를 플랫폼 중립적으로 제어)</li>
+</ul>
+<p>실험 기능은 구미에 따라 상황에 맞춰 PoC로 검증해보자. 특히 대형 사이트나 SSR 트래픽이 많은 서비스라면 렌더링&#x2F;캐시 기능의 체감이 클 수 있다.</p>
+<h2 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h2><p>Astro 6.0은 실전에서 부딪히는 운영 문제를 최대한 줄이는데 초점이 맞춰 이뤄진 것 같다. dev&#x2F;prod 런타임 간 불일치, 폰트 최적화 반복 작업, 콘텐츠 신선도, CSP 적용 난이도 같은 문제를 한 번에 묶어 개선하려 했다는 점에서 업그레이드 가치는 충분하다.</p>
+<p>Astro를 쓰고 있다면 업그레이드를 미루지 말고 Node 22+ 환경부터 맞춘 뒤, 어댑터&#x2F;스키마 영향 범위를 먼저 점검하고 단계적으로 올려보도록 하자.</p>
+<h2 id="참고-링크"><a href="#참고-링크" class="headerlink" title="참고 링크"></a>참고 링크</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://astro.build/blog/astro-6/">Astro 6.0 Release Post</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.astro.build/en/guides/upgrade-to/v6/">Upgrade to Astro v6</a></li>
+<li><a target="_blank" rel="noopener" href="https://astro.build/">Astro 공식 사이트</a></li>
+</ul>
+<h3 id="이미지-출처"><a href="#이미지-출처" class="headerlink" title="이미지 출처"></a>이미지 출처</h3><ul>
+<li>커버: <a target="_blank" rel="noopener" href="https://astro.build/blog/astro-6/">Astro 6.0 공식 OG 이미지</a></li>
+</ul>
+
+        </div>
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/blog/2026/03/11/react-grab-introduction/" class="navigation__link">
+        <p class="navigation__title">React Grab: 코딩 에이전트가 UI 코드를 더 빨리 찾게 만드는 방법</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-11T00:00:00+09:00">
+      2026.03.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/Development/" class="meta__category-list-item">
+            <span>Development</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/Development/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        React Grab은 브라우저에서 선택한 UI 요소의 컴포넌트 정보와 소스 위치를 바로 복사해 코딩 에이전트의 탐색 시간을 줄여준다. 이 글에서는 React Grab이 어떤 문제를 푸는지, 왜 체감이 큰지, 실무에서 어떻게 도입하면 좋은지 정리한다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://uyeong.github.io/blog/2026/03/11/astro-6-release-highlights/';
+      this.page.identifier = '2026/03/11/astro-6-release-highlights/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F9JMKLTT5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-F9JMKLTT5F');
+  </script>
+
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<script src="/blog/script.js"></script>
+
+</body>
+</html>
+
