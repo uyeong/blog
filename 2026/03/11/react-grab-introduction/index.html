@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React Grab: 코딩 에이전트가 UI 코드를 더 빨리 찾게 만드는 방법 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="React Grab은 브라우저에서 선택한 UI 요소의 컴포넌트 정보와 소스 위치를 바로 복사해 코딩 에이전트의 탐색 시간을 줄여준다. 이 글에서는 React Grab이 어떤 문제를 푸는지, 왜 체감이 큰지, 실무에서 어떻게 도입하면 좋은지 정리한다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,React,AI,Developer Experience,Cursor,Claude Code">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.png">
+  
+  <meta name="description" content="React Grab은 브라우저에서 선택한 UI 요소의 컴포넌트 정보와 소스 위치를 바로 복사해 코딩 에이전트의 탐색 시간을 줄여준다. 이 글에서는 React Grab이 어떤 문제를 푸는지, 왜 체감이 큰지, 실무에서 어떻게 도입하면 좋은지 정리한다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Grab: 코딩 에이전트가 UI 코드를 더 빨리 찾게 만드는 방법">
+<meta property="og:url" content="https://uyeong.github.io/blog/2026/03/11/react-grab-introduction/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="React Grab은 브라우저에서 선택한 UI 요소의 컴포넌트 정보와 소스 위치를 바로 복사해 코딩 에이전트의 탐색 시간을 줄여준다. 이 글에서는 React Grab이 어떤 문제를 푸는지, 왜 체감이 큰지, 실무에서 어떻게 도입하면 좋은지 정리한다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/react-grab-introduction/demo.gif">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/react-grab-introduction/maze.jpg">
+<meta property="article:published_time" content="2026-03-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-11T02:27:59.324Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="Cursor">
+<meta property="article:tag" content="Developer Experience">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uyeong.github.io/blog/images/react-grab-introduction/demo.gif">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2026/03/11/react-grab-introduction/index.html">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+
+  
+<link rel="stylesheet" href="/blog/style.css">
+
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/blog/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post post--has-cover">
+  <div class="post__inner">
+    <article class="post__body">
+      
+        <div class="post__cover">
+          <img src="/blog/images/react-grab-introduction/cover.jpg" alt="React Grab: 코딩 에이전트가 UI 코드를 더 빨리 찾게 만드는 방법">
+          <div class="post__cover-overlay">
+            <h1 class="post__title">React Grab: 코딩 에이전트가 UI 코드를 더 빨리 찾게 만드는 방법</h1>
+            <div class="post__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-11T00:00:00+09:00">
+      2026.03.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/Development/" class="meta__category-list-item">
+            <span>Development</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/Development/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/React/" >
+            #React
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/AI/" >
+            #AI
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Developer-Experience/" >
+            #Developer Experience
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Cursor/" >
+            #Cursor
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Claude-Code/" >
+            #Claude Code
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#React-Grab%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%84-%ED%95%B4%EC%A3%BC%EB%8A%94%EA%B0%80"><span class="toc-number">1.</span> <span class="toc-text">React Grab은 무엇을 해주는가</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%99%9C-%EC%B2%B4%EA%B0%90-%EC%B0%A8%EC%9D%B4%EA%B0%80-%ED%81%B0%EA%B0%80"><span class="toc-number">2.</span> <span class="toc-text">왜 체감 차이가 큰가</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%84%A4%EC%B9%98%EC%99%80-%EB%8F%84%EC%9E%85%EC%9D%80-%EC%96%B4%EB%8A%90-%EC%A0%95%EB%8F%84%EB%A1%9C-%EA%B0%80%EB%B2%BC%EC%9A%B4%EA%B0%80"><span class="toc-number">3.</span> <span class="toc-text">설치와 도입은 어느 정도로 가벼운가</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%94%8C%EB%9F%AC%EA%B7%B8%EC%9D%B8%EA%B3%BC-%ED%94%84%EB%A6%AC%EB%AF%B8%ED%8B%B0%EB%B8%8C%EA%B0%80-%EC%9D%98%EB%AF%B8%ED%95%98%EB%8A%94-%EA%B2%83"><span class="toc-number">4.</span> <span class="toc-text">플러그인과 프리미티브가 의미하는 것</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%8F%84%EC%9E%85-%EC%A0%84%EC%97%90-%EC%95%8C%EA%B3%A0-%EC%9E%88%EC%9C%BC%EB%A9%B4-%EC%A2%8B%EC%9D%80-%ED%8F%AC%EC%9D%B8%ED%8A%B8"><span class="toc-number">5.</span> <span class="toc-text">도입 전에 알고 있으면 좋은 포인트</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A7%88%EB%AC%B4%EB%A6%AC"><span class="toc-number">6.</span> <span class="toc-text">마무리</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0-%EB%A7%81%ED%81%AC"><span class="toc-number">7.</span> <span class="toc-text">참고 링크</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%B6%9C%EC%B2%98"><span class="toc-number">7.1.</span> <span class="toc-text">이미지 출처</span></a></li></ol></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <p>코딩 에이전트로 프런트엔드 작업을 해보면 비슷한 순간이 반복된다. “이 버튼 좀 더 키워줘” 같은 요청은 간단해 보이는데, 정작 에이전트는 먼저 파일을 찾고 컴포넌트를 추적하느라 시간을 꽤 쓴다. 결국 문제는 수정 능력이 아니라 탐색 단계에서 생기고, 프롬프트를 아무리 잘 써도 UI에서 코드까지 가는 번역 과정이 길면 체감 속도가 쉽게 떨어진다.</p>
+<p>관련하여 오늘은 <a target="_blank" rel="noopener" href="https://github.com/aidenybai/react-grab/tree/main">react-grab</a>를 소개하고자 한다. 이 프로젝트의 핵심은 새로운 코드 생성 모델을 만드는 것이 아니라, 브라우저에서 보고 있는 UI 요소를 바로 코드 문맥으로 연결해 에이전트가 헤매는 구간을 줄이는 데 있다.</p>
+
+    <figure title="React Grab 데모">
+      <a href="/blog/images/react-grab-introduction/demo.gif" target="_blank">
+        <img src="/blog/images/react-grab-introduction/demo.gif" alt="React Grab 데모">
+      </a>
+      <figcaption>&lt;그림 1. UI 요소를 선택해 코드 문맥을 바로 복사하는 흐름&gt;</figcaption>
+    </figure>
+  
+
+<h2 id="React-Grab은-무엇을-해주는가"><a href="#React-Grab은-무엇을-해주는가" class="headerlink" title="React Grab은 무엇을 해주는가"></a>React Grab은 무엇을 해주는가</h2><p>React Grab은 개발 중인 웹페이지에서 특정 요소를 가리킨 뒤 <code>⌘C</code>(Mac) 또는 <code>Ctrl+C</code>(Windows&#x2F;Linux)를 누르면, 해당 요소의 문맥을 클립보드에 복사한다. 여기에는 요소 HTML 조각뿐 아니라 컴포넌트 이름, 파일 경로, 라인 정보가 함께 들어가므로 에이전트 입장에서는 “어디를 고쳐야 하는지”를 추측할 필요가 크게 줄어든다.</p>
+<p>예를 들어 README에 나온 샘플은 아래처럼 매우 직접적이다.</p>
+<pre class="language-text" data-language="text"><code class="language-text">&lt;a class="ml-auto inline-block text-sm" href="#">
+  Forgot your password?
+&lt;/a>
+in LoginForm at components/login-form.tsx:46:19</code></pre>
+
+<p>즉, 이 도구의 목표는 에이전트가 편집을 시작하기 전 가장 오래 걸리는 탐색 단계를 줄여, 실제 수정으로 바로 진입하게 만드는 것이다.</p>
+<h2 id="왜-체감-차이가-큰가"><a href="#왜-체감-차이가-큰가" class="headerlink" title="왜 체감 차이가 큰가"></a>왜 체감 차이가 큰가</h2><p>React Grab 팀이 소개한 글(<a target="_blank" rel="noopener" href="https://react-grab.com/blog/intro">https://react-grab.com/blog/intro</a>)을 보면, 이 도구를 켠 경우와 끈 경우를 비교해 프런트엔드 수정 작업의 처리 시간이 평균적으로 크게 줄었다고 설명한다. 숫자 자체보다 중요한 건 원리인데, 기존에는 에이전트가 코드베이스를 검색해 후보를 좁혀 가야 했다면, React Grab을 쓰면 시작 좌표가 거의 고정되기 때문에 도구 호출 횟수와 왕복이 줄어든다.</p>
+
+    <figure title="미로 이미지">
+      <a href="/blog/images/react-grab-introduction/maze.jpg" target="_blank">
+        <img src="/blog/images/react-grab-introduction/maze.jpg" alt="미로 이미지" style="max-width:min(100%, 900px); width:auto; height:auto;">
+      </a>
+      <figcaption>&lt;그림 2. 탐색 단계가 길어질수록 에이전트가 우회하는 경로가 늘어난다&gt;</figcaption>
+    </figure>
+  
+
+
+    <div class="alert alert--info">
+      <strong class="alert__title">핵심</strong>
+      <div class="alert__body">
+        <p>React Grab이 “UI 편집기”로 보일 수도 있겠지만 정확히는 코딩 에이전트의 탐색 비용을 줄이는 문맥 전달 레이어에 가깝고, 그래서 코드 생성 품질보다 먼저 작업 흐름의 속도와 안정성에 영향을 준다.</p>
+
+      </div>
+    </div>
+  
+
+<h2 id="설치와-도입은-어느-정도로-가벼운가"><a href="#설치와-도입은-어느-정도로-가벼운가" class="headerlink" title="설치와 도입은 어느 정도로 가벼운가"></a>설치와 도입은 어느 정도로 가벼운가</h2><p>README 기준으로 가장 빠른 시작 방법은 <code>grab init</code>이다.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">npx <span class="token parameter variable">-y</span> grab@latest init</code></pre>
+
+<p>MCP 연결은 아래처럼 별도 명령으로 붙일 수 있다.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">npx <span class="token parameter variable">-y</span> grab@latest <span class="token function">add</span> mcp</code></pre>
+
+<p>수동 설치도 가능하고 방식도 어렵지 않다. README에 Next.js(App&#x2F;Pages Router), Vite, Webpack별 예시가 정리돼 있으니 참고한다.</p>
+<h2 id="플러그인과-프리미티브가-의미하는-것"><a href="#플러그인과-프리미티브가-의미하는-것" class="headerlink" title="플러그인과 프리미티브가 의미하는 것"></a>플러그인과 프리미티브가 의미하는 것</h2><p>React Grab은 기본 기능 외에도 플러그인 API를 통해 컨텍스트 메뉴&#x2F;툴바 액션을 확장할 수 있고, 더 깊게 가면 <code>react-grab/primitives</code>로 직접 선택 UI를 구성하는 것도 가능하다.</p>
+<p>이 구조가 실무에 도움을 준다. 처음에는 기본 기능으로 빠르게 도입하고, 팀이 자주 반복하는 작업이 보이면 플러그인으로 붙여 자동화하고, 필요하면 프리미티브로 사내 워크플로에 맞춘 커스텀 선택기를 만들 수 있다.</p>
+<h2 id="도입-전에-알고-있으면-좋은-포인트"><a href="#도입-전에-알고-있으면-좋은-포인트" class="headerlink" title="도입 전에 알고 있으면 좋은 포인트"></a>도입 전에 알고 있으면 좋은 포인트</h2><p>첫째, 소스 위치 기반 문맥(source-location context)은 개발 모드에서 특히 강력하다. React의 동작 특성상 프로덕션에서는 소스 위치 정보가 제한될 수 있으므로, React Grab이 가장 빛나는 구간은 로컬 개발&#x2F;스테이징의 UI 반복 수정 루프다.</p>
+<p>둘째, 이 도구는 에이전트를 대체하지 않는다. 대신 에이전트가 길을 찾는 시간을 줄여 주므로, 프롬프트 품질과 코드 리뷰는 여전히 중요하고 React Grab은 그 과정을 빠르게 만드는 보조 가속기에 가깝다.</p>
+<p>셋째, 팀 도입 관점에서는 성능 지표를 간단히라도 잡는 편이 좋다. 예를 들어 “같은 유형의 UI 수정 10건에서 완료 시간”이나 “불필요한 검색 도구 호출 횟수”를 비교하면, 도입 효과를 감이 아니라 수치로 확인할 수 있다.</p>
+<h2 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h2><p>React Grab은 거대한 프레임워크가 아니라 작은 연결 도구지만, 프런트엔드에서 코딩 에이전트를 자주 쓰는 팀이라면 체감 변화가 꽤 클 수 있다. 특히 “요소는 눈앞에 있는데 파일을 못 찾아서 시간 쓰는” 순간이 자주 나온다면, 이 도구는 그 병목을 정면으로 줄여 주고 결과적으로 반복 작업 리듬을 부드럽게 만든다.</p>
+<h2 id="참고-링크"><a href="#참고-링크" class="headerlink" title="참고 링크"></a>참고 링크</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/aidenybai/react-grab/tree/main">react-grab GitHub 저장소</a></li>
+<li><a target="_blank" rel="noopener" href="https://react-grab.com/blog/intro">React Grab 소개 글: I made your coding agent 3× faster at frontend</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-grab">NPM: react-grab</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/aidenybai/react-grab/blob/main/packages/react-grab/src/types.ts">플러그인 타입 정의</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/aidenybai/react-grab/blob/main/packages/react-grab/src/primitives.ts">프리미티브 API</a></li>
+</ul>
+<h3 id="이미지-출처"><a href="#이미지-출처" class="headerlink" title="이미지 출처"></a>이미지 출처</h3><ul>
+<li>커버 이미지: <a target="_blank" rel="noopener" href="https://commons.wikimedia.org/w/index.php?curid=52431635">Smartphone with navigation map app</a> — © Santeri Viinamäki, CC BY-SA 4.0</li>
+<li>본문 은유 이미지: <a target="_blank" rel="noopener" href="https://www.flickr.com/photos/77581941@N00/3538046700">Isotropic Spherical Maze II</a> — © vitroid, CC BY 2.0</li>
+<li>데모 GIF: <a target="_blank" rel="noopener" href="https://github.com/aidenybai/react-grab/tree/main">react-grab 저장소 README 데모</a></li>
+</ul>
+
+        </div>
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/blog/2026/03/11/setup-takumi-guard-npm-introduction/" class="navigation__link">
+        <p class="navigation__title">npm 설치 앞에 경비원을 세우는 법: setup-takumi-guard-npm 살펴보기</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-11T00:00:00+09:00">
+      2026.03.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/Security/" class="meta__category-list-item">
+            <span>Security</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/Security/Node-js/" class="meta__category-list-item">
+            <span>Node.js</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        setup-takumi-guard-npm은 GitHub Actions의 npm 설치 경로를 Takumi Guard 프록시로 연결해 악성 패키지를 설치 전에 차단한다. 이 글에서는 왜 이 방식이 실무에서 유효한지, 어디까지 해결하고 어디서부터는 별도 대응이 필요한지 핵심만 정리한다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://uyeong.github.io/blog/2026/03/11/react-grab-introduction/';
+      this.page.identifier = '2026/03/11/react-grab-introduction/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<script src="/blog/script.js"></script>
+
+</body>
+</html>
+

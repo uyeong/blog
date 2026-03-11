@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://uyeong.github.io/blog/2026/03/11/react-grab-introduction/</loc>
+    
+    <lastmod>2026-03-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://uyeong.github.io/blog/2026/03/11/setup-takumi-guard-npm-introduction/</loc>
     
     <lastmod>2026-03-11</lastmod>
@@ -29,15 +38,6 @@
   </url>
   
   <url>
-    <loc>https://uyeong.github.io/blog/2017/05/30/tabnabbing_attack_and_noopener/</loc>
-    
-    <lastmod>2026-03-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://uyeong.github.io/blog/2015/04/04/text-files-end-with-a-newline/</loc>
     
     <lastmod>2026-03-11</lastmod>
@@ -57,6 +57,15 @@
   
   <url>
     <loc>https://uyeong.github.io/blog/2018/03/03/two-ways-to-work-with-backend-developer/</loc>
+    
+    <lastmod>2026-03-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/2017/05/30/tabnabbing_attack_and_noopener/</loc>
     
     <lastmod>2026-03-11</lastmod>
     
@@ -146,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://uyeong.github.io/blog/2015/06/29/learning-react-4/</loc>
+    <loc>https://uyeong.github.io/blog/2015/07/09/learning-react-5/</loc>
     
     <lastmod>2026-03-11</lastmod>
     
@@ -155,7 +164,7 @@
   </url>
   
   <url>
-    <loc>https://uyeong.github.io/blog/2015/07/09/learning-react-5/</loc>
+    <loc>https://uyeong.github.io/blog/2015/06/29/learning-react-4/</loc>
     
     <lastmod>2026-03-11</lastmod>
     
@@ -290,7 +299,7 @@
   </url>
   
   <url>
-    <loc>https://uyeong.github.io/blog/2017/01/03/bezier-curves-for-frontend-engineer-2/</loc>
+    <loc>https://uyeong.github.io/blog/2017/01/02/bezier-curves-for-frontend-engineer-1/</loc>
     
     <lastmod>2026-03-11</lastmod>
     
@@ -299,7 +308,7 @@
   </url>
   
   <url>
-    <loc>https://uyeong.github.io/blog/2017/01/02/bezier-curves-for-frontend-engineer-1/</loc>
+    <loc>https://uyeong.github.io/blog/2017/01/03/bezier-curves-for-frontend-engineer-2/</loc>
     
     <lastmod>2026-03-11</lastmod>
     
@@ -541,6 +550,34 @@
   </url>
   
   <url>
+    <loc>https://uyeong.github.io/blog/tags/AI/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Developer-Experience/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Cursor/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Claude-Code/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://uyeong.github.io/blog/tags/Hooks/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -611,14 +648,28 @@
   </url>
   
   <url>
-    <loc>https://uyeong.github.io/blog/tags/Attack/</loc>
+    <loc>https://uyeong.github.io/blog/tags/npm/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://uyeong.github.io/blog/tags/Hacking/</loc>
+    <loc>https://uyeong.github.io/blog/tags/GitHub-Actions/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/OIDC/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Supply-Chain-Security/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -660,6 +711,20 @@
   </url>
   
   <url>
+    <loc>https://uyeong.github.io/blog/tags/Attack/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Hacking/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://uyeong.github.io/blog/tags/Web-Fonts/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -689,34 +754,6 @@
   
   <url>
     <loc>https://uyeong.github.io/blog/tags/io-js/</loc>
-    <lastmod>2026-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://uyeong.github.io/blog/tags/npm/</loc>
-    <lastmod>2026-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://uyeong.github.io/blog/tags/GitHub-Actions/</loc>
-    <lastmod>2026-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://uyeong.github.io/blog/tags/OIDC/</loc>
-    <lastmod>2026-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://uyeong.github.io/blog/tags/Supply-Chain-Security/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -781,6 +818,13 @@
   </url>
   
   <url>
+    <loc>https://uyeong.github.io/blog/categories/Development/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://uyeong.github.io/blog/categories/JavaScript/Etc/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -789,6 +833,13 @@
   
   <url>
     <loc>https://uyeong.github.io/blog/categories/Book/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/categories/Security/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -809,13 +860,6 @@
   </url>
   
   <url>
-    <loc>https://uyeong.github.io/blog/categories/Development/</loc>
-    <lastmod>2026-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://uyeong.github.io/blog/categories/Fonts/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -823,7 +867,14 @@
   </url>
   
   <url>
-    <loc>https://uyeong.github.io/blog/categories/Node-js/</loc>
+    <loc>https://uyeong.github.io/blog/categories/Development/React/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/categories/Security/Node-js/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -837,21 +888,14 @@
   </url>
   
   <url>
+    <loc>https://uyeong.github.io/blog/categories/Node-js/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://uyeong.github.io/blog/categories/Node-js/Etc/</loc>
-    <lastmod>2026-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://uyeong.github.io/blog/categories/Security/</loc>
-    <lastmod>2026-03-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://uyeong.github.io/blog/categories/Security/Node-js/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
