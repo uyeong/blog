@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TypeScript 6.0 RC 핵심 정리: 지금 바로 챙겨야 할 변화들 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="TypeScript 6.0 RC는 단순 기능 추가 릴리스가 아니라 7.0 네이티브 전환을 준비하는 브리지 릴리스다. 실무에서 바로 영향이 큰 변경점과 마이그레이션 포인트를 빠르게 정리했다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,TypeScript,Compiler,Release Note">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.png">
+  
+  <meta name="description" content="TypeScript 6.0 RC는 단순 기능 추가 릴리스가 아니라 7.0 네이티브 전환을 준비하는 브리지 릴리스다. 실무에서 바로 영향이 큰 변경점과 마이그레이션 포인트를 빠르게 정리했다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript 6.0 RC 핵심 정리: 지금 바로 챙겨야 할 변화들">
+<meta property="og:url" content="https://uyeong.github.io/blog/2026/03/11/typescript-6-0-rc-highlights/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="TypeScript 6.0 RC는 단순 기능 추가 릴리스가 아니라 7.0 네이티브 전환을 준비하는 브리지 릴리스다. 실무에서 바로 영향이 큰 변경점과 마이그레이션 포인트를 빠르게 정리했다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/typescript-6-0-rc-highlights/code-screen.jpg">
+<meta property="article:published_time" content="2026-03-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-11T03:04:01.747Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Compiler">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Release Note">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uyeong.github.io/blog/images/typescript-6-0-rc-highlights/code-screen.jpg">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2026/03/11/typescript-6-0-rc-highlights/index.html">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+
+  
+<link rel="stylesheet" href="/blog/style.css">
+
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/blog/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post post--has-cover">
+  <div class="post__inner">
+    <article class="post__body">
+      
+        <div class="post__cover">
+          <img src="/blog/images/typescript-6-0-rc-highlights/cover.png" alt="TypeScript 6.0 RC 핵심 정리: 지금 바로 챙겨야 할 변화들">
+          <div class="post__cover-overlay">
+            <h1 class="post__title">TypeScript 6.0 RC 핵심 정리: 지금 바로 챙겨야 할 변화들</h1>
+            <div class="post__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-11T00:00:00+09:00">
+      2026.03.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/JavaScript/Development/" class="meta__category-list-item">
+            <span>Development</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/TypeScript/" >
+            #TypeScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Compiler/" >
+            #Compiler
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Release-Note/" >
+            #Release Note
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%99%9C-6-0%EC%9D%B4-%EC%A4%91%EC%9A%94%ED%95%9C%EA%B0%80-7-0%EC%9C%BC%EB%A1%9C-%EA%B0%80%EB%8A%94-%EC%A7%95%EA%B2%80%EB%8B%A4%EB%A6%AC"><span class="toc-number">1.</span> <span class="toc-text">왜 6.0이 중요한가: 7.0으로 가는 징검다리</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9D%B4%EB%B2%88-RC%EC%97%90%EC%84%9C-%EC%8B%A4%EB%AC%B4-%EC%98%81%ED%96%A5%EC%9D%B4-%ED%81%B0-%ED%95%B5%EC%8B%AC-%EB%B3%80%EA%B2%BD"><span class="toc-number">2.</span> <span class="toc-text">이번 RC에서 실무 영향이 큰 핵심 변경</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-this%EB%A5%BC-%EC%95%88-%EC%93%B0%EB%8A%94-%ED%95%A8%EC%88%98%EC%9D%98-%EC%B6%94%EB%A1%A0-%EA%B0%9C%EC%84%A0"><span class="toc-number">2.1.</span> <span class="toc-text">1) this를 안 쓰는 함수의 추론 개선</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Node-%EC%84%9C%EB%B8%8C%ED%8C%A8%EC%8A%A4-import-%EC%A7%80%EC%9B%90"><span class="toc-number">2.2.</span> <span class="toc-text">2) Node 서브패스 import #&#x2F; 지원</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-moduleResolution-bundler-module-commonjs-%EC%A1%B0%ED%95%A9-%ED%97%88%EC%9A%A9"><span class="toc-number">2.3.</span> <span class="toc-text">3) --moduleResolution bundler + --module commonjs 조합 허용</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-stableTypeOrdering-%ED%94%8C%EB%9E%98%EA%B7%B8-%EC%B6%94%EA%B0%80"><span class="toc-number">2.4.</span> <span class="toc-text">4) --stableTypeOrdering 플래그 추가</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-es2025-target-lib-Temporal-%ED%83%80%EC%9E%85-RegExp-escape-upsert-%ED%83%80%EC%9E%85-%EB%B0%98%EC%98%81"><span class="toc-number">2.5.</span> <span class="toc-text">5) es2025 target&#x2F;lib, Temporal 타입, RegExp.escape, upsert 타입 반영</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%EA%B4%80%EC%A0%90%EC%97%90%EC%84%9C-%EC%A7%80%EA%B8%88-%ED%95%A0-%EC%9D%BC"><span class="toc-number">3.</span> <span class="toc-text">마이그레이션 관점에서 지금 할 일</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A7%88%EB%AC%B4%EB%A6%AC"><span class="toc-number">4.</span> <span class="toc-text">마무리</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0-%EB%A7%81%ED%81%AC"><span class="toc-number">5.</span> <span class="toc-text">참고 링크</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%B6%9C%EC%B2%98"><span class="toc-number">5.1.</span> <span class="toc-text">이미지 출처</span></a></li></ol></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <p>TypeScript를 실무에서 오래 쓰다 보면 버전 업 공지가 두 종류로 나뉜다. 하나는 “기능 몇 개 추가” 느낌이고, 다른 하나는 “다음 세대 준비” 느낌인데 이번 6.0 RC는 확실히 두 번째에 가깝다. 그래서 오늘은 TypeScript 6.0 RC 발표 글을 기준으로, 중요한 변화만 빠르게 훑고 당장 우리 프로젝트에서 뭘 확인하면 좋은지 정리해보자.</p>
+
+    <div class="alert alert--info">
+      <strong class="alert__title">한 줄 요약</strong>
+      <div class="alert__body">
+        <p>TypeScript 6.0 RC는 기능 추가 릴리스이면서 동시에 TypeScript 7.0(네이티브 코드베이스)로 넘어가기 위한 정렬(alignment) 릴리스다. 그래서 “새 기능”만 보기보다 “마이그레이션 준비” 관점으로 보는 게 훨씬 실용적이다.</p>
+
+      </div>
+    </div>
+  
+
+<h2 id="왜-6-0이-중요한가-7-0으로-가는-징검다리"><a href="#왜-6-0이-중요한가-7-0으로-가는-징검다리" class="headerlink" title="왜 6.0이 중요한가: 7.0으로 가는 징검다리"></a>왜 6.0이 중요한가: 7.0으로 가는 징검다리</h2><p>공식 발표가 가장 강조한 포인트는 이거다. 6.0은 기존 JavaScript 코드베이스 기반의 마지막 큰 릴리스로 계획되어 있고, 이후 7.0부터는 Go로 작성된 네이티브 코드베이스를 기반으로 간다. Microsoft가 별도 글에서 공유한 방향(빌드&#x2F;체크 성능 대폭 개선, 언어 서비스 개선)까지 같이 보면, 6.0은 단순한 중간 버전이 아니라 전환을 위한 준비 단계에 가깝다.</p>
+
+    <figure title="코드 화면 이미지">
+      <a href="/blog/images/typescript-6-0-rc-highlights/code-screen.jpg" target="_blank">
+        <img src="/blog/images/typescript-6-0-rc-highlights/code-screen.jpg" alt="코드 화면 이미지" style="max-width:min(100%, 900px); width:auto; height:auto;">
+      </a>
+      <figcaption>&lt;그림 1. 6.0은 새 기능 소개이면서 동시에 7.0 전환 준비 성격이 강한 릴리스다&gt;</figcaption>
+    </figure>
+  
+
+<h2 id="이번-RC에서-실무-영향이-큰-핵심-변경"><a href="#이번-RC에서-실무-영향이-큰-핵심-변경" class="headerlink" title="이번 RC에서 실무 영향이 큰 핵심 변경"></a>이번 RC에서 실무 영향이 큰 핵심 변경</h2><p>아래 항목은 “있으면 좋은 기능”보다 “프로젝트 설정&#x2F;타입 추론&#x2F;출력물 차이”에 직접 영향이 있는 것들 위주로 추렸다.</p>
+<h3 id="1-this를-안-쓰는-함수의-추론-개선"><a href="#1-this를-안-쓰는-함수의-추론-개선" class="headerlink" title="1) this를 안 쓰는 함수의 추론 개선"></a>1) this를 안 쓰는 함수의 추론 개선</h3><p>제네릭 추론에서 메서드 문법 함수가 <code>unknown</code>으로 떨어지던 케이스가 있었는데, 6.0은 함수 내부에서 <code>this</code>를 실제로 쓰지 않으면 추론 후보로 더 적극적으로 잡아준다. 결과적으로 객체 리터럴 안의 메서드 순서 때문에 추론 품질이 들쭉날쭉하던 문제가 줄어든다.</p>
+<p>이건 특히 유틸 함수 조합이 많은 프런트엔드 코드에서 체감될 가능성이 크고, “왜 같은 코드인데 위치 바꾸면 깨지지?” 같은 이상한 순간을 줄여준다는 점에서 꽤 반갑다.</p>
+<h3 id="2-Node-서브패스-import-지원"><a href="#2-Node-서브패스-import-지원" class="headerlink" title="2) Node 서브패스 import #/ 지원"></a>2) Node 서브패스 import <code>#/</code> 지원</h3><p>Node가 최근 허용한 <code>#/</code> 서브패스 import를 TypeScript도 <code>moduleResolution</code> 옵션이 <code>node20</code>, <code>nodenext</code>, <code>bundler</code>일 때 지원한다. 경로 별칭에서 불필요한 접두 경로를 줄일 수 있어서 설정이 좀 더 깔끔해진다.</p>
+<h3 id="3-moduleResolution-bundler-module-commonjs-조합-허용"><a href="#3-moduleResolution-bundler-module-commonjs-조합-허용" class="headerlink" title="3) --moduleResolution bundler + --module commonjs 조합 허용"></a>3) <code>--moduleResolution bundler</code> + <code>--module commonjs</code> 조합 허용</h3><p>기존에는 이 조합이 막혀 있었는데, deprecated 경로를 피하면서 점진적으로 옮기려는 프로젝트 입장에서는 꽤 현실적인 업그레이드 경로가 된다. 특히 “지금 당장 전부 ESM으로 못 바꾸는” 팀이라면 완충 구간으로 쓸 수 있다.</p>
+<h3 id="4-stableTypeOrdering-플래그-추가"><a href="#4-stableTypeOrdering-플래그-추가" class="headerlink" title="4) --stableTypeOrdering 플래그 추가"></a>4) <code>--stableTypeOrdering</code> 플래그 추가</h3><p>6.0과 7.0의 내부 타입 정렬 차이 때문에 <code>.d.ts</code> 출력물을 비교하면 실제 의미 변화가 없는데도 diff가 과하게 많이 잡힐 수 있는데, 이 플래그가 그런 비교 노이즈를 줄이는 데 도움을 준다. 다만 공식 안내대로 상시 사용 플래그라기보다는 마이그레이션 진단 도구에 가깝고, 성능 저하(코드베이스에 따라 최대 25%) 가능성이 있으니 CI 기본값으로 바로 넣는 건 신중해야 한다.</p>
+
+    <div class="alert alert--info">
+      <strong class="alert__title">적용 팁</strong>
+      <div class="alert__body">
+        <p><code>--stableTypeOrdering</code>을 켰을 때 타입 에러가 새로 보이면, 추론 순서에 기대고 있던 코드일 가능성이 있다. 이 경우 제네릭 타입 인자나 변수 주석 타입을 명시해 주면 대부분 정리된다.</p>
+
+      </div>
+    </div>
+  
+
+<h3 id="5-es2025-target-lib-Temporal-타입-RegExp-escape-upsert-타입-반영"><a href="#5-es2025-target-lib-Temporal-타입-RegExp-escape-upsert-타입-반영" class="headerlink" title="5) es2025 target&#x2F;lib, Temporal 타입, RegExp.escape, upsert 타입 반영"></a>5) <code>es2025</code> target&#x2F;lib, Temporal 타입, RegExp.escape, upsert 타입 반영</h3><p>6.0은 큰 아키텍처 전환 릴리스지만 언어&#x2F;라이브러리 쪽 실용 업데이트도 같이 들어왔다.</p>
+<ul>
+<li><code>es2025</code> target&#x2F;lib 추가</li>
+<li><code>Temporal</code> 타입 제공(<code>esnext</code> 계열)</li>
+<li><code>RegExp.escape</code> 타입 반영</li>
+<li><code>Map/WeakMap</code>의 <code>getOrInsert</code>, <code>getOrInsertComputed</code>(upsert 계열) 타입 지원</li>
+<li><code>dom</code>에 <code>dom.iterable</code>, <code>dom.asynciterable</code> 내용 통합</li>
+</ul>
+<h2 id="마이그레이션-관점에서-지금-할-일"><a href="#마이그레이션-관점에서-지금-할-일" class="headerlink" title="마이그레이션 관점에서 지금 할 일"></a>마이그레이션 관점에서 지금 할 일</h2><p>6.0을 올릴 때는 아래를 같이 점검하면 삽질 시간을 크게 줄일 수 있다.</p>
+<ol>
+<li><code>tsconfig</code>에서 deprecated 옵션 사용 여부 먼저 체크</li>
+<li>모듈 해석 전략을 프로젝트 유형별로 분리해 결정<ul>
+<li>번들러 앱: <code>module preserve</code> + <code>moduleResolution bundler</code></li>
+<li>Node 앱: <code>module nodenext</code> 검토</li>
+</ul>
+</li>
+<li>선언 파일 diff가 중요한 저장소는 <code>--stableTypeOrdering</code>으로 비교 실험</li>
+<li>추론 불안정 구간(복잡한 제네릭 호출)은 타입 인자 또는 주석을 명시해 방어</li>
+</ol>
+<p>정리하면 7.0 전환을 염두에 둔 설정들을 정리해 6.0에서 미리 해두는 게 좋겠다.</p>
+<h2 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h2><p>TypeScript 6.0 RC를 기능 목록으로만 보면 평범해 보일 수 있지만, 릴리스 의도를 보면 꽤 전략적인 버전이다. 팀 입장에서는 “무엇이 새로 생겼는가”와 함께 “지금 어떤 부채를 정리해 두면 7.0에서 편해지는가”를 같이 보는 게 맞고, 그 관점에서 6.0은 당장 올려서 실험해볼 가치가 충분하다.</p>
+<h2 id="참고-링크"><a href="#참고-링크" class="headerlink" title="참고 링크"></a>참고 링크</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/typescript/announcing-typescript-6-0-rc/">Announcing TypeScript 6.0 RC</a></li>
+<li><a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/typescript/announcing-typescript-6-0-beta/">Announcing TypeScript 6.0 Beta</a></li>
+<li><a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/typescript/typescript-native-port/">A 10x Faster TypeScript (Native Port)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/typescript">TypeScript npm RC 설치</a></li>
+</ul>
+<h3 id="이미지-출처"><a href="#이미지-출처" class="headerlink" title="이미지 출처"></a>이미지 출처</h3><ul>
+<li>커버 이미지: <a target="_blank" rel="noopener" href="https://github.com/remojansen/logo.ts">TypeScript logo</a> (MIT)</li>
+<li>본문 이미지: <a target="_blank" rel="noopener" href="https://www.flickr.com/photos/21051491@N02/15787237274">Cool Reflecting Source Code Screen at GGJ Berlin 2015</a> — © qubodup, CC BY 2.0</li>
+</ul>
+
+        </div>
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/blog/2026/03/11/setup-takumi-guard-npm-introduction/" class="navigation__link">
+        <p class="navigation__title">npm 설치 앞에 경비원을 세우는 법: setup-takumi-guard-npm 살펴보기</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-11T00:00:00+09:00">
+      2026.03.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/Security/" class="meta__category-list-item">
+            <span>Security</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/Security/Node-js/" class="meta__category-list-item">
+            <span>Node.js</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        setup-takumi-guard-npm은 GitHub Actions의 npm 설치 경로를 Takumi Guard 프록시로 연결해 악성 패키지를 설치 전에 차단한다. 이 글에서는 왜 이 방식이 실무에서 유효한지, 어디까지 해결하고 어디서부터는 별도 대응이 필요한지 핵심만 정리한다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/blog/2026/03/10/numpy-ts-introduction/" class="navigation__link">
+        <p class="navigation__title">NumPy를 TypeScript로 옮긴다고? numpy-ts 살펴보기</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-10T00:00:00+09:00">
+      2026.03.10
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        Python 과학 컴퓨팅의 핵심인 NumPy를 TypeScript로 재구현한 numpy-ts를 소개한다. 93.9% API 커버리지, 트리셰이킹, 제로 디펜던시까지 갖춘 이 라이브러리를 자세히 들여다본다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://uyeong.github.io/blog/2026/03/11/typescript-6-0-rc-highlights/';
+      this.page.identifier = '2026/03/11/typescript-6-0-rc-highlights/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<script src="/blog/script.js"></script>
+
+</body>
+</html>
+
