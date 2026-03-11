@@ -354,7 +354,7 @@ twitter: coderifleman
 facebook: coderifleman
 github: uyeong
 favicon: /blog/favicon.png
-google_analytics: UA-55659240-1
+google_analytics: G-XXXXXXXXXX
 disqus_shortname: coderifleman
 ```
 
