@@ -41,7 +41,7 @@ React Grab 팀이 소개한 글(<https://react-grab.com/blog/intro>)을 보면, 
 
 {% figure maze.jpg '미로 이미지' '그림 2. 탐색 단계가 길어질수록 에이전트가 우회하는 경로가 늘어난다' '900px' %}
 
-{% alert info 핵심 관점 %}
+{% alert info '핵심 관점' %}
 React Grab이 "UI 편집기"로 보일 수도 있겠지만 정확히는 코딩 에이전트의 탐색 비용을 줄이는 문맥 전달 레이어에 가깝고, 그래서 코드 생성 품질보다 먼저 작업 흐름의 속도와 안정성에 영향을 준다.
 {% endalert %}
 
