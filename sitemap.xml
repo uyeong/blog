@@ -11,6 +11,24 @@
   </url>
   
   <url>
+    <loc>https://uyeong.github.io/blog/2026/03/11/typescript-6-0-rc-highlights/</loc>
+    
+    <lastmod>2026-03-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/2026/03/11/react-grab-introduction/</loc>
+    
+    <lastmod>2026-03-11</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://uyeong.github.io/blog/2026/03/10/numpy-ts-introduction/</loc>
     
     <lastmod>2026-03-10</lastmod>
@@ -722,6 +740,48 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Compiler/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Release-Note/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/AI/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Developer-Experience/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Cursor/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/tags/Claude-Code/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -852,6 +912,20 @@
   
   <url>
     <loc>https://uyeong.github.io/blog/categories/Security/Node-js/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/categories/JavaScript/Development/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://uyeong.github.io/blog/categories/Development/React/</loc>
     <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
