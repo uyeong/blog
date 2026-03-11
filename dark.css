@@ -1,0 +1,249 @@
+/*************************************************************/
+/**************************** Core ***************************/
+/*************************************************************/
+
+html,
+body {
+  color: #e2e8f0;
+  background: #0f172a;
+}
+
+::selection {
+  background: #1e3a5f;
+  color: #e2e8f0;
+}
+
+a {
+  color: #60a5fa;
+}
+
+a:hover {
+  color: #93c5fd;
+}
+
+a:active {
+  color: #3b82f6;
+}
+
+/*************************************************************/
+/*************************** Header **************************/
+/*************************************************************/
+
+.header__title a {
+  color: #f1f5f9;
+}
+
+.header__subtitle {
+  color: #94a3b8;
+}
+
+/*************************************************************/
+/*************************** Posts ***************************/
+/*************************************************************/
+
+.posts__classify strong {
+  color: #60a5fa;
+}
+
+.posts__title a {
+  color: #f1f5f9;
+}
+
+.posts__title a:hover {
+  color: #60a5fa;
+}
+
+.posts__desc {
+  color: #94a3b8;
+}
+
+.posts__picture {
+  background-color: #1e293b;
+}
+
+/*************************************************************/
+/*************************** Post ****************************/
+/*************************************************************/
+
+.post__title {
+  color: #f1f5f9;
+}
+
+.post__contents {
+  color: #cbd5e1;
+}
+
+.post__contents h2,
+.post__contents h3,
+.post__contents h4,
+.post__contents h5 {
+  color: #f1f5f9;
+}
+
+.post__contents h6 {
+  color: #94a3b8;
+}
+
+.post__contents h2 {
+  border-bottom-color: #1e293b;
+}
+
+.post__contents code {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.post__contents pre[class*=language] {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.post__contents figure figcaption {
+  color: #64748b;
+}
+
+.post__contents blockquote {
+  border-left-color: #3b82f6;
+  color: #94a3b8;
+}
+
+.post__contents blockquote a {
+  color: #60a5fa;
+}
+
+.post__toc h2 {
+  color: #e2e8f0;
+}
+
+.post__toc a {
+  color: #94a3b8;
+}
+
+.post__toc a:hover {
+  color: #60a5fa;
+}
+
+.post__toc a.is-active {
+  color: #60a5fa;
+}
+
+/*************************************************************/
+/************************** Footer ***************************/
+/*************************************************************/
+
+.footer {
+  border-top-color: #1e293b;
+  color: #64748b;
+}
+
+.footer a {
+  color: #94a3b8;
+}
+
+.footer a:hover {
+  color: #60a5fa;
+}
+
+/*************************************************************/
+/*************************** Media ***************************/
+/*************************************************************/
+
+.media__medium a {
+  color: #64748b;
+}
+
+.media__medium a:hover {
+  color: #60a5fa;
+}
+
+/*************************************************************/
+/*************************** Meta ****************************/
+/*************************************************************/
+
+.meta {
+  color: #64748b;
+}
+
+.meta__categories a {
+  color: #64748b;
+}
+
+.meta__categories a:hover {
+  color: #60a5fa;
+}
+
+/*************************************************************/
+/*************************** Tags ****************************/
+/*************************************************************/
+
+.tags__link {
+  background: #1e293b;
+  color: #94a3b8;
+}
+
+.tags__link:hover {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+/*************************************************************/
+/*************************** Alert ***************************/
+/*************************************************************/
+
+.alert--info {
+  background: #0c1d3a;
+  border-color: #1e3a5f;
+  color: #93c5fd;
+}
+
+.alert--info a {
+  color: #60a5fa;
+  text-decoration-color: #1e3a5f;
+}
+
+.alert--info a:hover {
+  text-decoration-color: #60a5fa;
+}
+
+/*************************************************************/
+/************************ Navigation *************************/
+/*************************************************************/
+
+.navigation__link {
+  color: #f1f5f9;
+}
+
+.navigation__link:hover {
+  color: #60a5fa;
+}
+
+.navigation__desc {
+  color: #94a3b8;
+}
+
+.navigation__guide {
+  color: #64748b;
+}
+
+/*************************************************************/
+/************************ Pagination *************************/
+/*************************************************************/
+
+.pagination__pick {
+  color: #94a3b8;
+}
+
+.pagination__pick:hover {
+  background: #1e293b;
+  color: #f1f5f9;
+}
+
+.pagination__pick.on {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.pagination__pick.on:hover {
+  background: #f1f5f9;
+}

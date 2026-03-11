@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>NumPy를 TypeScript로 옮긴다고? numpy-ts 살펴보기 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="Python 과학 컴퓨팅의 핵심인 NumPy를 TypeScript로 재구현한 numpy-ts를 소개한다. 93.9% API 커버리지, 트리셰이킹, 제로 디펜던시까지 갖춘 이 라이브러리를 자세히 들여다본다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Development,JavaScript,TypeScript,NumPy">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.png">
+  
+  <meta name="description" content="Python 과학 컴퓨팅의 핵심인 NumPy를 TypeScript로 재구현한 numpy-ts를 소개한다. 93.9% API 커버리지, 트리셰이킹, 제로 디펜던시까지 갖춘 이 라이브러리를 자세히 들여다본다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NumPy를 TypeScript로 옮긴다고? numpy-ts 살펴보기">
+<meta property="og:url" content="https://uyeong.github.io/blog/2026/03/10/numpy-ts-introduction/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="Python 과학 컴퓨팅의 핵심인 NumPy를 TypeScript로 재구현한 numpy-ts를 소개한다. 93.9% API 커버리지, 트리셰이킹, 제로 디펜던시까지 갖춘 이 라이브러리를 자세히 들여다본다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2026-03-09T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-11T00:47:22.426Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Development">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="NumPy">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2026/03/10/numpy-ts-introduction/index.html">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+
+  
+<link rel="stylesheet" href="/blog/style.css">
+
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/blog/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post post--has-cover">
+  <div class="post__inner">
+    <article class="post__body">
+      
+        <div class="post__cover">
+          <img src="/blog/images/numpy-ts-introduction/cover.jpg" alt="NumPy를 TypeScript로 옮긴다고? numpy-ts 살펴보기">
+          <div class="post__cover-overlay">
+            <h1 class="post__title">NumPy를 TypeScript로 옮긴다고? numpy-ts 살펴보기</h1>
+            <div class="post__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-10T00:00:00+09:00">
+      2026.03.10
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Development/" >
+            #Development
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/TypeScript/" >
+            #TypeScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/NumPy/" >
+            #NumPy
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%95%B5%EC%8B%AC-%ED%8A%B9%EC%A7%95"><span class="toc-number">1.</span> <span class="toc-text">핵심 특징</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95"><span class="toc-number">2.</span> <span class="toc-text">설치 및 기본 사용법</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NumPy%EC%99%80%EC%9D%98-%EB%AC%B8%EB%B2%95-%EC%B0%A8%EC%9D%B4"><span class="toc-number">3.</span> <span class="toc-text">NumPy와의 문법 차이</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-%EA%B8%B0%EB%8A%A5-%EB%B2%94%EC%9C%84"><span class="toc-number">4.</span> <span class="toc-text">지원하는 기능 범위</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%8B%A4%EC%A0%9C-%ED%99%9C%EC%9A%A9-%EC%98%88%EC%8B%9C"><span class="toc-number">5.</span> <span class="toc-text">실제 활용 예시</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%84%A0%ED%98%95%EB%8C%80%EC%88%98"><span class="toc-number">5.1.</span> <span class="toc-text">선형대수</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%ED%86%B5%EA%B3%84-%EB%B6%84%EC%84%9D"><span class="toc-number">5.2.</span> <span class="toc-text">통계 분석</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%8B%A0%ED%98%B8-%EC%B2%98%EB%A6%AC"><span class="toc-number">5.3.</span> <span class="toc-text">신호 처리</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%84%B1%EB%8A%A5%EC%9D%80-%EC%96%B4%EB%96%A8%EA%B9%8C"><span class="toc-number">6.</span> <span class="toc-text">성능은 어떨까?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%A0%84%EB%9E%B5%EC%9D%B4-%EC%9D%B8%EC%83%81%EC%A0%81%EC%9D%B4%EB%8B%A4"><span class="toc-number">7.</span> <span class="toc-text">테스트 전략이 인상적이다</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98"><span class="toc-number">8.</span> <span class="toc-text">아키텍처</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%88%84%EA%B5%AC%EC%97%90%EA%B2%8C-%EC%9C%A0%EC%9A%A9%ED%95%A0%EA%B9%8C"><span class="toc-number">9.</span> <span class="toc-text">누구에게 유용할까?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A7%88%EB%AC%B4%EB%A6%AC"><span class="toc-number">10.</span> <span class="toc-text">마무리</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <p>프론트엔드 개발자라면 한 번쯤 이런 생각을 해봤을 것이다. “NumPy처럼 다차원 배열을 자유롭게 다루고 싶은데, 왜 JavaScript 생태계에는 마땅한 게 없지?”</p>
+<p>물론 <a target="_blank" rel="noopener" href="https://github.com/nicolaspanel/numjs">numjs</a>나 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/ndarray">ndarray</a> 같은 선구자가 있었지만, NumPy의 방대한 API를 충실히 재현한 라이브러리는 사실상 없었다. <a target="_blank" rel="noopener" href="https://github.com/dupontcyborg/numpy-ts">numpy-ts</a>는 바로 그 간극을 메우려는 프로젝트다. NumPy API의 <strong>93.9%</strong>(507개 중 476개 함수)를 TypeScript로 재구현했다고 한다. 과연 어느 정도 수준인지 함께 살펴보자.</p>
+<h2 id="핵심-특징"><a href="#핵심-특징" class="headerlink" title="핵심 특징"></a>핵심 특징</h2><p>numpy-ts의 주요 셀링 포인트를 먼저 정리하면 다음과 같다.</p>
+<ul>
+<li><strong>93.9% API 커버리지</strong> — 476&#x2F;507개 NumPy 함수 구현</li>
+<li><strong>제로 디펜던시</strong> — 런타임 의존성 없음</li>
+<li><strong>트리셰이킹 지원</strong> — <code>numpy-ts/core</code>에서 필요한 함수만 가져오면 번들 10~40KB</li>
+<li><strong>TypeScript 네이티브</strong> — 완전한 타입 추론</li>
+<li><strong>NumPy 검증 테스트</strong> — Python NumPy 결과와 직접 비교하는 6,000개 이상의 테스트</li>
+</ul>
+<h2 id="설치-및-기본-사용법"><a href="#설치-및-기본-사용법" class="headerlink" title="설치 및 기본 사용법"></a>설치 및 기본 사용법</h2><p>설치는 간단하다.</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> numpy-ts</code></pre>
+
+<p>Node.js 20.1.0 이상이 필요하다. 사용 방식은 세 가지 진입점을 제공한다.</p>
+<pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">// 1. 풀 API — 메서드 체이닝 지원 (~200-300KB)</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> np <span class="token keyword">from</span> <span class="token string">'numpy-ts'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token constant">A</span> <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'float32'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token constant">A</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">multiply</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token constant">T</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 2. 트리셰이킹 — 필요한 함수만 (~10-40KB)</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> array<span class="token punctuation">,</span> add<span class="token punctuation">,</span> reshape <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'numpy-ts/core'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 3. Node.js 파일 I/O 포함</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> np <span class="token keyword">from</span> <span class="token string">'numpy-ts/node'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> arr <span class="token operator">=</span> <span class="token keyword">await</span> np<span class="token punctuation">.</span><span class="token function">loadNpy</span><span class="token punctuation">(</span><span class="token string">'data.npy'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+
+    <div class="alert alert--info">
+      <strong class="alert__title">왜 세 가지 진입점인가?</strong>
+      <div class="alert__body">
+        <p>브라우저 번들 크기가 중요한 프로젝트에서는 <code>numpy-ts/core</code>를 쓰면 트리셰이킹이 가능하다. 반면 Node.js 환경에서 파일 I&#x2F;O(<code>.npy</code>, <code>.npz</code>, <code>.csv</code>)까지 필요하다면 <code>numpy-ts/node</code>를 쓰면 된다. 풀 API는 메서드 체이닝의 편의성을 제공하지만 번들이 크다.</p>
+
+      </div>
+    </div>
+  
+
+<h2 id="NumPy와의-문법-차이"><a href="#NumPy와의-문법-차이" class="headerlink" title="NumPy와의 문법 차이"></a>NumPy와의 문법 차이</h2><p>Python에서 넘어온 개발자라면 몇 가지 차이를 알아두어야 한다.</p>
+<pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">// Python: a = np.zeros((3, 3))</span>
+<span class="token comment">// TS: 튜플 대신 배열</span>
+<span class="token keyword">const</span> a <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token function">zeros</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Python: a[0:2, :]</span>
+<span class="token comment">// TS: 슬라이싱은 문자열</span>
+a<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token string">'0:2'</span><span class="token punctuation">,</span> <span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Python: a + b</span>
+<span class="token comment">// TS: 연산자 오버로딩 없음</span>
+a<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 또는</span>
+np<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Python: np.sum(a, axis=0)</span>
+<span class="token comment">// TS: 키워드 인자 없음, 위치 인자만</span>
+np<span class="token punctuation">.</span><span class="token function">sum</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Python: np.var(a)</span>
+<span class="token comment">// TS: var는 예약어</span>
+np<span class="token punctuation">.</span><span class="token function">variance</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>슬라이싱을 문자열로 처리하는 부분이 좀 아쉽지만, JavaScript 언어의 한계를 고려하면 합리적인 선택이다. <code>Proxy</code> 기반의 브래킷 인덱싱(<code>arr[0]</code>, <code>arr[-1]</code>)도 지원하므로 단순 접근은 자연스럽게 할 수 있다.</p>
+<h2 id="지원하는-기능-범위"><a href="#지원하는-기능-범위" class="headerlink" title="지원하는 기능 범위"></a>지원하는 기능 범위</h2><p>numpy-ts가 커버하는 영역은 생각보다 넓다.</p>
+<table>
+<thead>
+<tr>
+<th>영역</th>
+<th>주요 함수</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>배열 생성</td>
+<td><code>array</code>, <code>zeros</code>, <code>ones</code>, <code>arange</code>, <code>linspace</code>, <code>eye</code>, <code>meshgrid</code> 등</td>
+</tr>
+<tr>
+<td>산술&#x2F;수학</td>
+<td><code>add</code>, <code>multiply</code>, <code>sqrt</code>, <code>exp</code>, <code>log</code>, <code>clip</code>, <code>interp</code> 등</td>
+</tr>
+<tr>
+<td>삼각함수</td>
+<td><code>sin</code>, <code>cos</code>, <code>tan</code>, <code>arcsin</code>, <code>arctan2</code> 등 전체</td>
+</tr>
+<tr>
+<td>선형대수</td>
+<td><code>dot</code>, <code>matmul</code>, <code>inv</code>, <code>det</code>, <code>eig</code>, <code>svd</code>, <code>solve</code>, <code>qr</code>, <code>cholesky</code></td>
+</tr>
+<tr>
+<td>통계&#x2F;리덕션</td>
+<td><code>sum</code>, <code>mean</code>, <code>std</code>, <code>median</code>, <code>percentile</code>, <code>histogram</code></td>
+</tr>
+<tr>
+<td>FFT</td>
+<td><code>fft</code>, <code>ifft</code>, <code>fft2</code>, <code>rfft</code>, <code>fftfreq</code>, <code>fftshift</code></td>
+</tr>
+<tr>
+<td>난수</td>
+<td><code>normal</code>, <code>uniform</code>, <code>poisson</code>, <code>binomial</code> 등 30개 이상 분포</td>
+</tr>
+<tr>
+<td>형상 조작</td>
+<td><code>reshape</code>, <code>concatenate</code>, <code>stack</code>, <code>split</code>, <code>pad</code>, <code>flip</code>, <code>rot90</code></td>
+</tr>
+<tr>
+<td>집합&#x2F;정렬</td>
+<td><code>unique</code>, <code>intersect1d</code>, <code>sort</code>, <code>argsort</code>, <code>searchsorted</code></td>
+</tr>
+<tr>
+<td>I&#x2F;O</td>
+<td><code>.npy</code>, <code>.npz</code>, <code>.csv</code>&#x2F;<code>.txt</code> 읽기&#x2F;쓰기</td>
+</tr>
+</tbody></table>
+<p>구현하지 않은 31개 함수는 윈도우 함수(<code>hamming</code>, <code>kaiser</code>), 영업일 유틸리티, 그리고 이미 NumPy에서도 deprecated된 기능들이다.</p>
+<h2 id="실제-활용-예시"><a href="#실제-활용-예시" class="headerlink" title="실제 활용 예시"></a>실제 활용 예시</h2><h3 id="선형대수"><a href="#선형대수" class="headerlink" title="선형대수"></a>선형대수</h3><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> np <span class="token keyword">from</span> <span class="token string">'numpy-ts'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 연립방정식 풀기: Ax = b</span>
+<span class="token keyword">const</span> <span class="token constant">A</span> <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> b <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token function">array</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> x <span class="token operator">=</span> np<span class="token punctuation">.</span>linalg<span class="token punctuation">.</span><span class="token function">solve</span><span class="token punctuation">(</span><span class="token constant">A</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token function">tolist</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// [2, 3]</span>
+
+<span class="token comment">// SVD 분해</span>
+<span class="token keyword">const</span> <span class="token punctuation">[</span><span class="token constant">U</span><span class="token punctuation">,</span> <span class="token constant">S</span><span class="token punctuation">,</span> Vt<span class="token punctuation">]</span> <span class="token operator">=</span> np<span class="token punctuation">.</span>linalg<span class="token punctuation">.</span><span class="token function">svd</span><span class="token punctuation">(</span><span class="token constant">A</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h3 id="통계-분석"><a href="#통계-분석" class="headerlink" title="통계 분석"></a>통계 분석</h3><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> np <span class="token keyword">from</span> <span class="token string">'numpy-ts'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> data <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span><span class="token function">normal</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1000</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'평균:'</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span><span class="token function">mean</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'표준편차:'</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span><span class="token function">std</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'중앙값:'</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span><span class="token function">median</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 히스토그램</span>
+<span class="token keyword">const</span> <span class="token punctuation">[</span>counts<span class="token punctuation">,</span> edges<span class="token punctuation">]</span> <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token function">histogram</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h3 id="신호-처리"><a href="#신호-처리" class="headerlink" title="신호 처리"></a>신호 처리</h3><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> np <span class="token keyword">from</span> <span class="token string">'numpy-ts'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 사인파 생성</span>
+<span class="token keyword">const</span> t <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token function">linspace</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> signal <span class="token operator">=</span> np<span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span><span class="token function">multiply</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token number">2</span> <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token constant">PI</span> <span class="token operator">*</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// FFT 변환</span>
+<span class="token keyword">const</span> spectrum <span class="token operator">=</span> np<span class="token punctuation">.</span>fft<span class="token punctuation">.</span><span class="token function">fft</span><span class="token punctuation">(</span>signal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> freqs <span class="token operator">=</span> np<span class="token punctuation">.</span>fft<span class="token punctuation">.</span><span class="token function">fftfreq</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">,</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<h2 id="성능은-어떨까"><a href="#성능은-어떨까" class="headerlink" title="성능은 어떨까?"></a>성능은 어떨까?</h2><p>솔직히 말하면, 순수 JavaScript로 C&#x2F;Fortran BLAS 기반의 NumPy를 이기는 것은 불가능하다. 프로젝트에서 공개한 297개 벤치마크 결과를 보면 현실이 보인다.</p>
+<blockquote>
+<p>평균 12.16배 느림, 중앙값 3.67배 느림. 최선의 경우 NumPy보다 빠른 것도 있지만, 최악의 경우 300배까지 느려진다.</p>
+</blockquote>
+<p>영역별로 보면 편차가 크다.</p>
+<table>
+<thead>
+<tr>
+<th>영역</th>
+<th>NumPy 대비 속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>유틸리티</td>
+<td><strong>0.09x</strong> (더 빠름)</td>
+</tr>
+<tr>
+<td>I&#x2F;O</td>
+<td>1.76x</td>
+</tr>
+<tr>
+<td>집합 연산</td>
+<td>2.06x</td>
+</tr>
+<tr>
+<td>다항식</td>
+<td>2.32x</td>
+</tr>
+<tr>
+<td>정렬</td>
+<td>14.05x</td>
+</tr>
+<tr>
+<td>FFT</td>
+<td>18.13x</td>
+</tr>
+<tr>
+<td>선형대수</td>
+<td>44.69x</td>
+</tr>
+</tbody></table>
+
+    <div class="alert alert--info">
+      <strong class="alert__title">WASM 가속 계획</strong>
+      <div class="alert__body">
+        <p>프로젝트에는 Zig로 작성한 WASM 백엔드 계획이 문서화되어 있다. <code>numpy-ts/wasm</code>으로 임포트하면 자동으로 WASM 커널을 사용하고, 작은 배열(256개 미만)에서는 자동으로 JS로 폴백하는 구조다. 아직 구현 전이지만, 실현되면 성능 격차가 크게 줄어들 것이다.</p>
+
+      </div>
+    </div>
+  
+
+<p>유틸리티나 I&#x2F;O처럼 이미 충분히 빠른 영역도 있고, 선형대수처럼 격차가 큰 영역도 있다. “Python 없이 브라우저에서 돌린다”는 가치와 성능 사이의 트레이드오프를 이해하고 사용해야 한다.</p>
+<h2 id="테스트-전략이-인상적이다"><a href="#테스트-전략이-인상적이다" class="headerlink" title="테스트 전략이 인상적이다"></a>테스트 전략이 인상적이다</h2><p>numpy-ts의 테스트 구조는 꽤 체계적이다.</p>
+<ol>
+<li><strong>유닛 테스트</strong> — 50개 이상의 모듈별 테스트 (Vitest)</li>
+<li><strong>검증 테스트</strong> — Python NumPy를 실제로 실행해서 결과를 비교하는 오라클 테스트 47개</li>
+<li><strong>번들 테스트</strong> — CJS, ESM, 브라우저 IIFE 번들이 정상 동작하는지 확인 (Playwright)</li>
+<li><strong>트리셰이킹 테스트</strong> — 단일 함수 임포트 시 번들 크기가 최소인지 esbuild&#x2F;rollup&#x2F;webpack으로 검증</li>
+</ol>
+<p>특히 검증 테스트가 눈에 띈다. <code>numpy-oracle.ts</code>라는 브릿지가 Python 프로세스를 띄워 실제 NumPy 코드를 실행하고, 그 결과를 JSON으로 받아와 TypeScript 출력과 비교한다. “NumPy와 동일하게 동작한다”는 주장을 코드로 증명하는 셈이다.</p>
+<h2 id="아키텍처"><a href="#아키텍처" class="headerlink" title="아키텍처"></a>아키텍처</h2><p>내부 구조도 잘 설계되어 있다.</p>
+<ul>
+<li><strong><code>common/storage.ts</code></strong> — TypedArray를 감싸는 <code>ArrayStorage</code> 클래스. shape, strides, offset, dtype을 관리한다.</li>
+<li><strong><code>common/ndarray-core.ts</code></strong> — 최소한의 <code>NDArrayCore</code> 클래스. Proxy 기반 브래킷 인덱싱 지원.</li>
+<li><strong><code>common/dtype.ts</code></strong> — 13가지 dtype(<code>float64</code>, <code>float32</code>, <code>complex128</code>, <code>int32</code>, <code>bool</code> 등)과 NumPy와 동일한 타입 프로모션 규칙.</li>
+<li><strong><code>common/ops/</code></strong> — 산술, 선형대수, FFT, 난수 등 20개 연산 모듈.</li>
+<li><strong><code>core/</code></strong> — 트리셰이킹 가능한 래퍼 함수들.</li>
+<li><strong><code>full/</code></strong> — <code>NDArrayCore</code>를 확장한 <code>NDArray</code> 클래스. 100개 이상의 체이너블 메서드. 스크립트로 자동 생성된다.</li>
+</ul>
+<p>풀 API의 <code>NDArray</code> 클래스가 스크립트(<code>scripts/generate-full.ts</code>)로 자동 생성된다는 점이 재미있다. core 함수 목록에서 메서드를 자동으로 만들어내므로 API 일관성이 보장된다.</p>
+<h2 id="누구에게-유용할까"><a href="#누구에게-유용할까" class="headerlink" title="누구에게 유용할까?"></a>누구에게 유용할까?</h2><p>numpy-ts가 빛을 발할 수 있는 시나리오는 분명하다.</p>
+<ul>
+<li><strong>브라우저에서 수치 연산</strong>이 필요한 경우 — 인터랙티브 데이터 시각화, 교육용 도구</li>
+<li><strong>Python 없이 NumPy API를 쓰고 싶은</strong> Node.js 프로젝트</li>
+<li><strong>TypeScript 타입 안전성</strong>이 중요한 과학 컴퓨팅</li>
+<li><strong>프로토타이핑</strong> — Python 코드를 TS로 빠르게 포팅할 때</li>
+</ul>
+<p>반면, 대규모 행렬 연산의 극한 성능이 필요하다면 여전히 Python NumPy(또는 <a target="_blank" rel="noopener" href="https://www.tensorflow.org/js">TensorFlow.js</a>, <a target="_blank" rel="noopener" href="https://onnxruntime.ai/">ONNX Runtime Web</a>)이 더 적합하다.</p>
+<h2 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h2><p>numpy-ts는 “TypeScript에서 NumPy를 쓸 수 있을까?”라는 질문에 대한 진지한 답변이다. 93.9%의 API 커버리지, Python 오라클 기반 검증 테스트, 트리셰이킹과 세 가지 진입점을 통한 유연한 번들 전략까지 — 단순한 토이 프로젝트가 아니라 실용을 지향하는 라이브러리라는 것을 알 수 있다.</p>
+<p>성능 격차는 분명히 존재하지만, WASM 가속이 실현되면 상당 부분 해소될 가능성이 있다. 무엇보다 “Python 런타임 없이 브라우저에서 NumPy API를 그대로 쓸 수 있다”는 것 자체가 이 프로젝트의 가장 큰 가치다.</p>
+<p>관심이 있다면 <a target="_blank" rel="noopener" href="https://numpyts.dev/">공식 문서</a>와 <a target="_blank" rel="noopener" href="https://github.com/dupontcyborg/numpy-ts">GitHub 저장소</a>를 방문해보자.</p>
+
+        </div>
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+      <span class="navigation__guide">Next Post</span>
+      <a href="/blog/2026/03/11/setup-takumi-guard-npm-introduction/" class="navigation__link">
+        <p class="navigation__title">npm 설치 앞에 경비원을 세우는 법: setup-takumi-guard-npm 살펴보기</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-11T00:00:00+09:00">
+      2026.03.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/Security/" class="meta__category-list-item">
+            <span>Security</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/Security/Node-js/" class="meta__category-list-item">
+            <span>Node.js</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        setup-takumi-guard-npm은 GitHub Actions의 npm 설치 경로를 Takumi Guard 프록시로 연결해 악성 패키지를 설치 전에 차단한다. 이 글에서는 왜 이 방식이 실무에서 유효한지, 어디까지 해결하고 어디서부터는 별도 대응이 필요한지 핵심만 정리한다.
+      </p>
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/blog/2023/02/27/hands_on_react_making_it_cohesive/" class="navigation__link">
+        <p class="navigation__title">실전! 리액트, 응집성 있게 가자!</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2023-02-27T00:00:00+09:00">
+      2023.02.27
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/JavaScript/React/" class="meta__category-list-item">
+            <span>React</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        React.js에서 로직을 어떻게 응집성 있게 관리할 수 있는지 간단한 송금 예제와 함께 소개한다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://uyeong.github.io/blog/2026/03/10/numpy-ts-introduction/';
+      this.page.identifier = '2026/03/10/numpy-ts-introduction/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<script src="/blog/script.js"></script>
+
+</body>
+</html>
+
