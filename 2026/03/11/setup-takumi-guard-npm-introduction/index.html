@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>setup-takumi-guard-npm 살펴보기 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="setup-takumi-guard-npm은 GitHub Actions에서 npm 설치를 Takumi Guard 프록시로 우회시켜 악성 패키지를 설치 전에 차단하게 만드는 액션이다. 이 프로젝트가 무엇을 풀고, 왜 이런 형태로 설계됐는지 핵심만 정리해본다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,Security,npm,GitHub Actions,OIDC,Supply Chain Security">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.png">
+  
+  <meta name="description" content="setup-takumi-guard-npm은 GitHub Actions에서 npm 설치를 Takumi Guard 프록시로 우회시켜 악성 패키지를 설치 전에 차단하게 만드는 액션이다. 이 프로젝트가 무엇을 풀고, 왜 이런 형태로 설계됐는지 핵심만 정리해본다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="setup-takumi-guard-npm 살펴보기">
+<meta property="og:url" content="https://uyeong.github.io/blog/2026/03/11/setup-takumi-guard-npm-introduction/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="setup-takumi-guard-npm은 GitHub Actions에서 npm 설치를 Takumi Guard 프록시로 우회시켜 악성 패키지를 설치 전에 차단하게 만드는 액션이다. 이 프로젝트가 무엇을 풀고, 왜 이런 형태로 설계됐는지 핵심만 정리해본다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/setup-takumi-guard-npm-introduction/branding.png">
+<meta property="article:published_time" content="2026-03-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-11T00:50:02.182Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="GitHub Actions">
+<meta property="article:tag" content="OIDC">
+<meta property="article:tag" content="Security">
+<meta property="article:tag" content="Supply Chain Security">
+<meta property="article:tag" content="npm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uyeong.github.io/blog/images/setup-takumi-guard-npm-introduction/branding.png">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2026/03/11/setup-takumi-guard-npm-introduction/index.html">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+
+  
+<link rel="stylesheet" href="/blog/style.css">
+
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/blog/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post post--has-cover">
+  <div class="post__inner">
+    <article class="post__body">
+      
+        <div class="post__cover">
+          <img src="/blog/images/setup-takumi-guard-npm-introduction/cover.png" alt="setup-takumi-guard-npm 살펴보기">
+          <div class="post__cover-overlay">
+            <h1 class="post__title">setup-takumi-guard-npm 살펴보기</h1>
+            <div class="post__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-11T00:00:00+09:00">
+      2026.03.11
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/Security/" class="meta__category-list-item">
+            <span>Security</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/Security/Node-js/" class="meta__category-list-item">
+            <span>Node.js</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Security/" >
+            #Security
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/npm/" >
+            #npm
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/GitHub-Actions/" >
+            #GitHub Actions
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/OIDC/" >
+            #OIDC
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Supply-Chain-Security/" >
+            #Supply Chain Security
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9D%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%8A%94-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80"><span class="toc-number">1.</span> <span class="toc-text">이 프로젝트는 무엇인가</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%AC%B4%EC%97%87%EC%9D%84-%EB%8B%AC%EC%84%B1%ED%95%98%EB%A0%A4%EA%B3%A0-%ED%95%98%EB%8A%94%EA%B0%80"><span class="toc-number">2.</span> <span class="toc-text">무엇을 달성하려고 하는가</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%EC%95%85%EC%84%B1-npm-%ED%8C%A8%ED%82%A4%EC%A7%80%EB%A5%BC-CI%EC%97%90-%EB%93%A4%EC%97%AC%EC%98%A4%EA%B8%B0-%EC%A0%84%EC%97%90-%EB%A7%89%EA%B8%B0"><span class="toc-number">2.1.</span> <span class="toc-text">1. 악성 npm 패키지를 CI에 들여오기 전에 막기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%EB%B3%B4%EC%95%88%EC%9D%84-%EC%BC%9C%EA%B8%B0-%EC%9C%84%ED%95%B4-%EC%9A%B4%EC%98%81-%EB%B3%B5%EC%9E%A1%EB%8F%84%EB%A5%BC-%EC%98%AC%EB%A6%AC%EC%A7%80-%EC%95%8A%EA%B8%B0"><span class="toc-number">2.2.</span> <span class="toc-text">2. 보안을 켜기 위해 운영 복잡도를 올리지 않기</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%EC%B0%A8%EB%8B%A8%EB%BF%90-%EC%95%84%EB%8B%88%EB%9D%BC-%EC%82%AC%ED%9B%84-%EC%B6%94%EC%A0%81%EA%B9%8C%EC%A7%80-%EC%9D%B4%EC%96%B4-%EB%B6%99%EC%9D%B4%EA%B8%B0"><span class="toc-number">2.3.</span> <span class="toc-text">3. 차단뿐 아니라 사후 추적까지 이어 붙이기</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%96%B4%EB%96%A4-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%ED%92%80%EA%B3%A0-%EC%9E%88%EB%8A%94%EA%B0%80"><span class="toc-number">3.</span> <span class="toc-text">어떤 문제를 풀고 있는가</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%84%A4%EC%B9%98-%EB%8B%A8%EA%B3%84%EB%8A%94-%EB%84%88%EB%AC%B4-%EC%9D%B4%EB%A5%B4%EB%8B%A4"><span class="toc-number">3.1.</span> <span class="toc-text">설치 단계는 너무 이르다</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EA%B3%B5%EA%B0%9C-Advisory%EB%A7%8C-%EA%B8%B0%EB%8B%A4%EB%A6%AC%EB%A9%B4-%EB%8A%A6%EB%8B%A4"><span class="toc-number">3.2.</span> <span class="toc-text">공개 Advisory만 기다리면 늦다</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CI-%EB%B9%84%EB%B0%80%EA%B0%92-%EA%B4%80%EB%A6%AC%EA%B0%80-%EB%98%90-%EB%8B%A4%EB%A5%B8-%EB%B6%80%EB%8B%B4%EC%9D%B4%EB%8B%A4"><span class="toc-number">3.3.</span> <span class="toc-text">CI 비밀값 관리가 또 다른 부담이다</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%82%B4%EB%B6%80-%EB%8F%99%EC%9E%91%EC%9D%80-%EC%9D%98%EC%99%B8%EB%A1%9C-%EB%8B%A8%EC%88%9C%ED%95%98%EB%8B%A4"><span class="toc-number">4.</span> <span class="toc-text">내부 동작은 의외로 단순하다</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%9D%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%B4%90%EC%95%BC-%ED%95%A0%EA%B9%8C"><span class="toc-number">5.</span> <span class="toc-text">이 프로젝트를 어떻게 봐야 할까</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A7%88%EB%AC%B4%EB%A6%AC"><span class="toc-number">6.</span> <span class="toc-text">마무리</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0-%EB%A7%81%ED%81%AC"><span class="toc-number">7.</span> <span class="toc-text">참고 링크</span></a></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <p><code>npm install</code>은 단순한 다운로드 명령처럼 보이지만, 실제로는 외부 코드를 우리 개발 환경과 CI 안으로 들여오는 실행 경계다. 특히 CI에서는 테스트나 빌드가 시작되기 전에 의존성 설치가 먼저 일어나기 때문에, 악성 npm 패키지가 끼어들면 가장 앞단에서 사고가 터질 수 있다.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/flatt-security/setup-takumi-guard-npm">setup-takumi-guard-npm</a>은 바로 그 앞단에 경비원을 세우는 프로젝트다. 이름은 GitHub Action이지만, 본질은 <strong>GitHub Actions의 npm 설치를 Takumi Guard라는 보안 프록시에 연결해 주는 얇은 접착층</strong>이다. 이 글에서는 이 프로젝트가 정확히 무엇인지, 무엇을 목표로 하는지, 그리고 어떤 문제를 풀기 위해 이런 모양으로 나왔는지를 살펴보겠다.</p>
+
+    <figure title="Takumi Guard 공식 브랜딩 이미지">
+      <a href="/blog/images/setup-takumi-guard-npm-introduction/branding.png" target="_blank">
+        <img src="/blog/images/setup-takumi-guard-npm-introduction/branding.png" alt="Takumi Guard 공식 브랜딩 이미지" style="max-width:720px">
+      </a>
+      <figcaption>&lt;그림 1. npm 설치 앞단의 경비원을 비유한 Takumi Guard&gt;</figcaption>
+    </figure>
+  
+
+<h2 id="이-프로젝트는-무엇인가"><a href="#이-프로젝트는-무엇인가" class="headerlink" title="이 프로젝트는 무엇인가"></a>이 프로젝트는 무엇인가</h2><p>저장소 설명을 가장 짧게 줄이면 이렇다.</p>
+<ul>
+<li>GitHub Actions에서 동작하는 액션이다.</li>
+<li><code>npm</code>, <code>pnpm</code>, <code>yarn</code> 설치를 <code>https://npm.flatt.tech</code>로 우회시킨다.</li>
+<li>그 앞단에서 Takumi Guard가 악성 패키지 여부를 검사하고, 문제가 있으면 설치 자체를 막는다.</li>
+</ul>
+<p>즉, 이 프로젝트는 새로운 보안 엔진이 아니다. <strong>Takumi Guard라는 제품을 GitHub Actions에 최소한의 YAML 변경으로 연결해 주는 진입점</strong>이다. 저장소의 README가 강조하듯이 이 액션의 핵심 가치는 “two lines of YAML”에 있다. 복잡한 에이전트 설치나 비밀값 배포 없이 워크플로에 한 줄 추가해 공급망 방어를 CI에 꽂아 넣는 것이다.</p>
+<p>예시는 정말 단순하다.</p>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">steps</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v4
+  <span class="token punctuation">-</span> <span class="token key atrule">uses</span><span class="token punctuation">:</span> flatt<span class="token punctuation">-</span>security/setup<span class="token punctuation">-</span>takumi<span class="token punctuation">-</span>guard<span class="token punctuation">-</span>npm@v1
+  <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> npm install
+  <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> npm test</code></pre>
+
+<p>이 정도면 왜 저장소 이름이 <code>setup-*</code>인지도 이해된다. 이 프로젝트의 역할은 탐지 자체보다 <strong>연결과 초기화(setup)</strong> 에 가깝다.</p>
+<h2 id="무엇을-달성하려고-하는가"><a href="#무엇을-달성하려고-하는가" class="headerlink" title="무엇을 달성하려고 하는가"></a>무엇을 달성하려고 하는가</h2><p>이 프로젝트가 달성하려는 목표는 크게 세 가지로 보인다.</p>
+<h3 id="1-악성-npm-패키지를-CI에-들여오기-전에-막기"><a href="#1-악성-npm-패키지를-CI에-들여오기-전에-막기" class="headerlink" title="1. 악성 npm 패키지를 CI에 들여오기 전에 막기"></a>1. 악성 npm 패키지를 CI에 들여오기 전에 막기</h3><p>Takumi Guard의 공식 설명은 아주 직설적이다. 이 서비스는 npm registry proxy로 동작하면서, 차단 목록에 올라간 패키지 요청에 대해 <code>403 Forbidden</code>을 반환한다. 중요한 점은 <strong>패키지 tarball이 내려오기 전에 막는다</strong>는 것이다. 설치 실패는 조금 불편할 수 있지만, 코드가 실행된 뒤에 탐지하는 것보다는 훨씬 낫다.</p>
+<p>이건 일반적인 “설치 후 스캔”과 결이 다르다. 프로젝트가 노리는 지점은 사후 탐지가 아니라 <strong>사전 차단(prevention)</strong> 이다.</p>
+<h3 id="2-보안을-켜기-위해-운영-복잡도를-올리지-않기"><a href="#2-보안을-켜기-위해-운영-복잡도를-올리지-않기" class="headerlink" title="2. 보안을 켜기 위해 운영 복잡도를 올리지 않기"></a>2. 보안을 켜기 위해 운영 복잡도를 올리지 않기</h3><p>보안 도구는 종종 맞는 말만 하고 도입은 어렵다. 설정 파일이 늘어나고, 토큰을 배포해야 하고, 기존 워크플로를 많이 건드리게 된다. setup-takumi-guard-npm은 이 지점을 꽤 공격적으로 줄였다.</p>
+<ul>
+<li>익명 모드에서는 계정 없이도 차단 기능을 켤 수 있다.</li>
+<li><code>bot-id</code>를 붙이면 감사 로그와 조직 단위 가시성을 얻는다.</li>
+<li>인증은 GitHub의 OIDC를 사용하므로 장기 비밀값을 저장하지 않아도 된다.</li>
+</ul>
+<p>즉, “보안을 위해 더 많은 비밀값을 관리해야 한다”는 역설을 피하려는 설계다.</p>
+<h3 id="3-차단뿐-아니라-사후-추적까지-이어-붙이기"><a href="#3-차단뿐-아니라-사후-추적까지-이어-붙이기" class="headerlink" title="3. 차단뿐 아니라 사후 추적까지 이어 붙이기"></a>3. 차단뿐 아니라 사후 추적까지 이어 붙이기</h3><p>Takumi Guard는 단순 블록리스트 서비스에서 끝나지 않는다. 인증된 사용 흐름에서는 설치 이력을 추적하고, 나중에 이미 내려받은 패키지에 보안 권고가 발행되면 알림을 보내는 <strong>breach notification</strong> 기능까지 제공한다.</p>
+<p>이 부분이 중요하다. 공급망 보안에서는 “지금 막았다”만큼이나 “예전에 넣은 것이 나중에 악성으로 판명됐을 때 누가 영향을 받았는가”도 중요하기 때문이다. setup-takumi-guard-npm은 이 제품 기능을 GitHub Actions와 자연스럽게 연결하는 역할을 맡는다.</p>
+<h2 id="어떤-문제를-풀고-있는가"><a href="#어떤-문제를-풀고-있는가" class="headerlink" title="어떤 문제를 풀고 있는가"></a>어떤 문제를 풀고 있는가</h2><p>이 프로젝트가 겨냥한 문제는 npm 생태계의 익숙한 불편이 아니라, <strong>의존성 설치 자체가 공격면이라는 사실</strong>이다.</p>
+<h3 id="설치-단계는-너무-이르다"><a href="#설치-단계는-너무-이르다" class="headerlink" title="설치 단계는 너무 이르다"></a>설치 단계는 너무 이르다</h3><p>CI에서 보안 스캔은 보통 테스트 뒤나 빌드 뒤에 붙는다. 하지만 악성 패키지는 그 전에 들어온다. <code>preinstall</code>, <code>install</code>, <code>postinstall</code> 스크립트만으로도 충분히 문제를 일으킬 수 있다. 결국 더 앞단에서 막아야 한다.</p>
+<p>setup-takumi-guard-npm은 이 문제를 “npm registry를 바꿔버리는 방식”으로 푼다. 애플리케이션 코드나 패키지 매니저를 뜯어고치지 않고, <strong>설치가 시작되는 경로를 통제점으로 바꾸는 것</strong>이다.</p>
+<h3 id="공개-Advisory만-기다리면-늦다"><a href="#공개-Advisory만-기다리면-늦다" class="headerlink" title="공개 Advisory만 기다리면 늦다"></a>공개 Advisory만 기다리면 늦다</h3><p>Takumi Guard의 공식 문서를 보면, 이 서비스는 npm의 Replicate API change feed를 계속 감시하면서 새 패키지와 업데이트를 수집하고, 자동 분석 파이프라인으로 악성 여부를 판단한다고 설명한다. 설치 스크립트, 난독화 코드, 알려진 악성 패턴, 샌드박스 실행 결과 등을 종합해 판정하고, 그래서 공개 advisory보다 앞서 <strong>zero-day 악성 패키지</strong>를 잡는 것을 목표로 한다.</p>
+<p>이 대목이 꽤 중요하다. setup-takumi-guard-npm의 존재 이유는 단순히 “보안 프록시를 쓰게 하자”가 아니라, <strong>실시간으로 갱신되는 위협 인텔리전스를 CI 설치 경로에 직접 연결하자</strong>에 가깝다.</p>
+<h3 id="CI-비밀값-관리가-또-다른-부담이다"><a href="#CI-비밀값-관리가-또-다른-부담이다" class="headerlink" title="CI 비밀값 관리가 또 다른 부담이다"></a>CI 비밀값 관리가 또 다른 부담이다</h3><p>보안 도구를 CI에 붙일 때 자주 생기는 문제가 비밀값 배포다. 특히 조직 단위 인증이 필요하면 PAT나 장기 토큰을 저장소나 조직 시크릿으로 뿌려야 하는데, 이건 운영 부담도 크고 유출 면적도 넓다.</p>
+<p>이 프로젝트는 GitHub OIDC를 이용해 이 문제를 줄인다. 워크플로 실행 시점에 GitHub가 발행한 ID 토큰을 받고, Shisho Cloud의 STS가 그 토큰의 서명과 발급 대상을 검증한 뒤, 짧은 수명의 액세스 토큰으로 교환한다. 문서상 기본 만료 시간은 30분이고 최대 24시간까지 설정할 수 있다.</p>
+<p>여기서 <code>bot-id</code>는 비밀값도 아니다. 허용 목록을 조회하기 위한 공개 식별자일 뿐이고, 실제 신뢰의 근거는 OIDC 토큰 검증에 있다. 이런 구조라서 setup-takumi-guard-npm은 “설치 차단”과 “비밀값 없는 CI 인증”을 동시에 묶는다.</p>
+<h2 id="내부-동작은-의외로-단순하다"><a href="#내부-동작은-의외로-단순하다" class="headerlink" title="내부 동작은 의외로 단순하다"></a>내부 동작은 의외로 단순하다</h2><p>이 액션의 <code>action.yml</code>을 보면 하는 일은 생각보다 많지 않다.</p>
+<ol>
+<li>필요하면 프로젝트 레벨 <code>.npmrc</code>에 레지스트리를 <code>https://npm.flatt.tech/</code>로 설정한다.</li>
+<li><code>bot-id</code>가 있으면 GitHub OIDC 토큰을 받아온다.</li>
+<li>그 토큰을 STS에 보내 짧은 수명의 액세스 토큰으로 교환한다.</li>
+<li>받은 토큰을 <code>.npmrc</code>에 써서 인증된 설치 흐름을 만든다.</li>
+</ol>
+<p>즉, 구현의 무게중심은 액션 안이 아니라 Takumi Guard 서비스 쪽에 있다. 액션은 일부러 얇게 유지되고, 실제 위협 판단과 차단은 프록시와 인텔리전스 파이프라인이 담당한다. 이런 분리는 꽤 합리적이다. GitHub Action 저장소는 배포와 연결에 집중하고, 보안 로직은 서버 측에서 계속 갱신하는 편이 운영상 훨씬 낫기 때문이다.</p>
+<h2 id="이-프로젝트를-어떻게-봐야-할까"><a href="#이-프로젝트를-어떻게-봐야-할까" class="headerlink" title="이 프로젝트를 어떻게 봐야 할까"></a>이 프로젝트를 어떻게 봐야 할까</h2><p>이 저장소를 “npm 보안 스캐너”로 보면 조금 빗나간다. 더 정확하게는 아래처럼 보는 편이 맞다.</p>
+<ul>
+<li><strong>제품 측면</strong>에서는 Takumi Guard의 CI용 온보딩 레이어다.</li>
+<li><strong>보안 측면</strong>에서는 설치 후 탐지가 아니라 설치 전 차단을 지향한다.</li>
+<li><strong>운영 측면</strong>에서는 계정 없이 시작할 수 있고, 필요하면 OIDC로 조직 인증까지 확장된다.</li>
+</ul>
+<p>특히 마음에 드는 점은 단계적 도입이 가능하다는 것이다. 우선 익명 모드로 차단만 켜고, 필요해지면 Bot ID와 OIDC를 붙여 감사 로그와 조직 단위 추적까지 가져갈 수 있다. 보안 도입이 “올인 아니면 포기”가 아니라 <strong>낮은 마찰로 시작해서 점진적으로 강화되는 구조</strong>라는 뜻이다.</p>
+<p>반대로 한계도 분명하다. 이 프로젝트 자체가 해결하는 범위는 npm 계열 설치 경로다. 애플리케이션 코드 안의 취약점, 이미 설치된 패키지의 안전성 전반, 다른 패키지 생태계까지 한 번에 다루는 도구는 아니다. 하지만 범위를 좁게 잡았기 때문에 오히려 “CI의 의존성 설치”라는 문제에 집중할 수 있었다고도 볼 수 있다.</p>
+<h2 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h2><p>setup-takumi-guard-npm은 거대한 기능을 가진 저장소라기보다, <strong>공급망 보안을 실제 워크플로 한복판에 꽂아 넣기 위한 아주 실용적인 어댑터</strong>에 가깝다. 이 프로젝트가 흥미로운 이유는 보안 기능의 양보다 설계의 방향성에 있다.</p>
+<ul>
+<li>npm 설치는 신뢰 결정이라는 전제</li>
+<li>차단은 설치 후가 아니라 설치 전에 해야 한다는 판단</li>
+<li>보안을 붙이기 위해 장기 비밀값을 늘리지 않겠다는 선택</li>
+<li>공개 advisory보다 빠른 실시간 분석을 설치 경로에 연결하겠다는 목표</li>
+</ul>
+<p>이 네 가지가 꽤 일관되게 맞물려 있다. 그래서 이 저장소는 단순한 GitHub Action 이상으로, “공급망 보안을 어디에 끼워 넣어야 효과적인가”에 대한 하나의 답처럼 보인다.</p>
+<h2 id="참고-링크"><a href="#참고-링크" class="headerlink" title="참고 링크"></a>참고 링크</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/flatt-security/setup-takumi-guard-npm">setup-takumi-guard-npm 저장소</a></li>
+<li><a target="_blank" rel="noopener" href="https://shisho.dev/docs/t/guard/">Takumi Guard 공식 소개</a></li>
+<li><a target="_blank" rel="noopener" href="https://shisho.dev/docs/t/guard/quickstart/npm">npm Quickstart</a></li>
+<li><a target="_blank" rel="noopener" href="https://shisho.dev/docs/t/guard/features/package-blocking">Package Blocking</a></li>
+<li><a target="_blank" rel="noopener" href="https://shisho.dev/docs/t/guard/features/breach-notifications">Breach Notifications</a></li>
+<li><a target="_blank" rel="noopener" href="https://shisho.dev/docs/t/guard/architecture/oidc">CI Integration &amp; OIDC Authentication</a></li>
+<li><a target="_blank" rel="noopener" href="https://shisho.dev/docs/t/guard/architecture/intelligence">Intelligence</a></li>
+<li><a target="_blank" rel="noopener" href="https://shisho.dev/docs/r/202603-takumi-guard">Takumi Guard 제공 시작 릴리스 노트</a></li>
+</ul>
+
+        </div>
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/blog/2026/03/10/numpy-ts-introduction/" class="navigation__link">
+        <p class="navigation__title">NumPy를 TypeScript로 옮긴다고? numpy-ts 살펴보기</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-10T00:00:00+09:00">
+      2026.03.10
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        Python 과학 컴퓨팅의 핵심인 NumPy를 TypeScript로 재구현한 numpy-ts를 소개한다. 93.9% API 커버리지, 트리셰이킹, 제로 디펜던시까지 갖춘 이 라이브러리를 자세히 들여다본다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://uyeong.github.io/blog/2026/03/11/setup-takumi-guard-npm-introduction/';
+      this.page.identifier = '2026/03/11/setup-takumi-guard-npm-introduction/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-55659240-1']);
+    _gaq.push(['_setAllowLinker', true]);
+    _gaq.push(['_trackPageview']);
+    (function () {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<script src="/blog/script.js"></script>
+
+</body>
+</html>
+
