@@ -13,7 +13,7 @@ tags:
     - Security
 cover: cover.jpg
 comments: true
-published: false
+published: true
 ---
 
 Chrome 146에서 변경된 내용은 많지만 실무 관점에서 전부 살펴 볼 필요는 없다. 이번 글에서는 릴리스 노트에서 실제 제품 코드에 영향을 주기 쉬운 변경 내용만 추려서 정리해보고자 한다.
