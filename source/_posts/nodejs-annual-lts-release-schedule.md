@@ -9,7 +9,7 @@ tags:
     - LTS
     - Release
     - Backend
-cover: cover.svg
+cover: cover.jpg
 comments: true
 published: false
 ---
@@ -116,4 +116,5 @@ Node.js 생태계가 실제 사용 패턴에 맞춰 **운영 가능성(sustainab
 
 이미지 출처
 
-- 커버 이미지, 타임라인 이미지: 본문 이해를 위해 직접 제작
+- 커버 이미지: Fronalpstock, Switzerland — Wikimedia Commons (Photo by Diliff, CC BY-SA 3.0)
+- 타임라인 이미지: 본문 이해를 위해 직접 제작
