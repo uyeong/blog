@@ -10,13 +10,12 @@
   <rights>All rights reserved 2026, Coderifleman</rights>
   <subtitle>frontend development stories.</subtitle>
   <title>Coderifleman's blog</title>
-  <updated>2026-03-12T05:28:09.819Z</updated>
+  <updated>2026-03-12T05:30:45.436Z</updated>
   <entry>
     <author>
       <name>Coderifleman</name>
     </author>
-    <category term="Development" scheme="https://uyeong.github.io/blog/categories/Development/"/>
-    <category term="JavaScript" scheme="https://uyeong.github.io/blog/categories/Development/JavaScript/"/>
+    <category term="Browser" scheme="https://uyeong.github.io/blog/categories/Browser/"/>
     <category term="Security" scheme="https://uyeong.github.io/blog/tags/Security/"/>
     <category term="Chrome" scheme="https://uyeong.github.io/blog/tags/Chrome/"/>
     <category term="Release-Note" scheme="https://uyeong.github.io/blog/tags/Release-Note/"/>
@@ -30,7 +29,7 @@
     <published>2026-03-12T05:22:00.000Z</published>
     <summary>Chrome 146 릴리스 노트를 기준으로 CSS, PWA, WebGPU, 성능, 보안 변경사항 중 실무 영향이 큰 항목을 골라 정리했다.</summary>
     <title>Chrome 146 릴리스 노트, 실무에서 바로 볼 포인트 7가지</title>
-    <updated>2026-03-12T05:28:09.819Z</updated>
+    <updated>2026-03-12T05:30:45.436Z</updated>
   </entry>
   <entry>
     <author>
