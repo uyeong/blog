@@ -10,13 +10,12 @@
   <rights>All rights reserved 2026, Coderifleman</rights>
   <subtitle>frontend development stories.</subtitle>
   <title>Coderifleman's blog</title>
-  <updated>2026-03-12T08:34:44.955Z</updated>
+  <updated>2026-03-12T08:38:14.036Z</updated>
   <entry>
     <author>
       <name>Coderifleman</name>
     </author>
     <category term="JavaScript" scheme="https://uyeong.github.io/blog/categories/JavaScript/"/>
-    <category term="Browser" scheme="https://uyeong.github.io/blog/categories/JavaScript/Browser/"/>
     <category term="JavaScript" scheme="https://uyeong.github.io/blog/tags/JavaScript/"/>
     <category term="ECMAScript" scheme="https://uyeong.github.io/blog/tags/ECMAScript/"/>
     <category term="Temporal" scheme="https://uyeong.github.io/blog/tags/Temporal/"/>
@@ -30,7 +29,7 @@
     <published>2026-03-12T07:10:00.000Z</published>
     <summary>Temporal이 Stage 4에 도달하면서 ES2026 포함이 사실상 확정됐다. Date의 구조적 한계를 짚고 Temporal 타입별 실무 적용 전략을 정리한다.</summary>
     <title>Temporal Stage 4 확정: ES2026에서 Date를 대체하는 방법</title>
-    <updated>2026-03-12T08:34:44.955Z</updated>
+    <updated>2026-03-12T08:38:14.036Z</updated>
   </entry>
   <entry>
     <author>

@@ -1095,11 +1095,4 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>https://uyeong.github.io/blog/categories/JavaScript/Browser/</loc>
-    <lastmod>2026-03-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 </urlset>
