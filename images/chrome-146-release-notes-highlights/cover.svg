@@ -1,0 +1,17 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="940" cy="160" r="120" fill="#ffffff" opacity="0.08"/>
+  <circle cx="1020" cy="520" r="180" fill="#ffffff" opacity="0.06"/>
+  <text x="90" y="180" fill="#e2e8f0" font-size="38" font-family="Pretendard, Noto Sans KR, sans-serif" font-weight="700">Chrome 146 릴리스 노트</text>
+  <text x="90" y="245" fill="#f8fafc" font-size="56" font-family="Pretendard, Noto Sans KR, sans-serif" font-weight="800">실무에서 바로 볼 포인트 7가지</text>
+  <text x="90" y="320" fill="#93c5fd" font-size="30" font-family="Pretendard, Noto Sans KR, sans-serif">CSS · WebGPU · 성능 · 보안 · PWA</text>
+  <rect x="90" y="380" width="820" height="150" rx="14" fill="#0b1220" stroke="#334155"/>
+  <text x="120" y="440" fill="#cbd5e1" font-size="28" font-family="Pretendard, Noto Sans KR, sans-serif">Stable: 2026-03-10</text>
+  <text x="120" y="490" fill="#cbd5e1" font-size="24" font-family="Pretendard, Noto Sans KR, sans-serif">Release Notes 기반 핵심 요약 + 적용 체크리스트</text>
+</svg>

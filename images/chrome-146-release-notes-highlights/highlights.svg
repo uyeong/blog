@@ -1,0 +1,21 @@
+<svg width="1200" height="840" viewBox="0 0 1200 840" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="840" fill="#f8fafc"/>
+  <text x="70" y="80" fill="#0f172a" font-size="42" font-family="Pretendard, Noto Sans KR, sans-serif" font-weight="800">Chrome 146 실무 체크맵</text>
+  <g font-family="Pretendard, Noto Sans KR, sans-serif">
+    <rect x="70" y="120" width="1060" height="120" rx="12" fill="#e2e8f0"/>
+    <text x="100" y="170" fill="#0f172a" font-size="28" font-weight="700">프론트엔드 UI</text>
+    <text x="100" y="210" fill="#334155" font-size="24">Scroll-triggered animations, trigger-scope, text-scale</text>
+
+    <rect x="70" y="270" width="1060" height="120" rx="12" fill="#dcfce7"/>
+    <text x="100" y="320" fill="#14532d" font-size="28" font-weight="700">PWA / 앱 런치</text>
+    <text x="100" y="360" fill="#166534" font-size="24">LaunchParams.targetURL 채움, reload 시 중복 재큐잉 방지</text>
+
+    <rect x="70" y="420" width="1060" height="120" rx="12" fill="#dbeafe"/>
+    <text x="100" y="470" fill="#1e3a8a" font-size="28" font-weight="700">그래픽 / 게임</text>
+    <text x="100" y="510" fill="#1e40af" font-size="24">WebGPU transient attachment, compatibility mode, WGSL 개선</text>
+
+    <rect x="70" y="570" width="1060" height="120" rx="12" fill="#fef3c7"/>
+    <text x="100" y="620" fill="#78350f" font-size="28" font-weight="700">성능 / 보안</text>
+    <text x="100" y="660" fill="#92400e" font-size="24">LCP candidate 동작 변경, Sanitizer API, 권한 개입 정책</text>
+  </g>
+</svg>
