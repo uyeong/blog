@@ -13,7 +13,7 @@ tags:
     - TC39
 cover: cover.jpg
 comments: true
-published: false
+published: true
 ---
 
 Temporal이 드디어 Stage 4에 도달했다. 새로운 API 하나가 추가됐다는 의미를 넘어 JavaScript에서 30년 넘게 쓰던 `Date`의 구조적 한계를 표준 레벨에서 바로잡는 계기가 됐다.
