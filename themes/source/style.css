@@ -816,7 +816,8 @@ a:active {
 }
 
 .meta__datetime,
-.meta__categories {
+.meta__categories,
+.meta__views {
   display: flex;
   align-items: center;
   gap: 5px;

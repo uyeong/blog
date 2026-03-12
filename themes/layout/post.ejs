@@ -7,7 +7,7 @@
           <div class="post__cover-overlay">
             <h1 class="post__title"><%= page.title %></h1>
             <div class="post__meta">
-              <%- partial('_partial/meta', {writeAt: page.date, categories: page.categories}) %>
+              <%- partial('_partial/meta', {writeAt: page.date, categories: page.categories, page}) %>
             </div>
           </div>
         </div>
@@ -18,7 +18,7 @@
         <div class="post__header">
           <h1 class="post__title"><%= page.title %></h1>
           <div class="post__meta">
-            <%- partial('_partial/meta', {writeAt: page.date, categories: page.categories}) %>
+            <%- partial('_partial/meta', {writeAt: page.date, categories: page.categories, page}) %>
           </div>
           <div class="post__tags">
             <%- partial('_partial/tags', {tags: page.tags}) %>

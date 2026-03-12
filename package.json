@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
+    "ga:views": "node tools/update-ga-views.mjs",
+    "build": "npm run ga:views && hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server"
@@ -12,6 +13,7 @@
     "version": "8.1.1"
   },
   "dependencies": {
+    "googleapis": "^144.0.0",
     "hexo": "^8.1.1",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",

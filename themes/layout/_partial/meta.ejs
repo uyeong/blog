@@ -20,4 +20,16 @@
       </div>
     <% } %>
   </div>
+  <% 
+    const gaViews = site?.data?.ga_views?.pageViews || {};
+    const pagePath = page && page.path ? url_for(page.path) : null;
+    const pagePathNoSlash = pagePath ? pagePath.replace(/\/$/, '') : null;
+    const views = pagePath ? (gaViews[pagePath] ?? gaViews[pagePathNoSlash] ?? null) : null;
+  %>
+  <% if (views !== null) { %>
+    <div class="meta__views">
+      <i class="fa fa-eye" aria-hidden="true"></i>
+      <span><%= Number(views).toLocaleString('ko-KR') %></span>
+    </div>
+  <% } %>
 </div>
