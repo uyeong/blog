@@ -1,7 +1,7 @@
 ---
 title: Chrome 146 릴리스 노트, 실무에서 바로 볼 포인트 7가지
 description: Chrome 146 릴리스 노트를 기준으로 CSS, PWA, WebGPU, 성능, 보안 변경사항 중 실무 영향이 큰 항목을 골라 정리했다.
-date: 2026-03-12
+date: 2026-03-12 14:22:00
 category:
     - Development
     - JavaScript

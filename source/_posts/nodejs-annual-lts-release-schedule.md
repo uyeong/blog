@@ -1,7 +1,7 @@
 ---
 title: "Node.js 릴리스, 이제 연 1회로 간다"
 description: 2026년 10월부터 Node.js 릴리스 모델이 바뀐다. 매년 나오는 메이저 버전이 6개월 Current를 거친 뒤 LTS로 전환되는 새 사이클의 핵심과 실무 영향 포인트를 정리했다.
-date: 2026-03-12
+date: 2026-03-12 11:11:00
 category:
     - Node.js
 tags:
