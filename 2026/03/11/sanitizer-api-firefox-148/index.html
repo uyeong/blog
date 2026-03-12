@@ -25,7 +25,7 @@
   
     
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"BlogPosting","headline":"Firefox 148의 Sanitizer API: innerHTML 대체를 진짜로 고민할 시점","description":"Firefox 148에서 표준 Sanitizer API(setHTML)가 먼저 탑재됐다. 이 글은 Mozilla 발표와 MDN, web.dev, Trusted Types 자료를 함께 읽고 setHTML의 핵심 개념, innerHTML 대비 차이, 실무 도입 포인트를 정리한다.","datePublished":"2026-03-10T15:00:00.000Z","dateModified":"2026-03-11T04:09:21.512Z","author":{"@type":"Person","name":"Coderifleman"},"mainEntityOfPage":"https://uyeong.github.io/blog/2026/03/11/sanitizer-api-firefox-148/","image":["https://uyeong.github.io/blog/blog/images/sanitizer-api-firefox-148/firefox-logo.svg"]}
+      {"@context":"https://schema.org","@type":"BlogPosting","headline":"Firefox 148의 Sanitizer API: innerHTML 대체를 진짜로 고민할 시점","description":"Firefox 148에서 표준 Sanitizer API(setHTML)가 먼저 탑재됐다. 이 글은 Mozilla 발표와 MDN, web.dev, Trusted Types 자료를 함께 읽고 setHTML의 핵심 개념, innerHTML 대비 차이, 실무 도입 포인트를 정리한다.","datePublished":"2026-03-10T15:00:00.000Z","dateModified":"2026-03-12T05:32:19.968Z","author":{"@type":"Person","name":"Coderifleman"},"mainEntityOfPage":"https://uyeong.github.io/blog/2026/03/11/sanitizer-api-firefox-148/","image":["https://uyeong.github.io/blog/blog/images/sanitizer-api-firefox-148/firefox-logo.svg"]}
     </script>
   
 
@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://uyeong.github.io/blog/images/sanitizer-api-firefox-148/mozilla-hacks.jpg">
 <meta property="og:image" content="https://uyeong.github.io/blog/images/sanitizer-api-firefox-148/checklist.jpg">
 <meta property="article:published_time" content="2026-03-10T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-11T04:09:21.512Z">
+<meta property="article:modified_time" content="2026-03-12T05:32:19.968Z">
 <meta property="article:author" content="Coderifleman">
 <meta property="article:tag" content="Firefox">
 <meta property="article:tag" content="JavaScript">
@@ -176,15 +176,8 @@
     
       <div class="meta__category-list">
         
-          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
-            <span>JavaScript</span>
-          </a>
-          
-            <span>&nbsp/ </span>
-          
-        
-          <a href="/blog/categories/JavaScript/Security/" class="meta__category-list-item">
-            <span>Security</span>
+          <a href="/blog/categories/Browser/" class="meta__category-list-item">
+            <span>Browser</span>
           </a>
           
         

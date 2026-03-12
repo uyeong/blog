@@ -96,8 +96,7 @@
     <author>
       <name>Coderifleman</name>
     </author>
-    <category term="JavaScript" scheme="https://uyeong.github.io/blog/categories/JavaScript/"/>
-    <category term="Security" scheme="https://uyeong.github.io/blog/categories/JavaScript/Security/"/>
+    <category term="Browser" scheme="https://uyeong.github.io/blog/categories/Browser/"/>
     <category term="JavaScript" scheme="https://uyeong.github.io/blog/tags/JavaScript/"/>
     <category term="Security" scheme="https://uyeong.github.io/blog/tags/Security/"/>
     <category term="XSS" scheme="https://uyeong.github.io/blog/tags/XSS/"/>
@@ -111,7 +110,7 @@
     <published>2026-03-10T15:00:00.000Z</published>
     <summary>Firefox 148에서 표준 Sanitizer API(setHTML)가 먼저 탑재됐다. 이 글은 Mozilla 발표와 MDN, web.dev, Trusted Types 자료를 함께 읽고 setHTML의 핵심 개념, innerHTML 대비 차이, 실무 도입 포인트를 정리한다.</summary>
     <title>Firefox 148의 Sanitizer API: innerHTML 대체를 진짜로 고민할 시점</title>
-    <updated>2026-03-11T04:09:21.512Z</updated>
+    <updated>2026-03-12T05:32:19.968Z</updated>
   </entry>
   <entry>
     <author>
