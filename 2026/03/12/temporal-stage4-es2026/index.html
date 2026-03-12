@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Temporal Stage 4 확정: ES2026에서 Date를 대체하는 방법 | Coderifleman&#39;s blog</title>
+  
+    <meta name="description" content="Temporal이 Stage 4에 도달하면서 ES2026 포함이 사실상 확정됐다. Date의 구조적 한계를 짚고 Temporal 타입별 실무 적용 전략을 정리한다.">
+  
+  
+    <meta name="keywords" content="Programming,Development,Web Developer,FrontEnd Developer,Web,FrontEnd,Architecture,UI,UX,JavaScript,ECMAScript,Temporal,Date,TC39">
+  
+  
+    <meta name="author" content="Coderifleman">
+  
+  
+  <link rel="canonical" href="https://uyeong.github.io/blog/2026/03/12/temporal-stage4-es2026/">
+
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebSite","name":"Coderifleman's blog","url":"https://uyeong.github.io/blog/","inLanguage":"ko"}
+  </script>
+
+  
+    
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BlogPosting","headline":"Temporal Stage 4 확정: ES2026에서 Date를 대체하는 방법","description":"Temporal이 Stage 4에 도달하면서 ES2026 포함이 사실상 확정됐다. Date의 구조적 한계를 짚고 Temporal 타입별 실무 적용 전략을 정리한다.","datePublished":"2026-03-12T07:10:00.000Z","dateModified":"2026-03-12T08:34:44.955Z","author":{"@type":"Person","name":"Coderifleman"},"mainEntityOfPage":"https://uyeong.github.io/blog/2026/03/12/temporal-stage4-es2026/","image":["https://uyeong.github.io/blog/blog/images/temporal-stage4-es2026/cover.jpg"]}
+    </script>
+  
+
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Coderifleman&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.png">
+  
+  <meta name="description" content="Temporal이 Stage 4에 도달하면서 ES2026 포함이 사실상 확정됐다. Date의 구조적 한계를 짚고 Temporal 타입별 실무 적용 전략을 정리한다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Temporal Stage 4 확정: ES2026에서 Date를 대체하는 방법">
+<meta property="og:url" content="https://uyeong.github.io/blog/2026/03/12/temporal-stage4-es2026/index.html">
+<meta property="og:site_name" content="Coderifleman&#39;s blog">
+<meta property="og:description" content="Temporal이 Stage 4에 도달하면서 ES2026 포함이 사실상 확정됐다. Date의 구조적 한계를 짚고 Temporal 타입별 실무 적용 전략을 정리한다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://uyeong.github.io/blog/images/temporal-stage4-es2026/types-map.svg">
+<meta property="article:published_time" content="2026-03-12T07:10:00.000Z">
+<meta property="article:modified_time" content="2026-03-12T08:34:44.955Z">
+<meta property="article:author" content="Coderifleman">
+<meta property="article:tag" content="Date">
+<meta property="article:tag" content="ECMAScript">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="TC39">
+<meta property="article:tag" content="Temporal">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://uyeong.github.io/blog/images/temporal-stage4-es2026/types-map.svg">
+<meta name="twitter:creator" content="@coderifleman">
+<meta name="twitter:site" content="https://uyeong.github.io/blog/2026/03/12/temporal-stage4-es2026/index.html">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+
+  
+<link rel="stylesheet" href="/blog/style.css">
+
+  <link rel="stylesheet" href="/blog/dark.css" media="(prefers-color-scheme: dark)">
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+
+<div class="root">
+  <header class="header">
+  <div class="header__picture">
+    <a href="/blog/">
+      <img src="/blog/images/common/author.png" alt="Coderifleman's Picture"/>
+    </a>
+  </div>
+  <div class="header__detail">
+    <h1 class="header__title">
+      <a href="/blog/">
+        Coderifleman&#39;s blog
+      </a>
+    </h1>
+    <p class="header__subtitle">frontend development stories.</p>
+    <div class="header__media">
+      <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+    </div>
+  </div>
+</header>
+
+  <section class="post post--has-cover">
+  <div class="post__inner">
+    <article class="post__body">
+      
+        <div class="post__cover">
+          <img src="/blog/images/temporal-stage4-es2026/cover.jpg" alt="Temporal Stage 4 확정: ES2026에서 Date를 대체하는 방법">
+          <div class="post__cover-overlay">
+            <h1 class="post__title">Temporal Stage 4 확정: ES2026에서 Date를 대체하는 방법</h1>
+            <div class="post__meta">
+              <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-12T16:10:00+09:00">
+      2026.03.12
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/JavaScript/" class="meta__category-list-item">
+            <span>JavaScript</span>
+          </a>
+          
+            <span>&nbsp/ </span>
+          
+        
+          <a href="/blog/categories/JavaScript/Browser/" class="meta__category-list-item">
+            <span>Browser</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="post__tags">
+          <div class="tags">
+  <ul class="tags__list">
+    
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/JavaScript/" >
+            #JavaScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/ECMAScript/" >
+            #ECMAScript
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Temporal/" >
+            #Temporal
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/Date/" >
+            #Date
+          </a>
+        </li>
+      
+        <li class="tags__item">
+          <a class="tags__link" href="/blog/tags/TC39/" >
+            #TC39
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+        </div>
+      
+      <div class="post__main">
+        
+        
+          <aside class="post__toc">
+            <h2>목차</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%ED%95%9C-%EC%A4%84-%EA%B2%B0%EB%A1%A0%EB%B6%80%ED%84%B0"><span class="toc-number">1.</span> <span class="toc-text">한 줄 결론부터</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stage-4%EC%9D%98-%EC%9D%98%EB%AF%B8-%ED%91%9C%EC%A4%80-%ED%99%95%EC%A0%95"><span class="toc-number">2.</span> <span class="toc-text">Stage 4의 의미: 표준 확정</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%99%9C-Date%EB%8A%94-%EA%B3%84%EC%86%8D-%EB%AC%B8%EC%A0%9C%EC%98%80%EC%9D%84%EA%B9%8C"><span class="toc-number">3.</span> <span class="toc-text">왜 Date는 계속 문제였을까</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Mutable-%EB%AA%A8%EB%8D%B8"><span class="toc-number">3.1.</span> <span class="toc-text">1) Mutable 모델</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%EB%8B%AC-%EC%9B%94-%EA%B3%84%EC%82%B0%EC%9D%98-%ED%95%A8%EC%A0%95"><span class="toc-number">3.2.</span> <span class="toc-text">2) 달&#x2F;월 계산의 함정</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%ED%8C%8C%EC%8B%B1-%EB%AA%A8%ED%98%B8%EC%84%B1"><span class="toc-number">3.3.</span> <span class="toc-text">3) 파싱 모호성</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%ED%83%80%EC%9E%84%EC%A1%B4-DST%EA%B0%80-%EC%99%B8%EB%B6%80-%EC%9D%98%EC%A1%B4"><span class="toc-number">3.4.</span> <span class="toc-text">4) 타임존&#x2F;DST가 외부 의존</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Temporal-%EC%84%A4%EA%B3%84-%ED%95%B5%EC%8B%AC-%ED%83%80%EC%9E%85%EC%9D%84-%EB%82%98%EB%88%A0%EC%84%9C-%EC%9D%98%EB%AF%B8%EB%A5%BC-%EA%B3%A0%EC%A0%95%ED%95%9C%EB%8B%A4"><span class="toc-number">4.</span> <span class="toc-text">Temporal 설계 핵심: 타입을 나눠서 의미를 고정한다</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Temporal-Instant"><span class="toc-number">4.1.</span> <span class="toc-text">Temporal.Instant</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Temporal-ZonedDateTime"><span class="toc-number">4.2.</span> <span class="toc-text">Temporal.ZonedDateTime</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Temporal-PlainDate-PlainTime-PlainDateTime"><span class="toc-number">4.3.</span> <span class="toc-text">Temporal.PlainDate, PlainTime, PlainDateTime</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Temporal-Duration"><span class="toc-number">4.4.</span> <span class="toc-text">Temporal.Duration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%A7%80%EA%B8%88-%EC%BD%94%EB%93%9C%EC%97%90%EC%84%9C-%EC%96%B4%EB%94%94%EB%B6%80%ED%84%B0-%EB%B0%94%EA%BE%B8%EB%A9%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C"><span class="toc-number">5.</span> <span class="toc-text">지금 코드에서 어디부터 바꾸면 좋을까</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EB%8B%A8%EA%B3%84-%EC%A0%80%EC%9E%A5-%EA%B3%84%EC%B8%B5-%EC%A0%95%EB%A6%AC"><span class="toc-number">5.1.</span> <span class="toc-text">1단계: 저장 계층 정리</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EB%8B%A8%EA%B3%84-%ED%91%9C%EC%8B%9C-%EC%9E%85%EB%A0%A5-%EA%B3%84%EC%B8%B5-%EB%B6%84%EB%A6%AC"><span class="toc-number">5.2.</span> <span class="toc-text">2단계: 표시&#x2F;입력 계층 분리</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EB%8B%A8%EA%B3%84-%EC%9C%84%ED%97%98-%EA%B5%AC%EA%B0%84-%EA%B5%90%EC%B2%B4"><span class="toc-number">5.3.</span> <span class="toc-text">3단계: 위험 구간 교체</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%EB%8B%A8%EA%B3%84-%EB%9F%B0%ED%83%80%EC%9E%84-%EC%A7%80%EC%9B%90-%EC%A0%84%EB%9E%B5"><span class="toc-number">5.4.</span> <span class="toc-text">4단계: 런타임 지원 전략</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bloomberg-%EA%B8%80%EC%97%90%EC%84%9C-%EB%88%88%EC%97%AC%EA%B2%A8%EB%B3%BC-%EA%B4%80%EC%A0%90"><span class="toc-number">6.</span> <span class="toc-text">Bloomberg 글에서 눈여겨볼 관점</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EB%A7%88%EB%AC%B4%EB%A6%AC"><span class="toc-number">7.</span> <span class="toc-text">마무리</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EC%B0%B8%EA%B3%A0-%EB%A7%81%ED%81%AC"><span class="toc-number">8.</span> <span class="toc-text">참고 링크</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%B6%9C%EC%B2%98"><span class="toc-number">8.1.</span> <span class="toc-text">이미지 출처</span></a></li></ol></li></ol>
+          </aside>
+        
+        <div class="post__contents">
+          <p>Temporal이 드디어 Stage 4에 도달했다. 새로운 API 하나가 추가됐다는 의미를 넘어 JavaScript에서 30년 넘게 쓰던 <code>Date</code>의 구조적 한계를 표준 레벨에서 바로잡는 계기가 됐다.</p>
+<p>이번 글에서는 Bloomberg가 공개한 글을 시작점으로, TC39 문서&#x2F;Temporal 공식 문서까지 함께 읽고 다음을 정리해본다.</p>
+<ul>
+<li>왜 <code>Date</code>가 문제였는지</li>
+<li>Temporal이 어떤 설계 원칙으로 문제를 풀었는지</li>
+<li>타입을 어떻게 골라야 하는지</li>
+<li>지금 코드베이스에서 어디부터 바꿔야 하는지</li>
+</ul>
+<h2 id="한-줄-결론부터"><a href="#한-줄-결론부터" class="headerlink" title="한 줄 결론부터"></a>한 줄 결론부터</h2><p>Temporal은 “Date 대체 후보”라기보다, <strong>시간 데이터를 용도에 맞게 나눠 다루는 표준 API 모음</strong>에 가깝다.</p>
+<ul>
+<li>저장&#x2F;전송 기준 시각은 <code>Temporal.Instant</code></li>
+<li>사용자 지역 시간 계산은 <code>Temporal.ZonedDateTime</code></li>
+<li>생일&#x2F;영업일&#x2F;매일 9시 같은 일정 기준 시간은 <code>Temporal.Plain*</code></li>
+</ul>
+<p>구분대로 기능을 잘 활용하면 DST 버그, 파싱 모호성, 가변 객체로 인한 부작용 같은 고질적인 이슈를 줄일 수 있다.</p>
+<h2 id="Stage-4의-의미-표준-확정"><a href="#Stage-4의-의미-표준-확정" class="headerlink" title="Stage 4의 의미: 표준 확정"></a>Stage 4의 의미: 표준 확정</h2><p>TC39 프로세스에서 Stage 4는 제안이 최종 표준에 포함되는 단계다. <code>tc39/proposals</code>의 Finished Proposals에도 Temporal이 올라와 있고, ES2026 publication year로 표기되어 있다.</p>
+<p>다만 문서별 반영 시점 차이는 있다. 예를 들어 <code>tc39/proposal-temporal</code> 저장소 일부 설명은 Stage 3 문구를 아직 포함하고 있을 수 있다. 이런 차이는 저장소 업데이트 타이밍 문제라, 실제 상태는 Finished Proposals와 구현&#x2F;출시 현황을 기준으로 보는 편이 정확하다.</p>
+
+    <div class="alert alert--info">
+      <strong class="alert__title">문서 읽을 때 헷갈리는 포인트</strong>
+      <div class="alert__body">
+        <p>Stage 상태는 단일 페이지만 보면 엇갈려 보일 수 있는데, 이럴 때는 <code>tc39/proposals</code>의 Finished Proposals와 엔진 출시 노트(Chrome&#x2F;Firefox 등)를 교차 확인하는 게 가장 안전하다.</p>
+
+      </div>
+    </div>
+  
+
+<h2 id="왜-Date는-계속-문제였을까"><a href="#왜-Date는-계속-문제였을까" class="headerlink" title="왜 Date는 계속 문제였을까"></a>왜 Date는 계속 문제였을까</h2><p>Bloomberg 글이 잘 짚은 대로, <code>Date</code>의 문제는 “사용법 미숙”보다 “설계 제약”으로 인해 발생한다.</p>
+<h3 id="1-Mutable-모델"><a href="#1-Mutable-모델" class="headerlink" title="1) Mutable 모델"></a>1) Mutable 모델</h3><p><code>setMonth</code>, <code>setDate</code> 같은 메서드가 원본을 직접 바꾸기 때문에, 헬퍼 함수 하나 잘못 만들면 상위 로직까지 부작용이 전염된다.</p>
+<h3 id="2-달-월-계산의-함정"><a href="#2-달-월-계산의-함정" class="headerlink" title="2) 달&#x2F;월 계산의 함정"></a>2) 달&#x2F;월 계산의 함정</h3><p>월 더하기 같은 달력 연산에서 overflow가 조용히 다음 달로 넘어가며 의도와 다른 결과를 만들기 쉽다.</p>
+<h3 id="3-파싱-모호성"><a href="#3-파싱-모호성" class="headerlink" title="3) 파싱 모호성"></a>3) 파싱 모호성</h3><p>“ISO와 비슷하지만 완전히 같진 않은 문자열”을 엔진별로 다르게 해석하던 역사가 길다. 예를 들어 브라우저, Node.js, 테스트 런타임이 혼재된 환경에서는 같은 입력이 다르게 파싱돼 재현이 어려운 버그가 생길 수 있다.</p>
+<h3 id="4-타임존-DST가-외부-의존"><a href="#4-타임존-DST가-외부-의존" class="headerlink" title="4) 타임존&#x2F;DST가 외부 의존"></a>4) 타임존&#x2F;DST가 외부 의존</h3><p>정확한 시간 계산을 하려면 결국 별도 라이브러리와 IANA 데이터를 의존해야 하고 결국 번들&#x2F;운영 복잡도가 올라간다.</p>
+<h2 id="Temporal-설계-핵심-타입을-나눠서-의미를-고정한다"><a href="#Temporal-설계-핵심-타입을-나눠서-의미를-고정한다" class="headerlink" title="Temporal 설계 핵심: 타입을 나눠서 의미를 고정한다"></a>Temporal 설계 핵심: 타입을 나눠서 의미를 고정한다</h2><p>Temporal의 본질은 “하나의 Date 타입으로 모든 걸 처리”하는 방식을 버린 데 있다. 목적에 맞는 타입을 먼저 고르고, 그 타입이 허용하는 연산만 하면 된다.</p>
+
+    <figure title="Temporal 타입 선택 가이드">
+      <a href="/blog/images/temporal-stage4-es2026/types-map.svg" target="_blank">
+        <img src="/blog/images/temporal-stage4-es2026/types-map.svg" alt="Temporal 타입 선택 가이드">
+      </a>
+      <figcaption>&lt;Temporal 타입 선택 가이드&gt;</figcaption>
+    </figure>
+  
+
+<h3 id="Temporal-Instant"><a href="#Temporal-Instant" class="headerlink" title="Temporal.Instant"></a><code>Temporal.Instant</code></h3><ul>
+<li>UTC 기준 절대 시각</li>
+<li>저장&#x2F;이벤트 로그&#x2F;서버 간 교환에 유리</li>
+<li>나노초 정밀도 지원</li>
+</ul>
+<h3 id="Temporal-ZonedDateTime"><a href="#Temporal-ZonedDateTime" class="headerlink" title="Temporal.ZonedDateTime"></a><code>Temporal.ZonedDateTime</code></h3><ul>
+<li>절대 시각 + 타임존 + 캘린더</li>
+<li>DST 경계 연산 안전성이 중요할 때 기본 선택지</li>
+</ul>
+<h3 id="Temporal-PlainDate-PlainTime-PlainDateTime"><a href="#Temporal-PlainDate-PlainTime-PlainDateTime" class="headerlink" title="Temporal.PlainDate, PlainTime, PlainDateTime"></a><code>Temporal.PlainDate</code>, <code>PlainTime</code>, <code>PlainDateTime</code></h3><ul>
+<li>타임존 없는 wall time</li>
+<li>생일, 매월 결제일, “매일 09:00” 같은 도메인 값에 적합</li>
+</ul>
+<h3 id="Temporal-Duration"><a href="#Temporal-Duration" class="headerlink" title="Temporal.Duration"></a><code>Temporal.Duration</code></h3><ul>
+<li>시점 간 차이나 연산 단위를 명시적으로 표현</li>
+<li><code>total()</code> 같은 API로 단위 변환이 명확함</li>
+</ul>
+<h2 id="지금-코드에서-어디부터-바꾸면-좋을까"><a href="#지금-코드에서-어디부터-바꾸면-좋을까" class="headerlink" title="지금 코드에서 어디부터 바꾸면 좋을까"></a>지금 코드에서 어디부터 바꾸면 좋을까</h2><p>“전면 교체”부터 시작하면 실패할 확률이 높다. 대신 장애나 오류가 자주 나는 경로부터 범위를 좁혀 바꾸는 편이 낫다.</p>
+<h3 id="1단계-저장-계층-정리"><a href="#1단계-저장-계층-정리" class="headerlink" title="1단계: 저장 계층 정리"></a>1단계: 저장 계층 정리</h3><ul>
+<li>신규 저장값은 <code>Instant</code>(또는 ISO string of Instant) 기준으로 통일</li>
+<li>기존 <code>Date</code> 직렬화 포맷과 혼용되는 경로 식별</li>
+</ul>
+<h3 id="2단계-표시-입력-계층-분리"><a href="#2단계-표시-입력-계층-분리" class="headerlink" title="2단계: 표시&#x2F;입력 계층 분리"></a>2단계: 표시&#x2F;입력 계층 분리</h3><ul>
+<li>사용자 지역 시각 표시 로직은 <code>ZonedDateTime</code></li>
+<li>도메인 날짜값(생일&#x2F;마감일)은 <code>PlainDate</code>로 모델링</li>
+</ul>
+<h3 id="3단계-위험-구간-교체"><a href="#3단계-위험-구간-교체" class="headerlink" title="3단계: 위험 구간 교체"></a>3단계: 위험 구간 교체</h3><ul>
+<li>DST 경계 연산(정산, 예약, 알림)</li>
+<li>문자열 파싱 분기 로직</li>
+<li><code>Date</code> mutable 메서드에 의존한 유틸</li>
+</ul>
+<h3 id="4단계-런타임-지원-전략"><a href="#4단계-런타임-지원-전략" class="headerlink" title="4단계: 런타임 지원 전략"></a>4단계: 런타임 지원 전략</h3><ul>
+<li>지원 브라우저&#x2F;런타임 매트릭스 점검</li>
+<li>미지원 환경은 polyfill 전략 명시</li>
+</ul>
+<h2 id="Bloomberg-글에서-눈여겨볼-관점"><a href="#Bloomberg-글에서-눈여겨볼-관점" class="headerlink" title="Bloomberg 글에서 눈여겨볼 관점"></a>Bloomberg 글에서 눈여겨볼 관점</h2><p>Bloomberg 글은 단순 기능 소개를 넘어서, Temporal이 왜 “9년짜리 작업”이었는지 맥락을 잘 보여준다. 특히 실무 관점에서 눈에 띄는 건 세 가지다.</p>
+<ol>
+<li>표준 API가 실제 대규모 운영 문제(시간대, 캘린더, 정밀도)에서 출발했다는 점</li>
+<li>Bloomberg, Google, Igalia, Mozilla 등 복수 조직이 장기간 협업하고, <code>temporal_rs</code>처럼 V8을 포함한 여러 엔진이 공유하는 Rust 구현 기반까지 갖췄다는 점</li>
+<li>Test262 테스트 규모도 매우 커서, 표준화–구현–검증 체인이 비교적 단단하게 만들어졌다는 점</li>
+</ol>
+<p>이건 팀에 Temporal 도입을 설득할 때도 쓸 수 있는 근거다. “새 문법”이 아니라 “기존 시간 모델의 구조적 리스크를 줄이는 투자”로 이야기할 수 있기 때문이다.</p>
+<h2 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h2><p>Temporal Stage 4를 환영한다. 우리는 이제 시간 데이터를 더 이상 Date 하나로 우겨 넣지 않아도 된다.</p>
+<p>다음 스프린트에서 바로 시도해볼 수 있는 변화는 크지 않다.</p>
+<ul>
+<li><code>Date</code> 신규 사용 금지 룰 추가</li>
+<li>신규 시각 저장은 <code>Instant</code> 우선</li>
+<li>타임존 연산 경로를 <code>ZonedDateTime</code> 후보로 분리</li>
+</ul>
+<p>작게 시작해도 효과는 빨리 체감될 가능성이 높다. 시간 버그는 늦게 발견될수록 비싸다.</p>
+<h2 id="참고-링크"><a href="#참고-링크" class="headerlink" title="참고 링크"></a>참고 링크</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://bloomberg.github.io/js-blog/post/temporal/">Temporal: The 9-Year Journey to Fix Time in JavaScript (Bloomberg)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tc39/proposals/blob/main/finished-proposals.md">TC39 Finished Proposals</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tc39/proposal-temporal">Temporal Proposal Repository</a></li>
+<li><a target="_blank" rel="noopener" href="https://tc39.es/proposal-temporal/docs/">Temporal Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal">MDN Temporal</a></li>
+</ul>
+<h3 id="이미지-출처"><a href="#이미지-출처" class="headerlink" title="이미지 출처"></a>이미지 출처</h3><ul>
+<li>커버: <a target="_blank" rel="noopener" href="https://www.pexels.com/photo/gray-and-black-pocket-watch-1252869/">Photo by Pixabay on Pexels</a></li>
+<li>본문 이미지: 직접 제작 (SVG)</li>
+</ul>
+
+        </div>
+      </div>
+    </article>
+    <div class="post__footer">
+      <div class="post__navigation">
+        <nav class="navigation">
+  
+  
+  <div class="navigation__prev">
+    
+  </div>
+  <div class="navigation__next">
+    
+      <span class="navigation__guide">Previous Post</span>
+      <a href="/blog/2026/03/12/chrome-146-release-notes-highlights/" class="navigation__link">
+        <p class="navigation__title">Chrome 146 릴리스 노트, 실무에서 바로 볼 포인트 7가지</p>
+      </a>
+      <div class="navigation__meta">
+        <div class="meta">
+  <div class="meta__datetime">
+    <i class="fa fa-clock-o" aria-hidden="true"></i>
+    <time datetime="2026-03-12T14:22:00+09:00">
+      2026.03.12
+    </time>
+  </div>
+  <div class="meta__categories ellipsis">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    
+      <div class="meta__category-list">
+        
+          <a href="/blog/categories/Browser/" class="meta__category-list-item">
+            <span>Browser</span>
+          </a>
+          
+        
+      </div>
+    
+  </div>
+</div>
+
+      </div>
+      <p class="navigation__desc">
+        Chrome 146 릴리스 노트를 기준으로 CSS, PWA, WebGPU, 성능, 보안 변경사항 중 실무 영향이 큰 항목을 골라 정리했다.
+      </p>
+    
+  </div>
+</nav>
+
+      </div>
+      
+        <div class="post__comments">
+          <div id="disqus_thread"></div>
+          <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by
+              Disqus.</a></noscript>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+  <div class="footer__media">
+    <ul class="media">
+  
+    
+      <li class="media__medium">
+        
+          <a href="mailto:uyeong21c@gmail.com">
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="blind">Email</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//twitter.com/coderifleman" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="blind">Twitter</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//facebook.com/coderifleman" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="blind">Facebook</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="//github.com/uyeong" target="_blank">
+            <i class="fa fa-github" aria-hidden="true"></i>
+            <span class="blind">Github</span>
+          </a>
+        
+      </li>
+    
+  
+    
+      <li class="media__medium">
+        
+          <a href="/blog/atom.xml" target="_blank">
+            <i class="fa fa-rss" aria-hidden="true"></i>
+            <span class="blind">RSS</span>
+          </a>
+        
+      </li>
+    
+  
+</ul>
+
+  </div>
+  <div class="footer__copyright">
+    © 2014–2026 Copyright by <a href="/blog/">Coderifleman</a>.<br />
+    All rights reserved.
+  </div>
+</footer>
+
+</div>
+
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://uyeong.github.io/blog/2026/03/12/temporal-stage4-es2026/';
+      this.page.identifier = '2026/03/12/temporal-stage4-es2026/';
+    };
+    (function () {
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//coderifleman.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F9JMKLTT5F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-F9JMKLTT5F');
+  </script>
+
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="//cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+<script src="/blog/script.js"></script>
+
+</body>
+</html>
+
