@@ -11,7 +11,7 @@ tags:
     - Backend
 cover: cover.jpg
 comments: true
-published: false
+published: true
 ---
 
 Node.js를 운영 환경에서 쓰고 있다면, 이번 릴리스 모델 변경은 짚고 넘어가야 한다.
