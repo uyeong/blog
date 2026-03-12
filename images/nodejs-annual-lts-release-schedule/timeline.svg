@@ -1,0 +1,28 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Node.js 26에서 27로 전환되는 릴리스 타임라인">
+  <rect width="1200" height="700" fill="#f8fafc"/>
+  <text x="80" y="80" fill="#0f172a" font-size="38" font-family="Pretendard, Noto Sans KR, sans-serif" font-weight="700">Node.js 릴리스 전환 타임라인 (2026~2027)</text>
+  <line x1="100" y1="180" x2="1100" y2="180" stroke="#94a3b8" stroke-width="6"/>
+
+  <circle cx="180" cy="180" r="12" fill="#334155"/>
+  <text x="140" y="140" fill="#1e293b" font-size="24" font-family="Pretendard, Noto Sans KR, sans-serif">2026.04</text>
+  <text x="95" y="230" fill="#475569" font-size="22" font-family="Pretendard, Noto Sans KR, sans-serif">v26.0.0 출시</text>
+
+  <circle cx="460" cy="180" r="12" fill="#16a34a"/>
+  <text x="420" y="140" fill="#1e293b" font-size="24" font-family="Pretendard, Noto Sans KR, sans-serif">2026.10</text>
+  <text x="330" y="230" fill="#166534" font-size="22" font-family="Pretendard, Noto Sans KR, sans-serif">v27 Alpha 시작 / v26 LTS 진입</text>
+
+  <circle cx="760" cy="180" r="12" fill="#0284c7"/>
+  <text x="720" y="140" fill="#1e293b" font-size="24" font-family="Pretendard, Noto Sans KR, sans-serif">2027.04</text>
+  <text x="690" y="230" fill="#0c4a6e" font-size="22" font-family="Pretendard, Noto Sans KR, sans-serif">v27.0.0 출시</text>
+
+  <circle cx="1020" cy="180" r="12" fill="#d97706"/>
+  <text x="980" y="140" fill="#1e293b" font-size="24" font-family="Pretendard, Noto Sans KR, sans-serif">2027.10</text>
+  <text x="930" y="230" fill="#92400e" font-size="22" font-family="Pretendard, Noto Sans KR, sans-serif">v27 LTS 진입</text>
+
+  <rect x="100" y="320" width="1000" height="300" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="130" y="380" fill="#0f172a" font-size="28" font-family="Pretendard, Noto Sans KR, sans-serif" font-weight="600">새 모델 핵심</text>
+  <text x="130" y="430" fill="#334155" font-size="24" font-family="Pretendard, Noto Sans KR, sans-serif">• Alpha(10~3월): semver-major 허용, 라이브러리 CI 조기 검증</text>
+  <text x="130" y="475" fill="#334155" font-size="24" font-family="Pretendard, Noto Sans KR, sans-serif">• Current(4~10월): 안정화, 실제 운영 반영 전 검증 단계</text>
+  <text x="130" y="520" fill="#334155" font-size="24" font-family="Pretendard, Noto Sans KR, sans-serif">• LTS(30개월): 보안 패치 + 장기 운영 지원</text>
+  <text x="130" y="565" fill="#334155" font-size="24" font-family="Pretendard, Noto Sans KR, sans-serif">• 버전 번호 = 출시 연도 (v27=2027, v28=2028)</text>
+</svg>
