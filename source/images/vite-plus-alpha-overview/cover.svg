@@ -1,0 +1,61 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="-120" y1="-60" x2="1720" y2="980" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#161a33">
+        <animate attributeName="stop-color" values="#161a33;#20254a;#161a33" dur="20s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="0.52" stop-color="#3b2f83">
+        <animate attributeName="stop-color" values="#3b2f83;#4c3ea8;#3b2f83" dur="24s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="1" stop-color="#178588">
+        <animate attributeName="stop-color" values="#178588;#2aa5a2;#178588" dur="22s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+
+    <radialGradient id="auroraA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 220) rotate(15) scale(760 520)">
+      <stop offset="0" stop-color="#9CB6FF" stop-opacity="0.55"/>
+      <stop offset="0.45" stop-color="#809CFF" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#809CFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="auroraB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1230 640) rotate(-10) scale(820 560)">
+      <stop offset="0" stop-color="#6EF3DC" stop-opacity="0.48"/>
+      <stop offset="0.5" stop-color="#63E5D0" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#63E5D0" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="auroraC" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(860 470) rotate(25) scale(900 640)">
+      <stop offset="0" stop-color="#D9CBFF" stop-opacity="0.26"/>
+      <stop offset="0.55" stop-color="#A7B0FF" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#A7B0FF" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="softBlur" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="70"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <g filter="url(#softBlur)">
+    <ellipse cx="360" cy="220" rx="760" ry="520" fill="url(#auroraA)" opacity="0.55">
+      <animateTransform attributeName="transform" type="translate" values="-24 -18; 18 14; 36 22; -24 -18" dur="26s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" additive="sum" type="scale" values="1;1.03;1.06;1" dur="26s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <ellipse cx="1230" cy="640" rx="820" ry="560" fill="url(#auroraB)" opacity="0.48">
+      <animateTransform attributeName="transform" type="translate" values="20 16; -22 -12; -34 -20; 20 16" dur="30s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" additive="sum" type="scale" values="1;1.04;1.07;1" dur="30s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <ellipse cx="860" cy="470" rx="900" ry="640" fill="url(#auroraC)" opacity="0.42">
+      <animateTransform attributeName="transform" type="translate" values="0 0; 12 -10; -10 12; 0 0" dur="34s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" additive="sum" type="scale" values="1;1.02;1.04;1" dur="34s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <g opacity="0.12" filter="url(#softBlur)">
+    <path d="M-40 720C220 600 420 620 640 700C860 780 1060 790 1300 700C1480 630 1650 650 1700 670V940H-40V720Z" fill="#E7E9FF"/>
+    <path d="M-40 770C210 670 400 700 620 770C840 840 1030 850 1270 770C1470 705 1640 710 1700 730V940H-40V770Z" fill="#CCFFEF"/>
+  </g>
+</svg>
