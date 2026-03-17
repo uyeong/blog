@@ -14,8 +14,8 @@ cover: cover.jpg
 comments: true
 ---
 
-결론부터 말하면, <strong>Temporal Stage 4는 "새 API 하나 추가"가 아니라 JavaScript의 시간 모델이 공식적으로 바뀌는 신호</strong>다.  
-기존 `Date`가 "타임스탬프 숫자 하나를 로컬/UTC 문맥으로 해석"하는 방식이었다면, Temporal은 아예 타입을 분리해서 의도를 코드에 드러내도록 설계됐다.
+결론부터 말하면, <strong>Temporal Stage 4는 새 API 하나가 늘어난 정도가 아니라, JavaScript 표준에서 날짜/시간을 다루는 기본 관점을 넓힌 변화</strong>다.  
+기존 `Date`가 "타임스탬프 숫자 하나를 로컬/UTC 문맥으로 해석"하는 모델이었다면, Temporal은 값의 성격에 따라 타입을 분리해 의도를 코드에서 더 분명히 드러내도록 설계됐다.
 
 {% figure cover.jpg 'TC39 Temporal Stage 4 관련 이미지' 'TC39 Temporal Stage 4 관련 이미지 (출처: Socket)' %}
 
@@ -32,15 +32,16 @@ comments: true
 
 ## 이번 뉴스 핵심 요약
 
-2026년 3월 TC39 회의에서 Temporal이 Stage 4로 확정됐다. Stage 4는 사실상 스펙 편입 직전(또는 완료) 단계로 보면 된다. Temporal 저장소에도 Stage 4 상태와 ECMA-262/402 반영 계획이 명시돼 있다.
+2026년 3월 TC39 회의에서 Temporal이 Stage 4로 올라갔다. Stage 4는 제안 단계가 끝나고 표준(ECMA-262/402) 반영으로 넘어가는 상태다. Temporal 제안 저장소 README에도 Stage 4와 병합 PR이 명시돼 있다.
 
-그리고 구현도 이미 움직이고 있다.
+구현 상태도 "아이디어" 수준은 이미 지났다. (지원 현황 기준: 2026-03)
 
-- Firefox: 139에서 shipped
-- Chrome: 144에서 shipped
-- Node.js/Safari: 진행 중
+- Firefox: 139에서 shipped ([release note](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/139#javascript))
+- Chrome: 144에서 shipped ([release note](https://developer.chrome.com/release-notes/144#temporal_in_ecma262))
+- Node.js: 구현 이슈 트래킹 중 ([nodejs/node#57127](https://github.com/nodejs/node/issues/57127))
+- Safari(JavaScriptCore): 구현 버그 트래킹 중 ([WebKit bug 223166](https://bugs.webkit.org/show_bug.cgi?id=223166))
 
-즉, "언젠가 올 기능"이 아니라 <strong>지금부터 코드베이스 전략을 세워야 하는 기능</strong>이 됐다.
+그래서 Temporal은 "먼 미래 기능"이라기보다, <strong>프로젝트별 도입 시점과 범위를 정리해 둘 필요가 있는 기능</strong>에 가깝다.
 
 ## Date에서 Temporal로: 모델 자체가 달라졌다
 
@@ -94,12 +95,12 @@ Temporal 문서는 타임존 변환 시 모호한 구간 처리 전략을 명시
 
 ## 마무리
 
-Temporal Stage 4 소식의 진짜 의미는, 이제 날짜/시간 처리를 라이브러리 관성으로만 미루기 어려워졌다는 데 있다.  
-개인적으로는 "버그가 많은 영역을 표준 타입 시스템으로 끌어올렸다"는 점에서 꽤 큰 전환이라고 본다.
+Temporal Stage 4 소식의 핵심은, 날짜/시간 처리를 더 이상 "라이브러리 선택" 문제로만 보기 어렵다는 점이다.  
+표준 차원에서 타입 모델이 정리됐기 때문에, 앞으로는 팀 단위의 시간 데이터 설계가 더 중요해진다.
 
-한 줄 takeaway를 남기면 이거다.
+한 줄로 정리하면 다음과 같다.
 
-<strong>이제 Date를 잘 쓰는 것보다, 값의 성격에 맞는 Temporal 타입을 고르는 능력이 더 중요해진다.</strong>
+<strong>Date 사용 요령만 아는 것보다, 값의 성격에 맞게 Temporal 타입을 선택하고 경계를 설계하는 역량이 점점 더 중요해진다.</strong>
 
 ## 참고 링크
 
