@@ -1,5 +1,5 @@
 ---
-title: Tabnabbing 공격과 rel=noopener 속성
+title: "[내가 쓴 글] Tabnabbing 공격과 rel=noopener 속성"
 description: 이 문서는 Tabnabbing 공격과 이를 막을 수 있는 rel=noopener 속성에 대해 소개합니다.
 date : 2017-05-30
 category:

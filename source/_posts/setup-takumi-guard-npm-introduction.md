@@ -1,5 +1,5 @@
 ---
-title: "npm 설치 앞에 경비원을 세우는 법: setup-takumi-guard-npm 살펴보기"
+title: "[AI가 쓴 글] npm 설치 앞에 경비원을 세우는 법: setup-takumi-guard-npm 살펴보기"
 description: setup-takumi-guard-npm은 GitHub Actions의 npm 설치 경로를 Takumi Guard 프록시로 연결해 악성 패키지를 설치 전에 차단한다. 이 글에서는 왜 이 방식이 실무에서 유효한지, 어디까지 해결하고 어디서부터는 별도 대응이 필요한지 핵심만 정리한다.
 date: 2026-03-11
 category:
@@ -13,6 +13,10 @@ tags:
     - Supply Chain Security
 cover: cover.png
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 `npm install`은 단순히 "패키지 내려받기"로 느껴지지만, 실제로는 <strong>외부 코드를 우리 CI 환경에 들여오는 첫 단계</strong>다.  
 그리고 이 단계는 테스트보다 먼저 실행된다. 그래서 악성 패키지가 섞여 있으면 검사 전에 설치 단계에서 문제가 발생할 수 있다.

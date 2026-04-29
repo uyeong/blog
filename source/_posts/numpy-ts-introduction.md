@@ -1,5 +1,5 @@
 ---
-title: NumPy를 TypeScript로 옮긴다고? numpy-ts 살펴보기
+title: "[AI가 쓴 글] NumPy를 TypeScript로 옮긴다고? numpy-ts 살펴보기"
 description: Python 과학 컴퓨팅의 핵심인 NumPy를 TypeScript로 재구현한 numpy-ts를 소개한다. 93.9% API 커버리지, 트리셰이킹, 제로 디펜던시까지 갖춘 이 라이브러리를 자세히 들여다본다.
 date: 2026-03-10
 category:
@@ -11,6 +11,10 @@ tags:
     - Development
 cover: cover.jpg
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 프론트엔드 개발자라면 한 번쯤 이런 생각을 해봤을 것이다. "NumPy처럼 다차원 배열을 자유롭게 다루고 싶은데, 왜 JavaScript 생태계에는 마땅한 게 없지?"
 

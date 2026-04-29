@@ -1,5 +1,5 @@
 ---
-title: "Firefox 148의 Sanitizer API: innerHTML 대체를 진짜로 고민할 시점"
+title: "[AI가 쓴 글] Firefox 148의 Sanitizer API: innerHTML 대체를 진짜로 고민할 시점"
 description: Firefox 148에서 표준 Sanitizer API(setHTML)가 먼저 탑재됐다. 이 글은 Mozilla 발표와 MDN, web.dev, Trusted Types 자료를 함께 읽고 setHTML의 핵심 개념, innerHTML 대비 차이, 실무 도입 포인트를 정리한다.
 date: 2026-03-11
 category:
@@ -12,6 +12,10 @@ tags:
     - Sanitizer API
 cover: firefox-logo.svg
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 프런트엔드에서 XSS는 늘 "위험하다"고 말하지만, 막상 코드에는 `innerHTML`이 계속 남아 있는 경우가 많다. 이유는 단순하다. 위험한 건 아는데, 기존 동작을 깨지 않으면서 안전하게 바꾸는 방법이 애매하기 때문이다. Firefox 148에 Sanitizer API가 탑재됐다는 소식이 의미 있는 이유도 바로 여기에 있다.
 

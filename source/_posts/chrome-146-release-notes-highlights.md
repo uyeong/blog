@@ -1,5 +1,5 @@
 ---
-title: Chrome 146 릴리스 노트, 실무에서 바로 볼 포인트 7가지
+title: "[AI가 쓴 글] Chrome 146 릴리스 노트, 실무에서 바로 볼 포인트 7가지"
 description: Chrome 146 릴리스 노트를 기준으로 CSS, PWA, WebGPU, 성능, 보안 변경사항 중 실무 영향이 큰 항목을 골라 정리했다.
 date: 2026-03-12 14:22:00
 category:
@@ -14,6 +14,10 @@ cover: cover.jpg
 comments: true
 published: true
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 이번 글에서는 Chrome 146 릴리스 내용 중 실제 제품 코드에 영향을 줄 수 있는 변경 내용을 간추려서 정리해 소개한다.
 

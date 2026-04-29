@@ -1,5 +1,5 @@
 ---
-title: OpenRedaction — 텍스트에서 민감 정보를 자동으로 찾아 마스킹하는 라이브러리
+title: "[AI가 쓴 글] OpenRedaction — 텍스트에서 민감 정보를 자동으로 찾아 마스킹하는 라이브러리"
 description: JavaScript/TypeScript 환경에서 이메일, 전화번호, 카드번호 등 570개 이상의 PII 패턴을 정규식 기반으로 탐지하고 마스킹하는 오픈소스 라이브러리 OpenRedaction을 소개한다.
 date: 2026-03-19 11:00:00
 category:
@@ -15,6 +15,10 @@ tags:
 cover: cover.jpg
 comments: true
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 서비스를 운영하다 보면 로그에 사용자 이메일이 찍히고, 분석 파이프라인에 전화번호가 섞여 들어간다. 요즘은 LLM에 보낸 프롬프트에 카드번호가 실려 나가는 일까지 생긴다. GDPR, HIPAA 같은 규정이 아니더라도 개인정보가 의도치 않게 유출되는 건 누구에게나 부담스러운 일이다.
 

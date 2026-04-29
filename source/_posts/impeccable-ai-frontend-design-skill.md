@@ -1,5 +1,5 @@
 ---
-title: "impeccable은 어떤 프로젝트인가: AI 코딩 에이전트용 프론트엔드 디자인 스킬셋"
+title: "[AI와 쓴 글] impeccable은 어떤 프로젝트인가: AI 코딩 에이전트용 프론트엔드 디자인 스킬셋"
 description: impeccable은 Claude Code, Cursor, Gemini CLI, Codex CLI에서 쓸 수 있는 프론트엔드 디자인 스킬/명령 세트다. 구성 요소와 실무 적용 포인트를 정리했다.
 date: 2026-03-12 17:50:00
 category:
@@ -14,6 +14,10 @@ cover: cover.jpg
 comments: true
 published: true
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 저자의 생각과 맥락을 바탕으로 생성형 AI가 세부 내용을 함께 구성했고, 최종 표현과 방향은 저자가 검토해 다듬었습니다.
+{% endalert %}
 
 `pbakaus/impeccable`은 "AI가 UI를 만들 때 자주 내는 뻔한 결과"를 줄이기 위한 <strong>디자인 지향 스킬 번들</strong>이다.
 

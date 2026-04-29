@@ -1,5 +1,5 @@
 ---
-title: "TC39 2026년 3월 제안 업데이트 정리: ECMA-262/402에서 바뀐 것"
+title: "[AI가 쓴 글] TC39 2026년 3월 제안 업데이트 정리: ECMA-262/402에서 바뀐 것"
 description: "ECMAScript Daily의 2026년 3월 업데이트를 기준으로 ECMA-262/402의 stage 이동과 withdrawn 항목을 정리하고, 각 제안이 어떤 문제를 풀기 위해 나왔는지 짧게 확장 분석한다."
 date: 2026-03-17 15:58:00
 category:
@@ -13,6 +13,10 @@ tags:
 cover: cover.jpg
 comments: true
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 이번 TC39 2026년 3월에서 Temporal·Intl era/monthCode가 Stage 4에 도달했고, 동시에 에러·모듈·Promise 쪽 동작을 더 분명하게 다듬는 제안들도 진척됐다.
 

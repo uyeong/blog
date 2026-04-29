@@ -1,5 +1,5 @@
 ---
-title: React에 대한 여러가지 생각을 읽고
+title: "[내가 쓴 글] React에 대한 여러가지 생각을 읽고"
 description: Youngrok Pak님의 「React에 대한 여러 가지 생각」을 읽고 해당 글에 대한 개인적인 의견과 React에 관해 평소에 이야기하고 싶었던 내용을 함께 이야기합니다.
 date : 2016-04-26
 category:

@@ -1,5 +1,5 @@
 ---
-title: requestAnimationFrame을 어떻게 테스트 할 수 있을까?
+title: "[내가 쓴 글] requestAnimationFrame을 어떻게 테스트 할 수 있을까?"
 description: requestAnimationFrame을 사용해 작성한 코드를 어떻게 유닛 테스트(Unit Test)할 수 있는지 단계별로 자세히 소개합니다.
 date : 2016-12-02
 category:

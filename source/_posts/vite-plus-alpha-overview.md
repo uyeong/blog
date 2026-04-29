@@ -1,5 +1,5 @@
 ---
-title: Vite+ Alpha 공개, 프런트엔드 툴체인 단일화가 진짜로 의미 있는 이유
+title: "[AI가 쓴 글] Vite+ Alpha 공개, 프런트엔드 툴체인 단일화가 진짜로 의미 있는 이유"
 description: Vite+ Alpha 발표 내용을 바탕으로, 왜 '런타임+패키지 매니저+빌드/테스트/린트' 통합이 팀 생산성에 영향을 주는지와 도입 시 체크포인트를 정리합니다.
 date: 2026-03-15 12:45:00
 category:
@@ -13,6 +13,10 @@ tags:
 cover: cover.svg
 comments: true
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 <strong>Vite+ Alpha는 프런트엔드 개발에서 매일 쓰는 도구들을 vp(Vite Plus)라는 단일 진입점으로 묶어서, 설정 파일과 운영 복잡도를 줄이려는 시도</strong>다.
 

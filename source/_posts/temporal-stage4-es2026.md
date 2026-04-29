@@ -1,5 +1,5 @@
 ---
-title: "Temporal Stage 4 확정: ES2026에서 Date를 대체하는 방법"
+title: "[AI가 쓴 글] Temporal Stage 4 확정: ES2026에서 Date를 대체하는 방법"
 description: Temporal이 Stage 4에 도달하면서 ES2026 포함이 사실상 확정됐다. Date의 구조적 한계를 짚고 Temporal 타입별 실무 적용 전략을 정리한다.
 date: 2026-03-12 16:10:00
 category:
@@ -14,6 +14,10 @@ cover: cover.jpg
 comments: true
 published: true
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 Temporal이 드디어 Stage 4에 도달했다. 새로운 API 하나가 추가됐다는 의미를 넘어 JavaScript에서 30년 넘게 쓰던 `Date`의 구조적 한계를 표준 레벨에서 바로잡는 계기가 됐다.
 

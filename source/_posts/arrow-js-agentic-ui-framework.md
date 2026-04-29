@@ -1,5 +1,5 @@
 ---
-title: "ArrowJS는 왜 '에이전트 시대의 UI 프레임워크'를 자처할까"
+title: "[AI가 쓴 글] ArrowJS는 왜 '에이전트 시대의 UI 프레임워크'를 자처할까"
 description: ArrowJS는 빌드 스텝 없이 동작하는 초경량 반응형 UI 런타임이면서, AI가 생성한 UI 코드를 WebAssembly 샌드박스에서 분리 실행하는 기능까지 내세운다. 공식 사이트와 GitHub 저장소를 바탕으로 이 프로젝트의 정체성과 실사용 포인트를 정리했다.
 date: 2026-04-13 15:05:00
 category:
@@ -14,6 +14,10 @@ tags:
 cover: cover.jpg
 comments: true
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 UI 프레임워크를 소개할 때는 보통 반응성, 컴포넌트 모델, 생태계, 성능 같은 이야기를 먼저 꺼낸다. 그런데 ArrowJS는 스스로를 <strong>"The first UI framework for the agentic era"</strong>라고 소개한다. 단순히 가볍고 빠르다는 얘기만이 아니라, <strong>AI가 만들고 실행하는 UI를 염두에 두고 설계했다</strong>는 뜻이다.
 

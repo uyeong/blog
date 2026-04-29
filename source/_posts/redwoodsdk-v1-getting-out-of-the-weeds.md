@@ -1,5 +1,5 @@
 ---
-title: RedwoodSDK 1.0, 구현의 늪에서 제품으로 시선을 돌리다
+title: "[AI가 쓴 글] RedwoodSDK 1.0, 구현의 늪에서 제품으로 시선을 돌리다"
 description: RedwoodJS에서 RedwoodSDK로 전환되며 드러난 핵심 변화(Without Magic, Composability Over Configuration, Web-First)를 개발자 실무 관점에서 정리했다.
 date: 2026-03-13 09:45:00
 category:
@@ -13,6 +13,10 @@ tags:
 cover: cover-gradient-a.svg
 comments: true
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 RedwoodSDK 1.0 발표를 한 줄로 요약하면 <strong>"프레임워크가 개발자를 똑똑하게 보이게 해주던 시대에서, 개발자가 제품 문제를 더 빨리 풀 수 있게 해주는 시대로 전환하겠다"</strong>는 선언이다.
 

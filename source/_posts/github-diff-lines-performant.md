@@ -1,5 +1,5 @@
 ---
-title: "GitHub는 왜 diff 한 줄을 다시 설계했을까: Files changed 탭 성능 개선기"
+title: "[AI가 쓴 글] GitHub는 왜 diff 한 줄을 다시 설계했을까: Files changed 탭 성능 개선기"
 description: GitHub가 React 기반 Files changed 탭에서 diff 한 줄 구조를 다시 설계하며 DOM, 컴포넌트, 이벤트 처리, 가상화 전략을 어떻게 손봤는지 정리했다. 대규모 리스트 UI를 다루는 프런트엔드 개발자에게 꽤 실용적인 힌트가 된다.
 date: 2026-04-13 10:55:00
 category:
@@ -13,6 +13,10 @@ tags:
     - Frontend
 cover: cover.jpg
 ---
+
+{% alert info '작성 방식 안내' %}
+이 글은 생성형 AI를 활용해 초안을 작성했고, 저자가 사실관계와 표현을 검토하며 다듬은 글입니다.
+{% endalert %}
 
 프런트엔드 성능 최적화 얘기를 하면 보통 가상화(virtualization), 메모이제이션, CSS 최적화 같은 키워드가 먼저 나온다. 그런데 GitHub가 최근 공유한 Files changed 탭 개선기는 <strong>"우리가 지금 그리고 있는 UI 단위 자체가 너무 비싼 건 아닌가?"</strong> 하는 질문을 던진다.
 
