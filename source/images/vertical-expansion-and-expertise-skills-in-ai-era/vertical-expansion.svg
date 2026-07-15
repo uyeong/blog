@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="693" viewBox="0 0 1280 693" role="img" aria-labelledby="title desc">
+  <title id="title">수직적 확장 구조</title>
+  <desc id="desc">하나의 제품 안에서 개발, 디자인, 기획 담당자가 인접 전문성의 판단을 함께 쌓아 올리며 의사결정 품질을 높이는 구조</desc>
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'DiagramKR';
+        font-style: normal;
+        font-weight: 700;
+        src: url(data:font/woff2;base64,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) format('woff2');
+      }
+
+      :root {
+        --bg: #ffffff;
+        --boundary-fill: #ffffff;
+        --boundary-stroke: #c9c9c9;
+        --product-text: #9d9d9d;
+        --arrow: #787878;
+        --judgement-fill: #191b18;
+        --judgement-text: #ffffff;
+        --dev-fill: #0f5b49;
+        --design-fill: #8b2f18;
+        --plan-fill: #43388e;
+        --base-text: #ffffff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #171a1d;
+          --boundary-fill: #1f2428;
+          --boundary-stroke: #6f777d;
+          --product-text: #d4d8dc;
+          --arrow: #c9ced2;
+          --judgement-fill: #e6edf2;
+          --judgement-text: #171a1d;
+          --dev-fill: #35b890;
+          --design-fill: #e17350;
+          --plan-fill: #9b8cff;
+          --base-text: #101316;
+        }
+      }
+
+      .bg { fill: var(--bg); }
+      .boundary {
+        fill: var(--boundary-fill);
+        stroke: var(--boundary-stroke);
+        stroke-width: 2.5;
+        stroke-dasharray: 11 10;
+      }
+      .productLabel {
+        fill: var(--product-text);
+        font: 700 24px 'DiagramKR', sans-serif;
+      }
+      .arrow {
+        fill: none;
+        stroke: var(--arrow);
+        stroke-width: 2.8;
+        stroke-linecap: round;
+      }
+      .arrowTip {
+        fill: none;
+        stroke: var(--arrow);
+        stroke-width: 2.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .card {
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.12));
+      }
+      .judgement { fill: var(--judgement-fill); }
+      .dev { fill: var(--dev-fill); }
+      .design { fill: var(--design-fill); }
+      .plan { fill: var(--plan-fill); }
+      .judgementText {
+        fill: var(--judgement-text);
+        font: 700 23px 'DiagramKR', sans-serif;
+      }
+      .baseText {
+        fill: var(--base-text);
+        font: 700 28px 'DiagramKR', sans-serif;
+      }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="693"/>
+
+  <rect class="boundary" x="136" y="92" width="928" height="530" rx="30"/>
+  <text class="productLabel" x="600" y="153" text-anchor="middle">제품</text>
+
+  <g transform="translate(190 250)">
+    <rect class="card judgement" x="0" y="0" width="250" height="67" rx="10"/>
+    <text class="judgementText" x="125" y="43" text-anchor="middle">기획 판단</text>
+    <rect class="card judgement" x="0" y="80" width="250" height="67" rx="10"/>
+    <text class="judgementText" x="125" y="123" text-anchor="middle">디자인 판단</text>
+    <rect class="card dev" x="0" y="161" width="250" height="84" rx="10"/>
+    <text class="baseText" x="125" y="213" text-anchor="middle">개발</text>
+  </g>
+
+  <g transform="translate(475 250)">
+    <rect class="card judgement" x="0" y="0" width="250" height="67" rx="10"/>
+    <text class="judgementText" x="125" y="43" text-anchor="middle">기획 판단</text>
+    <rect class="card judgement" x="0" y="80" width="250" height="67" rx="10"/>
+    <text class="judgementText" x="125" y="123" text-anchor="middle">개발 판단</text>
+    <rect class="card design" x="0" y="161" width="250" height="84" rx="10"/>
+    <text class="baseText" x="125" y="213" text-anchor="middle">디자인</text>
+  </g>
+
+  <g transform="translate(760 250)">
+    <rect class="card judgement" x="0" y="0" width="250" height="67" rx="10"/>
+    <text class="judgementText" x="125" y="43" text-anchor="middle">디자인 판단</text>
+    <rect class="card judgement" x="0" y="80" width="250" height="67" rx="10"/>
+    <text class="judgementText" x="125" y="123" text-anchor="middle">개발 판단</text>
+    <rect class="card plan" x="0" y="161" width="250" height="84" rx="10"/>
+    <text class="baseText" x="125" y="213" text-anchor="middle">기획</text>
+  </g>
+
+  <g aria-label="수직 확장 방향">
+    <path class="arrow" d="M1148 570 V114"/>
+    <path class="arrowTip" d="M1133 132 L1148 114 L1163 132"/>
+  </g>
+</svg>
