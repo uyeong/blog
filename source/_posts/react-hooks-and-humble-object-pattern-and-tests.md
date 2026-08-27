@@ -1,5 +1,5 @@
 ---
-title: "[내가 쓴 글] 리액트 훅스(react hooks)와 험블 객체 패턴(humble object pattern) 그리고 테스트"
+title: "리액트 훅스(react hooks)와 험블 객체 패턴(humble object pattern) 그리고 테스트"
 description: 훅스 관점에서 어떻게 테스트 용이성과 유지보수성 높은 애플리케이션을 일관된 루틴으로 개발하고 설계할 수 있는지 소개한다.
 date : 2021-04-21
 category:

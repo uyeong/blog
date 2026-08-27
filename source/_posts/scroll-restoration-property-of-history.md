@@ -1,5 +1,5 @@
 ---
-title: "[내가 쓴 글] history 객체의 scrollRestoration 속성"
+title: "history 객체의 scrollRestoration 속성"
 description: "onload 타임에 특정 위치에 자동 스크롤링 되는 기능을 프로토타이핑 하면서 마주한 문제와 history 객체의 scrollRestoration 속성으로 해결한 과정을 소개합니다."
 date : 2016-11-28
 category:

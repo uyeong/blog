@@ -10,6 +10,7 @@ tags:
     - Collaboration
     - Product
 comments: true
+published: false
 ---
 
 {% alert info '작성 방식 안내' %}

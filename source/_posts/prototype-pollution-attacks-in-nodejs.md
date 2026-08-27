@@ -1,5 +1,5 @@
 ---
-title: "[내가 쓴 글] Node.js에서의 프로토타입 오염 공격이란 무엇인가"
+title: "Node.js에서의 프로토타입 오염 공격이란 무엇인가"
 description: __proto__을 이용한 프로토타입 오염(prototype pollution) 공격의 원리를 설명하면서 노드 환경에서 실제 공격이 가능한 사례를 함께 소개합니다.
 date : 2019-07-19
 category:

@@ -1,5 +1,5 @@
 ---
-title: "[내가 쓴 글] 프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 3편"
+title: "프런트엔드 엔지니어를 위한 베지에 곡선(Bezier Curves) - 3편"
 description: 이 문서는 프런트개발에 있어서 유용하게 사용되는 베지에 곡선(Bezier Curves)의 원리를 수학적으로 자세히 소개하는 글의 세 번째 편입니다.
 date : 2017-03-19
 category:

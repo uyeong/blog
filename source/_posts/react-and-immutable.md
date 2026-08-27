@@ -1,5 +1,5 @@
 ---
-title: "[내가 쓴 글] React와 불변객체"
+title: "React와 불변객체"
 description: 불변객체(Immutable Object)의 개념과 React에 그 개념을 적용했을 때 어떤 이점을 얻을 수 있는지 소개합니다.
 date : 2015-08-16
 category:

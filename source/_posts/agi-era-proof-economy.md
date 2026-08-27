@@ -12,6 +12,7 @@ tags:
     - Sports
 cover: cover-human-robot.jpg
 comments: true
+published: false
 ---
 
 {% alert info '작성 방식 안내' %}

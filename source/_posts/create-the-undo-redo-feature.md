@@ -1,5 +1,5 @@
 ---
-title: "[내가 쓴 글] 실행 취소 / 다시 실행 기능 구현하기(feat. serializr)"
+title: "실행 취소 / 다시 실행 기능 구현하기(feat. serializr)"
 description: 실행 취소 / 다시 실행(Undo/Redo) 기능을 어떻게 구현할 수 있는지 자바스크립트 라이브러리 serializr와 함께 단계별로 자세히 설명합니다. 
 date : 2019-06-29
 category:

@@ -1,5 +1,5 @@
 ---
-title: "[내가 쓴 글] 꾸준히 하기가 제일 어려워! JSer.info 번역 이야기"
+title: "꾸준히 하기가 제일 어려워! JSer.info 번역 이야기"
 description: 일본 프런트엔드 기술 위클리 JSer.info를 번역하고 공유해 온 이야기. 2021년 12월을 맞이하여 작성한 회고와 자기 반성글.
 date : 2021-12-07
 category:
