@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#f8fafc"/>
+  <rect x="100" y="120" width="1200" height="180" rx="20" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="700" y="210" text-anchor="middle" fill="#1e3a8a" font-size="42" font-family="Pretendard, Arial" font-weight="700">증명자 시장</text>
+  <text x="700" y="260" text-anchor="middle" fill="#1e40af" font-size="26" font-family="Pretendard, Arial">선수 · 창작자 · 도전자</text>
+
+  <rect x="100" y="360" width="1200" height="180" rx="20" fill="#dcfce7" stroke="#4ade80"/>
+  <text x="700" y="450" text-anchor="middle" fill="#14532d" font-size="42" font-family="Pretendard, Arial" font-weight="700">증명 서포터 시장</text>
+  <text x="700" y="500" text-anchor="middle" fill="#166534" font-size="26" font-family="Pretendard, Arial">코치 · 심판 · 운영 · 회복 · 해설 · 인증</text>
+
+  <rect x="100" y="600" width="1200" height="180" rx="20" fill="#fee2e2" stroke="#f87171"/>
+  <text x="700" y="690" text-anchor="middle" fill="#7f1d1d" font-size="42" font-family="Pretendard, Arial" font-weight="700">공공 안전망</text>
+  <text x="700" y="740" text-anchor="middle" fill="#991b1b" font-size="26" font-family="Pretendard, Arial">기본소득 + 기본서비스(주거·의료·교육)</text>
+</svg>

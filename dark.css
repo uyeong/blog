@@ -247,3 +247,26 @@ a:active {
 .pagination__pick.on:hover {
   background: #f1f5f9;
 }
+
+/*************************************************************/
+/************************** Table ****************************/
+/*************************************************************/
+
+.post__contents thead th {
+  color: #e2e8f0;
+  border-bottom-color: #334155;
+}
+
+.post__contents tbody td {
+  color: #cbd5e1;
+  border-bottom-color: #1e293b;
+}
+
+.post__contents tbody tr:hover {
+  background-color: #1e293b;
+}
+
+.post__contents td code,
+.post__contents th code {
+  background: #1e293b;
+}
