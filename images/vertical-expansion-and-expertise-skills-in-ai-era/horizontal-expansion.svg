@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="693" viewBox="0 0 1280 693" role="img" aria-labelledby="title desc">
+  <title id="title">수평적 확장 구조</title>
+  <desc id="desc">제품 A, 제품 B, 제품 C의 경계를 같은 개발 직군이 가로지르며 책임 범위와 맥락 전환이 늘어나는 구조</desc>
+  <defs>
+    <marker id="axisArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" class="axisHead"/>
+    </marker>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --product-fill: #ffffff;
+        --product-stroke: #c9c9c9;
+        --product-text: #9d9d9d;
+        --bar-fill: #0f5b49;
+        --bar-text: #ffffff;
+        --axis: #787878;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #171a1d;
+          --product-fill: #1f2428;
+          --product-stroke: #6f777d;
+          --product-text: #d4d8dc;
+          --bar-fill: #35b890;
+          --bar-text: #061d16;
+          --axis: #c9ced2;
+        }
+      }
+
+      .bg { fill: var(--bg); }
+      .product {
+        fill: var(--product-fill);
+        stroke: var(--product-stroke);
+        stroke-width: 2.5;
+        stroke-dasharray: 9 9;
+      }
+      .productLabel {
+        fill: var(--product-text);
+        font: 700 23px sans-serif;
+      }
+      .bar {
+        fill: var(--bar-fill);
+      }
+      .barLabel {
+        fill: var(--bar-text);
+        font: 700 27px sans-serif;
+      }
+      .axis {
+        fill: none;
+        stroke: var(--axis);
+        stroke-width: 2.8;
+        marker-end: url(#axisArrow);
+      }
+      .axisHead { fill: var(--axis); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="693"/>
+
+  <rect class="product" x="196" y="106" width="250" height="464" rx="20"/>
+  <text class="productLabel" x="321" y="157" text-anchor="middle">제품 A</text>
+
+  <rect class="product" x="516" y="106" width="250" height="464" rx="20"/>
+  <text class="productLabel" x="641" y="157" text-anchor="middle">제품 B</text>
+
+  <rect class="product" x="836" y="106" width="250" height="464" rx="20"/>
+  <text class="productLabel" x="961" y="157" text-anchor="middle">제품 C</text>
+
+  <rect class="bar" x="160" y="303" width="960" height="81" rx="13"/>
+  <text class="barLabel" x="640" y="352" text-anchor="middle">개발</text>
+
+  <path class="axis" d="M196 626 H1086"/>
+</svg>

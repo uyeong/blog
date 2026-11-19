@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">전문성 스킬 벤다이어그램</title>
+  <desc id="desc">제품이라는 경계 안에서 기획, 개발, 디자인 판단이 겹치는 지점에 전문성 스킬이 놓이는 구조</desc>
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'DiagramKR';
+        font-style: normal;
+        font-weight: 700 800;
+        src: url(data:font/woff2;base64,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) format('woff2');
+      }
+
+      :root {
+        --bg: #ffffff;
+        --boundary-fill: #ffffff;
+        --boundary-stroke: #c9c9c9;
+        --product-text: #9d9d9d;
+        --plan-fill: #7e74d8;
+        --dev-fill: #42b99b;
+        --design-fill: #f0a58c;
+        --circle-stroke: #766f96;
+        --center-fill: #191b18;
+        --center-stroke: #78736c;
+        --center-text: #ffffff;
+        --label-text: #2f2a45;
+        --label-stroke: rgba(255, 255, 255, 0.68);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #171a1d;
+          --boundary-fill: #1f2428;
+          --boundary-stroke: #6f777d;
+          --product-text: #d4d8dc;
+          --plan-fill: #9b8cff;
+          --dev-fill: #35b890;
+          --design-fill: #e17350;
+          --circle-stroke: #b8c1ca;
+          --center-fill: #e6edf2;
+          --center-stroke: #f3f5f6;
+          --center-text: #171a1d;
+          --label-text: #ffffff;
+          --label-stroke: rgba(16, 19, 22, 0.42);
+        }
+      }
+
+      .bg { fill: var(--bg); }
+      .boundary {
+        fill: var(--boundary-fill);
+        stroke: var(--boundary-stroke);
+        stroke-width: 2.5;
+        stroke-dasharray: 11 10;
+      }
+      .productLabel {
+        fill: var(--product-text);
+        font: 700 26px 'DiagramKR', sans-serif;
+      }
+      .circle {
+        opacity: 0.48;
+        stroke: var(--circle-stroke);
+        stroke-width: 1.8;
+      }
+      .plan { fill: var(--plan-fill); }
+      .dev { fill: var(--dev-fill); }
+      .design { fill: var(--design-fill); }
+      .label {
+        fill: var(--label-text);
+        font: 800 29px 'DiagramKR', sans-serif;
+        paint-order: stroke;
+        stroke: var(--label-stroke);
+        stroke-width: 4px;
+        stroke-linejoin: round;
+      }
+      .center {
+        fill: var(--center-fill);
+        stroke: var(--center-stroke);
+        stroke-width: 2.5;
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.18));
+      }
+      .centerLabel {
+        fill: var(--center-text);
+        font: 800 30px 'DiagramKR', sans-serif;
+      }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+
+  <rect class="boundary" x="226" y="32" width="828" height="656" rx="38"/>
+  <text class="productLabel" x="640" y="82" text-anchor="middle">제품</text>
+
+  <circle class="circle plan" cx="640" cy="304" r="178"/>
+  <circle class="circle dev" cx="520" cy="458" r="178"/>
+  <circle class="circle design" cx="760" cy="458" r="178"/>
+
+  <text class="label" x="640" y="247" text-anchor="middle">기획</text>
+  <text class="label" x="428" y="532" text-anchor="middle">개발</text>
+  <text class="label" x="852" y="532" text-anchor="middle">디자인</text>
+
+  <circle class="center" cx="640" cy="408" r="60"/>
+  <text class="centerLabel" x="640" y="420" text-anchor="middle">스킬</text>
+</svg>
